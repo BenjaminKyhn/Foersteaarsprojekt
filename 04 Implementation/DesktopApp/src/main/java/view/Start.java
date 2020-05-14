@@ -14,6 +14,8 @@ public class Start extends Application{
         Scene scene = new Scene(root);
         stage.setTitle("Fys Desktop App");
         stage.setScene(scene);
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.show();
     }
 
