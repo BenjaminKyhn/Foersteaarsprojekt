@@ -1,8 +1,13 @@
 package view;
 
 import javafx.beans.value.ChangeListener;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,6 +15,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 public class StartController {
     @FXML
@@ -46,5 +52,23 @@ public class StartController {
             startImageView.setX(startAnchorPane.getWidth() / 2 - startImageView.getFitWidth() / 2);
         };
         startAnchorPane.widthProperty().addListener(redraw);
+
+        btLogin.setOnAction(event -> {
+            setSecondScene();
+        });
+    }
+
+    public void setSecondScene() {
+        // Scene 2
+        Parent secondPageLoader = null;
+        try {
+            secondPageLoader = FXMLLoader.load(getClass().getResource("../Scene2.fxml"));
+        }
+        catch (Exception e){
+        }
+        Scene secondScene = new Scene(secondPageLoader);
+
+        Stage stage = (Stage) startAnchorPane.getScene().getWindow();
+        stage.setScene(secondScene);
     }
 }
