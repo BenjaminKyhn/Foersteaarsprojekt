@@ -1,15 +1,20 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class SecondSceneController {
 
+
     @FXML
-    private AnchorPane scene2AnchorPane;
+    private ImageView photoImageView, logoImageView;
 
     public void initialize(){
+        Image logo = new Image("Logo.jpg");
+        logoImageView.setImage(logo);
+        Image photo = new Image("chad.png");
+        photoImageView.setImage(photo);
     }
 
 }

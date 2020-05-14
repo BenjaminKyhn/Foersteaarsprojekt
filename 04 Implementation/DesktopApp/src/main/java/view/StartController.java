@@ -62,7 +62,7 @@ public class StartController {
         // Scene 2
         Parent secondPageLoader = null;
         try {
-            secondPageLoader = FXMLLoader.load(getClass().getResource("../Scene2.fxml"));
+            secondPageLoader = FXMLLoader.load(getClass().getResource("../ChatWindow.fxml"));
         }
         catch (Exception e){
         }
