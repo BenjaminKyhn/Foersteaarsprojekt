@@ -5,13 +5,24 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 public class StartController {
     @FXML
+    private AnchorPane startAnchorPane;
+
+    @FXML
+    private ImageView startImageView;
+
+    @FXML
     private GridPane startGridPane;
 
     public void initialize() {
+        Image image = new Image("Logo2x.png");
+        startImageView.setImage(image);
         TextField tfUsername = new TextField();
         TextField tfPassword = new TextField();
         Label lblUsername = new Label("Bruger:");
