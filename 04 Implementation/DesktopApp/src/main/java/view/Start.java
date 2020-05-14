@@ -10,8 +10,10 @@ public class Start extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
         Scene scene = new Scene(root);
+
         stage.setTitle("Fys Desktop App");
         stage.setScene(scene);
         stage.setMinWidth(800);
