@@ -14,8 +14,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MenuController {
+
     @FXML
-    private Label beskederLabel;
+    private Label beskederLabel, navnLabel, mailLabel;
 
     @FXML
     private Circle FotoCircle;
@@ -27,10 +28,13 @@ public class MenuController {
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
 
-        Image foto = new Image("Christian.jpg");
+        Image foto = new Image("Christian.png");
         FotoCircle.setFill(new ImagePattern(foto));
 
         beskederLabel.setOnMouseClicked(event -> nextScene());
+
+        navnLabel.setText("Navn: Christian Iuul");
+        mailLabel.setText("Mail: mail@frbsport.dk");
     }
 
     public void nextScene() {

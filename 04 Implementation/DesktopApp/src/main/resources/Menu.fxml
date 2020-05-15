@@ -12,100 +12,92 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
-   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" height="188.0" layoutX="-4.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="395.0" AnchorPane.leftAnchor="0.0">
-         <fill>
-            <LinearGradient endX="0.4047619047619048" endY="0.10952380952380952" startX="0.3714285714285714" startY="0.9">
-               <stops>
-                  <Stop color="#f0f0f0" />
-                  <Stop color="#0b104a" offset="1.0" />
-               </stops>
-            </LinearGradient>
-         </fill></Rectangle>
-      <Label layoutX="544.0" layoutY="30.0" prefHeight="35.0" prefWidth="138.0" text="Hovedmenu" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="30.0">
+   <Rectangle arcHeight="5.0" arcWidth="5.0" height="188.0" layoutX="-4.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="395.0" AnchorPane.leftAnchor="0.0">
+      <fill>
+         <LinearGradient endX="0.4047619047619048" endY="0.10952380952380952" startX="0.3714285714285714" startY="0.9">
+            <stops>
+               <Stop color="#f0f0f0" />
+               <Stop color="#0b104a" offset="1.0" />
+            </stops>
+         </LinearGradient>
+      </fill>
+   </Rectangle>
+   <Label layoutX="544.0" layoutY="30.0" prefHeight="35.0" prefWidth="138.0" text="Hovedmenu" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="30.0">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Label>
+   <VBox layoutX="221.0" layoutY="368.0" prefHeight="110.0" prefWidth="138.0" spacing="15.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0">
+      <Label text="Hovedmenu">
          <font>
-            <Font name="System Bold" size="24.0" />
-         </font></Label>
-      <VBox layoutX="221.0" layoutY="368.0" prefHeight="110.0" prefWidth="138.0" spacing="15.0" AnchorPane.bottomAnchor="79.0">
-         <children>
-            <Label text="Hovedmenu">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="94.0" text="Ny besked">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="27.0" prefWidth="74.0" text="Indbakke">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Opret kunde">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox layoutX="18.0" layoutY="452.0" prefHeight="69.0" prefWidth="157.0" spacing="14.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="18.0">
-         <children>
-            <Label prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="27.0" prefWidth="73.0" text="Log ud">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <VBox layoutX="28.0" layoutY="262.0" prefHeight="50.0" prefWidth="130.0" spacing="5.0">
-         <children>
-            <Label prefHeight="18.0" prefWidth="109.0" text="Navn">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label prefHeight="18.0" prefWidth="110.0" text="Mail">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <Circle fx:id="FotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
-      <VBox alignment="TOP_CENTER" layoutX="493.0" layoutY="197.0" prefHeight="195.0" prefWidth="274.0" spacing="20.0" AnchorPane.bottomAnchor="155.8" AnchorPane.rightAnchor="50.0">
-         <children>
-            <Label fx:id="beskederLabel" text="Beskeder">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Separator prefWidth="200.0" />
-            <Label text="Booking">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-            <Separator prefWidth="200.0" />
-            <Label text="Træningsvideoer">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-         </children>
-      </VBox>
-      <Separator layoutX="7.0" layoutY="322.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" />
-      <Separator layoutX="422.0" layoutY="48.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutX="-2.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-      <Separator layoutX="531.0" layoutY="79.0" prefWidth="200.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="146.0" layoutX="256.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="138.0" AnchorPane.topAnchor="0.0" />
-      <ImageView fx:id="logoImageView" fitHeight="116.0" fitWidth="257.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="18.0" />
-   </children>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="94.0" text="Ny besked">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label prefHeight="27.0" prefWidth="74.0" text="Indbakke">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label text="Opret kunde">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <VBox layoutX="18.0" layoutY="452.0" prefHeight="69.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="18.0">
+      <Label prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label prefHeight="27.0" prefWidth="73.0" text="Log ud">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <VBox layoutX="28.0" layoutY="262.0" prefHeight="59.0" prefWidth="329.0" spacing="5.0">
+      <Label fx:id="navnLabel" prefHeight="27.0" prefWidth="434.0" text="Navn">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="mailLabel" prefHeight="27.0" prefWidth="391.0" text="Mail">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <Circle fx:id="FotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
+   <VBox alignment="TOP_CENTER" layoutX="493.0" layoutY="197.0" prefHeight="195.0" prefWidth="274.0" spacing="20.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="155.8" AnchorPane.rightAnchor="50.0">
+      <Label fx:id="beskederLabel" text="Beskeder">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <Label text="Booking">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <Label text="Træningsvideoer">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </VBox>
+   <Separator layoutX="7.0" layoutY="322.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" />
+   <Separator layoutX="422.0" layoutY="48.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutX="-2.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   <Separator layoutX="531.0" layoutY="79.0" prefWidth="200.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="146.0" layoutX="256.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="138.0" AnchorPane.topAnchor="0.0" />
+   <ImageView fx:id="logoImageView" fitHeight="116.0" fitWidth="257.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="18.0" />
 </AnchorPane>
