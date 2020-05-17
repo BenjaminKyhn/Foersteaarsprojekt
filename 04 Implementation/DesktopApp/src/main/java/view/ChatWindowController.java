@@ -43,8 +43,8 @@ public class ChatWindowController {
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
         Image logo = new Image("Logo.jpg");
         logoImageView.setImage(logo);
-        createDummyChats("Testperson1", "Rygskade", "");
-        createDummyChats("Testperson2", "Træningsvideo feedback", "chad.png");
+        createDummyChats("Camilla Kron", "Rygskade", "");
+        createDummyChats("Karsten Wiren", "Træningsvideo feedback", "chad.png");
     }
 
     public void createDummyChats(String name, String subject, String picturePath) {
@@ -77,7 +77,7 @@ public class ChatWindowController {
     /**@author Benjamin*/
     public void showFakeMessages(String name) {
         /** Non-dynamic method */
-        if (name.equals("Testperson1")) {
+        if (name.equals("Camilla Kron")) {
             chatWindowMessageVBox.getChildren().clear();
             chatWindowMessageVBox.setSpacing(2);
             VBox chatContainer = new VBox();
@@ -106,7 +106,7 @@ public class ChatWindowController {
             label2.setAlignment(Pos.CENTER_RIGHT);
             label2.setStyle("-fx-font-weight: bold");
             chatContainer2.getChildren().add(label2);
-            Label message2 = new Label("Hej Testperson 1. Jeg har " +
+            Label message2 = new Label("Hej Camilla. Jeg har " +
                     "fundet et program til dig, som du skal bruge " +
                     "3 gange om ugen. Du kan se programmet, hvis du " +
                     "går til menuen og vælger træningsprogam. " +
@@ -120,7 +120,7 @@ public class ChatWindowController {
         }
 
         /** Dynamic method */
-        if (name.equals("Testperson2")) {
+        if (name.equals("Karsten Wiren")) {
 //            ArrayList<Label> messages = new ArrayList<>();
 //            messages.add(new Label("Hej Camilla, som vi talte om forleden\n " +
 //                    "mht dine smerter i lænden, er det som sagt\n" +
@@ -140,14 +140,9 @@ public class ChatWindowController {
             Label label = new Label(name);
             label.setStyle("-fx-font-weight: bold");
             chatContainer.getChildren().add(label);
-            Label message = new Label("Hej Camilla, som vi talte om forleden\n " +
-                    "mht dine smerter i lænden, er det som sagt\n" +
-                    "kritis for din helbreden, at du \n" +
-                    "gennemfører det udleverede program.\n" +
-                    "Rigtig god vind og hæng i!\n" +
-                    "\n" +
-                    "Venlig hilsen, Christian Fys.\n"
-                    +
+            Label message = new Label("Hej Camilla, som vi talte om forleden" +
+                    "mht dine smerter i lænden, er det som sagt" +
+                    "kritis for din helbreden, at du" + "gennemfører det udleverede program." + "Rigtig god vind og hæng i!\n" +
                     "\n Sendt d. 29-05-2020");
             message.setWrapText(true);
             chatContainer.getChildren().add(message);
@@ -162,7 +157,7 @@ public class ChatWindowController {
             label2.setAlignment(Pos.CENTER_RIGHT);
             label2.setStyle("-fx-font-weight: bold");
             chatContainer2.getChildren().add(label2);
-            Label message2 = new Label("Hej Testperson 1. Jeg har " +
+            Label message2 = new Label("Hej Karsten. Jeg har " +
                     "fundet et program til dig, som du skal bruge " +
                     "3 gange om ugen. Du kan se programmet, hvis du " +
                     "går til menuen og vælger træningsprogam. " +
