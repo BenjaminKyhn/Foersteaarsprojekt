@@ -44,7 +44,7 @@ public class ChatWindowController {
         Image logo = new Image("Logo.jpg");
         logoImageView.setImage(logo);
         createDummyChats("Camilla Kron", "Rygskade", "");
-        createDummyChats("Karsten Wiren", "Træningsvideo feedback", "chad.png");
+        createDummyChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
     }
 
     public void createDummyChats(String name, String subject, String picturePath) {
@@ -140,10 +140,13 @@ public class ChatWindowController {
             Label label = new Label(name);
             label.setStyle("-fx-font-weight: bold");
             chatContainer.getChildren().add(label);
-            Label message = new Label("Hej Camilla, som vi talte om forleden" +
-                    "mht dine smerter i lænden, er det som sagt" +
-                    "kritis for din helbreden, at du" + "gennemfører det udleverede program." + "Rigtig god vind og hæng i!\n" +
-                    "\n Sendt d. 29-05-2020");
+            Label message = new Label("Hej Christian, jeg har gennemført det program, du gav mig" + " " +
+                    "til nakke og skulder." + " " +
+                    "Jeg er løbet ind i udfordringer, da jeg ikke føler min skulder er smedig nok" + " " +
+                    "til mange af øvelserne." + " " +
+                    "\n" + " " +
+                    "\nHilsen Karsten" +
+                    "\nSendt d. 29-05-2020");
             message.setWrapText(true);
             chatContainer.getChildren().add(message);
             chatWindowMessageVBox.getChildren().add(chatContainer);
@@ -157,11 +160,13 @@ public class ChatWindowController {
             label2.setAlignment(Pos.CENTER_RIGHT);
             label2.setStyle("-fx-font-weight: bold");
             chatContainer2.getChildren().add(label2);
-            Label message2 = new Label("Hej Karsten. Jeg har " +
-                    "fundet et program til dig, som du skal bruge " +
-                    "3 gange om ugen. Du kan se programmet, hvis du " +
-                    "går til menuen og vælger træningsprogam. " +
-                    "God bedring.");
+            Label message2 = new Label("Hej Karsten, godt at høre du har fuldført programmet! " +
+                    "mht. den manglende smedighed, har jeg sendt nogle alternative " +
+                    "skulderøvelser til din privat mail. Prøv dem af og hvis, du undgår " +
+                    "ubehagen, så forsætter du med dem." +
+                    "\n" + " " +
+                    "\nVenlig hilsen, Christian Iuul" +
+                    "\nSendt d. 30-05-2020");
             message2.setWrapText(true);
             chatContainer2.getChildren().add(message2);
 
