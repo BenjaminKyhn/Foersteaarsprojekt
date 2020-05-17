@@ -1,8 +1,6 @@
 package view;
 
 import javafx.beans.value.ChangeListener;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -16,6 +14,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+/**
+ * @author Benjamin
+ */
 
 public class StartController {
     @FXML
