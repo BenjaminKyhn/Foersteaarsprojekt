@@ -73,18 +73,29 @@ public class ChatWindowController {
         if (name.equals("Testperson1")) {
             chatWindowMessageGridPane.getChildren().clear();
             chatWindowMessageGridPane.setVgap(10);
-            chatWindowMessageGridPane.add(new Label("Hej Christian. Jeg har her i den sidste " +
-                    "\nmåned udviklet nogle forfærdelige rygsmerter, " +
-                    "\nder efterhånden er begyndt at hindre mig i at " +
-                    "\nudføre mit arbejde. Kan du give mig nogle" +
-                    "\nøvelser, der kan afhjælpe mit problem? Det " +
-                    "\nmå simplethen stoppe nu!"), 0, 0);
+            VBox chatContainer = new VBox();
+            Label label = new Label(name);
+            label.setStyle("-fx-font-weight: bold");
+            chatContainer.getChildren().add(label);
+            chatContainer.getChildren().add(new Label("Hej Christian. Jeg har her i den sidste " +
+                            "\nmåned udviklet nogle forfærdelige rygsmerter, " +
+                            "\nder efterhånden er begyndt at hindre mig i at " +
+                            "\nudføre mit arbejde. Kan du give mig nogle" +
+                            "\nøvelser, der kan afhjælpe mit problem? Det " +
+                            "\nmå simplethen stoppe nu!"));
+            chatWindowMessageGridPane.add(chatContainer, 0, 0);
 
-            chatWindowMessageGridPane.add(new Label("Hej Testperson 1. Jeg har " +
+            VBox chatContainer2 = new VBox();
+            Label label2 = new Label("Christian");
+            label2.setStyle("-fx-font-weight: bold");
+            chatContainer2.getChildren().add(label2);
+            chatContainer2.getChildren().add(new Label("Hej Testperson 1. Jeg har " +
                     "\nfundet et program til dig, som du skal bruge " +
                     "\n3 gange om ugen. Du kan se programmet, hvis du" +
                     "\ngår til menuen og vælger træningsprogam. " +
-                    "\nGod bedring."), 1, 1);
+                    "\nGod bedring."));
+
+            chatWindowMessageGridPane.add(chatContainer2, 1, 1);
 
 //            chatWindowMessageGridPane.setGridLinesVisible(true);
         }

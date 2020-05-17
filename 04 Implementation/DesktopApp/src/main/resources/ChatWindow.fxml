@@ -24,9 +24,7 @@
                <children>
                   <VBox layoutX="107.0" layoutY="16.0" prefHeight="80.0" prefWidth="80.0" spacing="8.0" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="16.0">
                      <children>
-                        <Label text="Label" />
-                        <Label text="Label" />
-                        <Label text="Label" />
+                        <Label text="Christian Iuul" />
                      </children>
                   </VBox>
                   <AnchorPane layoutX="20.0" layoutY="125.0" prefHeight="421.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
@@ -48,7 +46,7 @@
             <Separator layoutX="240.0" layoutY="68.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0" />
             <ScrollPane layoutX="365.0" layoutY="119.0" prefHeight="536.0" prefWidth="560.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <GridPane fx:id="chatWindowMessageGridPane" prefHeight="360.0" prefWidth="546.0">
+                  <GridPane fx:id="chatWindowMessageGridPane" prefHeight="400.0" prefWidth="546.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
