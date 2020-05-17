@@ -1,24 +1,29 @@
 package view;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ChatWindowController {
     private ChatWindowChatController selectedChat;
 
     @FXML
     private VBox chatWindowChatVBox;
+
+    @FXML
+    private VBox chatWindowMessageVBox;
+
+    @FXML
+    private GridPane chatWindowMessageGridPane;
 
     @FXML
     private Circle chatUserPhotoCircle;
@@ -62,9 +67,29 @@ public class ChatWindowController {
         });
     }
 
+    /**
+     * @author Benjamin
+     */
     public void showFakeMessages(String name) {
-        if (name.equals("testperson1")) {
+        chatWindowMessageGridPane.getChildren().clear();
 
+        if (name.equals("Testperson1")) {
+            chatWindowMessageGridPane.setVgap(10);
+            chatWindowMessageGridPane.add(new Label("Hej Christian. Jeg har her i den sidste " +
+                    "\nmåned udviklet nogle forfærdelige rygsmerter, " +
+                    "\nder efterhånden er begyndt at hindre mig i at " +
+                    "\nudføre mit arbejde. Kan du give mig nogle" +
+                    "\n øvelser, der kan afhjælpe mit problem? Det " +
+                    "\nmå simplethen stoppe nu!"), 0, 0);
+
+            chatWindowMessageGridPane.add(new Label("Hej Testperson 1. Jeg har " +
+                    "\nfundet et program til dig, som du skal bruge " +
+                    "\n3 gange om ugen. Du kan se programmet, hvis du" +
+                    "\ngår til menuen og vælger træningsprogam. " +
+                    "\nGod bedring."), 1, 1);
+        }
+
+        if (name.equals("Testperson2")) {
         }
     }
 
