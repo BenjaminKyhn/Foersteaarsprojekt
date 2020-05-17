@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -90,25 +91,28 @@ public class ChatWindowController {
 
         /** Dynamic method */
         if (name.equals("Testperson2")) {
-            ArrayList<Label> messages = new ArrayList<Label>();
+            ArrayList<Label> messages = new ArrayList<>();
             messages.add(new Label("Hejsa"));
             messages.add(new Label("Hvordan går det?"));
             messages.add(new Label("Min pik gør ondt"));
             messages.add(new Label("Av :^)"));
             messages.add(new Label("Av D:"));
-            messages.add(new Label("Av :^)"));
+            messages.add(new Label("Av :^) \nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)"));
             messages.add(new Label("Av D:"));
             messages.add(new Label("Av :^)"));
             messages.add(new Label("Av D:"));
 
             chatWindowMessageGridPane.getChildren().clear();
             chatWindowMessageGridPane.getRowConstraints().clear();
+            chatWindowMessageGridPane.setVgap(10);
             chatWindowMessageGridPane.setPrefHeight(messages.size() * 120);
 
             for (int i = 0; i < messages.size(); i++) {
                 RowConstraints row = new RowConstraints();
-                row.setPercentHeight(100.0 / messages.size());
+//                row.setPercentHeight(100.0 / messages.size());
+                row.setFillHeight(true);
                 row.setValignment(VPos.TOP);
+                row.setVgrow(Priority.ALWAYS);
                 chatWindowMessageGridPane.getRowConstraints().add(row);
 
                 if (i % 2 == 0){
