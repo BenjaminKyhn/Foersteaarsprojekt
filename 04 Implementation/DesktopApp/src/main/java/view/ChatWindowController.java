@@ -92,15 +92,15 @@ public class ChatWindowController {
         /** Dynamic method */
         if (name.equals("Testperson2")) {
             ArrayList<Label> messages = new ArrayList<>();
-            messages.add(new Label("Hejsa"));
-            messages.add(new Label("Hvordan går det?"));
-            messages.add(new Label("Min pik gør ondt"));
-            messages.add(new Label("Av :^)"));
-            messages.add(new Label("Av D:"));
-            messages.add(new Label("Av :^) \nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)"));
-            messages.add(new Label("Av D:"));
-            messages.add(new Label("Av :^)"));
-            messages.add(new Label("Av D:"));
+            messages.add(new Label("Hej Camilla, som vi talte om forleden\n " +
+                    "mht dine smerter i lænden, er det som sagt\n" +
+                    "kritis for din helbreden, at du \n" +
+                    "gennemfører det udleverede program.\n" +
+                    "Rigtig god vind og hæng i!\n" +
+                    "\n" +
+                    "Venlig hilsen, Christian Fys.\n"
+                    +
+                    "\n Sendt d. 29-05-2020"));
 
             chatWindowMessageGridPane.getChildren().clear();
             chatWindowMessageGridPane.getRowConstraints().clear();
