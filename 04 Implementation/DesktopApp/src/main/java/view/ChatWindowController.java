@@ -2,6 +2,8 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -13,11 +15,13 @@ import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChatWindowController {
+
     private ChatWindowChatController selectedChat;
 
     @FXML
@@ -25,6 +29,9 @@ public class ChatWindowController {
 
     @FXML
     private GridPane chatWindowMessageGridPane;
+
+    @FXML
+    private VBox chatWindowMessageVBox;
 
     @FXML
     private Circle chatUserPhotoCircle;
@@ -71,20 +78,43 @@ public class ChatWindowController {
     public void showFakeMessages(String name) {
         /** Non-dynamic method */
         if (name.equals("Testperson1")) {
-            chatWindowMessageGridPane.getChildren().clear();
-            chatWindowMessageGridPane.setVgap(10);
-            chatWindowMessageGridPane.add(new Label("Hej Christian. Jeg har her i den sidste " +
-                    "\nmåned udviklet nogle forfærdelige rygsmerter, " +
-                    "\nder efterhånden er begyndt at hindre mig i at " +
-                    "\nudføre mit arbejde. Kan du give mig nogle" +
-                    "\nøvelser, der kan afhjælpe mit problem? Det " +
-                    "\nmå simplethen stoppe nu!"), 0, 0);
+            chatWindowMessageVBox.getChildren().clear();
+            chatWindowMessageVBox.setSpacing(2);
+            VBox chatContainer = new VBox();
+            chatContainer.setStyle("-fx-border-color: gray");
+            chatContainer.setPadding(new Insets(16,32, 16, 16));
 
-            chatWindowMessageGridPane.add(new Label("Hej Testperson 1. Jeg har " +
-                    "\nfundet et program til dig, som du skal bruge " +
-                    "\n3 gange om ugen. Du kan se programmet, hvis du" +
-                    "\ngår til menuen og vælger træningsprogam. " +
-                    "\nGod bedring."), 1, 1);
+            Label label = new Label(name);
+            label.setStyle("-fx-font-weight: bold");
+            chatContainer.getChildren().add(label);
+            Label message = new Label("Hej Christian. Jeg har her i den sidste " +
+                    "måned udviklet nogle forfærdelige rygsmerter, " +
+                    "der efterhånden er begyndt at hindre mig i at " +
+                    "udføre mit arbejde. Kan du give mig nogle " +
+                    "øvelser, der kan afhjælpe mit problem? Det " +
+                    "må simplethen stoppe nu!");
+            message.setWrapText(true);
+            chatContainer.getChildren().add(message);
+            chatWindowMessageVBox.getChildren().add(chatContainer);
+
+            VBox chatContainer2 = new VBox();
+            chatContainer2.setStyle("-fx-border-color: gray");
+            chatContainer2.setPadding(new Insets(16, 16, 16, 32));
+            Label label2 = new Label("Christian");
+            label2.setPrefWidth(546);
+            label2.setTextAlignment(TextAlignment.RIGHT);
+            label2.setAlignment(Pos.CENTER_RIGHT);
+            label2.setStyle("-fx-font-weight: bold");
+            chatContainer2.getChildren().add(label2);
+            Label message2 = new Label("Hej Testperson 1. Jeg har " +
+                    "fundet et program til dig, som du skal bruge " +
+                    "3 gange om ugen. Du kan se programmet, hvis du " +
+                    "går til menuen og vælger træningsprogam. " +
+                    "God bedring.");
+            message2.setWrapText(true);
+            chatContainer2.getChildren().add(message2);
+
+            chatWindowMessageVBox.getChildren().add(chatContainer2);
 
 //            chatWindowMessageGridPane.setGridLinesVisible(true);
         }
