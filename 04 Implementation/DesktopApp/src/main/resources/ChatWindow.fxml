@@ -55,13 +55,13 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Gå til hovedmenuen" />
+                    <MenuItem mnemonicParsing="false" text="Gå til hovedmenuen" onAction="#toMainMenu" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
             <ImageView fx:id="logoImageView" fitHeight="25.0" fitWidth="80.0" layoutX="616.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0" />
-            <Button layoutX="714.0" mnemonicParsing="false" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <Button layoutX="714.0" mnemonicParsing="false" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#logOut"/>
          </children>
       </AnchorPane>
    </children>
