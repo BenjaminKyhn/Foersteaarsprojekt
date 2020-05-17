@@ -121,38 +121,38 @@ public class ChatWindowController {
 
         /** Dynamic method */
         if (name.equals("Testperson2")) {
-//            ArrayList<Label> messages = new ArrayList<>();
-//            messages.add(new Label("Hejsa"));
-//            messages.add(new Label("Hvordan går det?"));
-//            messages.add(new Label("Min pik gør ondt"));
-//            messages.add(new Label("Av :^)"));
-//            messages.add(new Label("Av D:"));
-//            messages.add(new Label("Av :^) \nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)\nAv :^)"));
-//            messages.add(new Label("Av D:"));
-//            messages.add(new Label("Av :^)"));
-//            messages.add(new Label("Av D:"));
-//
-//            chatWindowMessageGridPane.getChildren().clear();
-//            chatWindowMessageGridPane.getRowConstraints().clear();
-//            chatWindowMessageGridPane.setVgap(10);
-//            chatWindowMessageGridPane.setPrefHeight(messages.size() * 120);
-//
-//            for (int i = 0; i < messages.size(); i++) {
-//                RowConstraints row = new RowConstraints();
-////                row.setPercentHeight(100.0 / messages.size());
-//                row.setFillHeight(true);
-//                row.setValignment(VPos.TOP);
-//                row.setVgrow(Priority.ALWAYS);
-//                chatWindowMessageGridPane.getRowConstraints().add(row);
-//
-//                if (i % 2 == 0){
-//                    chatWindowMessageGridPane.add(messages.get(i), 0, i);
-//                }
-//                else
-//                    chatWindowMessageGridPane.add(messages.get(i), 1, i);
-//            }
-//
-////            chatWindowMessageGridPane.setGridLinesVisible(true);
+            ArrayList<Label> messages = new ArrayList<>();
+            messages.add(new Label("Hej Camilla, som vi talte om forleden\n " +
+                    "mht dine smerter i lænden, er det som sagt\n" +
+                    "kritis for din helbreden, at du \n" +
+                    "gennemfører det udleverede program.\n" +
+                    "Rigtig god vind og hæng i!\n" +
+                    "\n" +
+                    "Venlig hilsen, Christian Fys.\n"
+                    +
+                    "\n Sendt d. 29-05-2020"));
+
+            chatWindowMessageGridPane.getChildren().clear();
+            chatWindowMessageGridPane.getRowConstraints().clear();
+            chatWindowMessageGridPane.setVgap(10);
+            chatWindowMessageGridPane.setPrefHeight(messages.size() * 120);
+
+            for (int i = 0; i < messages.size(); i++) {
+                RowConstraints row = new RowConstraints();
+//                row.setPercentHeight(100.0 / messages.size());
+                row.setFillHeight(true);
+                row.setValignment(VPos.TOP);
+                row.setVgrow(Priority.ALWAYS);
+                chatWindowMessageGridPane.getRowConstraints().add(row);
+
+                if (i % 2 == 0){
+                    chatWindowMessageGridPane.add(messages.get(i), 0, i);
+                }
+                else
+                    chatWindowMessageGridPane.add(messages.get(i), 1, i);
+            }
+
+//            chatWindowMessageGridPane.setGridLinesVisible(true);
         }
     }
 
