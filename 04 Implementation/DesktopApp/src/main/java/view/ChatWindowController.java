@@ -2,16 +2,21 @@ package view;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class ChatWindowController {
     private ChatWindowChatController selectedChat;
@@ -31,7 +36,7 @@ public class ChatWindowController {
     @FXML
     private ImageView logoImageView;
 
-    public void initialize(){
+    public void initialize() {
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
         Image logo = new Image("Logo.jpg");
         logoImageView.setImage(logo);
@@ -52,8 +57,7 @@ public class ChatWindowController {
         controller.getChatWindowChatSubject().setText(subject);
         if (!picturePath.equals("")) {
             controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image(picturePath)));
-        }
-        else {
+        } else {
             controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
         }
         chatWindowChatVBox.getChildren().add(root);
@@ -71,9 +75,9 @@ public class ChatWindowController {
      * @author Benjamin
      */
     public void showFakeMessages(String name) {
-        chatWindowMessageGridPane.getChildren().clear();
-
+        /** Non-dynamic method */
         if (name.equals("Testperson1")) {
+            chatWindowMessageGridPane.getChildren().clear();
             chatWindowMessageGridPane.setVgap(10);
             chatWindowMessageGridPane.add(new Label("Hej Christian. Jeg har her i den sidste " +
                     "\nmåned udviklet nogle forfærdelige rygsmerter, " +
@@ -87,9 +91,41 @@ public class ChatWindowController {
                     "\n3 gange om ugen. Du kan se programmet, hvis du" +
                     "\ngår til menuen og vælger træningsprogam. " +
                     "\nGod bedring."), 1, 1);
+
+//            chatWindowMessageGridPane.setGridLinesVisible(true);
         }
 
+        /** Dynamic method */
         if (name.equals("Testperson2")) {
+            ArrayList<Label> messages = new ArrayList<Label>();
+            messages.add(new Label("Hejsa"));
+            messages.add(new Label("Hvordan går det?"));
+            messages.add(new Label("Min pik gør ondt"));
+            messages.add(new Label("Av :^)"));
+            messages.add(new Label("Av D:"));
+            messages.add(new Label("Av :^)"));
+            messages.add(new Label("Av D:"));
+            messages.add(new Label("Av :^)"));
+            messages.add(new Label("Av D:"));
+
+            chatWindowMessageGridPane.getChildren().clear();
+            chatWindowMessageGridPane.getRowConstraints().clear();
+            chatWindowMessageGridPane.setPrefHeight(messages.size() * 120);
+
+            for (int i = 0; i < messages.size(); i++) {
+                RowConstraints row = new RowConstraints();
+                row.setPercentHeight(100.0 / messages.size());
+                row.setValignment(VPos.TOP);
+                chatWindowMessageGridPane.getRowConstraints().add(row);
+
+                if (i % 2 == 0){
+                    chatWindowMessageGridPane.add(messages.get(i), 0, i);
+                }
+                else
+                    chatWindowMessageGridPane.add(messages.get(i), 1, i);
+            }
+
+//            chatWindowMessageGridPane.setGridLinesVisible(true);
         }
     }
 

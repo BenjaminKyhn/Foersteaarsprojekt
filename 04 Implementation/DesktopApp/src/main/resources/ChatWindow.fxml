@@ -48,7 +48,7 @@
             <Separator layoutX="240.0" layoutY="68.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0" />
             <ScrollPane layoutX="365.0" layoutY="119.0" prefHeight="536.0" prefWidth="560.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <GridPane fx:id="chatWindowMessageGridPane" prefHeight="377.0" prefWidth="560.0">
+                  <GridPane fx:id="chatWindowMessageGridPane" prefHeight="360.0" prefWidth="546.0">
                     <columnConstraints>
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
