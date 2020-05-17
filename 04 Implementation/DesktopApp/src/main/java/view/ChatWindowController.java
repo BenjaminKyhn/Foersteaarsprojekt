@@ -121,8 +121,26 @@ public class ChatWindowController {
 
         /** Dynamic method */
         if (name.equals("Testperson2")) {
-            ArrayList<Label> messages = new ArrayList<>();
-            messages.add(new Label("Hej Camilla, som vi talte om forleden\n " +
+//            ArrayList<Label> messages = new ArrayList<>();
+//            messages.add(new Label("Hej Camilla, som vi talte om forleden\n " +
+//                    "mht dine smerter i lænden, er det som sagt\n" +
+//                    "kritis for din helbreden, at du \n" +
+//                    "gennemfører det udleverede program.\n" +
+//                    "Rigtig god vind og hæng i!\n" +
+//                    "\n" +
+//                    "Venlig hilsen, Christian Fys.\n"
+//                    +
+//                    "\n Sendt d. 29-05-2020"));
+            chatWindowMessageVBox.getChildren().clear();
+            chatWindowMessageVBox.setSpacing(2);
+            VBox chatContainer = new VBox();
+            chatContainer.setStyle("-fx-border-color: gray");
+            chatContainer.setPadding(new Insets(16,32, 16, 16));
+
+            Label label = new Label(name);
+            label.setStyle("-fx-font-weight: bold");
+            chatContainer.getChildren().add(label);
+            Label message = new Label("Hej Camilla, som vi talte om forleden\n " +
                     "mht dine smerter i lænden, er det som sagt\n" +
                     "kritis for din helbreden, at du \n" +
                     "gennemfører det udleverede program.\n" +
@@ -130,29 +148,29 @@ public class ChatWindowController {
                     "\n" +
                     "Venlig hilsen, Christian Fys.\n"
                     +
-                    "\n Sendt d. 29-05-2020"));
+                    "\n Sendt d. 29-05-2020");
+            message.setWrapText(true);
+            chatContainer.getChildren().add(message);
+            chatWindowMessageVBox.getChildren().add(chatContainer);
 
-            chatWindowMessageGridPane.getChildren().clear();
-            chatWindowMessageGridPane.getRowConstraints().clear();
-            chatWindowMessageGridPane.setVgap(10);
-            chatWindowMessageGridPane.setPrefHeight(messages.size() * 120);
+            VBox chatContainer2 = new VBox();
+            chatContainer2.setStyle("-fx-border-color: gray");
+            chatContainer2.setPadding(new Insets(16, 16, 16, 32));
+            Label label2 = new Label("Christian");
+            label2.setPrefWidth(546);
+            label2.setTextAlignment(TextAlignment.RIGHT);
+            label2.setAlignment(Pos.CENTER_RIGHT);
+            label2.setStyle("-fx-font-weight: bold");
+            chatContainer2.getChildren().add(label2);
+            Label message2 = new Label("Hej Testperson 1. Jeg har " +
+                    "fundet et program til dig, som du skal bruge " +
+                    "3 gange om ugen. Du kan se programmet, hvis du " +
+                    "går til menuen og vælger træningsprogam. " +
+                    "God bedring.");
+            message2.setWrapText(true);
+            chatContainer2.getChildren().add(message2);
 
-            for (int i = 0; i < messages.size(); i++) {
-                RowConstraints row = new RowConstraints();
-//                row.setPercentHeight(100.0 / messages.size());
-                row.setFillHeight(true);
-                row.setValignment(VPos.TOP);
-                row.setVgrow(Priority.ALWAYS);
-                chatWindowMessageGridPane.getRowConstraints().add(row);
-
-                if (i % 2 == 0){
-                    chatWindowMessageGridPane.add(messages.get(i), 0, i);
-                }
-                else
-                    chatWindowMessageGridPane.add(messages.get(i), 1, i);
-            }
-
-//            chatWindowMessageGridPane.setGridLinesVisible(true);
+            chatWindowMessageVBox.getChildren().add(chatContainer2);
         }
     }
 
