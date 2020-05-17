@@ -7,7 +7,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
@@ -15,7 +14,6 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatWindowController {
@@ -23,9 +21,6 @@ public class ChatWindowController {
 
     @FXML
     private VBox chatWindowChatVBox;
-
-    @FXML
-    private VBox chatWindowMessageVBox;
 
     @FXML
     private GridPane chatWindowMessageGridPane;
@@ -71,9 +66,7 @@ public class ChatWindowController {
         });
     }
 
-    /**
-     * @author Benjamin
-     */
+    /**@author Benjamin*/
     public void showFakeMessages(String name) {
         /** Non-dynamic method */
         if (name.equals("Testperson1")) {
@@ -83,7 +76,7 @@ public class ChatWindowController {
                     "\nmåned udviklet nogle forfærdelige rygsmerter, " +
                     "\nder efterhånden er begyndt at hindre mig i at " +
                     "\nudføre mit arbejde. Kan du give mig nogle" +
-                    "\n øvelser, der kan afhjælpe mit problem? Det " +
+                    "\nøvelser, der kan afhjælpe mit problem? Det " +
                     "\nmå simplethen stoppe nu!"), 0, 0);
 
             chatWindowMessageGridPane.add(new Label("Hej Testperson 1. Jeg har " +
