@@ -12,7 +12,6 @@ import domain.Bruger;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -42,18 +41,18 @@ public class DatabaseManager {
     }
 
     public void testDB() {
-        Bruger bruger = new Bruger("Benny", "bennyboi@gmail.com", "uhreguerj");
-        gemBruger(bruger);
-    }
-
-    public void save(Map<String, Object> entry, String navn, String id) {
-        entry.put("navn", navn);
-        firestore.collection("brugere").document(id).set(entry);
+        Bruger bruger = new Bruger("Benny", "bennyboi@gmail.com", "rshguuruj");
+        sletBruger(bruger);
     }
 
     public void gemBruger(Bruger bruger) {
         String email = bruger.getEmail();
         firestore.collection("brugere").document(email).create(bruger);
+    }
+
+    public void sletBruger(Bruger bruger){
+        String email = bruger.getEmail();
+        firestore.collection("brugere").document(email).delete();
     }
 
     public Bruger hentBrugerMedEmail(String email) {

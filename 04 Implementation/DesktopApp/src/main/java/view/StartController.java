@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.exceptions.*;
+import persistence.DatabaseManager;
 
 import java.io.IOException;
 
