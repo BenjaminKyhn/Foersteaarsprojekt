@@ -14,10 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.exceptions.*;
-import persistence.DatabaseManager;
-
-import java.io.IOException;
 
 /**
  * @author Benjamin
@@ -33,7 +29,7 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
-    public void initialize() throws IOException, TomEmailException, EksisterendeBrugerException, TomNavnException, PasswordLaengdeException, TomPasswordException {
+    public void initialize() {
         // Create TextFields, Labels, Buttons and Images
         TextField tfUsername = new TextField();
         TextField tfPassword = new TextField();
