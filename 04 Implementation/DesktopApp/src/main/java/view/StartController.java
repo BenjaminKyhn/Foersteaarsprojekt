@@ -36,7 +36,6 @@ public class StartController {
 
     public void initialize() throws IOException {
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.initializeDB();
 
         // Create TextFields, Labels, Buttons and Images
         TextField tfUsername = new TextField();

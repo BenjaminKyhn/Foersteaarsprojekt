@@ -19,6 +19,11 @@ import java.util.concurrent.ExecutionException;
 
 /** @author Benjamin */
 public class DatabaseManager {
+    Firestore firestore;
+
+    public DatabaseManager() throws IOException {
+        initializeDB();
+    }
 
     public void initializeDB() throws IOException {
         FileInputStream serviceAccount =
@@ -36,13 +41,13 @@ public class DatabaseManager {
 
     public void testDB(){
         Map<String, Object> Brugermap = new HashMap<>();
-        save(Brugermap, "Tommy", "tommyboi@gmail.com");
+        save(Brugermap, "Kelvin", "kellyboi@gmail.com");
     }
 
-    public static void read() throws ExecutionException, InterruptedException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
+    public void read() throws ExecutionException, InterruptedException {
+        firestore = FirestoreClient.getFirestore();
 
-        DocumentReference documentReference = dbFirestore.collection("users").document("tommyboi@gmail.com");
+        DocumentReference documentReference = firestore.collection("users").document("tommyboi@gmail.com");
         ApiFuture<DocumentSnapshot> future = documentReference.get();
 
         DocumentSnapshot document = future.get();
@@ -53,10 +58,10 @@ public class DatabaseManager {
         }
     }
 
-    public static void save(Map<String, Object> entry, String navn, String id) {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
+    public void save(Map<String, Object> entry, String navn, String id) {
+        firestore = FirestoreClient.getFirestore();
         entry.put("navn", navn);
-        dbFirestore.collection("brugere").document(id).set(entry);
+        firestore.collection("brugere").document(id).set(entry);
     }
 
     public Bruger hentBrugerMedEmail(String email){
