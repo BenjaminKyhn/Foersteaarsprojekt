@@ -64,8 +64,19 @@ public class DatabaseManager {
         firestore.collection("brugere").document(id).set(entry);
     }
 
-    public Bruger hentBrugerMedEmail(String email){
-        Bruger bruger = new Bruger();
+    public Bruger hentBrugerMedEmail(String email) {
+        firestore = FirestoreClient.getFirestore();
+        ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
+        Bruger bruger = null;
+
+        try{
+            if (document.get().exists()){
+                bruger = document.get().toObject(Bruger.class);
+            }
+        }
+        catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
         return bruger;
     }
 }
