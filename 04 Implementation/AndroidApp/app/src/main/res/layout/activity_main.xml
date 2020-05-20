@@ -71,18 +71,104 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.048" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="390dp"
-        android:layout_height="382dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="398dp" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
+        android:id="@+id/logind"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="56dp"
-        tools:layout_editor_absoluteY="327dp" />
+        android:background="@color/colorForsideBar"
+        android:text="Log ind"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <Button
+        android:id="@+id/opretbruger"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorForsideBar"
+        android:text="opretbruger"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toEndOf="@+id/logind"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="299dp"
+        android:layout_height="334dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorForsideBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.708">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headline1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Proffesionel og personlig pleje"
+                android:textFontWeight="1"
+                android:textSize="22dp"/>
+
+            <TextView
+                android:id="@+id/tekst1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginLeft="5dp"
+                android:text=
+                    "Klinikken på Rosensørs alle 41 flytter til J.M. Thielesvej 1A.
+                    \n\n5. Maj slår Frederiksberg Sportsklinik, fysioterapi og
+                    skadesbehandling dørene op på J.M. Thielesvej.
+                    \nVi har fået mulighed for at flytte i nye, bedre og større lokaler.
+                    \nVi glæder os til at kunne tilbyde dig omgivelser,som er \npå niveau med voresfaglighed og vores behandlinger.
+
+                    \n\nHos os er Alle velkomne!
+                    \n\nVi tilbyder forskellige behandlingsformer og tilpasser \naltid behandlingen efter netop dine behov.
+                    \nVi har praktiseret siden 1995 og har i dag tre afdelinger for hhv. massage, fysioterapi samt erhverv.
+                    \nVælg i menuen eller herunder for at se mere om vores specialer.
+                    \n\nEr du i tvivl eller har du spørgsmål, er du altid
+                    \nvelkommen til at kontakte os.
+                    \n\n\n\n\n\n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/bottomStroke"
+        android:layout_width="398dp"
+        android:layout_height="7dp"
+        android:background="@color/colorFRBLogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.964" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
