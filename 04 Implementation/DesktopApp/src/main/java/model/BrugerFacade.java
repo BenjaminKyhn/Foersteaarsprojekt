@@ -7,6 +7,7 @@ import java.io.IOException;
 /** @author Benjamin */
 public class BrugerFacade {
     private Validering validering = new Validering();
+    private BrugerManager brugerManager = new BrugerManager();
 
     public BrugerFacade() throws IOException {
     }
@@ -21,5 +22,9 @@ public class BrugerFacade {
 
     public void tjekPassword(String password) throws PasswordLaengdeException, TomPasswordException {
         validering.tjekPassword(password);
+    }
+
+    public void opretbruger(String navn, String email, String password){
+        brugerManager.opretBruger(navn, email, password);
     }
 }
