@@ -17,30 +17,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         configureNextButton();
         configureNyBeskedButton();
-
     }
-
     private void configureNextButton() {
         Button changeActivityButton = findViewById(R.id.logind);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
-
             }
         });
-
     }
-
     private void configureNyBeskedButton() {
         Button changeActivityButton = findViewById(R.id.tempTest);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, NyBeskedActivity.class));
-
             }
         });
-
     }
 }
