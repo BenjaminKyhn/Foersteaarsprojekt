@@ -3,6 +3,7 @@ package model;
 import domain.Bruger;
 import model.exceptions.EksisterendeBrugerException;
 import model.exceptions.TomEmailException;
+import model.exceptions.TomNavnException;
 import persistence.DatabaseManager;
 
 import java.io.IOException;
@@ -22,5 +23,10 @@ class Validering {
         if (bruger != null){
             throw new EksisterendeBrugerException();
         }
+    }
+
+    public void tjekNavn(String navn) throws TomNavnException {
+        if (navn.equals(""))
+            throw new TomNavnException();
     }
 }
