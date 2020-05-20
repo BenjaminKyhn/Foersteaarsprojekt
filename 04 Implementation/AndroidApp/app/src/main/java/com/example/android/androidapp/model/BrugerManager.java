@@ -41,7 +41,7 @@ class BrugerManager {
     private String enkrypterTekst(String tekst) {
         String sha256hex = null;
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA3-256");
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] bytes = tekst.getBytes(StandardCharsets.UTF_8);
             byte[] hash = digest.digest(bytes);
             sha256hex = new String(Hex.encodeHex(hash));

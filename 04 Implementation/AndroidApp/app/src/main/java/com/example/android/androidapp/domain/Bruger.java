@@ -2,9 +2,9 @@ package com.example.android.androidapp.domain;
 
 /** @author Tommy **/
 public class Bruger {
-    String navn;
-    String email;
-    String password;
+    private String navn;
+    private String email;
+    private String password;
 
     public Bruger(String navn, String email, String password) {
         this.navn = navn;
