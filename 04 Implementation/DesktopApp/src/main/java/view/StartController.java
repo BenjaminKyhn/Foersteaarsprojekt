@@ -14,11 +14,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import model.BrugerFacade;
+import model.exceptions.EksisterendeBrugerException;
+import model.exceptions.TomEmailException;
 import persistence.DatabaseManager;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Benjamin
@@ -34,8 +35,10 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, TomEmailException, EksisterendeBrugerException {
         DatabaseManager databaseManager = new DatabaseManager();
+//        BrugerFacade brugerFacade = new BrugerFacade();
+//        brugerFacade.tjekEmail("tommyboi@gmail.com");
 
         // Create TextFields, Labels, Buttons and Images
         TextField tfUsername = new TextField();
