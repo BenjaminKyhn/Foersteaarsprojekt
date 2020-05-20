@@ -40,22 +40,13 @@ public class DatabaseManager {
     }
 
     public void testDB(){
+        // Test hentBrugerMedEmail-metode
+        Bruger bruger = hentBrugerMedEmail("kellyboi@gmail.com");
+        System.out.println(bruger.getNavn());
+
+        //Test save-metode
         Map<String, Object> Brugermap = new HashMap<>();
         save(Brugermap, "Kelvin", "kellyboi@gmail.com");
-    }
-
-    public void read() throws ExecutionException, InterruptedException {
-        firestore = FirestoreClient.getFirestore();
-
-        DocumentReference documentReference = firestore.collection("users").document("tommyboi@gmail.com");
-        ApiFuture<DocumentSnapshot> future = documentReference.get();
-
-        DocumentSnapshot document = future.get();
-
-        if (document.exists()) {
-            String navn = document.get("navn").toString();
-            System.out.println(navn);
-        }
     }
 
     public void save(Map<String, Object> entry, String navn, String id) {
