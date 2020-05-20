@@ -67,6 +67,7 @@ public class StartController {
 
         btLogin.setOnAction(event -> {
             setSecondScene();
+            databaseManager.testDB();
         });
     }
 

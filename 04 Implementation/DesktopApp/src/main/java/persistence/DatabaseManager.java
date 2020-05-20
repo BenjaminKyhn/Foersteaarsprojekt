@@ -22,6 +22,9 @@ public class DatabaseManager {
 
     public DatabaseManager() throws IOException {
         initializeDB();
+
+        /** initializeDB() skal kaldes før firestore kan initaliseres */
+        firestore = FirestoreClient.getFirestore();
     }
 
     public void initializeDB() throws IOException {
@@ -34,8 +37,6 @@ public class DatabaseManager {
                 .build();
 
         FirebaseApp.initializeApp(options);
-
-        testDB();
     }
 
     public void testDB(){
@@ -49,13 +50,13 @@ public class DatabaseManager {
     }
 
     public void save(Map<String, Object> entry, String navn, String id) {
-        firestore = FirestoreClient.getFirestore();
+//        firestore = FirestoreClient.getFirestore();
         entry.put("navn", navn);
         firestore.collection("brugere").document(id).set(entry);
     }
 
     public Bruger hentBrugerMedEmail(String email) {
-        firestore = FirestoreClient.getFirestore();
+//        firestore = FirestoreClient.getFirestore();
         ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
         Bruger bruger = null;
 
