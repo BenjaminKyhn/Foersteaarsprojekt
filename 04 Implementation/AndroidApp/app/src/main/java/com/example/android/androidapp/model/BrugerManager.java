@@ -2,6 +2,7 @@ package com.example.android.androidapp.model;
 
 import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.exceptions.BrugerLoggedeIndException;
+import com.example.android.androidapp.model.exceptions.ForkertPasswordException;
 import com.example.android.androidapp.persistence.DatabaseManager;
 
 import org.apache.commons.codec.binary.Hex;
@@ -23,6 +24,18 @@ class BrugerManager {
         Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
         databaseManager.gemBruger(bruger);
         aktivBruger = bruger;
+    }
+
+    void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
+        String enkrypteretPassword = enkrypterTekst(password);
+        String enkrypteretBrugerPassword = bruger.getPassword();
+
+        if (!enkrypteretPassword.equals(enkrypteretBrugerPassword)) {
+            throw new ForkertPasswordException();
+        }
+
+        databaseManager.sletBruger(bruger);
+        aktivBruger = null;
     }
 
     private String enkrypterTekst(String tekst) {
