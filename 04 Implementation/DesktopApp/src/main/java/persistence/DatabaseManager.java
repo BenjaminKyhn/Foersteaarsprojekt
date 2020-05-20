@@ -16,7 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ */
 public class DatabaseManager {
     Firestore firestore;
 
@@ -39,33 +41,30 @@ public class DatabaseManager {
         FirebaseApp.initializeApp(options);
     }
 
-    public void testDB(){
-        // Test hentBrugerMedEmail-metode
-        Bruger bruger = hentBrugerMedEmail("kellyboi@gmail.com");
-        System.out.println(bruger.getNavn());
-
-        //Test save-metode
-        Map<String, Object> Brugermap = new HashMap<>();
-        save(Brugermap, "Kelvin", "kellyboi@gmail.com");
+    public void testDB() {
+        Bruger bruger = new Bruger("Benny", "bennyboi@gmail.com", "uhreguerj");
+        gemBruger(bruger);
     }
 
     public void save(Map<String, Object> entry, String navn, String id) {
-//        firestore = FirestoreClient.getFirestore();
         entry.put("navn", navn);
         firestore.collection("brugere").document(id).set(entry);
     }
 
+    public void gemBruger(Bruger bruger) {
+        String email = bruger.getEmail();
+        firestore.collection("brugere").document(email).create(bruger);
+    }
+
     public Bruger hentBrugerMedEmail(String email) {
-//        firestore = FirestoreClient.getFirestore();
         ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
         Bruger bruger = null;
 
-        try{
-            if (document.get().exists()){
+        try {
+            if (document.get().exists()) {
                 bruger = document.get().toObject(Bruger.class);
             }
-        }
-        catch (InterruptedException | ExecutionException e){
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
         return bruger;

@@ -14,10 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import model.BrugerFacade;
-import model.exceptions.EksisterendeBrugerException;
-import model.exceptions.TomEmailException;
-import persistence.DatabaseManager;
+import model.exceptions.*;
 
 import java.io.IOException;
 
@@ -35,10 +32,7 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
-    public void initialize() throws IOException, TomEmailException, EksisterendeBrugerException {
-        BrugerFacade brugerFacade = new BrugerFacade();
-        brugerFacade.tjekEmail("bennyboi@gmail.com");
-
+    public void initialize() throws IOException, TomEmailException, EksisterendeBrugerException, TomNavnException, PasswordLaengdeException, TomPasswordException {
         // Create TextFields, Labels, Buttons and Images
         TextField tfUsername = new TextField();
         TextField tfPassword = new TextField();
