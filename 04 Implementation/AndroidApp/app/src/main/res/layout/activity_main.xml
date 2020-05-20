@@ -90,7 +90,7 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:background="@color/colorForsideBar"
-        android:text="opretbruger"
+        android:text="opret bruger"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.678"
@@ -120,26 +120,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Proffesionel og personlig pleje"
+                android:layout_marginLeft="10dp"
                 android:textFontWeight="1"
-                android:textSize="22dp"/>
+                android:textSize="20dp"/>
 
             <TextView
                 android:id="@+id/tekst1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="12dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:text=
-                    "Klinikken på Rosensørs alle 41 flytter til J.M. Thielesvej 1A.
-                    \n\n5. Maj slår Frederiksberg Sportsklinik, fysioterapi og
-                    skadesbehandling dørene op på J.M. Thielesvej.
-                    \nVi har fået mulighed for at flytte i nye, bedre og større lokaler.
-                    \nVi glæder os til at kunne tilbyde dig omgivelser,som er \npå niveau med voresfaglighed og vores behandlinger.
+                    "Klinikken på Rosensørs alle 41 flytter \ntil J.M. Thielesvej 1A.
+                    \n\n5. Maj slår Frederiksberg Sportsklinik, fysioterapi
+                    \nog skadesbehandling dørene op på J.M. Thielesvej.
+                    \nVi har fået mulighed for at flytte i nye,
+                    \nbedre og større lokaler.
+                    \nVi glæder os til at kunne tilbyde dig omgivelser,
+                    \nsom er på niveau med voresfaglighed og vores \nbehandlinger.
 
                     \n\nHos os er Alle velkomne!
-                    \n\nVi tilbyder forskellige behandlingsformer og tilpasser \naltid behandlingen efter netop dine behov.
-                    \nVi har praktiseret siden 1995 og har i dag tre afdelinger for hhv. massage, fysioterapi samt erhverv.
-                    \nVælg i menuen eller herunder for at se mere om vores specialer.
+                    \n\nVi tilbyder forskellige behandlingsformer
+                    \nsamt tilpasser altid behandlingen efter netop dine behov.
+                    \n\nVi har praktiseret siden 1995 og har i dag tre afdelinger for hhv. massage, fysioterapi
+                    \nsamt erhverv.
+                    \nVælg i menuen eller herunder for at se mere om
+                    \nvores specialer.
                     \n\nEr du i tvivl eller har du spørgsmål, er du altid
                     \nvelkommen til at kontakte os.
                     \n\n\n\n\n\n dummy teeeeeekst, 4 view!!
@@ -156,6 +162,13 @@
                     \n dummy teeeeeekst, 4 view!!
                     \n dummy teeeeeekst, 4 view!!
                     \n dummy teeeeeekst, 4 view!!"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                app:srcCompat="@drawable/thielesvej3"
+                />
         </LinearLayout>
     </ScrollView>
 
