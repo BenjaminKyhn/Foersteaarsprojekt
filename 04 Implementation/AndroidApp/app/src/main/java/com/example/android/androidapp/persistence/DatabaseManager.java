@@ -10,10 +10,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 /** @author Tommy **/
 public class DatabaseManager {
-    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
     public void gemBruger(Bruger bruger) {
-
+        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
     }
 
     public Bruger hentBrugerMedEmail(String email) {
@@ -29,5 +29,9 @@ public class DatabaseManager {
             }
         });
         return bruger[0];
+    }
+
+    public void sletBruger(Bruger bruger) {
+        firestore.collection("brugere").document(bruger.getEmail()).delete();
     }
 }

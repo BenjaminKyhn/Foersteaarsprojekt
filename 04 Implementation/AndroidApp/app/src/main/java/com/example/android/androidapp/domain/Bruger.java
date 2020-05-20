@@ -3,12 +3,12 @@ package com.example.android.androidapp.domain;
 /** @author Tommy **/
 public class Bruger {
     String navn;
-    String mail;
+    String email;
     String password;
 
-    public Bruger(String navn, String mail, String password) {
+    public Bruger(String navn, String email, String password) {
         this.navn = navn;
-        this.mail = mail;
+        this.email = email;
         this.password = password;
     }
 
@@ -20,12 +20,12 @@ public class Bruger {
         this.navn = navn;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
