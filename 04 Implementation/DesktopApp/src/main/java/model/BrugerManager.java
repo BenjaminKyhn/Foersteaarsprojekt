@@ -13,8 +13,9 @@ import java.security.NoSuchAlgorithmException;
 
 /** @author Benjamin */
 public class BrugerManager {
+    /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
+    private DatabaseManager databaseManager = DatabaseManager.getInstance();
     private Bruger aktivBruger;
-    private DatabaseManager databaseManager = new DatabaseManager();
 
     public BrugerManager() throws IOException {
     }

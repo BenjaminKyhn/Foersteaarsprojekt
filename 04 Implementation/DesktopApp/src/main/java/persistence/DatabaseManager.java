@@ -18,13 +18,23 @@ import java.util.concurrent.ExecutionException;
  * @author Benjamin
  */
 public class DatabaseManager {
-    Firestore firestore;
+    private static DatabaseManager databaseManager; /** static, så vi altid kan få fat i den sammme DatabaseManager */
+    private Firestore firestore;
 
-    public DatabaseManager() throws IOException {
+    private DatabaseManager() throws IOException {
         initializeDB();
 
         /** initializeDB() skal kaldes før firestore kan initaliseres */
         firestore = FirestoreClient.getFirestore();
+    }
+
+    /** Der må kun være én instans af DatabaseManager, så derfor bruger vi altid getInstance(), når vi skal have fat i
+     * DatabaseManager */
+    public static synchronized DatabaseManager getInstance() throws IOException {
+        if (databaseManager == null){
+            databaseManager = new DatabaseManager();
+        }
+        return databaseManager;
     }
 
     public void initializeDB() throws IOException {
@@ -37,11 +47,8 @@ public class DatabaseManager {
                 .build();
 
         FirebaseApp.initializeApp(options);
-    }
 
-    public void testDB() {
-        Bruger bruger = new Bruger("Benny", "bennyboi@gmail.com", "rshguuruj");
-        sletBruger(bruger);
+        firestore = FirestoreClient.getFirestore();
     }
 
     public void gemBruger(Bruger bruger) {

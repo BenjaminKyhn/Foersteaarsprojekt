@@ -7,10 +7,12 @@ import java.io.IOException;
 
 /** @author Benjamin */
 public class BrugerFacade {
-    private Validering validering = new Validering();
-    private BrugerManager brugerManager = new BrugerManager();
+    private Validering validering;
+    private BrugerManager brugerManager;
 
     public BrugerFacade() throws IOException {
+        validering = new Validering();
+        brugerManager = new BrugerManager();
     }
 
     public void tjekEmail(String email) throws EksisterendeBrugerException, TomEmailException {
