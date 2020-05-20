@@ -1,7 +1,6 @@
 package model;
 
-import model.exceptions.EksisterendeBrugerException;
-import model.exceptions.TomEmailException;
+import model.exceptions.*;
 
 import java.io.IOException;
 
@@ -14,5 +13,13 @@ public class BrugerFacade {
 
     public void tjekEmail(String email) throws EksisterendeBrugerException, TomEmailException {
         validering.tjekEmail(email);
+    }
+
+    public void tjekNavn(String navn) throws TomNavnException{
+        validering.tjekNavn(navn);
+    }
+
+    public void tjekPassword(String password) throws PasswordLaengdeException, TomPasswordException {
+        validering.tjekPassword(password);
     }
 }
