@@ -36,9 +36,8 @@ public class StartController {
     private GridPane startGridPane;
 
     public void initialize() throws IOException, TomEmailException, EksisterendeBrugerException {
-        DatabaseManager databaseManager = new DatabaseManager();
-//        BrugerFacade brugerFacade = new BrugerFacade();
-//        brugerFacade.tjekEmail("tommyboi@gmail.com");
+        BrugerFacade brugerFacade = new BrugerFacade();
+        brugerFacade.tjekEmail("bennyboi@gmail.com");
 
         // Create TextFields, Labels, Buttons and Images
         TextField tfUsername = new TextField();
@@ -67,7 +66,6 @@ public class StartController {
 
         btLogin.setOnAction(event -> {
             setSecondScene();
-            databaseManager.testDB();
         });
     }
 

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 /** @author Benjamin */
 class Validering {
+    /** Der kan ikke være 2 instances af DatabaseManager? */
     private DatabaseManager databaseManager = new DatabaseManager();
 
     Validering() throws IOException {
