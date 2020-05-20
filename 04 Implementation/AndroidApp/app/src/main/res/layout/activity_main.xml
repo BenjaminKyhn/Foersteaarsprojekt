@@ -120,6 +120,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Proffesionel og personlig pleje"
+                android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:textFontWeight="1"
                 android:textSize="20dp"/>
@@ -174,7 +175,7 @@
 
     <View
         android:id="@+id/bottomStroke"
-        android:layout_width="398dp"
+        android:layout_width="match_parent"
         android:layout_height="7dp"
         android:background="@color/colorFRBLogo"
         app:layout_constraintBottom_toBottomOf="parent"
