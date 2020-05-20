@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "649368182698",
+    "firebase_url": "https://fysiodb-680ee.firebaseio.com",
+    "project_id": "fysiodb-680ee",
+    "storage_bucket": "fysiodb-680ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649368182698:android:bb4f3a3c91fc22221a95d3",
+        "android_client_info": {
+          "package_name": "com.example.android.androidapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "649368182698-v1ohqs9hq949ueitk07p3uslnrqcfd4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQDY3XF98VY-Cs9NpNX_Hmc3tmvQILI9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "649368182698-v1ohqs9hq949ueitk07p3uslnrqcfd4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
