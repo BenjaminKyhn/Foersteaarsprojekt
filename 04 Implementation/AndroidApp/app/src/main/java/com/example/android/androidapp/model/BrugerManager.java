@@ -4,6 +4,12 @@ import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.exceptions.BrugerLoggedeIndException;
 import com.example.android.androidapp.persistence.DatabaseManager;
 
+import org.apache.commons.codec.binary.Hex;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 /** @author Tommy **/
 class BrugerManager {
     private Bruger aktivBruger;
@@ -20,6 +26,15 @@ class BrugerManager {
     }
 
     private String enkrypterTekst(String tekst) {
-        return tekst;
+        String sha256hex = null;
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA3-256");
+            byte[] bytes = tekst.getBytes(StandardCharsets.UTF_8);
+            byte[] hash = digest.digest(bytes);
+            sha256hex = new String(Hex.encodeHex(hash));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return sha256hex;
     }
 }
