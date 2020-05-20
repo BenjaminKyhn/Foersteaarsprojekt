@@ -1,9 +1,7 @@
 package model;
 
 import domain.Bruger;
-import model.exceptions.EksisterendeBrugerException;
-import model.exceptions.TomEmailException;
-import model.exceptions.TomNavnException;
+import model.exceptions.*;
 import persistence.DatabaseManager;
 
 import java.io.IOException;
@@ -28,5 +26,12 @@ class Validering {
     public void tjekNavn(String navn) throws TomNavnException {
         if (navn.equals(""))
             throw new TomNavnException();
+    }
+
+    public void tjekPassword(String password) throws TomPasswordException, PasswordLaengdeException{
+        if (password.equals(""))
+            throw new TomPasswordException();
+        if (password.length() < 6 || password.length() > 20)
+            throw new PasswordLaengdeException();
     }
 }
