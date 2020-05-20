@@ -7,4 +7,8 @@ public class DatabaseManager {
     public void gemBruger(Bruger bruger) {
 
     }
+
+    public Bruger hentBrugerMedEmail(String email) {
+        return null;
+    }
 }
