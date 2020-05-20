@@ -2,7 +2,6 @@ package persistence;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 import com.google.firebase.FirebaseApp;
@@ -13,16 +12,19 @@ import domain.Bruger;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ */
 public class DatabaseManager {
     Firestore firestore;
 
     public DatabaseManager() throws IOException {
         initializeDB();
+
+        /** initializeDB() skal kaldes før firestore kan initaliseres */
+        firestore = FirestoreClient.getFirestore();
     }
 
     public void initializeDB() throws IOException {
@@ -35,37 +37,34 @@ public class DatabaseManager {
                 .build();
 
         FirebaseApp.initializeApp(options);
-
-        testDB();
     }
 
-    public void testDB(){
-        Map<String, Object> Brugermap = new HashMap<>();
-        save(Brugermap, "Kelvin", "kellyboi@gmail.com");
+    public void testDB() {
+        Bruger bruger = new Bruger("Benny", "bennyboi@gmail.com", "rshguuruj");
+        sletBruger(bruger);
     }
 
-    public void read() throws ExecutionException, InterruptedException {
-        firestore = FirestoreClient.getFirestore();
+    public void gemBruger(Bruger bruger) {
+        String email = bruger.getEmail();
+        firestore.collection("brugere").document(email).create(bruger);
+    }
 
-        DocumentReference documentReference = firestore.collection("users").document("tommyboi@gmail.com");
-        ApiFuture<DocumentSnapshot> future = documentReference.get();
+    public void sletBruger(Bruger bruger){
+        String email = bruger.getEmail();
+        firestore.collection("brugere").document(email).delete();
+    }
 
-        DocumentSnapshot document = future.get();
+    public Bruger hentBrugerMedEmail(String email) {
+        ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
+        Bruger bruger = null;
 
-        if (document.exists()) {
-            String navn = document.get("navn").toString();
-            System.out.println(navn);
+        try {
+            if (document.get().exists()) {
+                bruger = document.get().toObject(Bruger.class);
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
-    }
-
-    public void save(Map<String, Object> entry, String navn, String id) {
-        firestore = FirestoreClient.getFirestore();
-        entry.put("navn", navn);
-        firestore.collection("brugere").document(id).set(entry);
-    }
-
-    public Bruger hentBrugerMedEmail(String email){
-        Bruger bruger = new Bruger();
         return bruger;
     }
 }
