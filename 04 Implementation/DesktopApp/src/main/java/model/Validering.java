@@ -34,4 +34,18 @@ class Validering {
         if (password.length() < 6 || password.length() > 20)
             throw new PasswordLaengdeException();
     }
+
+    public void tjekEmne(String emne) throws TomEmneException, ForMangeTegnException {
+        if (emne.equals(""))
+            throw new TomEmneException();
+        if (emne.length() > 100)
+            throw new ForMangeTegnException();
+    }
+
+    public void tjekBesked(String besked) throws TomBeskedException, ForMangeTegnException {
+        if (besked.equals(""))
+            throw new TomBeskedException();
+        if (besked.length() > 1000)
+            throw new ForMangeTegnException();
+    }
 }

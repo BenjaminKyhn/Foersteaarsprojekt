@@ -1,14 +1,15 @@
 package view;
 
+import domain.Besked;
+import domain.Chat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import persistence.DatabaseManager;
 
-/**
- * @author Benjamin & Tommy
- */
+/** @author Benjamin & Tommy */
 
 public class Start extends Application{
 
