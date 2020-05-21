@@ -82,7 +82,7 @@
         android:background="@drawable/loginborder"
 
         android:orientation="horizontal"
-        android:textSize="20dip"
+        android:textSize="14dip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -110,7 +110,7 @@
         android:background="@drawable/loginborder"
 
         android:orientation="horizontal"
-        android:textSize="20dip"
+        android:textSize="14dip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -132,6 +132,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
         app:layout_constraintVertical_bias="0.075" />
+
+    <Button
+        android:id="@+id/logindButton"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="LOG IND"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchLogin"
+        app:layout_constraintVertical_bias="0.075" />
+
     <View
         android:id="@+id/bottomStroke"
         android:layout_width="match_parent"

@@ -40,13 +40,25 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:text="LOG IND"
+        android:text="VÆLG BEHANDLER"
         android:textAlignment="center"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.014" />
+
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.709"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forsideButton"
+        app:layout_constraintVertical_bias="0.473" />
 
     <View
         android:id="@+id/strokeDesign1"
@@ -61,7 +73,16 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.107"
+        app:srcCompat="@drawable/camilla"/>
 
     <View
         android:id="@+id/bottomStroke"
@@ -74,6 +95,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:layout_constraintVertical_bias="0.964" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

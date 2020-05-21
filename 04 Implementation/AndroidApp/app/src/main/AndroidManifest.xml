@@ -11,6 +11,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".View.NyBeskedActivity"></activity>
         <activity android:name=".View.LoginActivity" />
+        <activity android:name=".View.indbakkeActivity"/>
+        <activity android:name=".View.MenuActivity"/>
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
