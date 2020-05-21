@@ -13,6 +13,8 @@
         <activity android:name=".View.LoginActivity" />
         <activity android:name=".View.indbakkeActivity"/>
         <activity android:name=".View.MenuActivity"/>
+        <activity android:name=".View.LaesBeskedActivity"/>
+        <activity android:name=".View.BesvarBeskedActivity"/>
         <activity android:name=".View.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
