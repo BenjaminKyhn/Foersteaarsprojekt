@@ -15,4 +15,8 @@ public class BeskedManager {
     public Chat hentChat(String afsender, String modtager, String emne){
         return databaseManager.hentChat(afsender, modtager, emne);
     }
+
+    public void sendBesked(String besked, Chat chat){
+
+    }
 }
