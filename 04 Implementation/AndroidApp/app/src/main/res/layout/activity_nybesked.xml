@@ -82,9 +82,8 @@
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
-        app:layout_constraintVertical_bias="0.107"
+        app:layout_constraintVertical_bias="0.052"
         app:srcCompat="@drawable/camilla" />
-
 
     <TextView
         android:id="@+id/textView8"
@@ -97,7 +96,7 @@
         android:textSize="14dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toStartOf="@+id/emne"
-        app:layout_constraintHorizontal_bias="0.41"
+        app:layout_constraintHorizontal_bias="0.384"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
         app:layout_constraintVertical_bias="0.035" />
@@ -109,10 +108,9 @@
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toStartOf="@+id/emne"
-        app:layout_constraintHorizontal_bias="0.439"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintVertical_bias="0.039" />
 
     <EditText
         android:id="@+id/emne"
@@ -125,24 +123,38 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintHorizontal_bias="0.645"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.037" />
 
     <EditText
         android:id="@+id/skrivBesked"
         android:layout_width="200dp"
-        android:layout_height="340dp"
+        android:layout_height="300dp"
         android:gravity="start"
         android:textAlignment="gravity"
         android:textSize="12dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.874"
+        app:layout_constraintHorizontal_bias="0.645"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/emne"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintVertical_bias="0.144" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.852"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.961" />
 
     <View
         android:id="@+id/bottomStroke"
