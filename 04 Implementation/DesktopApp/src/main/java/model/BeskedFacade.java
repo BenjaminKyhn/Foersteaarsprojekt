@@ -22,7 +22,7 @@ public class BeskedFacade {
     }
 
     public void sendBesked(String besked, Chat chat){
-        besked.sendBesked(besked, chat);
+        beskedManager.sendBesked(besked, chat);
     }
 
     public void tjekEmne(String emne) throws TomEmneException, ForMangeTegnException {

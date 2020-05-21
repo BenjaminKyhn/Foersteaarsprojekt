@@ -1,5 +1,6 @@
 package model;
 
+import domain.Besked;
 import domain.Chat;
 import persistence.DatabaseManager;
 
@@ -17,6 +18,8 @@ public class BeskedManager {
     }
 
     public void sendBesked(String besked, Chat chat){
-
+        Besked beskedObjekt = new Besked();
+        chat.tilfoejBesked(beskedObjekt);
+        databaseManager.opdaterChat(chat);
     }
 }

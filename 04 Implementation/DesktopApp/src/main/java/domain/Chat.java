@@ -40,4 +40,8 @@ public class Chat {
     public void setBeskeder(ArrayList<Besked> beskeder) {
         this.beskeder = beskeder;
     }
+
+    public void tilfoejBesked(Besked besked){
+        beskeder.add(besked);
+    }
 }

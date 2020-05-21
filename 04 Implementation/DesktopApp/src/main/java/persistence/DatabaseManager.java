@@ -113,4 +113,8 @@ public class DatabaseManager {
         }
         return beskeder;
     }
+
+    public void opdaterChat(Chat chat){
+
+    }
 }
