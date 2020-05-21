@@ -2,8 +2,11 @@ package com.example.android.androidapp.model;
 
 import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.exceptions.EksisterendeBrugerException;
+import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.PasswordLaengdeException;
+import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.model.exceptions.TomEmailException;
+import com.example.android.androidapp.model.exceptions.TomEmneException;
 import com.example.android.androidapp.model.exceptions.TomNavnException;
 import com.example.android.androidapp.model.exceptions.TomPasswordException;
 import com.example.android.androidapp.persistence.DatabaseManager;
@@ -35,6 +38,26 @@ class Validering {
         }
         if (password.length() < 6 || password.length() > 20) {
             throw new PasswordLaengdeException();
+        }
+    }
+
+    void tjekEmne(String emne) throws ForMangeTegnException, TomEmneException {
+        if (emne.equals("")) {
+            throw new TomEmneException();
+        }
+
+        if (emne.length() > 100) {
+            throw new ForMangeTegnException();
+        }
+    }
+
+    void tjekBesked(String besked) throws ForMangeTegnException, TomBeskedException {
+        if (besked.equals("")) {
+            throw new TomBeskedException();
+        }
+
+        if (besked.length() > 1000) {
+            throw new ForMangeTegnException();
         }
     }
 }
