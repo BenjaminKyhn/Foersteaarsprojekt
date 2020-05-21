@@ -13,11 +13,12 @@ import java.security.NoSuchAlgorithmException;
 
 /** @author Benjamin */
 public class BrugerManager {
-    /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
-    private DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private DatabaseManager databaseManager;
     private Bruger aktivBruger;
 
     public BrugerManager() throws IOException {
+        /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
+        databaseManager = DatabaseManager.getInstance();
     }
 
     public void opretBruger(String navn, String email, String password) throws BrugerLoggedIndException {

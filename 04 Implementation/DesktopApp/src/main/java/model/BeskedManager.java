@@ -9,9 +9,10 @@ import java.util.ArrayList;
 
 /** @author Benjamin */
 public class BeskedManager {
-    private DatabaseManager databaseManager = DatabaseManager.getInstance();
+    private DatabaseManager databaseManager;
 
     public BeskedManager() throws IOException {
+        databaseManager = DatabaseManager.getInstance();
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){
