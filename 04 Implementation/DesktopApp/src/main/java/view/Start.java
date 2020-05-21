@@ -1,10 +1,12 @@
 package view;
 
+import domain.Chat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import persistence.DatabaseManager;
 
 /**
  * @author Benjamin & Tommy
@@ -23,6 +25,10 @@ public class Start extends Application{
         stage.setMinWidth(800);
         stage.setMinHeight(600);
         stage.show();
+
+        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        Chat chat = databaseManager.hentChat("test", "test", "test");
+        System.out.println(chat.getBeskeder().get(0).getBesked());
     }
 
     public static void main(String[] args) {

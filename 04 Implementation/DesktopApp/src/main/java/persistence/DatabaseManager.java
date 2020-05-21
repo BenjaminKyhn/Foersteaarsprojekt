@@ -2,16 +2,19 @@ package persistence;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.*;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
+import domain.Besked;
 import domain.Bruger;
+import domain.Chat;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -62,8 +65,8 @@ public class DatabaseManager {
     }
 
     public Bruger hentBrugerMedEmail(String email) {
-        ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
         Bruger bruger = null;
+        ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
 
         try {
             if (document.get().exists()) {
@@ -73,5 +76,41 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return bruger;
+    }
+
+    public Chat hentChat(String afsender, String modtager, String emne) {
+        Chat chat = null;
+        Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager).whereEqualTo("emne", emne);
+        ApiFuture<QuerySnapshot> document = query.get();
+
+        try {
+            if (!document.get().isEmpty()){
+                QueryDocumentSnapshot qds = document.get().getDocuments().get(0);
+                chat = qds.toObject(Chat.class);
+                DocumentReference reference = qds.getReference();
+                chat.setBeskeder(hentBeskeder(reference));
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
+        return chat;
+    }
+
+    public ArrayList<Besked> hentBeskeder(DocumentReference reference){
+        ArrayList<Besked> beskeder = new ArrayList<>();
+        ApiFuture<QuerySnapshot> document = reference.collection("beskeder").get();
+
+        try{
+            if (!document.get().isEmpty()){
+                List<QueryDocumentSnapshot> list = document.get().getDocuments();
+                for (int i = 0; i < list.size(); i++) {
+                    Besked besked = list.get(i).toObject(Besked.class);
+                    beskeder.add(besked);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
+        return beskeder;
     }
 }
