@@ -1,5 +1,6 @@
 package view;
 
+import domain.Besked;
 import domain.Chat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -23,10 +24,6 @@ public class Start extends Application{
         stage.setMinWidth(800);
         stage.setMinHeight(600);
         stage.show();
-
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
-        Chat chat = databaseManager.hentChat("test", "test", "test");
-        System.out.println(chat.getBeskeder().get(0).getBesked());
     }
 
     public static void main(String[] args) {

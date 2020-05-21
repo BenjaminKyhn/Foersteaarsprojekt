@@ -1,11 +1,13 @@
 package model;
 
+import domain.Besked;
 import domain.Chat;
 import model.exceptions.ForMangeTegnException;
 import model.exceptions.TomBeskedException;
 import model.exceptions.TomEmneException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /** @author Benjamin */
 public class BeskedFacade {
@@ -19,6 +21,10 @@ public class BeskedFacade {
 
     public Chat hentChat(String afsender, String modtager, String emne){
         return beskedManager.hentChat(afsender, modtager, emne);
+    }
+
+    public ArrayList<Besked> hentBeskeder(Chat chat){
+        return beskedManager.hentBeskeder(chat);
     }
 
     public void sendBesked(String besked, Chat chat){

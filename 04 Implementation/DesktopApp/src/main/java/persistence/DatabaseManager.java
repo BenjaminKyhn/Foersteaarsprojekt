@@ -114,7 +114,22 @@ public class DatabaseManager {
         return beskeder;
     }
 
-    public void opdaterChat(Chat chat){
+    public void opdaterChat(Chat chat, Besked besked){
+        String afsender = chat.getAfsender();
+        String modtager = chat.getModtager();
+        String emne = chat.getEmne();
 
+        Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager).whereEqualTo("emne", emne);
+
+        try {
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()){
+                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                DocumentReference reference = documentSnapshot.getReference();
+                reference.collection("beskeder").document().set(besked);
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
     }
 }

@@ -5,6 +5,13 @@ public class Besked {
     private String besked;
     private String tidspunkt;
 
+    public Besked(){
+    }
+
+    public Besked(String besked){
+        this.besked = besked;
+    }
+
     public String getBesked() {
         return besked;
     }

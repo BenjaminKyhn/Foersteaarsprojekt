@@ -5,6 +5,7 @@ import domain.Chat;
 import persistence.DatabaseManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /** @author Benjamin */
 public class BeskedManager {
@@ -17,9 +18,13 @@ public class BeskedManager {
         return databaseManager.hentChat(afsender, modtager, emne);
     }
 
+    public ArrayList<Besked> hentBeskeder(Chat chat){
+        return chat.getBeskeder();
+    }
+
     public void sendBesked(String besked, Chat chat){
-        Besked beskedObjekt = new Besked();
+        Besked beskedObjekt = new Besked(besked);
         chat.tilfoejBesked(beskedObjekt);
-        databaseManager.opdaterChat(chat);
+        databaseManager.opdaterChat(chat, beskedObjekt);
     }
 }
