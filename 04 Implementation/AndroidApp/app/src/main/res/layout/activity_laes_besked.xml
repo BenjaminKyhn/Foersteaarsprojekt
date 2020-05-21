@@ -60,7 +60,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/beskedTitel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="175dp"
@@ -70,35 +70,50 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.554"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-    <TextView
-        android:id="@+id/textView6"
+    <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="280dp"
         android:layout_height="300dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="100dp"
-        android:text="Dette er et tekst eksempel på hvordan at brugeren vil kunne læse beskederne som de får fra deres fysioterapeut."
-        android:textSize="16sp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar"
+        app:layout_constraintVertical_bias="0.447">
 
-    <TextView
-        android:id="@+id/textView7"
+        <TextView
+            android:id="@+id/besked"
+            android:layout_width="280dp"
+            android:layout_height="600dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="100dp"
+            android:text="Dette er et tekst eksempel på hvordan at brugeren vil kunne læse
+            beskederne som de får fra deres fysioterapeut."
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/besvarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="80dp"
-        android:text="besvar"
+        android:text="Besvar"
+        android:textAllCaps="false"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        app:layout_constraintVertical_bias="0.2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
