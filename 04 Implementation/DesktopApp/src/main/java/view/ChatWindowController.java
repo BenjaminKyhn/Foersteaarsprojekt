@@ -6,7 +6,6 @@ import domain.Chat;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
@@ -51,6 +49,7 @@ public class ChatWindowController {
         indlaesChats();
     }
 
+    /** @author Benjamin */
     public void indlaesChats() {
         aktivBruger = brugerFacade.getAktivBruger();
         chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
@@ -111,8 +110,9 @@ public class ChatWindowController {
             chatContainer.setStyle("-fx-border-color: gray");
 
             String besked = beskeder.get(i).getBesked();
+            String afsender = beskeder.get(i).getAfsender();
 
-            Label navnLabel = new Label("Kurt");
+            Label navnLabel = new Label(afsender);
             navnLabel.setStyle("-fx-font-weight: bold");
 
             Label beskedLabel = new Label(besked);
@@ -121,14 +121,13 @@ public class ChatWindowController {
             chatContainer.getChildren().addAll(navnLabel, beskedLabel);
             chatWindowMessageVBox.getChildren().add(chatContainer);
 
-            if (i % 2 == 0){
-                chatContainer.setPadding(new Insets(16,32, 16, 16));
+            chatContainer.setPadding(new Insets(16,16, 16, 16));
+
+            if (afsender.equals(aktivBruger.getNavn())){
+                VBox.setMargin(chatContainer, new Insets(8, 16, 8, 32));
             }
             else{
-                chatContainer.setPadding(new Insets(16,16, 16, 32));
-                navnLabel.setPrefWidth(546);
-                navnLabel.setTextAlignment(TextAlignment.RIGHT);
-                navnLabel.setAlignment(Pos.CENTER_RIGHT);
+                VBox.setMargin(chatContainer, new Insets(8, 32, 8, 16));
             }
         }
     }
