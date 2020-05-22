@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
-/**@author Kelvin**/
+
 public class LaesBeskedActivity extends AppCompatActivity {
 
     @Override

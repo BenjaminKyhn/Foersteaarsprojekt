@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/statusBar"
+        android:id="@+id/indbakkeBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
@@ -82,7 +82,7 @@
         android:text="Navn:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <EditText
         android:id="@+id/navnFelt"
@@ -94,7 +94,7 @@
         android:text="Navn skrives her..."
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <TextView
         android:id="@+id/emailRegister"
@@ -106,7 +106,7 @@
         android:text="Email:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <EditText
         android:id="@+id/emailFelt"
@@ -118,7 +118,7 @@
         android:text="Email skrives her..."
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <TextView
         android:id="@+id/passwordRegister"
@@ -130,7 +130,7 @@
         android:text="Password:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <EditText
         android:id="@+id/passwordFelt"
@@ -142,7 +142,7 @@
         android:text="Password skrives her..."
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <TextView
         android:id="@+id/gentagPasswordRegister"
@@ -154,7 +154,7 @@
         android:text="Gentag password:"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
     <EditText
         android:id="@+id/gentagPasswordFelt"
@@ -166,6 +166,6 @@
         android:text="Skriv password igen her..."
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
