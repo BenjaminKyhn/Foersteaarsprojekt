@@ -31,6 +31,10 @@ public class BeskedFacade {
         return beskedManager.hentChat(afsender, modtager, emne);
     }
 
+    public ArrayList<Chat> hentChatsMedNavn(String navn){
+        return beskedManager.hentChatsMedNavn(navn);
+    }
+
     public ArrayList<Besked> hentBeskeder(Chat chat){
         return beskedManager.hentBeskeder(chat);
     }

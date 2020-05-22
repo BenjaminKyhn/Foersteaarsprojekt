@@ -21,7 +21,7 @@ import java.io.IOException;
 
 /** @author Benjamin */
 public class StartController {
-    BrugerFacade brugerFacade = new BrugerFacade();
+    private BrugerFacade brugerFacade;
 
     @FXML
     private AnchorPane startAnchorPane;
@@ -32,10 +32,9 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
-    public StartController() throws IOException {
-    }
+    public void initialize() throws IOException {
+        brugerFacade = BrugerFacade.getInstance();
 
-    public void initialize() {
         /** Lav TextFields, Buttons, Labels og ImageView */
         TextField tfEmail = new TextField();
         TextField tfPassword = new TextField();

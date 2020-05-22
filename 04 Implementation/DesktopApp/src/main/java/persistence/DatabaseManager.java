@@ -77,7 +77,7 @@ public class DatabaseManager {
     }
 
     public ArrayList<Chat> hentChatsMedNavn(String navn){
-        ArrayList<Chat> chats = null;
+        ArrayList<Chat> chats = new ArrayList<>();
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
         Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
 

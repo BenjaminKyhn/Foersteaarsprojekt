@@ -1,24 +1,23 @@
 package view;
 
+import domain.Bruger;
+import domain.Chat;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import model.BeskedFacade;
+import model.BrugerFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ import java.util.ArrayList;
 /** @author Tommy og Patrick */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
+    private BrugerFacade brugerFacade;
     private ChatWindowChatController selectedChat;
 
     @FXML
@@ -37,40 +37,63 @@ public class ChatWindowController {
     @FXML
     private Circle chatUserPhotoCircle;
 
+    @FXML
+    private Button nyBeskedKnap;
+
     public void initialize() throws IOException {
-        BeskedFacade.getInstance();
+        beskedFacade = BeskedFacade.getInstance();
+        brugerFacade = BrugerFacade.getInstance();
 
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
+        indlaesChats();
 //        indlaesChats("Camilla Kron", "Rygskade", "");
-        indlaesChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
+//        indlaesChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
     }
 
-    public void indlaesChats(String navn, String emne, String picturePath) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-        ChatWindowChatController controller = loader.getController();
-        controller.getChatWindowChatName().setText(navn);
-        controller.getChatWindowChatSubject().setText(emne);
-        if (!picturePath.equals("")) {
-            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image(picturePath)));
-        } else {
-            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
-        }
-        chatWindowChatVBox.getChildren().add(root);
+    public void indlaesChats() {
+        Bruger aktivBruger = brugerFacade.getAktivBruger();
+        ArrayList<Chat> chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
 
-        controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
-            if (selectedChat != null) {
-                selectedChat.getChatWindowChatAnchorPane().setStyle(null);
+        for (int i = 0; i < chats.size(); i++) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException io) {
+                io.printStackTrace();
             }
-            controller.getChatWindowChatAnchorPane().setStyle("-fx-background-color: dodgerblue");
-            selectedChat = controller;
-//            showFakeMessages(name);
-        });
+
+            /** Hent controlleren */
+            ChatWindowChatController controller = loader.getController();
+
+            /** Vis det rigtige navn i chatvinduet */
+            if (chats.get(i).getAfsender().equals(aktivBruger.getNavn())){
+                controller.getChatWindowChatName().setText(chats.get(i).getModtager());
+            }
+            else
+                controller.getChatWindowChatName().setText(chats.get(i).getAfsender());
+
+            controller.getChatWindowChatSubject().setText(chats.get(i).getEmne());
+
+            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
+
+            chatWindowChatVBox.getChildren().add(root);
+
+            controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
+                if (selectedChat != null) {
+                    selectedChat.getChatWindowChatAnchorPane().setStyle(null);
+                }
+                controller.getChatWindowChatAnchorPane().setStyle("-fx-background-color: dodgerblue");
+                selectedChat = controller;
+            });
+        }
+
+//        if (!picturePath.equals("")) {
+//            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image(picturePath)));
+//        } else {
+//            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
+//        }
+
     }
 
     /**@author Benjamin*/
