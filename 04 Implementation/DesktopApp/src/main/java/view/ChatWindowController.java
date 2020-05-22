@@ -18,13 +18,14 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
+import model.BeskedFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /** @author Tommy og Patrick */
 public class ChatWindowController {
-
+    private BeskedFacade beskedFacade;
     private ChatWindowChatController selectedChat;
 
     @FXML
@@ -36,13 +37,15 @@ public class ChatWindowController {
     @FXML
     private Circle chatUserPhotoCircle;
 
-    public void initialize() {
+    public void initialize() throws IOException {
+        BeskedFacade.getInstance();
+
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
 //        indlaesChats("Camilla Kron", "Rygskade", "");
         indlaesChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
     }
 
-    public void indlaesChats(String name, String subject, String picturePath) {
+    public void indlaesChats(String navn, String emne, String picturePath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
         Parent root = null;
         try {
@@ -51,21 +54,22 @@ public class ChatWindowController {
             io.printStackTrace();
         }
         ChatWindowChatController controller = loader.getController();
-        controller.getChatWindowChatName().setText(name);
-        controller.getChatWindowChatSubject().setText(subject);
+        controller.getChatWindowChatName().setText(navn);
+        controller.getChatWindowChatSubject().setText(emne);
         if (!picturePath.equals("")) {
             controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image(picturePath)));
         } else {
             controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
         }
         chatWindowChatVBox.getChildren().add(root);
+
         controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
             if (selectedChat != null) {
                 selectedChat.getChatWindowChatAnchorPane().setStyle(null);
             }
             controller.getChatWindowChatAnchorPane().setStyle("-fx-background-color: dodgerblue");
             selectedChat = controller;
-            showFakeMessages(name);
+//            showFakeMessages(name);
         });
     }
 
