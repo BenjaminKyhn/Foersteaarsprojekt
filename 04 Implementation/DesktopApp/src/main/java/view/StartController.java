@@ -68,9 +68,17 @@ public class StartController {
         /** Sæt events på knapperne */
         btnLogInd.setOnAction(event -> {
             try {
+                if (tfEmail.getText().isEmpty()){
+                    logIndFejlPopup("Fejl: Emailfeltet er tomt");
+                    return;
+                }
+                if (tfPassword.getText().isEmpty()){
+                    logIndFejlPopup("Fejl: Passwordfeltet er tomt");
+                    return;
+                }
                 brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
             } catch (Exception e){
-                logIndFejlPopup("Fejl i log ind");
+                logIndFejlPopup("Fejl i logind");
             }
             if (brugerFacade.getAktivBruger() != null)
                 skiftTilMenuScene();
