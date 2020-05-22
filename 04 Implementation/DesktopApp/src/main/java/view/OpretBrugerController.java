@@ -120,7 +120,7 @@ public class OpretBrugerController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../PopupWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../OpretBrugerPopup.fxml"));
         try {
             root = fxmlLoader.load();
         }
@@ -131,11 +131,12 @@ public class OpretBrugerController {
 
         Scene popupScene = new Scene(root);
         Stage stage = new Stage();
+        stage.setTitle("Informationstekst");
         stage.setScene(popupScene);
         stage.show();
 
-        PopupWindowController popupWindowController = fxmlLoader.getController();
-        popupWindowController.getTxtLabel().setText(infoText);
+        OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
+        opretBrugerPopupController.getTxtLabel().setText(infoText);
     }
 
     public boolean tjekOmPasswordMatcher(String password1, String password2){
