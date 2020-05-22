@@ -3,7 +3,6 @@ package view;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,7 +27,7 @@ public class StartController {
     private AnchorPane startAnchorPane;
 
     @FXML
-    private ImageView startImageView;
+    private ImageView logoImageView;
 
     @FXML
     private GridPane startGridPane;
@@ -60,19 +59,19 @@ public class StartController {
         startGridPane.setAlignment(Pos.CENTER);
 
         /** Sæt startImageViews indstillinger */
-        startImageView.setImage(image);
+        logoImageView.setImage(image);
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            startImageView.setX(startAnchorPane.getWidth() / 2 - startImageView.getFitWidth() / 2);
+            logoImageView.setX(startAnchorPane.getWidth() / 2 - logoImageView.getFitWidth() / 2);
         };
         startAnchorPane.widthProperty().addListener(redraw);
 
         /** Sæt events på knapperne */
-        btLogin.setOnAction(event -> setSecondScene());
-        btCreateUser.setOnAction(event -> setCreateUserScene());
+        btLogin.setOnAction(event -> skiftTilMenuScene());
+        btCreateUser.setOnAction(event -> skiftTilOpretBrugerScene());
 //        btCreateUser.setOnAction(event -> brugerFacade.opretBruger());
     }
 
-    public void setSecondScene() {
+    public void skiftTilMenuScene() {
         /** Scene 2 */
         Parent secondPageLoader = null;
         try {
@@ -86,7 +85,7 @@ public class StartController {
         stage.setScene(secondScene);
     }
 
-    public void setCreateUserScene(){
+    public void skiftTilOpretBrugerScene(){
         /** Scene 2 */
         Parent secondPageLoader = null;
         try {

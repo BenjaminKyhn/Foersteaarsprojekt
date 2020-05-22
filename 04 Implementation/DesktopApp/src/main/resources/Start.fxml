@@ -9,7 +9,7 @@
    <children>
       <GridPane fx:id="startGridPane" layoutX="300.0" layoutY="255.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
       </GridPane>
-      <ImageView fx:id="startImageView" fitWidth="448.0" fitHeight="202.0">
+      <ImageView fx:id="logoImageView" fitWidth="448.0" fitHeight="202.0">
          <viewport>
             <Rectangle2D />
          </viewport>
