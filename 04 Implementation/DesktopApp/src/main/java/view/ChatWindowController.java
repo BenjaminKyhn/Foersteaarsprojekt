@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/** @author Tommy og Patrick */
 public class ChatWindowController {
 
     private ChatWindowChatController selectedChat;
@@ -176,6 +177,7 @@ public class ChatWindowController {
         }
     }
 
+    /** @author Tommy og Patrick */
     public void logOut() {
         Parent root = null;
         try {

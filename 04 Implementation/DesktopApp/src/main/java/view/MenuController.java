@@ -7,16 +7,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** @author Tommy og Patrick */
 public class MenuController {
 
     @FXML
-    private Label beskederLabel, navnLabel, mailLabel;
+    private AnchorPane menuAnchorPane;
+
+    @FXML
+    private Label beskederLabel, navnLabel, mailLabel, logUdLabel;
 
     @FXML
     private Circle FotoCircle;
@@ -30,6 +35,8 @@ public class MenuController {
 
         Image foto = new Image("Christian.png");
         FotoCircle.setFill(new ImagePattern(foto));
+
+        logUdLabel.setOnMouseClicked(event -> logOut());
 
         beskederLabel.setOnMouseClicked(event -> nextScene());
 
@@ -47,5 +54,21 @@ public class MenuController {
         Scene scene = new Scene(root);
         Stage stage = (Stage) logoImageView.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    /** @author Benjamin */
+    public void logOut() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene secondScene = new Scene(root);
+
+        Stage stage = (Stage) menuAnchorPane.getScene().getWindow();
+        stage.setScene(secondScene);
     }
 }

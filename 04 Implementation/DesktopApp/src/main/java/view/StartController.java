@@ -15,10 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-/**
- * @author Benjamin
- */
-
+/** @author Benjamin */
 public class StartController {
     @FXML
     private AnchorPane startAnchorPane;

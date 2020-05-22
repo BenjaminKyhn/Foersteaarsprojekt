@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
+<AnchorPane fx:id="menuAnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
    <Rectangle arcHeight="5.0" arcWidth="5.0" height="188.0" layoutX="-4.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="395.0" AnchorPane.leftAnchor="0.0">
       <fill>
          <LinearGradient endX="0.4047619047619048" endY="0.10952380952380952" startX="0.3714285714285714" startY="0.9">
@@ -55,7 +55,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label prefHeight="27.0" prefWidth="73.0" text="Log ud">
+      <Label fx:id="logUdLabel" prefHeight="27.0" prefWidth="73.0" text="Log ud">
          <font>
             <Font size="18.0" />
          </font>
