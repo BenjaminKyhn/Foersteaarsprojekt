@@ -7,6 +7,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 
+/** @author Tommy **/
 public class ObserverbarListe<E> extends ArrayList<E> {
     private PropertyChangeSupport support;
 
