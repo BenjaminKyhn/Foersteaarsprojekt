@@ -49,8 +49,6 @@ public class ChatWindowController {
 
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
         indlaesChats();
-//        indlaesChats("Camilla Kron", "Rygskade", "");
-//        indlaesChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
     }
 
     public void indlaesChats() {
@@ -132,106 +130,6 @@ public class ChatWindowController {
                 navnLabel.setTextAlignment(TextAlignment.RIGHT);
                 navnLabel.setAlignment(Pos.CENTER_RIGHT);
             }
-        }
-    }
-
-    /**@author Benjamin*/
-    public void showFakeMessages(String name) {
-        /** Non-dynamic method */
-        if (name.equals("Camilla Kron")) {
-            chatWindowMessageVBox.getChildren().clear();
-            chatWindowMessageVBox.setSpacing(2);
-            VBox chatContainer = new VBox();
-            chatContainer.setStyle("-fx-border-color: gray");
-            chatContainer.setPadding(new Insets(16,32, 16, 16));
-
-            Label label = new Label(name);
-            label.setStyle("-fx-font-weight: bold");
-            chatContainer.getChildren().add(label);
-            Label message = new Label("Hej Christian. Jeg har her i den sidste " +
-                    "måned udviklet nogle forfærdelige rygsmerter, " +
-                    "der efterhånden er begyndt at hindre mig i at " +
-                    "udføre mit arbejde. Kan du give mig nogle " +
-                    "øvelser, der kan afhjælpe mit problem? Det " +
-                    "må simplethen stoppe nu!");
-            message.setWrapText(true);
-            chatContainer.getChildren().add(message);
-            chatWindowMessageVBox.getChildren().add(chatContainer);
-
-            VBox chatContainer2 = new VBox();
-            chatContainer2.setStyle("-fx-border-color: gray");
-            chatContainer2.setPadding(new Insets(16, 16, 16, 32));
-            Label label2 = new Label("Christian");
-            label2.setPrefWidth(546);
-            label2.setTextAlignment(TextAlignment.RIGHT);
-            label2.setAlignment(Pos.CENTER_RIGHT);
-            label2.setStyle("-fx-font-weight: bold");
-            chatContainer2.getChildren().add(label2);
-            Label message2 = new Label("Hej Camilla. Jeg har " +
-                    "fundet et program til dig, som du skal bruge " +
-                    "3 gange om ugen. Du kan se programmet, hvis du " +
-                    "går til menuen og vælger træningsprogam. " +
-                    "God bedring.");
-            message2.setWrapText(true);
-            chatContainer2.getChildren().add(message2);
-
-            chatWindowMessageVBox.getChildren().add(chatContainer2);
-
-//            chatWindowMessageGridPane.setGridLinesVisible(true);
-        }
-
-        /** Dynamic method */
-        if (name.equals("Karsten Wiren")) {
-//            ArrayList<Label> messages = new ArrayList<>();
-//            messages.add(new Label("Hej Camilla, som vi talte om forleden\n " +
-//                    "mht dine smerter i lænden, er det som sagt\n" +
-//                    "kritis for din helbreden, at du \n" +
-//                    "gennemfører det udleverede program.\n" +
-//                    "Rigtig god vind og hæng i!\n" +
-//                    "\n" +
-//                    "Venlig hilsen, Christian Fys.\n"
-//                    +
-//                    "\n Sendt d. 29-05-2020"));
-            chatWindowMessageVBox.getChildren().clear();
-            chatWindowMessageVBox.setSpacing(2);
-            VBox chatContainer = new VBox();
-            chatContainer.setStyle("-fx-border-color: gray");
-            chatContainer.setPadding(new Insets(16,32, 16, 16));
-
-            Label label = new Label(name);
-            label.setStyle("-fx-font-weight: bold");
-            chatContainer.getChildren().add(label);
-            Label message = new Label("Hej Christian, jeg har gennemført det program, du gav mig" + " " +
-                    "til nakke og skulder." + " " +
-                    "Jeg er løbet ind i udfordringer, da jeg ikke føler min skulder er smedig nok" + " " +
-                    "til mange af øvelserne." + " " +
-                    "\n" + " " +
-                    "\nHilsen Karsten" +
-                    "\nSendt d. 29-05-2020");
-            message.setWrapText(true);
-            chatContainer.getChildren().add(message);
-            chatWindowMessageVBox.getChildren().add(chatContainer);
-
-            VBox chatContainer2 = new VBox();
-            chatContainer2.setStyle("-fx-border-color: gray");
-            chatContainer2.setPadding(new Insets(16, 16, 16, 32));
-            Label label2 = new Label("Christian");
-            label2.setPrefWidth(546);
-            label2.setTextAlignment(TextAlignment.RIGHT);
-            label2.setAlignment(Pos.CENTER_RIGHT);
-            label2.setStyle("-fx-font-weight: bold");
-            chatContainer2.getChildren().add(label2);
-            Label message2 = new Label("Hej Karsten, godt at høre du har fuldført programmet! " +
-                    "mht. den manglende smedighed, har jeg sendt nogle alternative " +
-                    "skulderøvelser til din privat mail. Prøv dem af og hvis, du undgår " +
-                    "ubehagen, så forsætter du med dem." +
-                    "\n" + " " +
-                    "\nVenlig hilsen, Christian Iuul" +
-                    "\nSendt d. 30-05-2020");
-            message2.setWrapText(true);
-            chatContainer2.getChildren().add(message2);
-
-            chatWindowMessageVBox.getChildren().add(chatContainer2);
         }
     }
 
