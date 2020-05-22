@@ -1,16 +1,29 @@
 package com.example.android.androidapp.domain;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /** @author Tommy **/
 public class Chat {
+    private PropertyChangeSupport support;
+
     private String afsender;
     private String modtager;
     private String emne;
-    private ArrayList<Besked> beskeder;
+    private ArrayList<Besked> beskeder = new ArrayList<>();
+
+    public Chat() {
+        support = new PropertyChangeSupport(this);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener propertyChangeListener) {
+        support.addPropertyChangeListener(propertyChangeListener);
+    }
 
     public void tilfoejBesked(Besked besked) {
         beskeder.add(besked);
+        support.firePropertyChange("nyBesked", null, this);
     }
 
     public String getAfsender() {

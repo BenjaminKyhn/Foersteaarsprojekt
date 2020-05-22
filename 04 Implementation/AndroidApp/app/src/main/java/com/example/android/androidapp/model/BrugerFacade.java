@@ -9,10 +9,16 @@ import com.example.android.androidapp.model.exceptions.TomEmailException;
 import com.example.android.androidapp.model.exceptions.TomNavnException;
 import com.example.android.androidapp.model.exceptions.TomPasswordException;
 
+import java.util.List;
+
 /** @author Tommy **/
 public class BrugerFacade {
     private BrugerManager brugerManager = new BrugerManager();
-    private Validering validering = new Validering();
+    private Validering validering;
+
+    public BrugerFacade(List<Bruger> brugere) {
+        validering = new Validering(brugere);
+    }
 
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         validering.tjekEmail(email);
