@@ -81,10 +81,10 @@
         android:text="Log ind"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintHorizontal_bias="0.174"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
-        app:layout_constraintVertical_bias="0.517" />
+        app:layout_constraintTop_toBottomOf="@+id/statusBar"
+        app:layout_constraintVertical_bias="0.17" />
 
     <Button
         android:id="@+id/opretbruger"
@@ -94,21 +94,20 @@
         android:text="opret bruger"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.678"
-        app:layout_constraintStart_toEndOf="@+id/logind"
-        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
-        app:layout_constraintVertical_bias="0.517" />
+        app:layout_constraintHorizontal_bias="0.839"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusBar"
+        app:layout_constraintVertical_bias="0.169" />
 
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="299dp"
         android:layout_height="334dp"
-        android:layout_marginTop="60dp"
         android:background="@color/colorForsideBar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintTop_toBottomOf="@+id/statusBar"
         app:layout_constraintVertical_bias="0.708">
 
         <LinearLayout
@@ -120,20 +119,18 @@
                 android:id="@+id/headline1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Proffesionel og personlig pleje"
-                android:textStyle="bold"
                 android:layout_marginLeft="10dp"
+                android:text="Proffesionel og personlig pleje"
                 android:textFontWeight="1"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tekst1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
                 android:layout_marginLeft="10dp"
-                android:text=
-                    "Klinikken på Rosensørs alle 41 flytter \ntil J.M. Thielesvej 1A.
+                android:text="Klinikken på Rosensørs alle 41 flytter \ntil J.M. Thielesvej 1A.
                     \n\n5. Maj slår Frederiksberg Sportsklinik, fysioterapi
                     \nog skadesbehandling dørene op på J.M. Thielesvej.
                     \nVi har fået mulighed for at flytte i nye,
@@ -163,14 +160,14 @@
                     \n dummy teeeeeekst, 4 view!!
                     \n dummy teeeeeekst, 4 view!!
                     \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!"/>
+                    \n dummy teeeeeekst, 4 view!!"
+                android:textSize="12dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
-                app:srcCompat="@drawable/thielesvej3"
-                />
+                app:srcCompat="@drawable/thielesvej3" />
         </LinearLayout>
     </ScrollView>
 
@@ -196,7 +193,7 @@
         app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forsideButton"
-        app:layout_constraintVertical_bias="0.461"
+        app:layout_constraintVertical_bias="0.028"
         app:srcCompat="@drawable/ic_menu_24px" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,16 +17,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        configureNextButton();
+        configureLogindButton();
         configureNyBeskedButton();
         configureBurgerButton();
+        configureOpretBrugerButton();
     }
-    private void configureNextButton() {
+    private void configureLogindButton() {
         Button changeActivityButton = findViewById(R.id.logind);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            }
+        });
+    }
+    private void configureOpretBrugerButton() {
+        Button changeActivityButton = findViewById(R.id.opretbruger);
+        changeActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, OpretBrugerActivity.class));
             }
         });
     }
