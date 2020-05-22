@@ -13,10 +13,18 @@ import java.util.ArrayList;
 public class BeskedFacade {
     private BeskedManager beskedManager;
     private Validering validering;
+    private static BeskedFacade beskedFacade;
 
     public BeskedFacade() throws IOException {
         beskedManager = new BeskedManager();
         validering = new Validering();
+    }
+
+    public static synchronized BeskedFacade getInstance() throws IOException {
+        if (beskedFacade == null){
+            beskedFacade = new BeskedFacade();
+        }
+        return beskedFacade;
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){

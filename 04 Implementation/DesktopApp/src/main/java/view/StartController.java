@@ -76,6 +76,7 @@ public class StartController {
                     logIndFejlPopup("Fejl: Passwordfeltet er tomt");
                     return;
                 }
+                //TODO: Lav exception, hvis passwordet ikke matcher det password, der er i databasen
                 brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
             } catch (Exception e){
                 logIndFejlPopup("Fejl i logind");

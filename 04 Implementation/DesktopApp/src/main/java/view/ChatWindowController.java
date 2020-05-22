@@ -36,18 +36,13 @@ public class ChatWindowController {
     @FXML
     private Circle chatUserPhotoCircle;
 
-    @FXML
-    private ImageView logoImageView;
-
     public void initialize() {
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
-        Image logo = new Image("Logo.jpg");
-        logoImageView.setImage(logo);
-        createDummyChats("Camilla Kron", "Rygskade", "");
-        createDummyChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
+//        indlaesChats("Camilla Kron", "Rygskade", "");
+        indlaesChats("Karsten Wiren", "Træningsvideo feedback", "Karsten.png");
     }
 
-    public void createDummyChats(String name, String subject, String picturePath) {
+    public void indlaesChats(String name, String subject, String picturePath) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
         Parent root = null;
         try {
