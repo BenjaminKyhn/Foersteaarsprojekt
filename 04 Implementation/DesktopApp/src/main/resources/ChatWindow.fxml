@@ -54,12 +54,12 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Gå til hovedmenuen" onAction="#toMainMenu" />
+                    <MenuItem mnemonicParsing="false" text="Gå til hovedmenuen" onAction="#tilHovedmenu" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
-            <Button layoutX="714.0" mnemonicParsing="false" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#logOut"/>
+            <Button layoutX="714.0" mnemonicParsing="false" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#logUd"/>
          </children>
       </AnchorPane>
    </children>

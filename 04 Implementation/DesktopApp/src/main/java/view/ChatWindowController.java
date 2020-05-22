@@ -21,7 +21,9 @@ import model.BrugerFacade;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/** @author Tommy og Patrick */
+/**
+ * @author Tommy og Patrick
+ */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
@@ -49,7 +51,9 @@ public class ChatWindowController {
         indlaesChats();
     }
 
-    /** @author Benjamin */
+    /**
+     * @author Benjamin
+     */
     public void indlaesChats() {
         aktivBruger = brugerFacade.getAktivBruger();
         chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
@@ -68,15 +72,14 @@ public class ChatWindowController {
             ChatWindowChatController controller = loader.getController();
 
             /** Vis det rigtige navn i chatvinduet */
-            if (chats.get(i).getAfsender().equals(aktivBruger.getNavn())){
-                controller.getChatWindowChatName().setText(chat.getModtager());
-            }
-            else
-                controller.getChatWindowChatName().setText(chat.getAfsender());
+            if (chats.get(i).getAfsender().equals(aktivBruger.getNavn())) {
+                controller.getChatWindowChatNavn().setText(chat.getModtager());
+            } else
+                controller.getChatWindowChatNavn().setText(chat.getAfsender());
 
-            controller.getChatWindowChatSubject().setText(chat.getEmne());
+            controller.getChatWindowChatEmne().setText(chat.getEmne());
 
-            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
+            controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
 
             chatWindowChatVBox.getChildren().add(root);
 
@@ -98,7 +101,7 @@ public class ChatWindowController {
 
     }
 
-    public void visBeskeder(Chat chat){
+    public void visBeskeder(Chat chat) {
         aktivBruger = brugerFacade.getAktivBruger();
         ArrayList<Besked> beskeder = chat.getBeskeder();
 
@@ -121,24 +124,30 @@ public class ChatWindowController {
             chatContainer.getChildren().addAll(navnLabel, beskedLabel);
             chatWindowMessageVBox.getChildren().add(chatContainer);
 
-            chatContainer.setPadding(new Insets(16,16, 16, 16));
+            chatContainer.setPadding(new Insets(16, 16, 16, 16));
 
-            if (afsender.equals(aktivBruger.getNavn())){
-                VBox.setMargin(chatContainer, new Insets(8, 16, 8, 32));
-            }
-            else{
-                VBox.setMargin(chatContainer, new Insets(8, 32, 8, 16));
+            if (afsender.equals(aktivBruger.getNavn())) {
+                if (i == 0)
+                    VBox.setMargin(chatContainer, new Insets(16, 16, 8, 32));
+                else
+                    VBox.setMargin(chatContainer, new Insets(8, 16, 8, 32));
+            } else {
+                if (i == 0)
+                    VBox.setMargin(chatContainer, new Insets(16, 32, 8, 16));
+                else
+                    VBox.setMargin(chatContainer, new Insets(8, 32, 8, 16));
             }
         }
     }
 
-    /** @author Tommy og Patrick */
-    public void logOut() {
+    /**
+     * @author Tommy og Patrick
+     */
+    public void logUd() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert root != null;
@@ -148,12 +157,11 @@ public class ChatWindowController {
         stage.setScene(secondScene);
     }
 
-    public void toMainMenu() {
+    public void tilHovedmenu() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert root != null;
