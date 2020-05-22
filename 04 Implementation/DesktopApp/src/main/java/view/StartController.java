@@ -16,9 +16,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.BrugerFacade;
+
+import java.io.IOException;
 
 /** @author Benjamin */
 public class StartController {
+    BrugerFacade brugerFacade = new BrugerFacade();
+
     @FXML
     private AnchorPane startAnchorPane;
 
@@ -28,8 +33,11 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
+    public StartController() throws IOException {
+    }
+
     public void initialize() {
-        // Create TextFields, Labels, Buttons and Images
+        /** Lav TextFields, Buttons, Labels og ImageView */
         TextField tfUsername = new TextField();
         TextField tfPassword = new TextField();
         Label lblUsername = new Label("Bruger:");
@@ -41,7 +49,7 @@ public class StartController {
         buttonHolder.getChildren().addAll(btLogin, btCreateUser);
         Image image = new Image("Logo2x.png");
 
-        // Set the properties of the GridPane
+        /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
         startGridPane.setVgap(10);
         startGridPane.add(lblUsername, 0, 0);
@@ -51,23 +59,38 @@ public class StartController {
         startGridPane.add(buttonHolder, 1, 2);
         startGridPane.setAlignment(Pos.CENTER);
 
-        // Create an ImageView and set its properties
+        /** Sæt startImageViews indstillinger */
         startImageView.setImage(image);
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             startImageView.setX(startAnchorPane.getWidth() / 2 - startImageView.getFitWidth() / 2);
         };
         startAnchorPane.widthProperty().addListener(redraw);
 
-        btLogin.setOnAction(event -> {
-            setSecondScene();
-        });
+        /** Sæt events på knapperne */
+        btLogin.setOnAction(event -> setSecondScene());
+        btCreateUser.setOnAction(event -> setCreateUserScene());
+//        btCreateUser.setOnAction(event -> brugerFacade.opretBruger());
     }
 
     public void setSecondScene() {
-        // Scene 2
+        /** Scene 2 */
         Parent secondPageLoader = null;
         try {
             secondPageLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+        }
+        catch (Exception e){
+        }
+        Scene secondScene = new Scene(secondPageLoader);
+
+        Stage stage = (Stage) startAnchorPane.getScene().getWindow();
+        stage.setScene(secondScene);
+    }
+
+    public void setCreateUserScene(){
+        /** Scene 2 */
+        Parent secondPageLoader = null;
+        try {
+            secondPageLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
         }
         catch (Exception e){
         }

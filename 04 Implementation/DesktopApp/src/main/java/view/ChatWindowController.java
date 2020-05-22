@@ -31,9 +31,6 @@ public class ChatWindowController {
     private VBox chatWindowChatVBox;
 
     @FXML
-    private GridPane chatWindowMessageGridPane;
-
-    @FXML
     private VBox chatWindowMessageVBox;
 
     @FXML

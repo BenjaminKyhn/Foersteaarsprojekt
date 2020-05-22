@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-/**
- * @author Benjamin
- */
+/** @author Benjamin */
 public class DatabaseManager {
     private static DatabaseManager databaseManager; /** static, så vi altid kan få fat i den sammme DatabaseManager */
     private Firestore firestore;

@@ -16,7 +16,6 @@ import java.io.IOException;
 
 /** @author Tommy og Patrick */
 public class MenuController {
-
     @FXML
     private AnchorPane menuAnchorPane;
 
