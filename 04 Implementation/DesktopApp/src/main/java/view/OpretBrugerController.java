@@ -48,7 +48,7 @@ public class OpretBrugerController {
     Image image = new Image("Logo2x.png");
 
     public void initialize() throws IOException {
-        brugerFacade = new BrugerFacade();
+        brugerFacade = BrugerFacade.getInstance();
 
         buttonHolder.setSpacing(17);
         buttonHolder.getChildren().addAll(btnTilbage, btnOpretBruger);
@@ -81,6 +81,10 @@ public class OpretBrugerController {
                 brugerFacade.tjekNavn(tfBrugernavn.getText());
                 brugerFacade.tjekEmail(tfEmail.getText());
                 brugerFacade.tjekPassword(tfPassword.getText());
+                if (!tjekOmPasswordMatcher(tfPassword.getText(), tfGentagPassword.getText())){
+                    popupWindow("Fej: Password matcher ikke");
+                    return;
+                }
                 brugerFacade.opretBruger(tfBrugernavn.getText(), tfEmail.getText(), tfPassword.getText());
                 popupWindow("Brugeren er oprettet");
             } catch (TomNavnException tne){
@@ -132,5 +136,12 @@ public class OpretBrugerController {
 
         PopupWindowController popupWindowController = fxmlLoader.getController();
         popupWindowController.getTxtLabel().setText(infoText);
+    }
+
+    public boolean tjekOmPasswordMatcher(String password1, String password2){
+        boolean matcher = false;
+        if (password1.equals(password2))
+            matcher = true;
+        return matcher;
     }
 }

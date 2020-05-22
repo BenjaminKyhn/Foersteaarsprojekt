@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 /** @author Benjamin */
 public class BrugerManager {
     private DatabaseManager databaseManager;
+
     private Bruger aktivBruger;
 
     public BrugerManager() throws IOException {
@@ -56,5 +57,9 @@ public class BrugerManager {
             e.printStackTrace();
         }
         return sha256hex;
+    }
+
+    public Bruger getAktivBruger() {
+        return aktivBruger;
     }
 }
