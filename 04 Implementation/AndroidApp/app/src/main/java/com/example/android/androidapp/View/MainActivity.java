@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         configureNextButton();
         configureNyBeskedButton();
+        configureBurgerButton();
     }
     private void configureNextButton() {
         Button changeActivityButton = findViewById(R.id.logind);

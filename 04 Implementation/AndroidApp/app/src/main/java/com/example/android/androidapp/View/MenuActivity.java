@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.android.androidapp.R;
 
@@ -16,6 +17,7 @@ public class MenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         configureIndbakkeButton();
+        configureBurgerButton();
     }
     private void configureIndbakkeButton() {
         Button changeActivityButton = findViewById(R.id.BeskederButton);
@@ -23,6 +25,15 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MenuActivity.this, indbakkeActivity.class));
+            }
+        });
+    }
+    private void configureBurgerButton() {
+        ImageView changeActivityButton = findViewById(R.id.burgerMenu);
+        changeActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MenuActivity.this, NaviView.class));
             }
         });
     }

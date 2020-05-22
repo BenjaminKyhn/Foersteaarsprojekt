@@ -13,4 +13,5 @@ public class BesvarBeskedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_besvar_besked);
     }
+
 }
