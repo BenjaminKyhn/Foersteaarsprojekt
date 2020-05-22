@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorFRBLogo">#0B104A</color>
+    <color name="colorBlackTrans20">#33000000</color>
+    <color name="colorTrueBlack">#000000</color>
+    <color name="colorForsideBar">#F3F3F3</color>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="Maroon_color">#800000</color>
+    <color name="Magnenta_color">#FF00FF</color>
+    <color name="LightSteelBlue_color">#B0C4DE</color>
+    <color name="PowderBlue_color">#B0E0E7</color>
+    <color name="MidnightBlue_color">#191970</color>
+    <color name="FireBrick_color">#B22222</color>
+    <color name="FloralWhite_color">#FFFAF0</color>
+    <color name="DeepPink_color">#FF1493</color>
+    <color name="Gold_color">#FFD700</color>
+    <color name="Tomato_color">#FF6347</color>
+    <color name="Wheat_color">#F5DEB3</color>
+    <color name="SkyBlue_color">#87CEEB</color>
+    <color name="Purple_color">#800080</color>
+    <color name="RebeccaPurple_color">#663399</color>
+    <color name="LimeGreen_color">#32CD32</color>
+    <color name="DarkMagenta_color">#8B008B</color>
+    <color name="CornFlowerBlue_color">#6495ED</color>
+    <color name="LemonChiffon_color">#FFFACD</color>
 </resources>

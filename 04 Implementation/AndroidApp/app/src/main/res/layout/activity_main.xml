@@ -4,15 +4,185 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".View.MainActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="532dp"
+        android:background="@color/colorFRBLogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+    <Button
+        android:id="@+id/forsideButton"
+        android:layout_width="420dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="340dp"
+        android:background="@color/colorForsideBar"
+        android:gravity="center_horizontal"
+        android:maxHeight="35dip"
+        android:minHeight="5dip"
+        android:text=""
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="Velkommen"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.014" />
+
+    <View
+        android:id="@+id/strokeDesign1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorBlackTrans20"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusBar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/tempTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="NyBesked"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.048" />
+
+
+    <Button
+        android:id="@+id/logind"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorForsideBar"
+        android:text="Log ind"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <Button
+        android:id="@+id/opretbruger"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorForsideBar"
+        android:text="opret bruger"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.678"
+        app:layout_constraintStart_toEndOf="@+id/logind"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.517" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="299dp"
+        android:layout_height="334dp"
+        android:layout_marginTop="60dp"
+        android:background="@color/colorForsideBar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
+        app:layout_constraintVertical_bias="0.708">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headline1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Proffesionel og personlig pleje"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:textFontWeight="1"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/tekst1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:layout_marginLeft="10dp"
+                android:text=
+                    "Klinikken på Rosensørs alle 41 flytter \ntil J.M. Thielesvej 1A.
+                    \n\n5. Maj slår Frederiksberg Sportsklinik, fysioterapi
+                    \nog skadesbehandling dørene op på J.M. Thielesvej.
+                    \nVi har fået mulighed for at flytte i nye,
+                    \nbedre og større lokaler.
+                    \nVi glæder os til at kunne tilbyde dig omgivelser,
+                    \nsom er på niveau med voresfaglighed og vores \nbehandlinger.
+
+                    \n\nHos os er Alle velkomne!
+                    \n\nVi tilbyder forskellige behandlingsformer
+                    \nsamt tilpasser altid behandlingen efter netop dine behov.
+                    \n\nVi har praktiseret siden 1995 og har i dag tre afdelinger for hhv. massage, fysioterapi
+                    \nsamt erhverv.
+                    \nVælg i menuen eller herunder for at se mere om
+                    \nvores specialer.
+                    \n\nEr du i tvivl eller har du spørgsmål, er du altid
+                    \nvelkommen til at kontakte os.
+                    \n\n\n\n\n\n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!
+                    \n dummy teeeeeekst, 4 view!!"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="35dp"
+                app:srcCompat="@drawable/thielesvej3"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:id="@+id/bottomStroke"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@color/colorFRBLogo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        app:layout_constraintVertical_bias="0.964" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
