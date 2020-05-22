@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/menuBar"
+        android:id="@+id/statusBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
@@ -64,36 +64,44 @@
         android:id="@+id/bookingButton"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginTop="110dp"
         android:text="Booking"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1" />
+        app:layout_constraintTop_toBottomOf="@+id/statusBar"
+        app:layout_constraintVertical_bias="0.2" />
 
     <Button
         android:id="@+id/kalenderButton"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="48dp"
         android:text="Kalender"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookingButton" />
+        app:layout_constraintTop_toBottomOf="@+id/bookingButton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/BeskederButton"
         android:layout_width="300dp"
         android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="128dp"
         android:text="Beskeder"
         android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/kalenderButton" />
+        app:layout_constraintTop_toBottomOf="@+id/kalenderButton"
+        app:layout_constraintVertical_bias="1.0" />
+
     <View
         android:id="@+id/bottomStroke"
         android:layout_width="match_parent"
@@ -105,5 +113,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:layout_constraintVertical_bias="0.964" />
+
+    <ImageView
+        android:id="@+id/burgerMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forsideButton"
+        app:layout_constraintVertical_bias="0.029"
+        app:srcCompat="@drawable/ic_menu_24px" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
