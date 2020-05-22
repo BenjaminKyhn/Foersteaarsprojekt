@@ -13,11 +13,12 @@ import java.util.List;
 
 /** @author Tommy **/
 public class BrugerFacade {
-    private BrugerManager brugerManager = new BrugerManager();
+    private BrugerManager brugerManager;
     private Validering validering;
 
     public BrugerFacade(List<Bruger> brugere) {
         validering = new Validering(brugere);
+        brugerManager = new BrugerManager(brugere);
     }
 
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {

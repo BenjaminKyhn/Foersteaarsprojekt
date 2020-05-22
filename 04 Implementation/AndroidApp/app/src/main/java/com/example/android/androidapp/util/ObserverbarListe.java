@@ -1,4 +1,4 @@
-package com.example.android.androidapp.domain;
+package com.example.android.androidapp.util;
 
 
 
@@ -7,7 +7,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class ObserverbarListe extends ArrayList {
+public class ObserverbarListe<E> extends ArrayList<E> {
     private PropertyChangeSupport support;
 
     public ObserverbarListe(int initialCapacity) {
@@ -20,8 +20,7 @@ public class ObserverbarListe extends ArrayList {
         tilfoejSupport();
     }
 
-    @SuppressWarnings("unchecked")
-    public ObserverbarListe(Collection c) {
+    public ObserverbarListe(Collection<? extends E> c) {
         super(c);
         tilfoejSupport();
     }
@@ -39,14 +38,13 @@ public class ObserverbarListe extends ArrayList {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public boolean add(Object o) {
-        support.firePropertyChange("nyAddition", null, o);
-        return super.add(o);
+    public boolean add(E e) {
+        support.firePropertyChange("nyAddition", null, e);
+        return super.add(e);
     }
 
     @Override
-    public Object remove(int index) {
+    public E remove(int index) {
         support.firePropertyChange("nySletningIndex", null, index);
         return super.remove(index);
     }
@@ -55,5 +53,10 @@ public class ObserverbarListe extends ArrayList {
     public boolean remove(Object o) {
         support.firePropertyChange("nySletningObjekt", null, o);
         return super.remove(o);
+    }
+
+    @Override
+    public E get(int index) {
+        return super.get(index);
     }
 }
