@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.android.androidapp.R;
-
+/**@author Kelvin**/
 public class BesvarBeskedActivity extends AppCompatActivity {
 
     @Override
