@@ -66,7 +66,15 @@ public class StartController {
         startAnchorPane.widthProperty().addListener(redraw);
 
         /** Sæt events på knapperne */
-        btnLogInd.setOnAction(event -> brugerFacade.logInd(tfEmail.getText(), tfPassword.getText()));
+        btnLogInd.setOnAction(event -> {
+            try {
+                brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
+            } catch (Exception e){
+                logIndFejlPopup("Fejl i log ind");
+            }
+            if (brugerFacade.getAktivBruger() != null)
+                skiftTilMenuScene();
+        });
         btnOpretBruger.setOnAction(event -> skiftTilOpretBrugerScene());
     }
 
@@ -96,5 +104,26 @@ public class StartController {
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
         stage.setScene(secondScene);
+    }
+
+    public void logIndFejlPopup(String infoText) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../LogIndPopup.fxml"));
+        try {
+            root = fxmlLoader.load();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Fejlbesked");
+        stage.setScene(popupScene);
+        stage.show();
+
+        OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
+        opretBrugerPopupController.getTxtLabel().setText(infoText);
     }
 }

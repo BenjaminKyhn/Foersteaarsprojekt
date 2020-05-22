@@ -131,7 +131,7 @@ public class OpretBrugerController {
 
         Scene popupScene = new Scene(root);
         Stage stage = new Stage();
-        stage.setTitle("Informationstekst");
+        stage.setTitle("Infoboks");
         stage.setScene(popupScene);
         stage.show();
 
