@@ -37,22 +37,22 @@ public class StartController {
 
     public void initialize() {
         /** Lav TextFields, Buttons, Labels og ImageView */
-        TextField tfUsername = new TextField();
+        TextField tfEmail = new TextField();
         TextField tfPassword = new TextField();
-        Label lblUsername = new Label("Bruger:");
+        Label lblEmail = new Label("Email:");
         Label lblPassword = new Label("Password:");
         HBox buttonHolder = new HBox();
-        Button btLogin = new Button("Log ind");
-        Button btCreateUser = new Button("Opret Bruger");
+        Button btnLogInd = new Button("Log ind");
+        Button btnOpretBruger = new Button("Opret Bruger");
         buttonHolder.setSpacing(17);
-        buttonHolder.getChildren().addAll(btLogin, btCreateUser);
+        buttonHolder.getChildren().addAll(btnLogInd, btnOpretBruger);
         Image image = new Image("Logo2x.png");
 
         /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
         startGridPane.setVgap(10);
-        startGridPane.add(lblUsername, 0, 0);
-        startGridPane.add(tfUsername, 1, 0);
+        startGridPane.add(lblEmail, 0, 0);
+        startGridPane.add(tfEmail, 1, 0);
         startGridPane.add(lblPassword, 0, 1);
         startGridPane.add(tfPassword, 1, 1);
         startGridPane.add(buttonHolder, 1, 2);
@@ -66,9 +66,8 @@ public class StartController {
         startAnchorPane.widthProperty().addListener(redraw);
 
         /** Sæt events på knapperne */
-        btLogin.setOnAction(event -> skiftTilMenuScene());
-        btCreateUser.setOnAction(event -> skiftTilOpretBrugerScene());
-//        btCreateUser.setOnAction(event -> brugerFacade.opretBruger());
+        btnLogInd.setOnAction(event -> brugerFacade.logInd(tfEmail.getText(), tfPassword.getText()));
+        btnOpretBruger.setOnAction(event -> skiftTilOpretBrugerScene());
     }
 
     public void skiftTilMenuScene() {

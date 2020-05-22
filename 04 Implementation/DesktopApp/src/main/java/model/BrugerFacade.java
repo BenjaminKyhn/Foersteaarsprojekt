@@ -43,6 +43,10 @@ public class BrugerFacade {
         brugerManager.sletBruger(bruger, password);
     }
 
+    public void logInd(String email, String password){
+        brugerManager.logInd(email, password);
+    }
+
     public Bruger getAktivBruger(){
         return brugerManager.getAktivBruger();
     }
