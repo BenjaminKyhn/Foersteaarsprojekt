@@ -3,6 +3,7 @@ package view;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 /** @author Benjamin */
@@ -32,7 +34,11 @@ public class StartController {
         TextField tfPassword = new TextField();
         Label lblUsername = new Label("Bruger:");
         Label lblPassword = new Label("Kodeord:");
+        HBox buttonHolder = new HBox();
         Button btLogin = new Button("Login");
+        Button btCreateUser = new Button("Opret Bruger");
+        buttonHolder.setSpacing(17);
+        buttonHolder.getChildren().addAll(btLogin, btCreateUser);
         Image image = new Image("Logo2x.png");
 
         // Set the properties of the GridPane
@@ -42,7 +48,7 @@ public class StartController {
         startGridPane.add(tfUsername, 1, 0);
         startGridPane.add(lblPassword, 0, 1);
         startGridPane.add(tfPassword, 1, 1);
-        startGridPane.add(btLogin, 1, 2);
+        startGridPane.add(buttonHolder, 1, 2);
         startGridPane.setAlignment(Pos.CENTER);
 
         // Create an ImageView and set its properties
