@@ -87,6 +87,8 @@ public class DatabaseManager {
                 for (int i = 0; i < querySnapshot1.size(); i++) {
                     QueryDocumentSnapshot qds = querySnapshot1.getDocuments().get(i);
                     Chat chat = qds.toObject(Chat.class);
+                    DocumentReference reference = qds.getReference();
+                    chat.setBeskeder(hentBeskeder(reference));
                     chats.add(chat);
                 }
             }
@@ -100,6 +102,8 @@ public class DatabaseManager {
                 for (int i = 0; i < querySnapshot2.size(); i++) {
                     QueryDocumentSnapshot qds = querySnapshot2.getDocuments().get(i);
                     Chat chat = qds.toObject(Chat.class);
+                    DocumentReference reference = qds.getReference();
+                    chat.setBeskeder(hentBeskeder(reference));
                     chats.add(chat);
                 }
             }
