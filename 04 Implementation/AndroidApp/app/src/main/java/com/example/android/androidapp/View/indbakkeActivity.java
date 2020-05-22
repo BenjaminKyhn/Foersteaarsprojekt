@@ -5,10 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
-
+/**@author Kelvin**/
 public class indbakkeActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +17,9 @@ public class indbakkeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indbakke);
         configureLaesBeskedButton();
+        configureBurgerButton();
     }
+    /**@author Patrick**/
     private void configureLaesBeskedButton() {
         TextView changeActivityButton1 = findViewById(R.id.beskedEmne1);
         changeActivityButton1.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +47,16 @@ public class indbakkeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(indbakkeActivity.this, LaesBeskedActivity.class));
+            }
+        });
+    }
+    /**@author Patrick**/
+    private void configureBurgerButton() {
+        ImageView changeActivityButton = findViewById(R.id.burgerMenu);
+        changeActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(indbakkeActivity.this, NaviView.class));
             }
         });
     }

@@ -3,18 +3,22 @@ package com.example.android.androidapp.model;
 import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.exceptions.BrugerLoggedeIndException;
 import com.example.android.androidapp.model.exceptions.ForkertPasswordException;
-import com.example.android.androidapp.persistence.DatabaseManager;
 
 import org.apache.commons.codec.binary.Hex;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /** @author Tommy **/
 class BrugerManager {
     private Bruger aktivBruger;
-    private DatabaseManager databaseManager = new DatabaseManager();
+    private List<Bruger> brugere;
+
+    BrugerManager(List<Bruger> brugere) {
+        this.brugere = brugere;
+    }
 
     void opretBruger(String navn, String email, String password) throws BrugerLoggedeIndException {
         if (aktivBruger != null) {
@@ -22,7 +26,7 @@ class BrugerManager {
         }
         String enkrypteretPassword = enkrypterTekst(password);
         Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
-        databaseManager.gemBruger(bruger);
+        brugere.add(bruger);
         aktivBruger = bruger;
     }
 
@@ -33,8 +37,7 @@ class BrugerManager {
         if (!enkrypteretPassword.equals(enkrypteretBrugerPassword)) {
             throw new ForkertPasswordException();
         }
-
-        databaseManager.sletBruger(bruger);
+        brugere.remove(bruger);
         aktivBruger = null;
     }
 

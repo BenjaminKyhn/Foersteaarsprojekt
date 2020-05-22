@@ -6,6 +6,9 @@ public class Bruger {
     private String email;
     private String password;
 
+    public Bruger() {
+    }
+
     public Bruger(String navn, String email, String password) {
         this.navn = navn;
         this.email = email;

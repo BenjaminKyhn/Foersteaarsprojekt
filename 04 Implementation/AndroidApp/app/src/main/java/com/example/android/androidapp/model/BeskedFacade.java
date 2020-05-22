@@ -5,10 +5,17 @@ import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.model.exceptions.TomEmneException;
 
+import java.util.List;
+
 /** @author Tommy **/
 public class BeskedFacade {
-    private BeskedManager beskedManager = new BeskedManager();
-    private Validering validering = new Validering();
+    private BeskedManager beskedManager;
+    private Validering validering;
+
+    public BeskedFacade(List<Chat> chats) {
+        this.beskedManager = new BeskedManager(chats);
+        validering = new Validering();
+    }
 
     public Chat hentChat(String afsender, String modtager, String emne) {
         return beskedManager.hentChat(afsender, modtager, emne);

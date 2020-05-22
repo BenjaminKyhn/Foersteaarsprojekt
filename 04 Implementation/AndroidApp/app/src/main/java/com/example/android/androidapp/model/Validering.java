@@ -9,19 +9,28 @@ import com.example.android.androidapp.model.exceptions.TomEmailException;
 import com.example.android.androidapp.model.exceptions.TomEmneException;
 import com.example.android.androidapp.model.exceptions.TomNavnException;
 import com.example.android.androidapp.model.exceptions.TomPasswordException;
-import com.example.android.androidapp.persistence.DatabaseManager;
+
+import java.util.List;
 
 /** @author Tommy **/
 class Validering {
-    private DatabaseManager databaseManager = new DatabaseManager();
+    private List<Bruger> brugere;
+
+    Validering() {
+    }
+
+    Validering(List<Bruger> brugere) {
+        this.brugere = brugere;
+    }
 
     void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         if (email.equals("")) {
             throw new TomEmailException();
         }
-        Bruger bruger = databaseManager.hentBrugerMedEmail(email);
-        if (bruger != null) {
-            throw new EksisterendeBrugerException();
+        for (Bruger bruger : brugere) {
+            if (bruger.getEmail().equals(email)) {
+                throw new EksisterendeBrugerException();
+            }
         }
     }
 
