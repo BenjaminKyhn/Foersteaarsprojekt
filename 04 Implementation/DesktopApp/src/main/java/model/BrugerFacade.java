@@ -2,7 +2,6 @@ package model;
 
 import domain.Bruger;
 import model.exceptions.*;
-import persistence.DatabaseManager;
 
 import java.io.IOException;
 

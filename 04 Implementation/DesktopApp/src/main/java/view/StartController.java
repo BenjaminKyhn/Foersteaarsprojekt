@@ -40,9 +40,9 @@ public class StartController {
         TextField tfUsername = new TextField();
         TextField tfPassword = new TextField();
         Label lblUsername = new Label("Bruger:");
-        Label lblPassword = new Label("Kodeord:");
+        Label lblPassword = new Label("Password:");
         HBox buttonHolder = new HBox();
-        Button btLogin = new Button("Login");
+        Button btLogin = new Button("Log ind");
         Button btCreateUser = new Button("Opret Bruger");
         buttonHolder.setSpacing(17);
         buttonHolder.getChildren().addAll(btLogin, btCreateUser);
