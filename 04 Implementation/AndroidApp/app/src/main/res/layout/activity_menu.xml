@@ -71,7 +71,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/statusBar"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.079" />
 
     <Button
         android:id="@+id/kalenderButton"
@@ -100,7 +100,7 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kalenderButton"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/bottomStroke"
