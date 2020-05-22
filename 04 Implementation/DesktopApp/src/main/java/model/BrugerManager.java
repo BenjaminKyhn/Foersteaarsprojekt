@@ -57,4 +57,16 @@ public class BrugerManager {
         }
         return sha256hex;
     }
+
+    public Bruger getAktivBruger() {
+        return aktivBruger;
+    }
+
+    public void logInd(String email, String password){
+        Bruger bruger = databaseManager.hentBrugerMedEmail(email);
+        String enkrypteretPassword = enkrypterTekst(password);
+        if (bruger.getPassword().equals(enkrypteretPassword)){
+            aktivBruger = bruger;
+        }
+    }
 }

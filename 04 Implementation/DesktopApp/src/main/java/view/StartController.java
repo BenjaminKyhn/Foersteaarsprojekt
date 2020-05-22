@@ -21,7 +21,7 @@ import java.io.IOException;
 
 /** @author Benjamin */
 public class StartController {
-    BrugerFacade brugerFacade = new BrugerFacade();
+    private BrugerFacade brugerFacade;
 
     @FXML
     private AnchorPane startAnchorPane;
@@ -32,27 +32,26 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
-    public StartController() throws IOException {
-    }
+    public void initialize() throws IOException {
+        brugerFacade = BrugerFacade.getInstance();
 
-    public void initialize() {
         /** Lav TextFields, Buttons, Labels og ImageView */
-        TextField tfUsername = new TextField();
+        TextField tfEmail = new TextField();
         TextField tfPassword = new TextField();
-        Label lblUsername = new Label("Bruger:");
-        Label lblPassword = new Label("Kodeord:");
+        Label lblEmail = new Label("Email:");
+        Label lblPassword = new Label("Password:");
         HBox buttonHolder = new HBox();
-        Button btLogin = new Button("Login");
-        Button btCreateUser = new Button("Opret Bruger");
+        Button btnLogInd = new Button("Log ind");
+        Button btnOpretBruger = new Button("Opret Bruger");
         buttonHolder.setSpacing(17);
-        buttonHolder.getChildren().addAll(btLogin, btCreateUser);
+        buttonHolder.getChildren().addAll(btnLogInd, btnOpretBruger);
         Image image = new Image("Logo2x.png");
 
         /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
         startGridPane.setVgap(10);
-        startGridPane.add(lblUsername, 0, 0);
-        startGridPane.add(tfUsername, 1, 0);
+        startGridPane.add(lblEmail, 0, 0);
+        startGridPane.add(tfEmail, 1, 0);
         startGridPane.add(lblPassword, 0, 1);
         startGridPane.add(tfPassword, 1, 1);
         startGridPane.add(buttonHolder, 1, 2);
@@ -66,9 +65,25 @@ public class StartController {
         startAnchorPane.widthProperty().addListener(redraw);
 
         /** Sæt events på knapperne */
-        btLogin.setOnAction(event -> skiftTilMenuScene());
-        btCreateUser.setOnAction(event -> skiftTilOpretBrugerScene());
-//        btCreateUser.setOnAction(event -> brugerFacade.opretBruger());
+        btnLogInd.setOnAction(event -> {
+            try {
+                if (tfEmail.getText().isEmpty()){
+                    logIndFejlPopup("Fejl: Emailfeltet er tomt");
+                    return;
+                }
+                if (tfPassword.getText().isEmpty()){
+                    logIndFejlPopup("Fejl: Passwordfeltet er tomt");
+                    return;
+                }
+                //TODO: Lav exception, hvis passwordet ikke matcher det password, der er i databasen
+                brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
+            } catch (Exception e){
+                logIndFejlPopup("Fejl i logind");
+            }
+            if (brugerFacade.getAktivBruger() != null)
+                skiftTilMenuScene();
+        });
+        btnOpretBruger.setOnAction(event -> skiftTilOpretBrugerScene());
     }
 
     public void skiftTilMenuScene() {
@@ -97,5 +112,26 @@ public class StartController {
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
         stage.setScene(secondScene);
+    }
+
+    public void logIndFejlPopup(String infoText) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../LogIndPopup.fxml"));
+        try {
+            root = fxmlLoader.load();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Fejlbesked");
+        stage.setScene(popupScene);
+        stage.show();
+
+        OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
+        opretBrugerPopupController.getTxtLabel().setText(infoText);
     }
 }

@@ -76,14 +76,52 @@ public class DatabaseManager {
         return bruger;
     }
 
+    public ArrayList<Chat> hentChatsMedNavn(String navn){
+        ArrayList<Chat> chats = new ArrayList<>();
+        Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
+        Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
+
+        try {
+            QuerySnapshot querySnapshot1 = query1.get().get();
+            if (!querySnapshot1.isEmpty()){
+                for (int i = 0; i < querySnapshot1.size(); i++) {
+                    QueryDocumentSnapshot qds = querySnapshot1.getDocuments().get(i);
+                    Chat chat = qds.toObject(Chat.class);
+                    DocumentReference reference = qds.getReference();
+                    chat.setBeskeder(hentBeskeder(reference));
+                    chats.add(chat);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
+
+        try {
+            QuerySnapshot querySnapshot2 = query2.get().get();
+            if (!querySnapshot2.isEmpty()){
+                for (int i = 0; i < querySnapshot2.size(); i++) {
+                    QueryDocumentSnapshot qds = querySnapshot2.getDocuments().get(i);
+                    Chat chat = qds.toObject(Chat.class);
+                    DocumentReference reference = qds.getReference();
+                    chat.setBeskeder(hentBeskeder(reference));
+                    chats.add(chat);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
+
+        return chats;
+    }
+
     public Chat hentChat(String afsender, String modtager, String emne) {
         Chat chat = null;
         Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager).whereEqualTo("emne", emne);
-        ApiFuture<QuerySnapshot> document = query.get();
 
         try {
-            if (!document.get().isEmpty()){
-                QueryDocumentSnapshot qds = document.get().getDocuments().get(0);
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()){
+                QueryDocumentSnapshot qds = querySnapshot.getDocuments().get(0);
                 chat = qds.toObject(Chat.class);
                 DocumentReference reference = qds.getReference();
                 chat.setBeskeder(hentBeskeder(reference));
@@ -91,6 +129,7 @@ public class DatabaseManager {
         } catch (InterruptedException | ExecutionException e){
             e.printStackTrace();
         }
+
         return chat;
     }
 
