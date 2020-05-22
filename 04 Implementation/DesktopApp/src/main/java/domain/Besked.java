@@ -27,4 +27,6 @@ public class Besked {
     public void setTidspunkt(String tidspunkt) {
         this.tidspunkt = tidspunkt;
     }
+
+    //TODO: Beskeder skal holde på afsender og modtager
 }
