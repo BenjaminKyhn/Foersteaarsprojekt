@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/indbakkeBar"
+        android:id="@+id/statusBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar">
+        app:layout_constraintTop_toBottomOf="@+id/statusBar">
 
         <ImageView
             android:id="@+id/imageView1"
@@ -116,7 +116,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar">
+        app:layout_constraintTop_toBottomOf="@+id/statusBar">
 
         <ImageView
             android:id="@+id/imageView2"
