@@ -16,7 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.BrugerFacade;
-import model.exceptions.BrugerLoggedIndException;
+import model.exceptions.*;
 
 import java.io.IOException;
 
@@ -78,10 +78,23 @@ public class OpretBrugerController {
         btnTilbage.setOnMouseClicked(event -> tilbage());
         btnOpretBruger.setOnMouseClicked(event -> {
             try {
+                brugerFacade.tjekNavn(tfBrugernavn.getText());
+                brugerFacade.tjekEmail(tfEmail.getText());
+                brugerFacade.tjekPassword(tfPassword.getText());
                 brugerFacade.opretBruger(tfBrugernavn.getText(), tfEmail.getText(), tfPassword.getText());
                 popupWindow("Brugeren er oprettet");
-            } catch (BrugerLoggedIndException e) {
-                popupWindow("Fejl: Du er allerede logged ind.");
+            } catch (TomNavnException tne){
+                popupWindow("Fejl: Navnefeltet kan ikke være tomt");
+            } catch (TomEmailException tee){
+                popupWindow("Fejl: Emailfeltet kan ikke være tomt");
+            } catch (EksisterendeBrugerException ebe){
+                popupWindow("Fejl: Brugeren eksisterer allerede");
+            } catch (TomPasswordException tpe){
+                popupWindow("Fejl: Passwordfeltet kan ikke være tomt");
+            } catch (PasswordLaengdeException ple){
+                popupWindow("Fejl: Password skal være mellem 6 og 20 tegn");
+            } catch (BrugerLoggedIndException blie) {
+                popupWindow("Fejl: Du er allerede logged ind");
             }
         });
     }

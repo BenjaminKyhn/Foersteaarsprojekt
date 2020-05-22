@@ -17,6 +17,8 @@ public class PopupWindowController {
     private Button btnOK;
 
     public void initialize(){
+        txtLabel.setWrapText(true);
+
         btnOK.setOnAction(event -> lukPopup());
     }
 
