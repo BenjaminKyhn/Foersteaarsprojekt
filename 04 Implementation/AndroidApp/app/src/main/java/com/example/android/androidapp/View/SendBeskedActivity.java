@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.android.androidapp.R;
-/**@author Kelvin**/
+
 public class SendBeskedActivity extends AppCompatActivity {
 
     @Override

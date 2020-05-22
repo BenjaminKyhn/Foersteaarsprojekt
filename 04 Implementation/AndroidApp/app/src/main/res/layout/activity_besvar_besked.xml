@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/statusBar"
+        android:id="@+id/indbakkeBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
@@ -98,7 +98,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.796"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/statusBar"
+        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar"
         app:layout_constraintVertical_bias="0.908" />
 
     <View

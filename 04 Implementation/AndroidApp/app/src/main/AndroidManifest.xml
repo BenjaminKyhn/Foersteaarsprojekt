@@ -9,8 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.OpretBrugerActivity"></activity>
-        <activity android:name=".View.SendBeskedActivity" />
+        <activity android:name=".View.SendBeskedActivity"></activity>
         <activity android:name=".View.NyBeskedActivity" />
         <activity android:name=".View.LoginActivity" />
         <activity android:name=".View.indbakkeActivity" />
