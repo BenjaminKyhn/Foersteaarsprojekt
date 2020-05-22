@@ -19,7 +19,7 @@ public class LaesBeskedActivity extends AppCompatActivity {
         configureBesvarBeskedButton();
         configureBurgerButton();
     }
-
+    /**@author Patrick**/
     private void configureBesvarBeskedButton() {
         TextView changeActivityButton = findViewById(R.id.besvarButton);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +29,7 @@ public class LaesBeskedActivity extends AppCompatActivity {
             }
         });
     }
+    /**@author Patrick**/
     private void configureBurgerButton() {
         ImageView changeActivityButton = findViewById(R.id.burgerMenu);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {

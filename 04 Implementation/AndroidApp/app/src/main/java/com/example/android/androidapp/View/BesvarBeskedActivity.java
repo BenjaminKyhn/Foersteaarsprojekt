@@ -18,6 +18,7 @@ public class BesvarBeskedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_besvar_besked);
         configuresendButton();
     }
+    /**@author Patrick**/
     private void configuresendButton() {
         Button changeActivityButton = findViewById(R.id.sendButton);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {

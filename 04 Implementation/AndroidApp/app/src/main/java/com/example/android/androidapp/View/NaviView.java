@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.android.androidapp.R;
-
+/**@author Patrick**/
 public class NaviView extends Fragment {
 
     private NaviViewViewModel mViewModel;
