@@ -13,7 +13,7 @@ public class NyBeskedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nybesked);
+        setContentView(R.layout.fragment_nybesked);
         configureSendButton();
     }
     private void configureSendButton() {

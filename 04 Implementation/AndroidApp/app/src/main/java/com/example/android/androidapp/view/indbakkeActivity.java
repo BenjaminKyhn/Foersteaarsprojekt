@@ -15,7 +15,7 @@ public class indbakkeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_indbakke);
+        setContentView(R.layout.fragment_indbakke);
         configureLaesBeskedButton();
         configureBurgerButton();
     }
