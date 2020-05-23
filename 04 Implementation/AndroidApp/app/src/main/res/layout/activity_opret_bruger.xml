@@ -7,58 +7,73 @@
     tools:context=".view.OpretBrugerActivity">
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="532dp"
-        android:background="@color/colorFRBLogo"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
     <Button
-        android:id="@+id/forsideButton"
+        android:id="@+id/forsideButton2"
         android:layout_width="420dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
         android:background="@color/colorForsideBar"
         android:gravity="center_horizontal"
         android:maxHeight="35dip"
         android:minHeight="5dip"
-        android:text=""
+        android:text="Forside"
         android:textAlignment="center"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorFRBLogo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
 
     <TextView
-        android:id="@+id/indbakkeBar"
+        android:id="@+id/statusBar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:text="Opret Bruger"
+        android:text="Opret bruger"
         android:textAlignment="center"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.014" />
+        app:layout_constraintTop_toBottomOf="@+id/forsideButton2" />
+
+    <ImageView
+        android:id="@+id/burgerMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/statusBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/statusBar"
+        app:srcCompat="@drawable/ic_menu_24px" />
 
     <View
         android:id="@+id/strokeDesign1"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorBlackTrans20"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/menuBar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/statusBar" />
 
     <View
         android:id="@+id/bottomStroke"
@@ -76,96 +91,92 @@
         android:id="@+id/navnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="92dp"
-        android:layout_marginLeft="92dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
         android:text="Navn:"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/navnFelt"
+        app:layout_constraintEnd_toStartOf="@+id/navnFelt"
+        app:layout_constraintTop_toTopOf="@+id/navnFelt" />
 
     <EditText
         android:id="@+id/navnFelt"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="64dp"
         android:text="Navn skrives her..."
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintTop_toBottomOf="@+id/strokeDesign1" />
 
     <TextView
         android:id="@+id/emailRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="90dp"
-        android:layout_marginLeft="90dp"
-        android:layout_marginTop="90dp"
+        android:layout_marginEnd="16dp"
         android:text="Email:"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/emailFelt"
+        app:layout_constraintEnd_toStartOf="@+id/emailFelt"
+        app:layout_constraintTop_toTopOf="@+id/emailFelt" />
 
     <EditText
         android:id="@+id/emailFelt"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="Email skrives her..."
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintTop_toBottomOf="@+id/navnFelt" />
 
     <TextView
         android:id="@+id/passwordRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="54dp"
-        android:layout_marginLeft="54dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginEnd="16dp"
         android:text="Password:"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/passwordFelt"
+        app:layout_constraintEnd_toStartOf="@+id/passwordFelt"
+        app:layout_constraintTop_toTopOf="@+id/passwordFelt" />
 
     <EditText
         android:id="@+id/passwordFelt"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="130dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="Password skrives her..."
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintTop_toBottomOf="@+id/emailFelt" />
 
     <TextView
         android:id="@+id/gentagPasswordRegister"
         android:layout_width="84dp"
         android:layout_height="50dp"
-        android:layout_marginStart="54dp"
-        android:layout_marginLeft="54dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginEnd="16dp"
         android:text="Gentag password:"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintBottom_toBottomOf="@+id/gentagPasswordFelt"
+        app:layout_constraintEnd_toStartOf="@+id/gentagPasswordFelt"
+        app:layout_constraintTop_toTopOf="@+id/gentagPasswordFelt" />
 
     <EditText
         android:id="@+id/gentagPasswordFelt"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="180dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="Skriv password igen her..."
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/indbakkeBar" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordFelt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

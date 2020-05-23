@@ -41,4 +41,5 @@ dependencies {
 	
 	// https://mvnrepository.com/artifact/commons-codec/commons-codec
     implementation group: 'commons-codec', name: 'commons-codec', version: '1.14'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }
