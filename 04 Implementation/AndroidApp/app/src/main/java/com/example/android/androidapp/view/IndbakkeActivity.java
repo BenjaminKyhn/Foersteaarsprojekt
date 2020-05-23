@@ -30,6 +30,9 @@ public class IndbakkeActivity extends AppCompatActivity {
                 openDrawer();
             }
         });
+
+        TextView statusBar = findViewById(R.id.statusBar);
+        statusBar.setText("Indbakke");
     }
 
     public void openDrawer() {
