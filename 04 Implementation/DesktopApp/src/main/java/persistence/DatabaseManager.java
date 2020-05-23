@@ -76,6 +76,10 @@ public class DatabaseManager {
         return bruger;
     }
 
+    public void opretChat(Chat chat){
+        firestore.collection("chats").add(chat);
+    }
+
     public ArrayList<Chat> hentChatsMedNavn(String navn){
         ArrayList<Chat> chats = new ArrayList<>();
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);

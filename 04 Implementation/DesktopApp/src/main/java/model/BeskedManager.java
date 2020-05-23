@@ -1,6 +1,7 @@
 package model;
 
 import domain.Besked;
+import domain.Bruger;
 import domain.Chat;
 import persistence.DatabaseManager;
 
@@ -10,9 +11,24 @@ import java.util.ArrayList;
 /** @author Benjamin */
 public class BeskedManager {
     private DatabaseManager databaseManager;
+    private BrugerManager brugerManager;
+    private static BeskedManager beskedManager;
 
     public BeskedManager() throws IOException {
         databaseManager = DatabaseManager.getInstance();
+        brugerManager = BrugerManager.getInstance();
+    }
+
+    public static synchronized BeskedManager getInstance() throws IOException {
+        if (beskedManager == null){
+            beskedManager = new BeskedManager();
+        }
+        return beskedManager;
+    }
+
+    public void opretChat(String email, String emne){
+        Chat nyChat = new Chat();
+        databaseManager.opretChat(nyChat);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){

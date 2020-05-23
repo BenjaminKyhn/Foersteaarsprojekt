@@ -16,7 +16,7 @@ public class BeskedFacade {
     private static BeskedFacade beskedFacade;
 
     public BeskedFacade() throws IOException {
-        beskedManager = new BeskedManager();
+        beskedManager = BeskedManager.getInstance();
         validering = new Validering();
     }
 
@@ -25,6 +25,10 @@ public class BeskedFacade {
             beskedFacade = new BeskedFacade();
         }
         return beskedFacade;
+    }
+
+    public void opretChat(String email, String emne){
+        beskedManager.opretChat(email, emne);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){
