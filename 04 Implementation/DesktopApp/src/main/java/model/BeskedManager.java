@@ -19,6 +19,10 @@ public class BeskedManager {
         return databaseManager.hentChat(afsender, modtager, emne);
     }
 
+    public ArrayList<Chat> hentChatsMedNavn(String navn){
+        return databaseManager.hentChatsMedNavn(navn);
+    }
+
     public ArrayList<Besked> hentBeskeder(Chat chat){
         return chat.getBeskeder();
     }
