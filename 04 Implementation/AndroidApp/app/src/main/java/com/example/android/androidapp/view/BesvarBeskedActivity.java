@@ -14,7 +14,7 @@ public class BesvarBeskedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_besvar_besked);
+        setContentView(R.layout.activity_besvar_besked);
         configuresendButton();
     }
     /**@author Patrick**/

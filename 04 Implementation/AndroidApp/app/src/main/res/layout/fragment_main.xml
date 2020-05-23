@@ -46,6 +46,7 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorForsideBar"
         android:text="Log ind"
+        android:onClick="skiftTilLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -56,7 +57,8 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:background="@color/colorForsideBar"
-        android:text="opret bruger"
+        android:text="Opret bruger"
+        android:onClick="skiftTilOpretBruger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 

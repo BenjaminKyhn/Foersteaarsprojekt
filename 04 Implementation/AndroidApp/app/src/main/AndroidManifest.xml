@@ -9,17 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".view.NavigationDrawer"
-            android:label="@string/title_activity_navigation_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".view.SendBeskedActivity" />
         <activity android:name=".view.NyBeskedActivity" />
         <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.indbakkeActivity" />
+        <activity android:name=".view.IndbakkeActivity" />
         <activity android:name=".view.MenuActivity" />
         <activity android:name=".view.LaesBeskedActivity" />
         <activity android:name=".view.BesvarBeskedActivity" />
+        <activity android:name=".view.OpretBrugerActivity" />
         <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -96,7 +96,8 @@
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:text="LOG IND"
-        android:textSize="20dp"
+        android:textSize="20sp"
+        android:onClick="skiftTilMenu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchLogin" />

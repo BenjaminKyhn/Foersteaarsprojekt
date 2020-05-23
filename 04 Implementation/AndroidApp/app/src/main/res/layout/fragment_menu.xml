@@ -58,6 +58,7 @@
         android:layout_marginBottom="128dp"
         android:text="Beskeder"
         android:textSize="24sp"
+        android:onClick="skiftTilIndbakke"
         app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
