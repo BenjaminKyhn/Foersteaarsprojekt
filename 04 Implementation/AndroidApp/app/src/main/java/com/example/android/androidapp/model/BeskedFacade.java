@@ -12,8 +12,8 @@ public class BeskedFacade {
     private BeskedManager beskedManager;
     private Validering validering;
 
-    public BeskedFacade(List<Chat> chats) {
-        this.beskedManager = new BeskedManager(chats);
+    public BeskedFacade() {
+        this.beskedManager = new BeskedManager();
         validering = new Validering();
     }
 
@@ -21,8 +21,8 @@ public class BeskedFacade {
         return beskedManager.hentChat(afsender, modtager, emne);
     }
 
-    public void sendBesked(String besked, Chat chat) {
-        beskedManager.sendBesked(besked, chat);
+    public void sendBesked(String besked, Chat chat, String afsender, String modtager) {
+        beskedManager.sendBesked(besked, chat, afsender, modtager);
     }
 
     public void tjekEmne(String emne) throws TomEmneException, ForMangeTegnException {
@@ -31,5 +31,9 @@ public class BeskedFacade {
 
     public void tjekBesked(String besked) throws TomBeskedException, ForMangeTegnException {
         validering.tjekBesked(besked);
+    }
+
+    public void saetListeAfChats(List<Chat> chats) {
+        beskedManager.setChats(chats);
     }
 }

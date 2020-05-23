@@ -17,6 +17,13 @@ public class Chat {
         support = new PropertyChangeSupport(this);
     }
 
+    public Chat(String afsender, String modtager, String emne) {
+        this();
+        this.afsender = afsender;
+        this.modtager = modtager;
+        this.emne = emne;
+    }
+
     public void tilfoejObserver(PropertyChangeListener propertyChangeListener) {
         support.addPropertyChangeListener(propertyChangeListener);
     }
