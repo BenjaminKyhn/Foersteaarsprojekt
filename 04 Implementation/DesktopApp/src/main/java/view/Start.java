@@ -21,6 +21,8 @@ public class Start extends Application{
         stage.setMinWidth(800);
         stage.setMinHeight(600);
         stage.show();
+
+        // TODO opret realistiske brugere og chats til præsentationen 25/5
     }
 
     public static void main(String[] args) {
