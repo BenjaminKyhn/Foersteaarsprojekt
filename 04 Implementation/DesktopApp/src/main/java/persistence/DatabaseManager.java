@@ -93,8 +93,8 @@ public class DatabaseManager {
         return bruger;
     }
 
-    public void opretChat(Chat chat, String email){
-        firestore.collection("chats").document(email).create(chat);
+    public void opretChat(Chat chat){
+        firestore.collection("chats").document().create(chat);
     }
 
     public ArrayList<Chat> hentChatsMedNavn(String navn){

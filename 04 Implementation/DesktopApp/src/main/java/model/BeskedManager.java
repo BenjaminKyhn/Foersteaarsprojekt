@@ -26,11 +26,11 @@ public class BeskedManager {
         return beskedManager;
     }
 
-    public void opretChat(String email, String emne){
+    public void opretChat(String navn, String emne){
         Bruger afsender = brugerManager.getAktivBruger();
-        Bruger modtager = databaseManager.hentBrugerMedEmail(email); // dette skal være hent bruger med navn
+        Bruger modtager = databaseManager.hentBrugerMedNavn(navn);
         Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne);
-//        databaseManager.opretChat(nyChat);
+        databaseManager.opretChat(nyChat);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){

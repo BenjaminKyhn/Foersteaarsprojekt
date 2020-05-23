@@ -21,9 +21,7 @@ import model.BrugerFacade;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * @author Tommy og Patrick
- */
+/** @author Tommy og Patrick */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
@@ -54,12 +52,10 @@ public class ChatWindowController {
         indlaesChats();
     }
 
-    /**
-     * @author Benjamin
-     */
     public void indlaesChats() {
         aktivBruger = brugerFacade.getAktivBruger();
         chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
+        chatWindowChatVBox.getChildren().clear();
 
         for (int i = 0; i < chats.size(); i++) {
             Chat chat = chats.get(i);
@@ -189,6 +185,10 @@ public class ChatWindowController {
         Stage stage = new Stage();
         stage.setTitle("Ny Besked");
         stage.setScene(popupScene);
+
+        /** setOnHidden kaldes, når popup'en lukkes igen */
+        stage.setOnHidden(event -> indlaesChats());
+
         stage.show();
     }
 }

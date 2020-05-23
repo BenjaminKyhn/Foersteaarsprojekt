@@ -27,8 +27,8 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
-    public void opretChat(String email, String emne){
-        beskedManager.opretChat(email, emne);
+    public void opretChat(String navn, String emne){
+        beskedManager.opretChat(navn, emne);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){

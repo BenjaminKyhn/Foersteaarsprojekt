@@ -47,6 +47,10 @@ public class StartController {
         buttonHolder.getChildren().addAll(btnLogInd, btnOpretBruger);
         Image image = new Image("Logo2x.png");
 
+        /** temporary */
+        tfEmail.setText("1");
+        tfPassword.setText("111111");
+
         /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
         startGridPane.setVgap(10);

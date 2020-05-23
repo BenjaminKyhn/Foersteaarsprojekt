@@ -28,9 +28,9 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="lblEmail" text="Modtagers Email:" GridPane.rowIndex="1" />
+            <Label fx:id="lvlNavn" text="Modtagers Navn:" GridPane.rowIndex="1" />
             <Label fx:id="lblEmne" text="Emne:" GridPane.rowIndex="2" />
-            <TextField fx:id="tfEmail" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="tfNavn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="tfEmne" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Button fx:id="btnSend" mnemonicParsing="false" text="Send" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
