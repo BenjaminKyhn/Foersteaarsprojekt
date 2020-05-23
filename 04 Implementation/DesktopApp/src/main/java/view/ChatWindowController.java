@@ -48,6 +48,9 @@ public class ChatWindowController {
         brugerFacade = BrugerFacade.getInstance();
 
         chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
+
+        nyBeskedKnap.setOnMouseClicked(event -> nyBeskedPopup());
+
         indlaesChats();
     }
 
@@ -171,4 +174,21 @@ public class ChatWindowController {
         stage.setScene(secondScene);
     }
 
+    public void nyBeskedPopup(){
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyBesked.fxml"));
+        try {
+            root = fxmlLoader.load();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Ny Besked");
+        stage.setScene(popupScene);
+        stage.show();
+    }
 }
