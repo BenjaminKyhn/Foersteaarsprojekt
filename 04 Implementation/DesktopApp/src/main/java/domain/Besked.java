@@ -52,6 +52,4 @@ public class Besked {
     public void setModtager(String modtager) {
         this.modtager = modtager;
     }
-
-    //TODO: Beskeder skal holde på afsender og modtager
 }
