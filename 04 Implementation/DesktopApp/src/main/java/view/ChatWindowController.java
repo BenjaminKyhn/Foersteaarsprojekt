@@ -102,7 +102,6 @@ public class ChatWindowController {
 //        } else {
 //            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
 //        }
-
     }
 
     public void visBeskeder(Chat chat) {

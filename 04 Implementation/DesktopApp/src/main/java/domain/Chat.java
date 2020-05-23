@@ -7,15 +7,21 @@ public class Chat {
     private String afsender;
     private String modtager;
     private String emne;
+    private String sidstAktiv;
     private ArrayList<Besked> beskeder;
 
     public Chat(){
     }
 
-    public Chat(String afsender, String modtager, String emne){
+    public Chat(String afsender, String modtager, String emne, String sidstAktiv){
         this.afsender = afsender;
         this.modtager = modtager;
         this.emne = emne;
+        this.sidstAktiv = sidstAktiv;
+    }
+
+    public void tilfoejBesked(Besked besked){
+        beskeder.add(besked);
     }
 
     public String getAfsender() {
@@ -50,7 +56,11 @@ public class Chat {
         this.beskeder = beskeder;
     }
 
-    public void tilfoejBesked(Besked besked){
-        beskeder.add(besked);
+    public String getSidstAktiv() {
+        return sidstAktiv;
+    }
+
+    public void setSidstAktiv(String sidstAktiv) {
+        this.sidstAktiv = sidstAktiv;
     }
 }

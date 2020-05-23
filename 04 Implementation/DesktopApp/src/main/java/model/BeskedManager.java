@@ -31,9 +31,10 @@ public class BeskedManager {
     public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         Bruger afsender = brugerManager.getAktivBruger();
         Bruger modtager = databaseManager.hentBrugerMedNavn(navn);
+        String sidstAktiv = new Timestamp(System.currentTimeMillis()).toString();
         if (modtager == null)
             throw new BrugerFindesIkkeException();
-        Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne);
+        Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne, sidstAktiv);
         databaseManager.opretChat(nyChat);
     }
 
@@ -62,6 +63,7 @@ public class BeskedManager {
         String tidspunkt = new Timestamp(System.currentTimeMillis()).toString();
         Besked beskedObjekt = new Besked(afsender, modtager, besked, tidspunkt);
         chat.tilfoejBesked(beskedObjekt);
+        chat.setSidstAktiv(tidspunkt);
         databaseManager.opdaterChat(chat, beskedObjekt);
     }
 }
