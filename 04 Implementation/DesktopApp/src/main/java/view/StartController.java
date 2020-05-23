@@ -120,7 +120,7 @@ public class StartController {
 
     public void logIndFejlPopup(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../LogIndPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         }
@@ -137,5 +137,7 @@ public class StartController {
 
         OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
         opretBrugerPopupController.getTxtLabel().setText(infoText);
+
+        //TODO: Lav log ud funktion
     }
 }

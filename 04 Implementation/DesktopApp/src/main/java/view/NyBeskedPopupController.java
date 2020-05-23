@@ -3,6 +3,7 @@ package view;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -10,11 +11,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import model.BeskedFacade;
+import model.exceptions.BrugerFindesIkkeException;
 
 import java.io.IOException;
 
 /** @author Benjamin */
-public class NyBeskedController {
+public class NyBeskedPopupController {
     private BeskedFacade beskedFacade;
 
     @FXML
@@ -43,29 +45,42 @@ public class NyBeskedController {
 
         btnSend.setOnMouseClicked(event -> {
             opretChat(tfNavn.getText(), tfEmne.getText());
-            lukPopup();
+            lukVindue();
         });
     }
 
     public void opretChat(String navn, String emne){
-        beskedFacade.opretChat(navn, emne);
-    }
-
-    public ChatWindowController hentChatWindowController(){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindow.fxml"));
-        Parent root = null;
         try {
-            root = loader.load();
-        } catch (IOException io) {
-            io.printStackTrace();
+            beskedFacade.opretChat(navn, emne);
         }
-
-        /** Hent controlleren */
-        return loader.getController();
+        catch (BrugerFindesIkkeException e){
+            popupWindow("Brugeren findes ikke");
+        }
     }
 
-    public void lukPopup(){
+    public void lukVindue(){
         Stage stage = (Stage) nyBeskedAnchorPane.getScene().getWindow();
         stage.close();
+    }
+
+    public void popupWindow(String infoText) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        try {
+            root = fxmlLoader.load();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Infoboks");
+        stage.setScene(popupScene);
+        stage.show();
+
+        OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
+        opretBrugerPopupController.getTxtLabel().setText(infoText);
     }
 }

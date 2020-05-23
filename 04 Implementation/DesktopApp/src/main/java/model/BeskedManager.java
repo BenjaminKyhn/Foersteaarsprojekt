@@ -3,6 +3,7 @@ package model;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
+import model.exceptions.BrugerFindesIkkeException;
 import persistence.DatabaseManager;
 
 import java.io.IOException;
@@ -27,9 +28,11 @@ public class BeskedManager {
         return beskedManager;
     }
 
-    public void opretChat(String navn, String emne){
+    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         Bruger afsender = brugerManager.getAktivBruger();
         Bruger modtager = databaseManager.hentBrugerMedNavn(navn);
+        if (modtager == null)
+            throw new BrugerFindesIkkeException();
         Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne);
         databaseManager.opretChat(nyChat);
     }

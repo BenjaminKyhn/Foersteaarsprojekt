@@ -2,6 +2,7 @@ package model;
 
 import domain.Besked;
 import domain.Chat;
+import model.exceptions.BrugerFindesIkkeException;
 import model.exceptions.ForMangeTegnException;
 import model.exceptions.TomBeskedException;
 import model.exceptions.TomEmneException;
@@ -27,7 +28,7 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
-    public void opretChat(String navn, String emne){
+    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         beskedManager.opretChat(navn, emne);
     }
 

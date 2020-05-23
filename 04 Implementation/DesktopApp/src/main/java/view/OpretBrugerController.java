@@ -120,7 +120,7 @@ public class OpretBrugerController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../OpretBrugerPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         }
