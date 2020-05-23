@@ -76,8 +76,25 @@ public class DatabaseManager {
         return bruger;
     }
 
-    public void opretChat(Chat chat){
-        firestore.collection("chats").add(chat);
+    public Bruger hentBrugerMedNavn(String navn){
+        Bruger bruger = null;
+        Query query = firestore.collection("brugere").whereEqualTo("navn", navn);
+
+        try {
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()){
+                QueryDocumentSnapshot qds = querySnapshot.getDocuments().get(0);
+                bruger = qds.toObject(Bruger.class);
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
+
+        return bruger;
+    }
+
+    public void opretChat(Chat chat, String email){
+        firestore.collection("chats").document(email).create(chat);
     }
 
     public ArrayList<Chat> hentChatsMedNavn(String navn){

@@ -9,6 +9,15 @@ public class Chat {
     private String emne;
     private ArrayList<Besked> beskeder;
 
+    public Chat(){
+    }
+
+    public Chat(String afsender, String modtager, String emne){
+        this.afsender = afsender;
+        this.modtager = modtager;
+        this.emne = emne;
+    }
+
     public String getAfsender() {
         return afsender;
     }

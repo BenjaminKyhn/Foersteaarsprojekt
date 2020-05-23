@@ -27,8 +27,10 @@ public class BeskedManager {
     }
 
     public void opretChat(String email, String emne){
-        Chat nyChat = new Chat();
-        databaseManager.opretChat(nyChat);
+        Bruger afsender = brugerManager.getAktivBruger();
+        Bruger modtager = databaseManager.hentBrugerMedEmail(email); // dette skal være hent bruger med navn
+        Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne);
+//        databaseManager.opretChat(nyChat);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){
