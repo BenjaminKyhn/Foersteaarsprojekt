@@ -44,8 +44,8 @@
                <content>
                   <VBox fx:id="chatWindowMessageVBox" prefHeight="528.0" prefWidth="546.0" />
                </content></ScrollPane>
-            <TextField layoutX="240.0" layoutY="511.0" prefHeight="32.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="74.0" />
-            <Button layoutX="742.0" layoutY="530.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <TextField fx:id="tfSendBesked" layoutX="240.0" layoutY="511.0" prefHeight="32.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="74.0" />
+            <Button fx:id="sendBeskedKnap" layoutX="742.0" layoutY="530.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="0.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -54,12 +54,12 @@
               <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Gå til hovedmenuen" onAction="#tilHovedmenu" />
+                    <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
                   </items>
                 </Menu>
               </menus>
             </MenuBar>
-            <Button layoutX="714.0" mnemonicParsing="false" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#logUd"/>
+            <Button layoutX="714.0" mnemonicParsing="false" onAction="#logUd" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>

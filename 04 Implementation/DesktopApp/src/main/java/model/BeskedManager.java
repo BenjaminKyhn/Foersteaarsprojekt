@@ -47,9 +47,17 @@ public class BeskedManager {
     }
 
     public void sendBesked(String besked, Chat chat){
-        Besked beskedObjekt = new Besked(besked);
-        String timestamp = new Timestamp(System.currentTimeMillis()).toString();
-        beskedObjekt.setTidspunkt(timestamp);
+        /** Sæt afsender og modtager for beskedobjektet */
+        String afsender = brugerManager.getAktivBruger().getNavn();
+        String modtager;
+        if (afsender.equals(chat.getAfsender()))
+            modtager = chat.getModtager();
+        else
+            modtager = chat.getAfsender();
+
+        /** Lav et beskedobjekt og tilføj det til chatobjektet */
+        String tidspunkt = new Timestamp(System.currentTimeMillis()).toString();
+        Besked beskedObjekt = new Besked(afsender, modtager, besked, tidspunkt);
         chat.tilfoejBesked(beskedObjekt);
         databaseManager.opdaterChat(chat, beskedObjekt);
     }

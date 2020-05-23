@@ -14,6 +14,13 @@ public class Besked {
         this.besked = besked;
     }
 
+    public Besked(String afsender, String modtager, String besked, String tidspunkt){
+        this.afsender = afsender;
+        this.modtager = modtager;
+        this.besked = besked;
+        this.tidspunkt = tidspunkt;
+    }
+
     public String getBesked() {
         return besked;
     }

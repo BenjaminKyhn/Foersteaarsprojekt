@@ -154,24 +154,6 @@ public class DatabaseManager {
         return chat;
     }
 
-    public ArrayList<Besked> hentBeskeder(DocumentReference reference){
-        ArrayList<Besked> beskeder = new ArrayList<>();
-        ApiFuture<QuerySnapshot> document = reference.collection("beskeder").get();
-
-        try{
-            if (!document.get().isEmpty()){
-                List<QueryDocumentSnapshot> list = document.get().getDocuments();
-                for (int i = 0; i < list.size(); i++) {
-                    Besked besked = list.get(i).toObject(Besked.class);
-                    beskeder.add(besked);
-                }
-            }
-        } catch (InterruptedException | ExecutionException e){
-            e.printStackTrace();
-        }
-        return beskeder;
-    }
-
     public void opdaterChat(Chat chat, Besked besked){
         String afsender = chat.getAfsender();
         String modtager = chat.getModtager();
@@ -190,4 +172,23 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Besked> hentBeskeder(DocumentReference reference){
+        ArrayList<Besked> beskeder = new ArrayList<>();
+        ApiFuture<QuerySnapshot> document = reference.collection("beskeder").get();
+
+        try{
+            if (!document.get().isEmpty()){
+                List<QueryDocumentSnapshot> list = document.get().getDocuments();
+                for (int i = 0; i < list.size(); i++) {
+                    Besked besked = list.get(i).toObject(Besked.class);
+                    beskeder.add(besked);
+                }
+            }
+        } catch (InterruptedException | ExecutionException e){
+            e.printStackTrace();
+        }
+        return beskeder;
+    }
+
 }

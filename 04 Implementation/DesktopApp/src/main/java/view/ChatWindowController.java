@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
@@ -39,7 +40,10 @@ public class ChatWindowController {
     private Circle chatUserPhotoCircle;
 
     @FXML
-    private Button nyBeskedKnap;
+    private Button nyBeskedKnap, sendBeskedKnap;
+
+    @FXML
+    private TextField tfSendBesked;
 
     public void initialize() throws IOException {
         beskedFacade = BeskedFacade.getInstance();
@@ -137,6 +141,10 @@ public class ChatWindowController {
                     VBox.setMargin(chatContainer, new Insets(8, 32, 8, 16));
             }
         }
+
+        sendBeskedKnap.setOnMouseClicked(event -> {
+            beskedFacade.sendBesked(tfSendBesked.getText(), chat);
+        });
     }
 
     /**
