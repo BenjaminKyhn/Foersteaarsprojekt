@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/min_side"
+            android:title="Min side"
+            android:icon="@drawable/ic_perm_contact_calendar_24px">
+        </item>
+        <item
+            android:id="@+id/indbakke"
+            android:title="Indbakke"
+            android:icon="@drawable/ic_mail_outline_24px">
+        </item>
+        <item
+            android:id="@+id/papirkurv"
+            android:title="Papirkurv"
+            android:icon="@drawable/ic_delete_24px">
+        </item>
+        <item
+            android:id="@+id/ny_besked"
+            android:title="Ny besked"
+            android:icon="@drawable/ic_speaker_notes_24px">
+        </item>
+        <item
+            android:id="@+id/book_tid"
+            android:title="Book tid"
+            android:icon="@drawable/ic_schedule_24px">
+        </item>
+        <item
+            android:id="@+id/kalender"
+            android:title="Kalender"
+            android:icon="@drawable/ic_calendar_today_black_18dp">
+        </item>
+        <item
+            android:id="@+id/log_ud"
+            android:title="Log ud"
+            android:icon="@drawable/ic_vpn_key_24px">
+        </item>
+    </group>
+</menu>

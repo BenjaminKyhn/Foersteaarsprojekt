@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.SendBeskedActivity"/>
+        <activity
+            android:name=".view.NavigationDrawer"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".view.SendBeskedActivity" />
         <activity android:name=".view.NyBeskedActivity" />
         <activity android:name=".view.LoginActivity" />
         <activity android:name=".view.indbakkeActivity" />
