@@ -21,6 +21,7 @@ import model.BrugerFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /** @author Tommy og Patrick */
 public class ChatWindowController {
@@ -142,8 +143,10 @@ public class ChatWindowController {
             }
         }
 
+        /** Giv sendknappen et on click event */
         sendBeskedKnap.setOnMouseClicked(event -> {
             beskedFacade.sendBesked(tfSendBesked.getText(), chat);
+            visBeskeder(chat);
         });
     }
 

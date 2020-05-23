@@ -175,7 +175,7 @@ public class DatabaseManager {
 
     public ArrayList<Besked> hentBeskeder(DocumentReference reference){
         ArrayList<Besked> beskeder = new ArrayList<>();
-        ApiFuture<QuerySnapshot> document = reference.collection("beskeder").get();
+        ApiFuture<QuerySnapshot> document = reference.collection("beskeder").orderBy("tidspunkt").get();
 
         try{
             if (!document.get().isEmpty()){
