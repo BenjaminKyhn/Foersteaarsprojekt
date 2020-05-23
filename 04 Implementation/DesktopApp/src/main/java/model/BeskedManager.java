@@ -6,6 +6,7 @@ import domain.Chat;
 import persistence.DatabaseManager;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /** @author Benjamin */
@@ -47,6 +48,8 @@ public class BeskedManager {
 
     public void sendBesked(String besked, Chat chat){
         Besked beskedObjekt = new Besked(besked);
+        String timestamp = new Timestamp(System.currentTimeMillis()).toString();
+        beskedObjekt.setTidspunkt(timestamp);
         chat.tilfoejBesked(beskedObjekt);
         databaseManager.opdaterChat(chat, beskedObjekt);
     }
