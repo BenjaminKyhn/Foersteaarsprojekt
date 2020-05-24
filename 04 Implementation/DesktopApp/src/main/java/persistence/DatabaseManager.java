@@ -142,7 +142,6 @@ public class DatabaseManager {
 
         /** Returner listen */
         return chats;
-        //TODO returner en liste sorteret efter tidspunkt
     }
 
     public Chat hentChat(String afsender, String modtager, String emne) {
