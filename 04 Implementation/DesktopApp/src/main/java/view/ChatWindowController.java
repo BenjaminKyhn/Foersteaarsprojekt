@@ -76,6 +76,18 @@ public class ChatWindowController {
 
         for (int i = 0; i < chats.size(); i++) {
             Chat chat = chats.get(i);
+
+            /** Sæt afsender */
+            Bruger afsender = aktivBruger;
+
+            /** Sæt modtager */
+            Bruger modtager;
+            if (chats.get(i).getAfsender().equals(aktivBruger.getNavn()))
+                modtager = brugerFacade.hentBrugerMedNavn(chats.get(i).getModtager());
+            else
+                modtager = brugerFacade.hentBrugerMedNavn(chats.get(i).getAfsender());
+
+            /** Hent controlleren */
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
             Parent root = null;
             try {
@@ -83,22 +95,18 @@ public class ChatWindowController {
             } catch (IOException io) {
                 io.printStackTrace();
             }
-
-            /** Hent controlleren */
             ChatWindowChatController controller = loader.getController();
 
-            /** Vis det rigtige navn i chatvinduet */
-            if (chats.get(i).getAfsender().equals(aktivBruger.getNavn())) {
-                controller.getChatWindowChatNavn().setText(chat.getModtager());
-            } else
-                controller.getChatWindowChatNavn().setText(chat.getAfsender());
-
+            /** Sæt informationer i chatvinduet */
+            controller.getChatWindowChatNavn().setText(chat.getModtager());
+            controller.getChatWindowChatNavn().setText(chat.getAfsender());
             controller.getChatWindowChatEmne().setText(chat.getEmne());
+            if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
+                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
+            else
+                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL())));
 
-            controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
-
-            chatWindowChatVBox.getChildren().add(root);
-
+            /** Sæt en onMouseClicked-metode til chatpanelet */
             controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
                 if (selectedChat != null) {
                     selectedChat.getChatWindowChatAnchorPane().setStyle(null);
@@ -107,18 +115,10 @@ public class ChatWindowController {
                 selectedChat = controller;
                 visBeskeder(chat);
             });
-        }
 
-        for (int j = 0; j < chats.size(); j++) {
-            System.out.println(chats.get(j).getSidstAktiv());
-        }
 
-//        if (!picturePath.equals("")) {
-//            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image(picturePath)));
-//        } else {
-//            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
-//        }
-        // TODO tilføj billede til chatvinduet dynamisk
+            chatWindowChatVBox.getChildren().add(root);
+        }
     }
 
     public void visBeskeder(Chat chat) {
