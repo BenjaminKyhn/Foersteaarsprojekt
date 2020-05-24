@@ -129,8 +129,9 @@ public class ChatWindowController {
 
             String besked = beskeder.get(i).getBesked();
             String afsender = beskeder.get(i).getAfsender();
+            String tidspunkt = beskeder.get(i).getTidspunkt().substring(0, 16);
 
-            Label navnLabel = new Label(afsender);
+            Label navnLabel = new Label(afsender + " " + tidspunkt);
             navnLabel.setStyle("-fx-font-weight: bold");
 
             Label beskedLabel = new Label(besked);
@@ -159,8 +160,6 @@ public class ChatWindowController {
             beskedFacade.sendBesked(tfSendBesked.getText(), chat);
             visBeskeder(chat);
         });
-
-        // TODO timestamp på beskederne vises i UI ved siden af afsenders navn
     }
 
     /**
