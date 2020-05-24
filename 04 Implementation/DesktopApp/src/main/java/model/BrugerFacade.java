@@ -5,7 +5,9 @@ import model.exceptions.*;
 
 import java.io.IOException;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ */
 public class BrugerFacade {
     private Validering validering;
     private BrugerManager brugerManager;
@@ -17,7 +19,7 @@ public class BrugerFacade {
     }
 
     public static synchronized BrugerFacade getInstance() throws IOException {
-        if (brugerFacade == null){
+        if (brugerFacade == null) {
             brugerFacade = new BrugerFacade();
         }
         return brugerFacade;
@@ -27,7 +29,7 @@ public class BrugerFacade {
         validering.tjekEmail(email);
     }
 
-    public void tjekNavn(String navn) throws TomNavnException{
+    public void tjekNavn(String navn) throws TomNavnException {
         validering.tjekNavn(navn);
     }
 
@@ -43,11 +45,15 @@ public class BrugerFacade {
         brugerManager.sletBruger(bruger, password);
     }
 
-    public void logInd(String email, String password){
+    public void logInd(String email, String password) {
         brugerManager.logInd(email, password);
     }
 
-    public Bruger getAktivBruger(){
+    public void logUd() {
+        brugerManager.logUd();
+    }
+
+    public Bruger getAktivBruger() {
         return brugerManager.getAktivBruger();
     }
 }

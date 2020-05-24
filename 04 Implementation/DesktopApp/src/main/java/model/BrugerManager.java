@@ -76,4 +76,8 @@ public class BrugerManager {
             aktivBruger = bruger;
         }
     }
+
+    public void logUd(){
+        aktivBruger = null;
+    }
 }

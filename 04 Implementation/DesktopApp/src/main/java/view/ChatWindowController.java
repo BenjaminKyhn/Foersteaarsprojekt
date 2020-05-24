@@ -164,6 +164,8 @@ public class ChatWindowController {
 
         Stage stage = (Stage) chatWindowMessageVBox.getScene().getWindow();
         stage.setScene(secondScene);
+
+        brugerFacade.logUd();
     }
 
     public void tilHovedmenu() {
