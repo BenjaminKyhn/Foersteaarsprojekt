@@ -99,7 +99,7 @@ public class ChatWindowController {
 
             /** Sæt informationer i chatvinduet */
             controller.getChatWindowChatNavn().setText(chat.getModtager());
-            controller.getChatWindowChatNavn().setText(chat.getAfsender());
+//            controller.getChatWindowChatNavn().setText(chat.getAfsender());
             controller.getChatWindowChatEmne().setText(chat.getEmne());
             if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));

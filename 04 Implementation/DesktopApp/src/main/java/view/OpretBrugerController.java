@@ -100,6 +100,8 @@ public class OpretBrugerController {
                 popupWindow("Fejl: Password skal være mellem 6 og 20 tegn");
             } catch (BrugerLoggedIndException blie) {
                 popupWindow("Fejl: Du er allerede logged ind");
+            } catch (Exception e){
+                e.printStackTrace();
             }
         });
     }
