@@ -129,4 +129,15 @@
         app:layout_constraintStart_toEndOf="@+id/gentagPasswordRegister"
         app:layout_constraintTop_toBottomOf="@+id/passwordFelt" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Opret bruger"
+        android:onClick="opretBruger"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gentagPasswordFelt" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
