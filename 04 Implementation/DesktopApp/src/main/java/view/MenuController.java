@@ -54,7 +54,6 @@ public class MenuController {
             mailLabel.setText(aktivBruger.getEmail());
 
         /** Sæt egenskaber på labels */
-        logUdLabel.setOnMouseClicked(event -> logOut());
         beskederLabel.setOnMouseClicked(event -> nextScene());
     }
 
@@ -73,7 +72,7 @@ public class MenuController {
     /**
      * @author Benjamin
      */
-    public void logOut() {
+    public void logUd() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../Start.fxml"));

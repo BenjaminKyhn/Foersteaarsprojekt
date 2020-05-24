@@ -107,17 +107,16 @@ public class StartController {
     }
 
     public void skiftTilOpretBrugerScene(){
-        /** Scene 2 */
-        Parent secondPageLoader = null;
+        Parent opretBrugerLoader = null;
         try {
-            secondPageLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
+            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
         }
         catch (Exception e){
         }
-        Scene secondScene = new Scene(secondPageLoader);
+        Scene opretBrugerScene = new Scene(opretBrugerLoader);
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(opretBrugerScene);
     }
 
     public void logIndFejlPopup(String infoText) {

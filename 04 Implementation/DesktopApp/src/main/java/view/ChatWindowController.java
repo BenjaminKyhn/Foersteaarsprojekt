@@ -160,6 +160,8 @@ public class ChatWindowController {
             beskedFacade.sendBesked(tfSendBesked.getText(), chat);
             visBeskeder(chat);
         });
+
+        // TODO timestamp på beskederne vises i UI ved siden af afsenders navn
     }
 
     /**
