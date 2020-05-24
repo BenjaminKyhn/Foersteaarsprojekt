@@ -66,4 +66,8 @@ public class BeskedManager {
         chat.setSidstAktiv(tidspunkt);
         databaseManager.opdaterChat(chat, beskedObjekt);
     }
+
+    public void sorterChatsEfterTidspunkt(){
+
+    }
 }

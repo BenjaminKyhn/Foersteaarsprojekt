@@ -14,6 +14,7 @@ import domain.Chat;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -99,9 +100,12 @@ public class DatabaseManager {
 
     public ArrayList<Chat> hentChatsMedNavn(String navn){
         ArrayList<Chat> chats = new ArrayList<>();
+
+        /** Lav 2 queries, fordi navnet både kan være afsender og modtager */
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
         Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
 
+        /** Tilføj alle chats, hvor navnet er afsender til listen af chats */
         try {
             QuerySnapshot querySnapshot1 = query1.get().get();
             if (!querySnapshot1.isEmpty()){
@@ -117,6 +121,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
+        /** Tilføj alle chats, hvor navnet er modtager til listen af chats */
         try {
             QuerySnapshot querySnapshot2 = query2.get().get();
             if (!querySnapshot2.isEmpty()){
@@ -132,8 +137,11 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-        return chats;
+        /** Sorter listen */
+        Collections.sort(chats, Chat.ChatTidspunktComparator);
 
+        /** Returner listen */
+        return chats;
         //TODO returner en liste sorteret efter tidspunkt
     }
 

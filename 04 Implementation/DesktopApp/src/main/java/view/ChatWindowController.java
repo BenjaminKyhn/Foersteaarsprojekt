@@ -109,11 +109,16 @@ public class ChatWindowController {
             });
         }
 
+        for (int j = 0; j < chats.size(); j++) {
+            System.out.println(chats.get(j).getSidstAktiv());
+        }
+
 //        if (!picturePath.equals("")) {
 //            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image(picturePath)));
 //        } else {
 //            controller.getChatWindowChatPhoto().setFill(new ImagePattern(new Image("intetBillede.png")));
 //        }
+        // TODO tilføj billede til chatvinduet dynamisk
     }
 
     public void visBeskeder(Chat chat) {
