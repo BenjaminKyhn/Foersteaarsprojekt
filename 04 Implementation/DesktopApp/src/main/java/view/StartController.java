@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,9 +38,10 @@ public class StartController {
 
         /** Lav TextFields, Buttons, Labels og ImageView */
         TextField tfEmail = new TextField();
-        TextField tfPassword = new TextField();
+        PasswordField tfPassword = new PasswordField();
         Label lblEmail = new Label("Email:");
         Label lblPassword = new Label("Password:");
+
         HBox buttonHolder = new HBox();
         Button btnLogInd = new Button("Log ind");
         Button btnOpretBruger = new Button("Opret Bruger");

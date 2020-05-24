@@ -3,7 +3,6 @@ package view;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -51,9 +50,6 @@ public class ChatWindowController {
 
     @FXML
     private Label lblBrugernavn, lblEmail;
-
-    @FXML
-    private ScrollPane chatScrollPane;
 
     public void initialize() throws IOException {
         beskedFacade = BeskedFacade.getInstance();
