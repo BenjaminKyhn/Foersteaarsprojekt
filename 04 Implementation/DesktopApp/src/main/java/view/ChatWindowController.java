@@ -23,7 +23,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-/** @author Tommy og Patrick */
+/**
+ * @author Tommy og Patrick
+ */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
@@ -50,7 +52,11 @@ public class ChatWindowController {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
 
-        chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
+        /** Indlæs brugerens profilbillede */
+        if (brugerFacade.getAktivBruger().getFotoURL() != null)
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image(brugerFacade.getAktivBruger().getFotoURL())));
+        else
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
 
         nyBeskedKnap.setOnMouseClicked(event -> nyBeskedPopup());
 
@@ -182,13 +188,12 @@ public class ChatWindowController {
         stage.setScene(secondScene);
     }
 
-    public void nyBeskedPopup(){
+    public void nyBeskedPopup() {
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyBesked.fxml"));
         try {
             root = fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert root != null;

@@ -73,7 +73,7 @@
          </font>
       </Label>
    </VBox>
-   <Circle fx:id="FotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
+   <Circle fx:id="fotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
    <VBox alignment="TOP_CENTER" layoutX="493.0" layoutY="197.0" prefHeight="195.0" prefWidth="274.0" spacing="20.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="155.8" AnchorPane.rightAnchor="50.0">
       <Label fx:id="beskederLabel" text="Beskeder">
          <font>

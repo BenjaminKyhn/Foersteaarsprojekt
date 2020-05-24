@@ -11,11 +11,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import model.BrugerFacade;
 
 import java.io.IOException;
 
 /** @author Tommy og Patrick */
 public class MenuController {
+    private BrugerFacade brugerFacade;
+
     @FXML
     private AnchorPane menuAnchorPane;
 
@@ -23,22 +26,27 @@ public class MenuController {
     private Label beskederLabel, navnLabel, mailLabel, logUdLabel;
 
     @FXML
-    private Circle FotoCircle;
+    private Circle fotoCircle;
 
     @FXML
     private ImageView logoImageView;
 
-    public void initialize() {
+    public void initialize() throws IOException {
+        brugerFacade = BrugerFacade.getInstance();
+
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
 
-        Image foto = new Image("Christian.png");
-        FotoCircle.setFill(new ImagePattern(foto));
+        /** Indlæs brugerens profilbillede */
+        if (brugerFacade.getAktivBruger().getFotoURL() != null)
+            fotoCircle.setFill(new ImagePattern(new Image(brugerFacade.getAktivBruger().getFotoURL())));
+        // TODO gør så billedet ikke strækkes
+        else
+            fotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
 
+        /** Sæt egenskaber på labels */
         logUdLabel.setOnMouseClicked(event -> logOut());
-
         beskederLabel.setOnMouseClicked(event -> nextScene());
-
         navnLabel.setText("Navn: Christian Iuul");
         mailLabel.setText("Mail: mail@frbsport.dk");
     }
