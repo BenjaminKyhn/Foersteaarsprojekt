@@ -102,7 +102,7 @@ public class ChatWindowController {
             if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
             else
-                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL())));
+                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1.2, true));
 
             /** Sæt en onMouseClicked-metode til chatpanelet */
             controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
