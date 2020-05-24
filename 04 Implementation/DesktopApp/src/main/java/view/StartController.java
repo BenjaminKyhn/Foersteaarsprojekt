@@ -93,17 +93,16 @@ public class StartController {
     }
 
     public void skiftTilMenuScene() {
-        /** Scene 2 */
-        Parent secondPageLoader = null;
+        Parent menuLoader = null;
         try {
-            secondPageLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            menuLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
         }
         catch (Exception e){
         }
-        Scene secondScene = new Scene(secondPageLoader);
+        Scene menuScene = new Scene(menuLoader);
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(menuScene);
     }
 
     public void skiftTilOpretBrugerScene(){
@@ -138,7 +137,5 @@ public class StartController {
 
         OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
         opretBrugerPopupController.getTxtLabel().setText(infoText);
-
-        //TODO: Lav log ud funktion
     }
 }
