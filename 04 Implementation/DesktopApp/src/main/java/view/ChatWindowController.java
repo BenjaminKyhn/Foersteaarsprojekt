@@ -99,7 +99,6 @@ public class ChatWindowController {
 
             /** Sæt informationer i chatvinduet */
             controller.getChatWindowChatNavn().setText(chat.getModtager());
-//            controller.getChatWindowChatNavn().setText(chat.getAfsender());
             controller.getChatWindowChatEmne().setText(chat.getEmne());
             if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
@@ -119,6 +118,8 @@ public class ChatWindowController {
 
             chatWindowChatVBox.getChildren().add(root);
         }
+
+        // TODO: håndter chats med brugere, som ikke længere eksisterer (blev slettet)
     }
 
     public void visBeskeder(Chat chat) {

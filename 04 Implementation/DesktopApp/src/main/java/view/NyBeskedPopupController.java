@@ -61,8 +61,6 @@ public class NyBeskedPopupController {
     public void lukVindue(){
         Stage stage = (Stage) nyBeskedAnchorPane.getScene().getWindow();
         stage.close();
-
-        // TODO få chatten i det andet vindue til at opdatere med den nye chat
     }
 
     public void popupWindow(String infoText) {
