@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -36,8 +37,8 @@ public class OpretBrugerController {
     /** Lav TextFields, Buttons, Labels og ImageView */
     TextField tfBrugernavn = new TextField();
     TextField tfEmail = new TextField();
-    TextField tfPassword = new TextField();
-    TextField tfGentagPassword = new TextField();
+    PasswordField tfPassword = new PasswordField();
+    PasswordField tfGentagPassword = new PasswordField();
     Label lblBrugernavn = new Label("Navn:");
     Label lblEmail = new Label("Email:");
     Label lblPassword = new Label("Password:");
