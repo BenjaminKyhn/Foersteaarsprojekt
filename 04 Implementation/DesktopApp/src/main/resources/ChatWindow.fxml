@@ -20,7 +20,8 @@
                <children>
                   <VBox layoutX="107.0" layoutY="16.0" prefHeight="80.0" prefWidth="80.0" spacing="8.0" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="16.0">
                      <children>
-                        <Label text="Christian Iuul" />
+                        <Label fx:id="lblBrugernavn" text="Navn" />
+                        <Label fx:id="lblEmail" text="Email" />
                      </children>
                   </VBox>
                   <AnchorPane layoutX="20.0" layoutY="125.0" prefHeight="421.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">

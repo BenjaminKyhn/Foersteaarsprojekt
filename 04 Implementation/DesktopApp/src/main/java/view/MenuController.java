@@ -1,5 +1,6 @@
 package view;
 
+import domain.Bruger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,9 +16,12 @@ import model.BrugerFacade;
 
 import java.io.IOException;
 
-/** @author Tommy og Patrick */
+/**
+ * @author Tommy og Patrick
+ */
 public class MenuController {
     private BrugerFacade brugerFacade;
+    private Bruger aktivBruger;
 
     @FXML
     private AnchorPane menuAnchorPane;
@@ -33,22 +37,25 @@ public class MenuController {
 
     public void initialize() throws IOException {
         brugerFacade = BrugerFacade.getInstance();
+        aktivBruger = brugerFacade.getAktivBruger();
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
 
-        /** Indlæs brugerens profilbillede */
-        if (brugerFacade.getAktivBruger().getFotoURL() != null)
-            fotoCircle.setFill(new ImagePattern(new Image(brugerFacade.getAktivBruger().getFotoURL())));
-        // TODO gør så billedet ikke strækkes
+        /** Indlæs brugerens oplysninger */
+        if (aktivBruger.getFotoURL() != null)
+            fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL())));
+            // TODO gør så billedet ikke strækkes
         else
             fotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
+        if (aktivBruger.getNavn() != null)
+            navnLabel.setText(aktivBruger.getNavn());
+        if (aktivBruger.getEmail() != null)
+            mailLabel.setText(aktivBruger.getEmail());
 
         /** Sæt egenskaber på labels */
         logUdLabel.setOnMouseClicked(event -> logOut());
         beskederLabel.setOnMouseClicked(event -> nextScene());
-        navnLabel.setText("Navn: Christian Iuul");
-        mailLabel.setText("Mail: mail@frbsport.dk");
     }
 
     public void nextScene() {
@@ -63,13 +70,14 @@ public class MenuController {
         stage.setScene(scene);
     }
 
-    /** @author Benjamin */
+    /**
+     * @author Benjamin
+     */
     public void logOut() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert root != null;

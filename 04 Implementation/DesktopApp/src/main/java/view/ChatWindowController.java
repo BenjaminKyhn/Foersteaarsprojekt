@@ -21,7 +21,6 @@ import model.BrugerFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * @author Tommy og Patrick
@@ -48,15 +47,23 @@ public class ChatWindowController {
     @FXML
     private TextField tfSendBesked;
 
+    @FXML
+    private Label lblBrugernavn, lblEmail;
+
     public void initialize() throws IOException {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
+        aktivBruger = brugerFacade.getAktivBruger();
 
-        /** Indlæs brugerens profilbillede */
-        if (brugerFacade.getAktivBruger().getFotoURL() != null)
-            chatUserPhotoCircle.setFill(new ImagePattern(new Image(brugerFacade.getAktivBruger().getFotoURL())));
+        /** Indlæs brugerens oplysninger */
+        if (aktivBruger.getFotoURL() != null)
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL())));
         else
             chatUserPhotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
+        if (aktivBruger.getNavn() != null)
+            lblBrugernavn.setText(aktivBruger.getNavn());
+        if (aktivBruger.getEmail() != null)
+            lblEmail.setText(aktivBruger.getEmail());
 
         nyBeskedKnap.setOnMouseClicked(event -> nyBeskedPopup());
 
@@ -64,7 +71,6 @@ public class ChatWindowController {
     }
 
     public void indlaesChats() {
-        aktivBruger = brugerFacade.getAktivBruger();
         chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
         chatWindowChatVBox.getChildren().clear();
 
