@@ -3,6 +3,7 @@ package view;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -10,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
@@ -49,6 +51,9 @@ public class ChatWindowController {
 
     @FXML
     private Label lblBrugernavn, lblEmail;
+
+    @FXML
+    private ScrollPane chatScrollPane;
 
     public void initialize() throws IOException {
         beskedFacade = BeskedFacade.getInstance();
