@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.BrugerFacade;
+import model.exceptions.ForkertPasswordException;
 
 import java.io.IOException;
 
@@ -81,8 +82,11 @@ public class StartController {
                     logIndFejlPopup("Fejl: Passwordfeltet er tomt");
                     return;
                 }
-                //TODO: Lav exception, hvis passwordet ikke matcher det password, der er i databasen
-                brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
+                try {
+                    brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
+                } catch (ForkertPasswordException fpe){
+                    logIndFejlPopup("Forkert password indtastet");
+                }
             } catch (Exception e){
                 logIndFejlPopup("Fejl i logind");
             }

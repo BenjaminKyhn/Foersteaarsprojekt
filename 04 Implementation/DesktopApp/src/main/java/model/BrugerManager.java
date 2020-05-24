@@ -69,11 +69,14 @@ public class BrugerManager {
         return aktivBruger;
     }
 
-    public void logInd(String email, String password){
+    public void logInd(String email, String password) throws ForkertPasswordException{
         Bruger bruger = databaseManager.hentBrugerMedEmail(email);
         String enkrypteretPassword = enkrypterTekst(password);
         if (bruger.getPassword().equals(enkrypteretPassword)){
             aktivBruger = bruger;
+        }
+        else {
+            throw new ForkertPasswordException();
         }
     }
 

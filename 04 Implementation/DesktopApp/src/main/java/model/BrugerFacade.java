@@ -45,7 +45,7 @@ public class BrugerFacade {
         brugerManager.sletBruger(bruger, password);
     }
 
-    public void logInd(String email, String password) {
+    public void logInd(String email, String password) throws ForkertPasswordException {
         brugerManager.logInd(email, password);
     }
 
