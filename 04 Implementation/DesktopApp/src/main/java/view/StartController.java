@@ -48,8 +48,8 @@ public class StartController {
         Image image = new Image("Logo2x.png");
 
         /** temporary */
-        tfEmail.setText("1");
-        tfPassword.setText("111111");
+        tfEmail.setText("fys@frbsport.dk");
+        tfPassword.setText("morsfødselsdag228");
 
         /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
