@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /** @author Benjamin */
 public class Chat {
@@ -63,4 +64,14 @@ public class Chat {
     public void setSidstAktiv(String sidstAktiv) {
         this.sidstAktiv = sidstAktiv;
     }
+
+    public static Comparator<Chat> ChatTidspunktComparator = new Comparator<Chat>() {
+        @Override
+        public int compare(Chat c1, Chat c2) {
+            String tidspunkt1 = c1.getSidstAktiv();
+            String tidspunkt2 = c2.getSidstAktiv();
+
+            return tidspunkt2.compareTo(tidspunkt1);
+        }
+    };
 }

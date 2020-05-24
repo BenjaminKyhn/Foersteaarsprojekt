@@ -56,4 +56,8 @@ public class BrugerFacade {
     public Bruger getAktivBruger() {
         return brugerManager.getAktivBruger();
     }
+
+    public Bruger hentBrugerMedNavn(String navn){
+        return brugerManager.hentBrugerMedNavn(navn);
+    }
 }
