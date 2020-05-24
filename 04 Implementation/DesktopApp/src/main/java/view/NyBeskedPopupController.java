@@ -20,16 +20,10 @@ public class NyBeskedPopupController {
     private BeskedFacade beskedFacade;
 
     @FXML
-    public Label lblEmail;
+    public Label lblEmail, lblEmne;
 
     @FXML
-    public Label lblEmne;
-
-    @FXML
-    public TextField tfNavn;
-
-    @FXML
-    public TextField tfEmne;
+    public TextField tfNavn, tfEmne;
 
     @FXML
     public Button btnSend;
