@@ -9,10 +9,11 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatWindowController">
+<AnchorPane fx:id="chatWindowAnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatWindowController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="562.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
          <children>
@@ -20,7 +21,8 @@
                <children>
                   <VBox layoutX="107.0" layoutY="16.0" prefHeight="80.0" prefWidth="80.0" spacing="8.0" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="16.0">
                      <children>
-                        <Label text="Christian Iuul" />
+                        <Label fx:id="lblBrugernavn" text="Navn" />
+                        <Label fx:id="lblEmail" text="Email" />
                      </children>
                   </VBox>
                   <AnchorPane layoutX="20.0" layoutY="125.0" prefHeight="421.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
@@ -40,9 +42,9 @@
                </children>
             </AnchorPane>
             <Separator layoutX="240.0" layoutY="68.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0" />
-            <ScrollPane layoutX="365.0" layoutY="119.0" prefHeight="536.0" prefWidth="560.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane fx:id="chatScrollPane" layoutX="365.0" layoutY="119.0" prefHeight="536.0" prefWidth="560.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <VBox fx:id="chatWindowMessageVBox" prefHeight="528.0" prefWidth="546.0" />
+                  <VBox fx:id="chatWindowMessageVBox" prefWidth="546.0" />
                </content></ScrollPane>
             <TextField fx:id="tfSendBesked" layoutX="240.0" layoutY="511.0" prefHeight="32.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="74.0" />
             <Button fx:id="sendBeskedKnap" layoutX="742.0" layoutY="530.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -50,16 +52,21 @@
       </AnchorPane>
       <AnchorPane prefHeight="0.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <MenuBar prefHeight="26.0" prefWidth="650.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
-              <menus>
-                <Menu mnemonicParsing="false" text="Menu">
-                  <items>
-                    <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <Button layoutX="714.0" mnemonicParsing="false" onAction="#logUd" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <HBox prefHeight="26.0" prefWidth="802.0">
+               <children>
+                  <MenuBar prefHeight="26.0" prefWidth="746.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="Menu">
+                        <items>
+                          <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
+                              <MenuItem mnemonicParsing="false" onAction="#logUd" text="Log ud" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <Button mnemonicParsing="false" onAction="#tilHovedmenu" text="Tilbage" />
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </children>

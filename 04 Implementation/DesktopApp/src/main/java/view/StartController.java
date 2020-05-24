@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.BrugerFacade;
+import model.exceptions.ForkertPasswordException;
 
 import java.io.IOException;
 
@@ -37,9 +39,10 @@ public class StartController {
 
         /** Lav TextFields, Buttons, Labels og ImageView */
         TextField tfEmail = new TextField();
-        TextField tfPassword = new TextField();
+        PasswordField tfPassword = new PasswordField();
         Label lblEmail = new Label("Email:");
         Label lblPassword = new Label("Password:");
+
         HBox buttonHolder = new HBox();
         Button btnLogInd = new Button("Log ind");
         Button btnOpretBruger = new Button("Opret Bruger");
@@ -48,8 +51,8 @@ public class StartController {
         Image image = new Image("Logo2x.png");
 
         /** temporary */
-        tfEmail.setText("1");
-        tfPassword.setText("111111");
+        tfEmail.setText("fys@frbsport.dk");
+        tfPassword.setText("morsfødselsdag228");
 
         /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
@@ -79,8 +82,11 @@ public class StartController {
                     logIndFejlPopup("Fejl: Passwordfeltet er tomt");
                     return;
                 }
-                //TODO: Lav exception, hvis passwordet ikke matcher det password, der er i databasen
-                brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
+                try {
+                    brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
+                } catch (ForkertPasswordException fpe){
+                    logIndFejlPopup("Forkert password indtastet");
+                }
             } catch (Exception e){
                 logIndFejlPopup("Fejl i logind");
             }
@@ -91,31 +97,29 @@ public class StartController {
     }
 
     public void skiftTilMenuScene() {
-        /** Scene 2 */
-        Parent secondPageLoader = null;
+        Parent menuLoader = null;
         try {
-            secondPageLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            menuLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
         }
         catch (Exception e){
         }
-        Scene secondScene = new Scene(secondPageLoader);
+        Scene menuScene = new Scene(menuLoader);
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(menuScene);
     }
 
     public void skiftTilOpretBrugerScene(){
-        /** Scene 2 */
-        Parent secondPageLoader = null;
+        Parent opretBrugerLoader = null;
         try {
-            secondPageLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
+            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
         }
         catch (Exception e){
         }
-        Scene secondScene = new Scene(secondPageLoader);
+        Scene opretBrugerScene = new Scene(opretBrugerLoader);
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(opretBrugerScene);
     }
 
     public void logIndFejlPopup(String infoText) {
@@ -137,7 +141,5 @@ public class StartController {
 
         OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
         opretBrugerPopupController.getTxtLabel().setText(infoText);
-
-        //TODO: Lav log ud funktion
     }
 }

@@ -21,9 +21,10 @@ import model.BrugerFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
-/** @author Tommy og Patrick */
+/**
+ * @author Tommy og Patrick
+ */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
@@ -46,11 +47,23 @@ public class ChatWindowController {
     @FXML
     private TextField tfSendBesked;
 
+    @FXML
+    private Label lblBrugernavn, lblEmail;
+
     public void initialize() throws IOException {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
+        aktivBruger = brugerFacade.getAktivBruger();
 
-        chatUserPhotoCircle.setFill(new ImagePattern(new Image("Christian.png")));
+        /** Indlæs brugerens oplysninger */
+        if (aktivBruger.getFotoURL() != null)
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL())));
+        else
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
+        if (aktivBruger.getNavn() != null)
+            lblBrugernavn.setText(aktivBruger.getNavn());
+        if (aktivBruger.getEmail() != null)
+            lblEmail.setText(aktivBruger.getEmail());
 
         nyBeskedKnap.setOnMouseClicked(event -> nyBeskedPopup());
 
@@ -58,7 +71,6 @@ public class ChatWindowController {
     }
 
     public void indlaesChats() {
-        aktivBruger = brugerFacade.getAktivBruger();
         chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
         chatWindowChatVBox.getChildren().clear();
 
@@ -117,8 +129,9 @@ public class ChatWindowController {
 
             String besked = beskeder.get(i).getBesked();
             String afsender = beskeder.get(i).getAfsender();
+            String tidspunkt = beskeder.get(i).getTidspunkt().substring(0, 16);
 
-            Label navnLabel = new Label(afsender);
+            Label navnLabel = new Label(afsender + " " + tidspunkt);
             navnLabel.setStyle("-fx-font-weight: bold");
 
             Label beskedLabel = new Label(besked);
@@ -164,6 +177,8 @@ public class ChatWindowController {
 
         Stage stage = (Stage) chatWindowMessageVBox.getScene().getWindow();
         stage.setScene(secondScene);
+
+        brugerFacade.logUd();
     }
 
     public void tilHovedmenu() {
@@ -180,13 +195,12 @@ public class ChatWindowController {
         stage.setScene(secondScene);
     }
 
-    public void nyBeskedPopup(){
+    public void nyBeskedPopup() {
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyBesked.fxml"));
         try {
             root = fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert root != null;

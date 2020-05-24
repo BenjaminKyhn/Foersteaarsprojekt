@@ -37,7 +37,6 @@ public class BrugerManager {
         String enkrypteretPassword = enkrypterTekst(password);
         Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
         databaseManager.gemBruger(bruger);
-        aktivBruger = bruger;
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
@@ -70,11 +69,18 @@ public class BrugerManager {
         return aktivBruger;
     }
 
-    public void logInd(String email, String password){
+    public void logInd(String email, String password) throws ForkertPasswordException{
         Bruger bruger = databaseManager.hentBrugerMedEmail(email);
         String enkrypteretPassword = enkrypterTekst(password);
         if (bruger.getPassword().equals(enkrypteretPassword)){
             aktivBruger = bruger;
         }
+        else {
+            throw new ForkertPasswordException();
+        }
+    }
+
+    public void logUd(){
+        aktivBruger = null;
     }
 }
