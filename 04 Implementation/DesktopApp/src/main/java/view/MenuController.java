@@ -85,6 +85,8 @@ public class MenuController {
      * @author Benjamin
      */
     public void logUd() {
+        brugerFacade.logUd();
+
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
