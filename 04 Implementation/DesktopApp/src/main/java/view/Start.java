@@ -22,7 +22,7 @@ public class Start extends Application{
         stage.setMinHeight(600);
         stage.show();
 
-        // TODO opret realistiske brugere og chats til præsentationen 25/5
+        // TODO sceneskift skal beholde vinduets størrelse
     }
 
     public static void main(String[] args) {
