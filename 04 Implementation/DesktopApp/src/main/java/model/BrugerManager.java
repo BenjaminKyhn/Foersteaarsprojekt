@@ -38,6 +38,7 @@ public class BrugerManager {
         Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
         databaseManager.gemBruger(bruger);
         aktivBruger = bruger;
+        // TODO brugeren skal ikke logges ind, når han opretter en bruger (han er jo behandler og kan oprette klienter)
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
