@@ -45,12 +45,17 @@
       </Label>
    </VBox>
    <VBox layoutX="18.0" layoutY="452.0" prefHeight="69.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="18.0">
-      <Label prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
+      <Label onMouseClicked="#skiftTilBrugerindstillinger" prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="logUdLabel" onMouseClicked="#logUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
+      <Label fx:id="lblSletBruger" text="Slet Bruger">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLogUd" onMouseClicked="#logUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
          <font>
             <Font size="18.0" />
          </font>

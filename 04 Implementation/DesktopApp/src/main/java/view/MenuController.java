@@ -32,7 +32,7 @@ public class MenuController {
     private Rectangle topRectangle, bundRectangle;
 
     @FXML
-    private Label beskederLabel, navnLabel, mailLabel, logUdLabel;
+    private Label beskederLabel, navnLabel, mailLabel, lblLogUd, lblSletBruger;
 
     @FXML
     private Circle fotoCircle;
@@ -59,7 +59,7 @@ public class MenuController {
             mailLabel.setText(aktivBruger.getEmail());
 
         /** Sæt egenskaber på labels */
-        beskederLabel.setOnMouseClicked(event -> nextScene());
+        beskederLabel.setOnMouseClicked(event -> skiftTilChatvindue());
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -69,10 +69,22 @@ public class MenuController {
         menuAnchorPane.widthProperty().addListener(redraw);
     }
 
-    public void nextScene() {
+    public void skiftTilChatvindue() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/ChatWindow.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) logoImageView.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+    public void skiftTilBrugerindstillinger() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/Brugerindstillinger.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
