@@ -1,7 +1,5 @@
 package view;
 
-import domain.Bruger;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,61 +10,37 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.BrugerFacade;
 
 import java.io.IOException;
 
-/**
- * @author Tommy og Patrick
- */
+/** @author Tommy og Patrick */
 public class MenuController {
-    private BrugerFacade brugerFacade;
-    private Bruger aktivBruger;
-
     @FXML
     private AnchorPane menuAnchorPane;
-
-    @FXML
-    private Rectangle topRectangle, bundRectangle;
 
     @FXML
     private Label beskederLabel, navnLabel, mailLabel, logUdLabel;
 
     @FXML
-    private Circle fotoCircle;
+    private Circle FotoCircle;
 
     @FXML
     private ImageView logoImageView;
 
-    public void initialize() throws IOException {
-        brugerFacade = BrugerFacade.getInstance();
-        aktivBruger = brugerFacade.getAktivBruger();
-
+    public void initialize() {
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
 
-        /** Indlæs brugerens oplysninger */
-        if (aktivBruger.getFotoURL() != null)
-            fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
-            // TODO find en måde at indsætte billede på, så det kan tage imod alle højde:bredde forhold. Det kan evt. gøres ved at lave en custom class, som extender ImageView og kalde setPreserveRatio(boolean)
-        else
-            fotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
-        if (aktivBruger.getNavn() != null)
-            navnLabel.setText(aktivBruger.getNavn());
-        if (aktivBruger.getEmail() != null)
-            mailLabel.setText(aktivBruger.getEmail());
+        Image foto = new Image("Christian.png");
+        FotoCircle.setFill(new ImagePattern(foto));
 
-        /** Sæt egenskaber på labels */
+        logUdLabel.setOnMouseClicked(event -> logOut());
+
         beskederLabel.setOnMouseClicked(event -> nextScene());
 
-        /** Sæt UI-elementer til at skalere med vinduets størrelse */
-        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            topRectangle.setWidth(menuAnchorPane.getWidth());
-            bundRectangle.setWidth(menuAnchorPane.getWidth());
-        };
-        menuAnchorPane.widthProperty().addListener(redraw);
+        navnLabel.setText("Navn: Christian Iuul");
+        mailLabel.setText("Mail: mail@frbsport.dk");
     }
 
     public void nextScene() {
@@ -81,16 +55,13 @@ public class MenuController {
         stage.setScene(scene);
     }
 
-    /**
-     * @author Benjamin
-     */
-    public void logUd() {
-        brugerFacade.logUd();
-
+    /** @author Benjamin */
+    public void logOut() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
-        } catch (Exception e) {
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
         assert root != null;
