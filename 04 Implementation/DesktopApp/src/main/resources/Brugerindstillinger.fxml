@@ -39,7 +39,7 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lvlSletBruger" prefHeight="27.0" prefWidth="257.0" text="Slet Bruger">
+                              <Label fx:id="lvlSletBruger" onMouseClicked="#indlaesSletBruger" prefHeight="27.0" prefWidth="257.0" text="Slet Bruger">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 
@@ -16,8 +17,27 @@ public class BrugerindstillingerController {
     @FXML
     private AnchorPane biAnchorPane;
 
+    @FXML
+    private VBox indholdVBox;
+
     public void initialize() throws IOException {
         brugerFacade = BrugerFacade.getInstance();
+    }
+
+    public void indlaesSletBruger(){
+        indholdVBox.getChildren().clear();
+
+        /** Hent controlleren */
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+        ChatWindowChatController controller = loader.getController();
+
+        indholdVBox.getChildren().add(root);
     }
 
     public void logUd() {
