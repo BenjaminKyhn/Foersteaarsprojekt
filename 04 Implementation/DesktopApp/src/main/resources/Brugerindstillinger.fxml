@@ -20,7 +20,7 @@
                <children>
                   <VBox layoutX="107.0" layoutY="16.0" prefHeight="80.0" prefWidth="80.0" spacing="8.0" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="16.0">
                      <children>
-                        <Label fx:id="lblBrugernavn" text="Navn" />
+                        <Label fx:id="lblNavn" text="Navn" />
                         <Label fx:id="lblEmail" text="Email" />
                      </children>
                   </VBox>
@@ -29,17 +29,17 @@
                         <Separator layoutX="20.0" layoutY="-3.0" prefHeight="5.0" prefWidth="240.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <VBox layoutX="18.0" layoutY="14.0" prefHeight="109.0" prefWidth="205.0" spacing="14.0" stylesheets="buttonGraphic.css">
                            <children>
-                              <Label fx:id="lblUploadeBillede" prefHeight="27.0" prefWidth="231.0" text="Upload Profilbillede">
+                              <Label fx:id="lblUploadeBillede" onMouseClicked="#indlaesUploadBillede" prefHeight="27.0" prefWidth="231.0" text="Upload Profilbillede">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lblSkiftPassword" prefHeight="27.0" prefWidth="255.0" text="Skift Password">
+                              <Label fx:id="lblSkiftPassword" onMouseClicked="#indlaesSkiftPassword" prefHeight="27.0" prefWidth="255.0" text="Skift Password">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="lvlSletBruger" onMouseClicked="#indlaesSletBruger" prefHeight="27.0" prefWidth="257.0" text="Slet Bruger">
+                              <Label fx:id="lblSletBruger" onMouseClicked="#indlaesSletBruger" prefHeight="27.0" prefWidth="257.0" text="Slet Min Bruger">
                                  <font>
                                     <Font size="18.0" />
                                  </font>

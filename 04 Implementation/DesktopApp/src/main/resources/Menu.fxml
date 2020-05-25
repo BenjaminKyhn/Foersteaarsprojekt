@@ -27,25 +27,30 @@
          <Font name="System Bold" size="24.0" />
       </font>
    </Label>
-   <VBox layoutX="221.0" layoutY="368.0" prefHeight="110.0" prefWidth="138.0" spacing="15.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0">
-      <Label>
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="94.0">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+   <VBox layoutX="204.0" layoutY="365.0" prefHeight="166.0" prefWidth="167.0" spacing="15.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="69.0">
       <Label prefHeight="27.0" prefWidth="74.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
    </VBox>
-   <VBox layoutX="18.0" layoutY="452.0" prefHeight="69.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="18.0">
+   <VBox layoutX="20.0" layoutY="365.0" prefHeight="166.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="20.0">
       <Label fx:id="lblIndstillinger" prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="170.0" text="Patientregister">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblOpretPatient" text="Opret Patient">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblSletPatient" text="Slet Patient">
          <font>
             <Font size="18.0" />
          </font>

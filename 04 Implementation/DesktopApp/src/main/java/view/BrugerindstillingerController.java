@@ -1,11 +1,16 @@
 package view;
 
+import domain.Bruger;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 
@@ -13,6 +18,7 @@ import java.io.IOException;
 
 public class BrugerindstillingerController {
     private BrugerFacade brugerFacade;
+    private Bruger aktivBruger;
 
     @FXML
     private AnchorPane biAnchorPane;
@@ -20,22 +26,68 @@ public class BrugerindstillingerController {
     @FXML
     private VBox indholdVBox;
 
+    @FXML
+    private Circle brugerFotoCircle;
+
+    @FXML
+    private Label lblNavn, lblEmail;
+
     public void initialize() throws IOException {
         brugerFacade = BrugerFacade.getInstance();
+        aktivBruger = brugerFacade.getAktivBruger();
+
+        /** Indlæs brugerens oplysninger */
+        if (aktivBruger.getFotoURL() != null)
+            brugerFotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
+        else
+            brugerFotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
+        if (aktivBruger.getNavn() != null)
+            lblNavn.setText(aktivBruger.getNavn());
+        if (aktivBruger.getEmail() != null)
+            lblEmail.setText(aktivBruger.getEmail());
     }
 
     public void indlaesSletBruger(){
         indholdVBox.getChildren().clear();
 
-        /** Hent controlleren */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
+        /** indlæs fxml */
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SletBruger.fxml"));
         Parent root = null;
         try {
             root = loader.load();
         } catch (IOException io) {
             io.printStackTrace();
         }
-        ChatWindowChatController controller = loader.getController();
+
+        indholdVBox.getChildren().add(root);
+    }
+
+    public void indlaesSkiftPassword(){
+        indholdVBox.getChildren().clear();
+
+        /** indlæs fxml */
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SkiftPassword.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+
+        indholdVBox.getChildren().add(root);
+    }
+
+    public void indlaesUploadBillede(){
+        indholdVBox.getChildren().clear();
+
+        /** indlæs fxml */
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UploadBillede.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
 
         indholdVBox.getChildren().add(root);
     }
