@@ -37,4 +37,8 @@ class BeskedManager {
     void setChats(List<Chat> chats) {
         this.chats = chats;
     }
+
+    public List<Chat> getChats() {
+        return chats;
+    }
 }

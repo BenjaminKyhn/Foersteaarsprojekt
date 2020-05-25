@@ -11,14 +11,26 @@ import java.util.List;
 public class BeskedFacade {
     private BeskedManager beskedManager;
     private Validering validering;
+    private static BeskedFacade beskedFacade;
 
-    public BeskedFacade() {
-        this.beskedManager = new BeskedManager();
+    private BeskedFacade() {
+        beskedManager = new BeskedManager();
         validering = new Validering();
+    }
+
+    public static synchronized BeskedFacade hentInstans() {
+        if (beskedFacade == null) {
+            beskedFacade = new BeskedFacade();
+        }
+        return beskedFacade;
     }
 
     public Chat hentChat(String afsender, String modtager, String emne) {
         return beskedManager.hentChat(afsender, modtager, emne);
+    }
+
+    public List<Chat> hentNuvaerendeListe() {
+        return beskedManager.getChats();
     }
 
     public void sendBesked(String besked, Chat chat, String afsender, String modtager) {

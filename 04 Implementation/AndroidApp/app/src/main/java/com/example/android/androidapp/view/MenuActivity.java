@@ -1,5 +1,6 @@
 package com.example.android.androidapp.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -12,9 +13,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.domain.Chat;
+import com.example.android.androidapp.model.BeskedFacade;
+import com.example.android.androidapp.model.BrugerFacade;
+import com.example.android.androidapp.persistence.DatabaseManager;
+import com.example.android.androidapp.util.ObserverbarListe;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.Collections;
+import java.util.List;
+
 /**@author Patrick**/
 public class MenuActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
+    BrugerFacade brugerFacade;
+    BeskedFacade beskedFacade;
+    ObserverbarListe<Chat> chatListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +51,33 @@ public class MenuActivity extends AppCompatActivity {
 
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText("Menu");
+        brugerFacade = BrugerFacade.hentInstans();
+        beskedFacade = BeskedFacade.hentInstans();
+
+        chatListe = new ObserverbarListe<>();
+        beskedFacade.saetListeAfChats(chatListe);
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        Query query1 = databaseManager.hentChatsReference().whereEqualTo("afsender", brugerFacade.hentAktivBruger().getNavn());
+        Query query2 = databaseManager.hentChatsReference().whereEqualTo("modtager", brugerFacade.hentAktivBruger().getNavn());
+
+        query1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
+                chatListe.addAll(temp);
+                Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
+            }
+        });
+
+        query2.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
+                chatListe.addAll(temp);
+                Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
+            }
+        });
     }
 
     public void openDrawer() {

@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/beskedEmne1" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cardView"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginTop="230dp"
@@ -84,7 +84,7 @@
         app:layout_constraintTop_toBottomOf="@+id/indbakkeBar">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/defaultpicture" />
@@ -100,7 +100,7 @@
         android:layout_marginTop="444dp"
         android:text="Besked Titel"
         android:clickable="true"
-        app:layout_constraintStart_toEndOf="@+id/cardView2"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -113,7 +113,7 @@
         app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"
-        app:layout_constraintStart_toEndOf="@+id/cardView2"
+        app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/beskedEmne2"
         app:layout_constraintVertical_bias="0.0" />
     <View
