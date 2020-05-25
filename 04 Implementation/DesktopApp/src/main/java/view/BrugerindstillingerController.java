@@ -75,6 +75,8 @@ public class BrugerindstillingerController {
         }
 
         indholdVBox.getChildren().add(root);
+
+        //TODO implementer SkiftPassword
     }
 
     public void indlaesUploadBillede(){
@@ -90,6 +92,8 @@ public class BrugerindstillingerController {
         }
 
         indholdVBox.getChildren().add(root);
+
+        //TODO implementer UploadBillede
     }
 
     public void logUd() {
