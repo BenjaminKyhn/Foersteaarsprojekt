@@ -1,11 +1,14 @@
 package view;
 
 import domain.Bruger;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -27,10 +30,16 @@ public class BrugerindstillingerController {
     private VBox indholdVBox;
 
     @FXML
+    private MenuBar menuBar;
+
+    @FXML
     private Circle brugerFotoCircle;
 
     @FXML
     private Label lblNavn, lblEmail;
+
+    @FXML
+    private Button btnTilbage;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
@@ -45,6 +54,13 @@ public class BrugerindstillingerController {
             lblNavn.setText(aktivBruger.getNavn());
         if (aktivBruger.getEmail() != null)
             lblEmail.setText(aktivBruger.getEmail());
+
+        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
+            menuBar.setMinWidth(biAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+        };
+        biAnchorPane.widthProperty().addListener(redraw);
     }
 
     public void indlaesSletBruger(){

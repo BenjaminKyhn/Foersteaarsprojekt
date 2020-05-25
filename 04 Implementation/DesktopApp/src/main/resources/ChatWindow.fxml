@@ -54,7 +54,7 @@
          <children>
             <HBox prefHeight="26.0" prefWidth="802.0">
                <children>
-                  <MenuBar prefHeight="26.0" prefWidth="746.0">
+                  <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="100.0">
                      <menus>
                         <Menu mnemonicParsing="false" text="Menu">
                            <items>
@@ -64,7 +64,7 @@
                         </Menu>
                      </menus>
                   </MenuBar>
-                  <Button mnemonicParsing="false" onAction="#tilHovedmenu" text="Tilbage" />
+                  <Button fx:id="btnTilbage" mnemonicParsing="false" onAction="#tilHovedmenu" prefWidth="60.0" text="Tilbage" />
                </children>
             </HBox>
          </children>

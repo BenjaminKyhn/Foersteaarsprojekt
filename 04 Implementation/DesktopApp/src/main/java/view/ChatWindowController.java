@@ -3,6 +3,7 @@ package view;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -10,8 +11,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -31,16 +34,22 @@ public class ChatWindowController {
     private Bruger aktivBruger;
 
     @FXML
+    private AnchorPane chatWindowAnchorPane;
+
+    @FXML
     private VBox chatWindowChatVBox;
 
     @FXML
     private VBox chatWindowMessageVBox;
 
     @FXML
+    private MenuBar menuBar;
+
+    @FXML
     private Circle chatUserPhotoCircle;
 
     @FXML
-    private Button nyBeskedKnap, sendBeskedKnap;
+    private Button nyBeskedKnap, sendBeskedKnap, btnTilbage;
 
     @FXML
     private TextField tfSendBesked;
@@ -65,6 +74,13 @@ public class ChatWindowController {
             lblEmail.setText(aktivBruger.getEmail());
 
         nyBeskedKnap.setOnMouseClicked(event -> nyBeskedPopup());
+
+        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
+            menuBar.setMinWidth(chatWindowAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+        };
+        chatWindowAnchorPane.widthProperty().addListener(redraw);
 
         indlaesChats();
     }
@@ -221,4 +237,6 @@ public class ChatWindowController {
 
         stage.show();
     }
+
+    //TODO få menuen til at scale med vinduets størrelse
 }
