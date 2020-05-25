@@ -6,7 +6,6 @@ import model.exceptions.ForkertPasswordException;
 import org.apache.commons.codec.binary.Hex;
 import persistence.DatabaseManager;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

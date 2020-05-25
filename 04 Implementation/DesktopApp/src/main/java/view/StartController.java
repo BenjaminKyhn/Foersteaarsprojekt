@@ -34,7 +34,7 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
-    public void initialize() throws IOException {
+    public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
 
         /** Lav TextFields, Buttons, Labels og ImageView */
@@ -112,7 +112,7 @@ public class StartController {
     public void skiftTilOpretBrugerScene(){
         Parent opretBrugerLoader = null;
         try {
-            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
+            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger2.fxml"));
         }
         catch (Exception e){
         }
