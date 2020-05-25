@@ -45,12 +45,12 @@
       </Label>
    </VBox>
    <VBox layoutX="18.0" layoutY="452.0" prefHeight="69.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="18.0">
-      <Label prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
+      <Label fx:id="lblIndstillinger" prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="logUdLabel" onMouseClicked="#logUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
+      <Label fx:id="lblLogUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
          <font>
             <Font size="18.0" />
          </font>
@@ -70,7 +70,7 @@
    </VBox>
    <Circle fx:id="fotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
    <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="200.0" prefHeight="245.0" prefWidth="305.0" spacing="20.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="155.0" AnchorPane.rightAnchor="47.0">
-      <Label fx:id="beskederLabel" text="Beskeder">
+      <Label fx:id="lblBeskeder" text="Beskeder">
          <font>
             <Font size="36.0" />
          </font>

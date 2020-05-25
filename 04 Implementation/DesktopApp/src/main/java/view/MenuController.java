@@ -32,7 +32,7 @@ public class MenuController {
     private Rectangle topRectangle, bundRectangle;
 
     @FXML
-    private Label beskederLabel, navnLabel, mailLabel, logUdLabel;
+    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger;
 
     @FXML
     private Circle fotoCircle;
@@ -40,6 +40,7 @@ public class MenuController {
     @FXML
     private ImageView logoImageView;
 
+    /** @author Benjamin */
     public void initialize() throws IOException {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
@@ -59,7 +60,10 @@ public class MenuController {
             mailLabel.setText(aktivBruger.getEmail());
 
         /** Sæt egenskaber på labels */
-        beskederLabel.setOnMouseClicked(event -> nextScene());
+        lblBeskeder.setOnMouseClicked(event -> skiftTilChatvindue());
+        lblIndstillinger.setOnMouseClicked(event -> skiftTilBrugerindstillinger());
+        lblLogUd.setOnMouseClicked(event -> logUd());
+
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -69,7 +73,7 @@ public class MenuController {
         menuAnchorPane.widthProperty().addListener(redraw);
     }
 
-    public void nextScene() {
+    public void skiftTilChatvindue() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/ChatWindow.fxml"));
@@ -81,9 +85,18 @@ public class MenuController {
         stage.setScene(scene);
     }
 
-    /**
-     * @author Benjamin
-     */
+    public void skiftTilBrugerindstillinger(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/Brugerindstillinger.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) logoImageView.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
     public void logUd() {
         brugerFacade.logUd();
 
