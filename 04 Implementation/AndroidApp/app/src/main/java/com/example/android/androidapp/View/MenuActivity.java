@@ -10,21 +10,21 @@ import android.widget.ImageView;
 
 import com.example.android.androidapp.R;
 /**@author Patrick**/
-public class LoginActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        configureLogindButton();
+        setContentView(R.layout.activity_menu);
+        configureIndbakkeButton();
         configureBurgerButton();
     }
-    private void configureLogindButton() {
-        Button changeActivityButton = findViewById(R.id.logindButton);
+    private void configureIndbakkeButton() {
+        Button changeActivityButton = findViewById(R.id.BeskederButton);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, MenuActivity.class));
+                startActivity(new Intent(MenuActivity.this, indbakkeActivity.class));
             }
         });
     }
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, NaviView.class));
+                startActivity(new Intent(MenuActivity.this, NaviView.class));
             }
         });
     }

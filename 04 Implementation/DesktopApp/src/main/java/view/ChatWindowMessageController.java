@@ -1,5 +1,5 @@
 package view;
 
 /** @author Tommy og Patrick */
-public class ChatWindowBeskedController {
+public class ChatWindowMessageController {
 }

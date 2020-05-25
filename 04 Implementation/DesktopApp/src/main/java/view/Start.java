@@ -21,8 +21,6 @@ public class Start extends Application{
         stage.setMinWidth(800);
         stage.setMinHeight(600);
         stage.show();
-
-        // TODO sceneskift skal beholde vinduets størrelse
     }
 
     public static void main(String[] args) {

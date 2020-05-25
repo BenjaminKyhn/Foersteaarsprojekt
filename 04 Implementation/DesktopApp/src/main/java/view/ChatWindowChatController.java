@@ -11,24 +11,24 @@ public class ChatWindowChatController {
     private AnchorPane chatWindowChatAnchorPane;
 
     @FXML
-    private Circle chatWindowChatFoto;
+    private Circle chatWindowChatPhoto;
 
     @FXML
-    private Label chatWindowChatNavn, chatWindowChatEmne;
+    private Label chatWindowChatName, chatWindowChatSubject;
 
     public AnchorPane getChatWindowChatAnchorPane() {
         return chatWindowChatAnchorPane;
     }
 
-    public Circle getChatWindowChatFoto() {
-        return chatWindowChatFoto;
+    public Circle getChatWindowChatPhoto() {
+        return chatWindowChatPhoto;
     }
 
-    public Label getChatWindowChatNavn() {
-        return chatWindowChatNavn;
+    public Label getChatWindowChatName() {
+        return chatWindowChatName;
     }
 
-    public Label getChatWindowChatEmne() {
-        return chatWindowChatEmne;
+    public Label getChatWindowChatSubject() {
+        return chatWindowChatSubject;
     }
 }

@@ -8,12 +8,12 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<AnchorPane fx:id="chatWindowAnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatWindowController">
+<AnchorPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatWindowController">
    <children>
       <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="562.0" prefWidth="802.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
          <children>
@@ -21,14 +21,13 @@
                <children>
                   <VBox layoutX="107.0" layoutY="16.0" prefHeight="80.0" prefWidth="80.0" spacing="8.0" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="16.0">
                      <children>
-                        <Label fx:id="lblBrugernavn" text="Navn" />
-                        <Label fx:id="lblEmail" text="Email" />
+                        <Label text="Christian Iuul" />
                      </children>
                   </VBox>
                   <AnchorPane layoutX="20.0" layoutY="125.0" prefHeight="421.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="14.0" prefHeight="18.0" prefWidth="43.0" text="Søg" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="14.0" />
-                        <Button fx:id="nyBeskedKnap" layoutX="94.0" layoutY="79.0" mnemonicParsing="false" text="Ny besked" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="72.0" />
+                        <Button layoutX="94.0" layoutY="79.0" mnemonicParsing="false" text="Ny besked" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="72.0" />
                         <Separator layoutX="20.0" layoutY="118.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <ScrollPane layoutX="20.0" layoutY="120.0" prefHeight="328.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                            <content>
@@ -42,31 +41,27 @@
                </children>
             </AnchorPane>
             <Separator layoutX="240.0" layoutY="68.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="0.0" />
-            <ScrollPane fx:id="chatScrollPane" layoutX="365.0" layoutY="119.0" prefHeight="536.0" prefWidth="560.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <ScrollPane layoutX="365.0" layoutY="119.0" prefHeight="536.0" prefWidth="560.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <content>
-                  <VBox fx:id="chatWindowMessageVBox" prefWidth="546.0" />
+                  <VBox fx:id="chatWindowMessageVBox" prefHeight="528.0" prefWidth="546.0" />
                </content></ScrollPane>
-            <TextField fx:id="tfSendBesked" layoutX="240.0" layoutY="511.0" prefHeight="32.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="74.0" />
-            <Button fx:id="sendBeskedKnap" layoutX="742.0" layoutY="530.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <TextField layoutX="240.0" layoutY="511.0" prefHeight="32.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="74.0" />
+            <Button layoutX="742.0" layoutY="530.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="80.0" text="Send" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
       <AnchorPane prefHeight="0.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox prefHeight="26.0" prefWidth="802.0">
-               <children>
-                  <MenuBar prefHeight="26.0" prefWidth="746.0">
-                    <menus>
-                      <Menu mnemonicParsing="false" text="Menu">
-                        <items>
-                          <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
-                              <MenuItem mnemonicParsing="false" onAction="#logUd" text="Log ud" />
-                        </items>
-                      </Menu>
-                    </menus>
-                  </MenuBar>
-                  <Button mnemonicParsing="false" onAction="#tilHovedmenu" text="Tilbage" />
-               </children>
-            </HBox>
+            <MenuBar prefHeight="26.0" prefWidth="650.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="0.0">
+              <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Gå til hovedmenuen" onAction="#toMainMenu" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ImageView fx:id="logoImageView" fitHeight="25.0" fitWidth="80.0" layoutX="616.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0" />
+            <Button layoutX="714.0" mnemonicParsing="false" text="Log ud" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" onAction="#logOut"/>
          </children>
       </AnchorPane>
    </children>

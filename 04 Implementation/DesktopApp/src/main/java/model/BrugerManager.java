@@ -15,18 +15,10 @@ import java.security.NoSuchAlgorithmException;
 public class BrugerManager {
     private DatabaseManager databaseManager;
     private Bruger aktivBruger;
-    private static BrugerManager brugerManager;
 
     public BrugerManager() throws IOException {
         /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
         databaseManager = DatabaseManager.getInstance();
-    }
-
-    public static synchronized BrugerManager getInstance() throws IOException {
-        if (brugerManager == null){
-            brugerManager = new BrugerManager();
-        }
-        return brugerManager;
     }
 
     public void opretBruger(String navn, String email, String password) throws BrugerLoggedIndException {
@@ -37,6 +29,7 @@ public class BrugerManager {
         String enkrypteretPassword = enkrypterTekst(password);
         Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
         databaseManager.gemBruger(bruger);
+        aktivBruger = bruger;
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
@@ -63,28 +56,5 @@ public class BrugerManager {
             e.printStackTrace();
         }
         return sha256hex;
-    }
-
-    public Bruger getAktivBruger() {
-        return aktivBruger;
-    }
-
-    public void logInd(String email, String password) throws ForkertPasswordException{
-        Bruger bruger = databaseManager.hentBrugerMedEmail(email);
-        String enkrypteretPassword = enkrypterTekst(password);
-        if (bruger.getPassword().equals(enkrypteretPassword)){
-            aktivBruger = bruger;
-        }
-        else {
-            throw new ForkertPasswordException();
-        }
-    }
-
-    public void logUd(){
-        aktivBruger = null;
-    }
-
-    public Bruger hentBrugerMedNavn(String navn){
-        return databaseManager.hentBrugerMedNavn(navn);
     }
 }

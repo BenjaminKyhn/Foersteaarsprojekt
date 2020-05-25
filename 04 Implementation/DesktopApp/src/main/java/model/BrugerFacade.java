@@ -5,31 +5,21 @@ import model.exceptions.*;
 
 import java.io.IOException;
 
-/**
- * @author Benjamin
- */
+/** @author Benjamin */
 public class BrugerFacade {
     private Validering validering;
     private BrugerManager brugerManager;
-    private static BrugerFacade brugerFacade;
 
     public BrugerFacade() throws IOException {
         validering = new Validering();
-        brugerManager = BrugerManager.getInstance();
-    }
-
-    public static synchronized BrugerFacade getInstance() throws IOException {
-        if (brugerFacade == null) {
-            brugerFacade = new BrugerFacade();
-        }
-        return brugerFacade;
+        brugerManager = new BrugerManager();
     }
 
     public void tjekEmail(String email) throws EksisterendeBrugerException, TomEmailException {
         validering.tjekEmail(email);
     }
 
-    public void tjekNavn(String navn) throws TomNavnException {
+    public void tjekNavn(String navn) throws TomNavnException{
         validering.tjekNavn(navn);
     }
 
@@ -43,21 +33,5 @@ public class BrugerFacade {
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
         brugerManager.sletBruger(bruger, password);
-    }
-
-    public void logInd(String email, String password) throws ForkertPasswordException {
-        brugerManager.logInd(email, password);
-    }
-
-    public void logUd() {
-        brugerManager.logUd();
-    }
-
-    public Bruger getAktivBruger() {
-        return brugerManager.getAktivBruger();
-    }
-
-    public Bruger hentBrugerMedNavn(String navn){
-        return brugerManager.hentBrugerMedNavn(navn);
     }
 }

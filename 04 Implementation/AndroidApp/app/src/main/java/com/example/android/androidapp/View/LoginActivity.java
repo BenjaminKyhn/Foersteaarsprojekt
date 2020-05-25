@@ -1,4 +1,4 @@
-package com.example.android.androidapp.view;
+package com.example.android.androidapp.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,21 +10,21 @@ import android.widget.ImageView;
 
 import com.example.android.androidapp.R;
 /**@author Patrick**/
-public class MenuActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
-        configureIndbakkeButton();
+        setContentView(R.layout.activity_login);
+        configureLogindButton();
         configureBurgerButton();
     }
-    private void configureIndbakkeButton() {
-        Button changeActivityButton = findViewById(R.id.BeskederButton);
+    private void configureLogindButton() {
+        Button changeActivityButton = findViewById(R.id.logindButton);
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivity.this, indbakkeActivity.class));
+                startActivity(new Intent(LoginActivity.this, MenuActivity.class));
             }
         });
     }
@@ -33,7 +33,7 @@ public class MenuActivity extends AppCompatActivity {
         changeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MenuActivity.this, NaviView.class));
+                startActivity(new Intent(LoginActivity.this, NaviView.class));
             }
         });
     }
