@@ -11,8 +11,8 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menuAnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
-   <Rectangle arcHeight="5.0" arcWidth="5.0" height="188.0" layoutX="-4.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="395.0" AnchorPane.leftAnchor="0.0">
+<AnchorPane fx:id="menuAnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.MenuController">
+   <Rectangle fx:id="baggrundRectangle" arcHeight="5.0" arcWidth="5.0" height="188.0" layoutX="-4.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="394.0" AnchorPane.leftAnchor="0.0">
       <fill>
          <LinearGradient endX="0.4047619047619048" endY="0.10952380952380952" startX="0.3714285714285714" startY="0.9">
             <stops>
@@ -28,34 +28,34 @@
       </font>
    </Label>
    <VBox layoutX="221.0" layoutY="368.0" prefHeight="110.0" prefWidth="138.0" spacing="15.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0">
-      <Label text="Hovedmenu">
+      <Label>
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="94.0" text="Ny besked">
+      <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="94.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label prefHeight="27.0" prefWidth="74.0" text="Indbakke">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label text="Opret kunde">
+      <Label prefHeight="27.0" prefWidth="74.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
    </VBox>
    <VBox layoutX="18.0" layoutY="452.0" prefHeight="69.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="18.0">
-      <Label prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
+      <Label onMouseClicked="#skiftTilBrugerindstillinger" prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="logUdLabel" prefHeight="27.0" prefWidth="73.0" text="Log ud">
+      <Label fx:id="lblSletBruger" text="Slet Bruger">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLogUd" onMouseClicked="#logUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
          <font>
             <Font size="18.0" />
          </font>
@@ -73,8 +73,8 @@
          </font>
       </Label>
    </VBox>
-   <Circle fx:id="FotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
-   <VBox alignment="TOP_CENTER" layoutX="493.0" layoutY="197.0" prefHeight="195.0" prefWidth="274.0" spacing="20.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="155.8" AnchorPane.rightAnchor="50.0">
+   <Circle fx:id="fotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
+   <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="200.0" prefHeight="245.0" prefWidth="305.0" spacing="20.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="155.0" AnchorPane.rightAnchor="47.0">
       <Label fx:id="beskederLabel" text="Beskeder">
          <font>
             <Font size="36.0" />
@@ -87,17 +87,17 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <Label text="Træningsvideoer">
+      <Label text="Træningsprogram">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
    </VBox>
-   <Separator layoutX="7.0" layoutY="322.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="400.0" />
-   <Separator layoutX="422.0" layoutY="48.0" orientation="VERTICAL" prefHeight="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="400.0" AnchorPane.topAnchor="0.0" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutX="-2.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" width="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   <Separator layoutX="7.0" layoutY="322.0" prefHeight="3.0" prefWidth="394.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="406.0" />
+   <Separator layoutX="422.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="398.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle fx:id="topRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutX="-2.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle fx:id="bundRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    <Separator layoutX="531.0" layoutY="79.0" prefWidth="200.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
-   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="146.0" layoutX="256.0" layoutY="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="138.0" AnchorPane.topAnchor="0.0" />
-   <ImageView fx:id="logoImageView" fitHeight="116.0" fitWidth="257.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="18.0" />
+   <Rectangle fx:id="fillerRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="136.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="394.0" AnchorPane.topAnchor="0.0" />
+   <ImageView fx:id="logoImageView" fitHeight="121.0" fitWidth="259.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="8.0" />
 </AnchorPane>
