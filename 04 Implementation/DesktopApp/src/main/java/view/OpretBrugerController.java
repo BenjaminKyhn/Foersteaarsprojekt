@@ -1,11 +1,13 @@
 package view;
 
 import domain.Bruger;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +24,9 @@ public class OpretBrugerController {
 
     @FXML
     private AnchorPane opretBrugerAnchorPane;
+
+    @FXML
+    private MenuBar menuBar;
 
     @FXML
     private Button btnOpretBruger, btnTilbage;
@@ -64,6 +69,13 @@ public class OpretBrugerController {
                 e.printStackTrace();
             }
         });
+
+        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
+            menuBar.setMinWidth(opretBrugerAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+        };
+        opretBrugerAnchorPane.widthProperty().addListener(redraw);
     }
 
     public void tilbage() {
