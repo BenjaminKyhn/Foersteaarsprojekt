@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
@@ -21,9 +22,11 @@ import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -65,8 +68,19 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
-                chatListe.addAll(temp);
-                Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
+                for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
+                    final Chat chat = temp.get(i);
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocuments().get(i).getReference();
+                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
+                            chat.setBeskeder((ArrayList<Besked>) beskeder);
+                            chatListe.add(chat);
+                            Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
+                        }
+                    });
+                }
             }
         });
 
@@ -74,8 +88,19 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
-                chatListe.addAll(temp);
-                Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
+                for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
+                    final Chat chat = temp.get(i);
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocuments().get(i).getReference();
+                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
+                            chat.setBeskeder((ArrayList<Besked>) beskeder);
+                            chatListe.add(chat);
+                            Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
+                        }
+                    });
+                }
             }
         });
     }

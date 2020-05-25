@@ -3,6 +3,7 @@ package com.example.android.androidapp.view;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,14 +21,16 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
     @NonNull
     @Override
     public VaelgChatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_besvar_besked, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_adapter_item, parent, false);
         return new VaelgChatHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(VaelgChatHolder holder, int position) {
-
+        Besked besked = beskeder.get(position);
+        holder.afsender.setText(besked.getAfsender());
+        holder.besked.setText(besked.getBesked());
     }
 
     @Override
@@ -41,9 +44,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
     }
 
     static class VaelgChatHolder extends RecyclerView.ViewHolder {
+        TextView afsender;
+        TextView besked;
 
         VaelgChatHolder(View itemView) {
             super(itemView);
+            afsender = itemView.findViewById(R.id.textViewNavn);
+            besked = itemView.findViewById(R.id.textViewBesked);
         }
     }
 }
