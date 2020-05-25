@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.android.androidapp.R;
-
+/**@author Patrick**/
 public class LoginActivity extends AppCompatActivity {
 
     @Override
