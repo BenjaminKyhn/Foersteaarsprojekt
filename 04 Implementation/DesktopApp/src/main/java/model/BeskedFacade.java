@@ -2,6 +2,7 @@ package model;
 
 import domain.Besked;
 import domain.Chat;
+import model.exceptions.BrugerFindesIkkeException;
 import model.exceptions.ForMangeTegnException;
 import model.exceptions.TomBeskedException;
 import model.exceptions.TomEmneException;
@@ -13,14 +14,30 @@ import java.util.ArrayList;
 public class BeskedFacade {
     private BeskedManager beskedManager;
     private Validering validering;
+    private static BeskedFacade beskedFacade;
 
     public BeskedFacade() throws IOException {
-        beskedManager = new BeskedManager();
+        beskedManager = BeskedManager.getInstance();
         validering = new Validering();
+    }
+
+    public static synchronized BeskedFacade getInstance() throws IOException {
+        if (beskedFacade == null){
+            beskedFacade = new BeskedFacade();
+        }
+        return beskedFacade;
+    }
+
+    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
+        beskedManager.opretChat(navn, emne);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne){
         return beskedManager.hentChat(afsender, modtager, emne);
+    }
+
+    public ArrayList<Chat> hentChatsMedNavn(String navn){
+        return beskedManager.hentChatsMedNavn(navn);
     }
 
     public ArrayList<Besked> hentBeskeder(Chat chat){
