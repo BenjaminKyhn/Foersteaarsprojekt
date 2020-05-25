@@ -106,21 +106,7 @@
                     \nVælg i menuen eller herunder for at se mere om
                     \nvores specialer.
                     \n\nEr du i tvivl eller har du spørgsmål, er du altid
-                    \nvelkommen til at kontakte os.
-                    \n\n\n\n\n\n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!
-                    \n dummy teeeeeekst, 4 view!!"
+                    \nvelkommen til at kontakte os."
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
