@@ -56,7 +56,7 @@ public class ChatWindowController {
 
         /** Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
-            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.2, true));
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
         else
             chatUserPhotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
         if (aktivBruger.getNavn() != null)
@@ -102,7 +102,7 @@ public class ChatWindowController {
             if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
             else
-                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1.2, true));
+                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1.3, true));
 
             /** Sæt en onMouseClicked-metode til chatpanelet */
             controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
