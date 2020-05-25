@@ -16,12 +16,12 @@ public class BeskedManager {
     private BrugerManager brugerManager;
     private static BeskedManager beskedManager;
 
-    public BeskedManager() throws IOException {
+    public BeskedManager() {
         databaseManager = DatabaseManager.getInstance();
         brugerManager = BrugerManager.getInstance();
     }
 
-    public static synchronized BeskedManager getInstance() throws IOException {
+    public static synchronized BeskedManager getInstance() {
         if (beskedManager == null){
             beskedManager = new BeskedManager();
         }

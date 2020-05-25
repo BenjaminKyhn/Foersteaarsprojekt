@@ -32,7 +32,7 @@ public class BrugerindstillingerController {
     @FXML
     private Label lblNavn, lblEmail;
 
-    public void initialize() throws IOException {
+    public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
 

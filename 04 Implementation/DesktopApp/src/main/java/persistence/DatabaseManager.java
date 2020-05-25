@@ -23,7 +23,7 @@ public class DatabaseManager {
     private static DatabaseManager databaseManager; /** static, så vi altid kan få fat i den sammme DatabaseManager */
     private Firestore firestore;
 
-    private DatabaseManager() throws IOException {
+    private DatabaseManager() {
         initializeDB();
 
         /** initializeDB() skal kaldes før firestore kan initaliseres */
@@ -32,25 +32,29 @@ public class DatabaseManager {
 
     /** Der må kun være én instans af DatabaseManager, så derfor bruger vi altid getInstance(), når vi skal have fat i
      * DatabaseManager */
-    public static synchronized DatabaseManager getInstance() throws IOException {
+    public static synchronized DatabaseManager getInstance() {
         if (databaseManager == null){
             databaseManager = new DatabaseManager();
         }
         return databaseManager;
     }
 
-    public void initializeDB() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream("./serviceAccount.json");
+    public void initializeDB() {
+        try {
+            FileInputStream serviceAccount =
+                    new FileInputStream("./serviceAccount.json");
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
-                .setDatabaseUrl("https://fysiodb-680ee.firebaseio.com")
-                .build();
+            FirebaseOptions options = new FirebaseOptions.Builder()
+                    .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+                    .setDatabaseUrl("https://fysiodb-680ee.firebaseio.com")
+                    .build();
 
-        FirebaseApp.initializeApp(options);
+            FirebaseApp.initializeApp(options);
 
-        firestore = FirestoreClient.getFirestore();
+            firestore = FirestoreClient.getFirestore();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void gemBruger(Bruger bruger) {

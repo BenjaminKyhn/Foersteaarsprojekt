@@ -48,7 +48,7 @@ public class OpretBrugerController {
     Button btnOpretBruger = new Button("Opret Bruger");
     Image image = new Image("Logo2x.png");
 
-    public void initialize() throws IOException {
+    public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
 
         buttonHolder.setSpacing(17);

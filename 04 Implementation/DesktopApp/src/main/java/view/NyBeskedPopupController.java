@@ -34,7 +34,7 @@ public class NyBeskedPopupController {
     @FXML
     private GridPane nyBeskedGridPane;
 
-    public void initialize() throws IOException {
+    public void initialize() {
         beskedFacade = BeskedFacade.getInstance();
 
         btnSend.setOnMouseClicked(event -> {

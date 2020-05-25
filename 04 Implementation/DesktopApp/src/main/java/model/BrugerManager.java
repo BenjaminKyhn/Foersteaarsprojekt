@@ -17,12 +17,12 @@ public class BrugerManager {
     private Bruger aktivBruger;
     private static BrugerManager brugerManager;
 
-    public BrugerManager() throws IOException {
+    public BrugerManager() {
         /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
         databaseManager = DatabaseManager.getInstance();
     }
 
-    public static synchronized BrugerManager getInstance() throws IOException {
+    public static synchronized BrugerManager getInstance() {
         if (brugerManager == null){
             brugerManager = new BrugerManager();
         }

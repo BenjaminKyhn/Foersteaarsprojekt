@@ -13,12 +13,12 @@ public class BrugerFacade {
     private BrugerManager brugerManager;
     private static BrugerFacade brugerFacade;
 
-    public BrugerFacade() throws IOException {
+    public BrugerFacade() {
         validering = new Validering();
         brugerManager = BrugerManager.getInstance();
     }
 
-    public static synchronized BrugerFacade getInstance() throws IOException {
+    public static synchronized BrugerFacade getInstance() {
         if (brugerFacade == null) {
             brugerFacade = new BrugerFacade();
         }

@@ -41,7 +41,7 @@ public class MenuController {
     private ImageView logoImageView;
 
     /** @author Benjamin */
-    public void initialize() throws IOException {
+    public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
 

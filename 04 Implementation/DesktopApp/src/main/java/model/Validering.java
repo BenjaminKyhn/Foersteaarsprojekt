@@ -11,7 +11,7 @@ class Validering {
     /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
     private DatabaseManager databaseManager = DatabaseManager.getInstance();
 
-    Validering() throws IOException {
+    Validering() {
     }
 
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {

@@ -49,7 +49,7 @@ public class ChatWindowController {
     private Label lblBrugernavn, lblEmail;
 
     /** @author Benjamin */
-    public void initialize() throws IOException {
+    public void initialize() {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();

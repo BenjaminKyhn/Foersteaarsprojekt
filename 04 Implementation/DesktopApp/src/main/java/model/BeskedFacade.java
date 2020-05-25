@@ -16,12 +16,12 @@ public class BeskedFacade {
     private Validering validering;
     private static BeskedFacade beskedFacade;
 
-    public BeskedFacade() throws IOException {
+    public BeskedFacade() {
         beskedManager = BeskedManager.getInstance();
         validering = new Validering();
     }
 
-    public static synchronized BeskedFacade getInstance() throws IOException {
+    public static synchronized BeskedFacade getInstance() {
         if (beskedFacade == null){
             beskedFacade = new BeskedFacade();
         }
