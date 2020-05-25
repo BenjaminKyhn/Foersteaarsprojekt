@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /** @author Benjamin */
-public class OpretBrugerPopupController {
+public class SystemBeskedPopupController {
     @FXML
     private AnchorPane popupAnchorPane;
 

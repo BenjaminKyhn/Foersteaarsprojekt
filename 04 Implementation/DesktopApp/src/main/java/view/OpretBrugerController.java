@@ -119,8 +119,8 @@ public class OpretBrugerController {
         stage.setScene(popupScene);
         stage.show();
 
-        OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
-        opretBrugerPopupController.getTxtLabel().setText(infoText);
+        SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
+        systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
 
     public boolean tjekOmPasswordMatcher(String password1, String password2) {

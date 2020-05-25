@@ -19,6 +19,7 @@ import model.BrugerFacade;
 
 import java.io.IOException;
 
+/** @author Benjamin */
 public class BrugerindstillingerController {
     private BrugerFacade brugerFacade;
     private Bruger aktivBruger;

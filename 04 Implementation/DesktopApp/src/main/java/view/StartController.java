@@ -137,7 +137,7 @@ public class StartController {
         stage.setScene(popupScene);
         stage.show();
 
-        OpretBrugerPopupController opretBrugerPopupController = fxmlLoader.getController();
-        opretBrugerPopupController.getTxtLabel().setText(infoText);
+        SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
+        systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
 }
