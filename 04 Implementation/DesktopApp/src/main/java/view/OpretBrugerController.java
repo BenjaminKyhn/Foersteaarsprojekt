@@ -77,10 +77,30 @@ public class OpretBrugerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene secondScene = new Scene(root);
+        Scene scene = new Scene(root);
 
         Stage stage = (Stage) opretBrugerAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(scene);
+    }
+
+    public void skiftTilHovedMenu() {
+        if (aktivBruger == null){
+            popupWindow("Du er ikke logget ind");
+        }
+
+        else {
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            assert root != null;
+            Scene scene = new Scene(root);
+
+            Stage stage = (Stage) opretBrugerAnchorPane.getScene().getWindow();
+            stage.setScene(scene);
+        }
     }
 
     public void popupWindow(String infoText) {
@@ -118,10 +138,10 @@ public class OpretBrugerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene secondScene = new Scene(root);
+        Scene scene = new Scene(root);
 
         Stage stage = (Stage) opretBrugerAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(scene);
 
         brugerFacade.logUd();
     }

@@ -107,16 +107,16 @@ public class MenuController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene secondScene = new Scene(root);
+        Scene scene = new Scene(root);
 
         Stage stage = (Stage) menuAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(scene);
     }
 
     public void opretPatient(){
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/OpretBruger2.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/OpretBruger.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

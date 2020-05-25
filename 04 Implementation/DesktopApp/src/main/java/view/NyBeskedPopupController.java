@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.exceptions.BrugerFindesIkkeException;
 
-import java.io.IOException;
-
 /** @author Benjamin */
 public class NyBeskedPopupController {
     private BeskedFacade beskedFacade;

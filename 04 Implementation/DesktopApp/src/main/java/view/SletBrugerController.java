@@ -57,9 +57,9 @@ public class SletBrugerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene secondScene = new Scene(root);
+        Scene scene = new Scene(root);
 
         Stage stage = (Stage) sletBrugerAnchorPane.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(scene);
     }
 }

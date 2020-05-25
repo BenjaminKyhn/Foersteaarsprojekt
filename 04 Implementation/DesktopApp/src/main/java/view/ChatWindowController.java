@@ -194,10 +194,10 @@ public class ChatWindowController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene secondScene = new Scene(root);
+        Scene scene = new Scene(root);
 
         Stage stage = (Stage) chatWindowMessageVBox.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(scene);
 
         brugerFacade.logUd();
     }
@@ -210,10 +210,10 @@ public class ChatWindowController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene secondScene = new Scene(root);
+        Scene scene = new Scene(root);
 
         Stage stage = (Stage) chatWindowMessageVBox.getScene().getWindow();
-        stage.setScene(secondScene);
+        stage.setScene(scene);
     }
 
     /** @author Benjamin */

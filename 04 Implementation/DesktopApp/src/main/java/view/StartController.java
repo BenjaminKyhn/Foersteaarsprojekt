@@ -19,8 +19,6 @@ import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.exceptions.ForkertPasswordException;
 
-import java.io.IOException;
-
 /** @author Benjamin */
 public class StartController {
     private BrugerFacade brugerFacade;
@@ -64,7 +62,7 @@ public class StartController {
         startGridPane.add(buttonHolder, 1, 2);
         startGridPane.setAlignment(Pos.CENTER);
 
-        /** Sæt startImageViews indstillinger */
+        /** Sæt UI-elementer til at skalere */
         logoImageView.setImage(image);
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             logoImageView.setX(startAnchorPane.getWidth() / 2 - logoImageView.getFitWidth() / 2);
@@ -112,7 +110,7 @@ public class StartController {
     public void skiftTilOpretBrugerScene(){
         Parent opretBrugerLoader = null;
         try {
-            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger2.fxml"));
+            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
         }
         catch (Exception e){
         }
