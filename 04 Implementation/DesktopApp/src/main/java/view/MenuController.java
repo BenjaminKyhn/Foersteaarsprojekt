@@ -49,7 +49,7 @@ public class MenuController {
 
         /** Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
-            fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.2, true));
+            fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
             // TODO find en måde at indsætte billede på, så det kan tage imod alle højde:bredde forhold. Det kan evt. gøres ved at lave en custom class, som extender ImageView og kalde setPreserveRatio(boolean)
         else
             fotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
