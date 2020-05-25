@@ -32,7 +32,7 @@ public class MenuController {
     private Rectangle topRectangle, bundRectangle;
 
     @FXML
-    private Label beskederLabel, navnLabel, mailLabel, lblLogUd, lblSletBruger;
+    private Label beskederLabel, navnLabel, mailLabel, logUdLabel;
 
     @FXML
     private Circle fotoCircle;
@@ -49,7 +49,7 @@ public class MenuController {
 
         /** Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
-            fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
+            fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.2, true));
             // TODO find en måde at indsætte billede på, så det kan tage imod alle højde:bredde forhold. Det kan evt. gøres ved at lave en custom class, som extender ImageView og kalde setPreserveRatio(boolean)
         else
             fotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
@@ -59,7 +59,7 @@ public class MenuController {
             mailLabel.setText(aktivBruger.getEmail());
 
         /** Sæt egenskaber på labels */
-        beskederLabel.setOnMouseClicked(event -> skiftTilChatvindue());
+        beskederLabel.setOnMouseClicked(event -> nextScene());
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -69,22 +69,10 @@ public class MenuController {
         menuAnchorPane.widthProperty().addListener(redraw);
     }
 
-    public void skiftTilChatvindue() {
+    public void nextScene() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/ChatWindow.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
-        stage.setScene(scene);
-    }
-
-    public void skiftTilBrugerindstillinger() {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/Brugerindstillinger.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

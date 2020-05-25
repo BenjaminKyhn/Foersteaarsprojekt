@@ -22,9 +22,7 @@ import model.BrugerFacade;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- * @author Tommy og Patrick
- */
+/** @author Tommy og Patrick */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
@@ -50,9 +48,7 @@ public class ChatWindowController {
     @FXML
     private Label lblBrugernavn, lblEmail;
 
-    /**
-     * @author Benjamin
-     */
+    /** @author Benjamin */
     public void initialize() throws IOException {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
@@ -60,7 +56,7 @@ public class ChatWindowController {
 
         /** Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
-            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.2, true));
         else
             chatUserPhotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
         if (aktivBruger.getNavn() != null)
@@ -103,10 +99,10 @@ public class ChatWindowController {
             /** Sæt informationer i chatvinduet */
             controller.getChatWindowChatNavn().setText(chat.getModtager());
             controller.getChatWindowChatEmne().setText(chat.getEmne());
-            if (modtager == null || modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
+            if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
             else
-                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1.3, true));
+                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1.2, true));
 
             /** Sæt en onMouseClicked-metode til chatpanelet */
             controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
@@ -118,8 +114,8 @@ public class ChatWindowController {
                 visBeskeder(chat);
             });
 
-            if (modtager != null)
-                chatWindowChatVBox.getChildren().add(root);
+
+            chatWindowChatVBox.getChildren().add(root);
         }
 
         // TODO: håndter chats med brugere, som ikke længere eksisterer (blev slettet)
@@ -204,9 +200,7 @@ public class ChatWindowController {
         stage.setScene(secondScene);
     }
 
-    /**
-     * @author Benjamin
-     */
+    /** @author Benjamin */
     public void nyBeskedPopup() {
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyBesked.fxml"));

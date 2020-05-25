@@ -198,8 +198,8 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return beskeder;
-
-        //TODO får beskeder til at opdateres live med addSnapshotListener
     }
 
 }
+
+//TODO får beskeder til at opdateres live med addSnapshotListener
