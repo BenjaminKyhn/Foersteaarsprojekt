@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Chat;
+import com.example.android.androidapp.util.ItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.VaelgChatHolder> {
     private List<Chat> chats = new ArrayList<>();
     private String aktivBruger;
+    private ItemClickListener itemClickListener;
 
     public VaelgChatAdapter(String aktivBruger) {
         this.aktivBruger = aktivBruger;
@@ -49,7 +51,11 @@ public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.Vael
         notifyDataSetChanged();
     }
 
-    static class VaelgChatHolder extends RecyclerView.ViewHolder {
+    void setClickListener(ItemClickListener clickListener) {
+        this.itemClickListener = clickListener;
+    }
+
+    public class VaelgChatHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView samtalePerson;
         TextView emne;
 
@@ -57,6 +63,12 @@ public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.Vael
             super(itemView);
             samtalePerson = itemView.findViewById(R.id.textViewNavn);
             emne = itemView.findViewById(R.id.textViewEmne);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (itemClickListener != null) itemClickListener.onClick(view, getAdapterPosition());
         }
     }
 }

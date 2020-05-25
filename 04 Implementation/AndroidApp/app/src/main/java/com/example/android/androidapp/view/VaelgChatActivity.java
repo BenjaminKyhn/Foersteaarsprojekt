@@ -1,5 +1,6 @@
 package com.example.android.androidapp.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,11 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
+import com.example.android.androidapp.util.ItemClickListener;
+import com.example.android.androidapp.util.ObserverbarListe;
 
-public class VaelgChatActivity extends AppCompatActivity {
+public class VaelgChatActivity extends AppCompatActivity implements ItemClickListener {
     DrawerLayout drawerLayout;
+    ObserverbarListe<Chat> chats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +44,11 @@ public class VaelgChatActivity extends AppCompatActivity {
         BrugerFacade brugerFacade = BrugerFacade.hentInstans();
         BeskedFacade beskedFacade = BeskedFacade.hentInstans();
 
+        chats = (ObserverbarListe<Chat>) beskedFacade.hentNuvaerendeListe();
+
         VaelgChatAdapter vaelgChatAdapter = new VaelgChatAdapter(brugerFacade.hentAktivBruger().getNavn());
-        vaelgChatAdapter.setChats(beskedFacade.hentNuvaerendeListe());
+        vaelgChatAdapter.setClickListener(this);
+        vaelgChatAdapter.setChats(chats);
         RecyclerView recyclerView = findViewById(R.id.vaelg_chat_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(vaelgChatAdapter);
@@ -58,5 +66,24 @@ public class VaelgChatActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        final Chat chat = chats.get(position);
+        BrugerFacade brugerFacade = BrugerFacade.hentInstans();
+        String modpart = "";
+        if (chat.getAfsender().equals(brugerFacade.hentAktivBruger().getNavn())) {
+            modpart = chat.getModtager();
+        }
+        else {
+            modpart = chat.getAfsender();
+        }
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("afsender", chat.getAfsender());
+        intent.putExtra("modtager", chat.getModtager());
+        intent.putExtra("emne", chat.getEmne());
+        intent.putExtra("modpart", modpart);
+        startActivity(intent);
     }
 }
