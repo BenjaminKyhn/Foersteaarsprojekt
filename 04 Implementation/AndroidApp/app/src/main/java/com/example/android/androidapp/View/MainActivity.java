@@ -1,61 +1,59 @@
-package com.example.android.androidapp.View;
+package com.example.android.androidapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.android.androidapp.R;
 
 /**@author Patrick**/
 public class MainActivity extends AppCompatActivity {
+    DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        configureLogindButton();
-        configureNyBeskedButton();
-        configureBurgerButton();
-        configureOpretBrugerButton();
-    }
-    private void configureLogindButton() {
-        Button changeActivityButton = findViewById(R.id.logind);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
+        drawerLayout = findViewById(R.id.drawer_layout);
+
+        ImageView menu = findViewById(R.id.burgerMenu);
+
+        menu.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            public void onClick(View v) {
+                openDrawer();
             }
         });
+
+        TextView statusBar = findViewById(R.id.statusBar);
+        statusBar.setText("Velkommen");
     }
-    private void configureOpretBrugerButton() {
-        Button changeActivityButton = findViewById(R.id.opretbruger);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, OpretBrugerActivity.class));
-            }
-        });
+
+    public void openDrawer() {
+        drawerLayout.openDrawer(GravityCompat.START);
     }
-    private void configureNyBeskedButton() {
-        Button changeActivityButton = findViewById(R.id.tempTest);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NyBeskedActivity.class));
-            }
-        });
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else {
+            super.onBackPressed();
+        }
     }
-    private void configureBurgerButton() {
-        ImageView changeActivityButton = findViewById(R.id.burgerMenu);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, NaviView.class));
-            }
-        });
+
+    public void skiftTilLogin(View view) {
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+
+    public void skiftTilOpretBruger(View view) {
+        startActivity(new Intent(this, OpretBrugerActivity.class));
     }
 }

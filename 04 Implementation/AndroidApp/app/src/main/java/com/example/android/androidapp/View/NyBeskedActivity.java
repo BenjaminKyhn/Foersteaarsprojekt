@@ -1,4 +1,4 @@
-package com.example.android.androidapp.View;
+package com.example.android.androidapp.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ public class NyBeskedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nybesked);
+        setContentView(R.layout.activity_ny_besked);
         configureSendButton();
     }
     private void configureSendButton() {
