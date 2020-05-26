@@ -15,10 +15,18 @@ import java.util.List;
 public class BrugerFacade {
     private BrugerManager brugerManager;
     private Validering validering;
+    private static BrugerFacade brugerFacade;
 
-    public BrugerFacade(List<Bruger> brugere) {
-        validering = new Validering(brugere);
-        brugerManager = new BrugerManager(brugere);
+    private BrugerFacade() {
+        validering = new Validering();
+        brugerManager = new BrugerManager();
+    }
+
+    public static synchronized BrugerFacade hentInstans() {
+        if (brugerFacade == null) {
+            brugerFacade = new BrugerFacade();
+        }
+        return brugerFacade;
     }
 
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
@@ -39,5 +47,18 @@ public class BrugerFacade {
 
     public void sletBruger(Bruger user, String password) throws ForkertPasswordException {
         brugerManager.sletBruger(user, password);
+    }
+
+    public boolean logInd(String email, String password) {
+        return brugerManager.logInd(email, password);
+    }
+
+    public void saetListeAfBrugere(List<Bruger> brugere) {
+        validering.setBrugere(brugere);
+        brugerManager.setBrugere(brugere);
+    }
+
+    public Bruger hentAktivBruger() {
+        return brugerManager.getAktivBruger();
     }
 }

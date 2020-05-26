@@ -5,24 +5,27 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="FRB SPORT"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.SendBeskedActivity"></activity>
-        <activity android:name=".View.NyBeskedActivity" />
-        <activity android:name=".View.LoginActivity" />
-        <activity android:name=".View.indbakkeActivity" />
-        <activity android:name=".View.MenuActivity" />
-        <activity android:name=".View.LaesBeskedActivity" />
-        <activity android:name=".View.BesvarBeskedActivity" />
-        <activity android:name=".View.MainActivity">
+        <activity android:name=".view.VaelgChatActivity"></activity>
+        <activity android:name=".view.SendBeskedActivity" />
+        <activity android:name=".view.NyBeskedActivity" />
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.IndbakkeActivity" />
+        <activity android:name=".view.MenuActivity" />
+        <activity android:name=".view.LaesBeskedActivity" />
+        <activity android:name=".view.BesvarBeskedActivity" />
+        <activity android:name=".view.OpretBrugerActivity" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.ChatActivity" />
+        <activity android:name=".view.LoadingDialog" android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>

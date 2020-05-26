@@ -16,13 +16,6 @@ import java.util.List;
 class Validering {
     private List<Bruger> brugere;
 
-    Validering() {
-    }
-
-    Validering(List<Bruger> brugere) {
-        this.brugere = brugere;
-    }
-
     void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         if (email.equals("")) {
             throw new TomEmailException();
@@ -68,5 +61,9 @@ class Validering {
         if (besked.length() > 1000) {
             throw new ForMangeTegnException();
         }
+    }
+
+    void setBrugere(List<Bruger> brugere) {
+        this.brugere = brugere;
     }
 }

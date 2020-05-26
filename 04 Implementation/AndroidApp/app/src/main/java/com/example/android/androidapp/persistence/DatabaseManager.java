@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 
 /** @author Tommy **/
@@ -48,6 +49,8 @@ public class DatabaseManager {
                     updatedChat.put("afsender", chat.getAfsender());
                     updatedChat.put("modtager", chat.getModtager());
                     updatedChat.put("emne", chat.getEmne());
+                    String nu = new Timestamp(System.currentTimeMillis()).toString();
+                    updatedChat.put("sidstAktiv", nu);
                     DocumentReference reference = querySnapshot.getDocuments().get(0).getReference();
                     reference.set(updatedChat);
                     Besked sidsteBesked = chat.getBeskeder().get(chat.getBeskeder().size() - 1);

@@ -16,10 +16,6 @@ class BrugerManager {
     private Bruger aktivBruger;
     private List<Bruger> brugere;
 
-    BrugerManager(List<Bruger> brugere) {
-        this.brugere = brugere;
-    }
-
     void opretBruger(String navn, String email, String password) throws BrugerLoggedeIndException {
         if (aktivBruger != null) {
             throw new BrugerLoggedeIndException();
@@ -41,6 +37,19 @@ class BrugerManager {
         aktivBruger = null;
     }
 
+    boolean logInd(String email, String password) {
+        boolean loggedeInd = false;
+        for (Bruger bruger : brugere) {
+            if (bruger.getEmail().equals(email)) {
+                if (bruger.getPassword().equals(enkrypterTekst(password))) {
+                    aktivBruger = bruger;
+                    loggedeInd = true;
+                }
+            }
+        }
+        return loggedeInd;
+    }
+
     private String enkrypterTekst(String tekst) {
         String sha256hex = null;
         try {
@@ -52,5 +61,13 @@ class BrugerManager {
             e.printStackTrace();
         }
         return sha256hex;
+    }
+
+    void setBrugere(List<Bruger> brugere) {
+        this.brugere = brugere;
+    }
+
+    Bruger getAktivBruger() {
+        return aktivBruger;
     }
 }
