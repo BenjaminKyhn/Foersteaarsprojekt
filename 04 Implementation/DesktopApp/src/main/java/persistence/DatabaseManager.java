@@ -12,7 +12,6 @@ import domain.Bruger;
 import domain.Chat;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
