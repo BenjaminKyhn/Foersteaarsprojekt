@@ -31,6 +31,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
         Besked besked = beskeder.get(position);
         holder.afsender.setText(besked.getAfsender());
         holder.besked.setText(besked.getBesked());
+        holder.tidspunkt.setText(besked.getTidspunkt());
     }
 
     @Override
@@ -46,11 +47,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
     static class VaelgChatHolder extends RecyclerView.ViewHolder {
         TextView afsender;
         TextView besked;
+        TextView tidspunkt;
 
         VaelgChatHolder(View itemView) {
             super(itemView);
             afsender = itemView.findViewById(R.id.textViewNavn);
             besked = itemView.findViewById(R.id.textViewBesked);
+            tidspunkt = itemView.findViewById(R.id.textViewTidspunkt);
         }
     }
 }

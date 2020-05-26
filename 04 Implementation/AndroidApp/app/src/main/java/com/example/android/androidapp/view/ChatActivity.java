@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,8 @@ import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
+import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
+import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.persistence.DatabaseManager;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentChange;
@@ -101,13 +104,8 @@ public class ChatActivity extends AppCompatActivity {
                             return;
                         }
                         List<DocumentChange> documentSnapshots = queryDocumentSnapshots.getDocumentChanges();
-                        for (int i = 0; i < documentSnapshots.size(); i++) {
-                            Besked besked = documentSnapshots.get(i).getDocument().toObject(Besked.class);
-                            if (!besked.getAfsender().equals(bruger)) {
-                                beskeder.add(besked);
-                                recyclerView.scrollToPosition(beskeder.size() - 1);
-                            }
-                        }
+                        Besked besked = documentSnapshots.get(documentSnapshots.size() - 1).getDocument().toObject(Besked.class);
+                        beskeder.add(besked);
                     }
                 });
 
@@ -130,7 +128,15 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void sendBesked(View view) {
-        beskedFacade.sendBesked(beskedFelt.getText().toString(), chat, bruger, modpart);
+        String besked = beskedFelt.getText().toString();
+        try {
+            beskedFacade.tjekBesked(besked);
+        } catch (TomBeskedException e) {
+            Toast.makeText(this, "Beskeden må ikke være tom", Toast.LENGTH_SHORT).show();
+        } catch (ForMangeTegnException e) {
+            Toast.makeText(this, "Beskeden må ikke have mere end 1000 tegn", Toast.LENGTH_SHORT).show();
+        }
+        beskedFacade.sendBesked(besked, chat, bruger, modpart);
         beskeder = chat.getBeskeder();
         chatAdapter.setBeskeder(beskeder);
         recyclerView.scrollToPosition(beskeder.size() - 1);

@@ -25,6 +25,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ChatActivity" />
+        <activity android:name=".view.LoadingDialog" android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>

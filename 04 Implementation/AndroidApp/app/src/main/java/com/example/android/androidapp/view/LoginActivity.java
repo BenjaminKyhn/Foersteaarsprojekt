@@ -1,5 +1,6 @@
 package com.example.android.androidapp.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -17,9 +18,11 @@ import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.persistence.DatabaseManager;
 import com.example.android.androidapp.util.ObserverbarListe;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**@author Patrick**/
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextPassword;
     BrugerFacade brugerFacade;
     ObserverbarListe<Bruger> brugere;
+    DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         brugerFacade = BrugerFacade.hentInstans();
         brugere = new ObserverbarListe<>();
         brugerFacade.saetListeAfBrugere(brugere);
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.hentBrugereReference().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Bruger> list = queryDocumentSnapshots.toObjects(Bruger.class);
-                brugere.addAll(list);
-            }
-        });
+        databaseManager = new DatabaseManager();
 
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText("Login");
@@ -79,14 +76,32 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void logInd(View view) {
-        String email = editTextEmail.getText().toString();
-        String password = editTextPassword.getText().toString();
-        boolean loggedeInd = brugerFacade.logInd(email, password);
-        if (loggedeInd) {
-            startActivity(new Intent(this, MenuActivity.class));
-        }
-        else {
-            Toast.makeText(this, "Login fejlede", Toast.LENGTH_SHORT).show();
-        }
+        final String email = editTextEmail.getText().toString();
+        final String password = editTextPassword.getText().toString();
+
+        databaseManager.hentBrugereReference().document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isComplete()) {
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if (documentSnapshot.exists()) {
+                        Bruger bruger = documentSnapshot.toObject(Bruger.class);
+                        List<Bruger> list = new ArrayList<>();
+                        list.add(bruger);
+                        brugerFacade.saetListeAfBrugere(list);
+                        boolean loggedeInd = brugerFacade.logInd(email, password);
+                        if (loggedeInd) {
+                            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                        }
+                        else {
+                            Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
     }
 }
