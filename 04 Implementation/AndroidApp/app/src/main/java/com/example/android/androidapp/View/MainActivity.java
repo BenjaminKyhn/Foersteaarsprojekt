@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
+import com.google.android.material.navigation.NavigationView;
 
 /**@author Patrick**/
 public class MainActivity extends AppCompatActivity {
@@ -21,6 +22,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
         ImageView menu = findViewById(R.id.burgerMenu);
 

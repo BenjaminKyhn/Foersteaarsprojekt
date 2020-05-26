@@ -16,27 +16,27 @@ public class LaesBeskedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_laes_besked);
-        configureBesvarBeskedButton();
-        configureBurgerButton();
+//        configureBesvarBeskedButton();
+//        configureBurgerButton();
     }
     /**@author Patrick**/
-    private void configureBesvarBeskedButton() {
-        TextView changeActivityButton = findViewById(R.id.besvarButton);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LaesBeskedActivity.this, BesvarBeskedActivity.class));
-            }
-        });
-    }
-    /**@author Patrick**/
-    private void configureBurgerButton() {
-        ImageView changeActivityButton = findViewById(R.id.burgerMenu);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(LaesBeskedActivity.this, NaviView.class));
-            }
-        });
-    }
+//    private void configureBesvarBeskedButton() {
+//        TextView changeActivityButton = findViewById(R.id.besvarButton);
+//        changeActivityButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(LaesBeskedActivity.this, BesvarBeskedActivity.class));
+//            }
+//        });
+//    }
+//    /**@author Patrick**/
+//    private void configureBurgerButton() {
+//        ImageView changeActivityButton = findViewById(R.id.burgerMenu);
+//        changeActivityButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(LaesBeskedActivity.this, NaviView.class));
+//            }
+//        });
+//    }
 }

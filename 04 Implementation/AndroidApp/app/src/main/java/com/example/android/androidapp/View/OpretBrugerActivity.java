@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.BrugerLoggedeIndException;
+import com.google.android.material.navigation.NavigationView;
 
 /**@author Kelvin**/
 public class OpretBrugerActivity extends AppCompatActivity {
@@ -30,6 +31,9 @@ public class OpretBrugerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opret_bruger);
         drawerLayout = findViewById(R.id.drawer_layout);
         brugerFacade = BrugerFacade.hentInstans();
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
         navnInput = findViewById(R.id.navnFelt);
         emailInput = findViewById(R.id.emailFelt);

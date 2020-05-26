@@ -21,6 +21,7 @@ import com.example.android.androidapp.persistence.DatabaseManager;
 import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -48,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         brugere = new ObserverbarListe<>();
         brugerFacade.saetListeAfBrugere(brugere);
         databaseManager = new DatabaseManager();
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText("Login");
