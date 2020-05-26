@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -79,6 +80,9 @@ public class LoginActivity extends AppCompatActivity {
         final String email = editTextEmail.getText().toString();
         final String password = editTextPassword.getText().toString();
 
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
+        progressDialog.show();
+
         databaseManager.hentBrugereReference().document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -96,9 +100,11 @@ public class LoginActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
                         }
+                        progressDialog.dismiss();
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             }

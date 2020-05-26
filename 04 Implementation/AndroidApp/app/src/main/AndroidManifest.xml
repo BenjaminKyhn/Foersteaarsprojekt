@@ -12,7 +12,6 @@
         <activity android:name=".view.SendBeskedActivity" />
         <activity android:name=".view.NyBeskedActivity" />
         <activity android:name=".view.LoginActivity" />
-        <activity android:name=".view.IndbakkeActivity" />
         <activity android:name=".view.MenuActivity" />
         <activity android:name=".view.LaesBeskedActivity" />
         <activity android:name=".view.BesvarBeskedActivity" />
@@ -25,7 +24,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.ChatActivity" />
-        <activity android:name=".view.LoadingDialog" android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
