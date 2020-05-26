@@ -16,8 +16,8 @@ public class BeskedManager {
     private static BeskedManager beskedManager;
 
     public BeskedManager() {
-        databaseManager = DatabaseManager.getInstance();
-        brugerManager = BrugerManager.getInstance();
+        databaseManager = newDatabaseManager();
+        brugerManager = newBrugerManager();
     }
 
     public static synchronized BeskedManager getInstance() {
@@ -64,5 +64,13 @@ public class BeskedManager {
         chat.tilfoejBesked(beskedObjekt);
         chat.setSidstAktiv(tidspunkt);
         databaseManager.opdaterChat(chat, beskedObjekt);
+    }
+
+    protected DatabaseManager newDatabaseManager(){
+        return DatabaseManager.getInstance();
+    }
+
+    protected BrugerManager newBrugerManager(){
+        return BrugerManager.getInstance();
     }
 }
