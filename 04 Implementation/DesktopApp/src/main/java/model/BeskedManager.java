@@ -6,7 +6,6 @@ import domain.Chat;
 import model.exceptions.BrugerFindesIkkeException;
 import persistence.DatabaseManager;
 
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -65,9 +64,5 @@ public class BeskedManager {
         chat.tilfoejBesked(beskedObjekt);
         chat.setSidstAktiv(tidspunkt);
         databaseManager.opdaterChat(chat, beskedObjekt);
-    }
-
-    public void sorterChatsEfterTidspunkt(){
-
     }
 }
