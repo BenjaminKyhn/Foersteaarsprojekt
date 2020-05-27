@@ -41,7 +41,7 @@
         android:text="Fornavn Efternavn"
         android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/FloralWhite_color"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view" />
 
@@ -54,7 +54,7 @@
         android:text="Brugers Email"
         android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/FloralWhite_color"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view" />
 

@@ -58,7 +58,7 @@
             android:layout_marginBottom="100dp"
             android:text="Dette er et tekst eksempel på hvordan at brugeren vil kunne læse
             beskederne som de får fra deres fysioterapeut."
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:fontFamily="@font/open_sans_regular"
             app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,14 +70,15 @@
         android:id="@+id/besvarButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="64dp"
-        android:text="Besvar"
-        android:textAllCaps="false"
-        android:textSize="24sp"
+        android:layout_marginBottom="60dp"
         android:fontFamily="@font/open_sans_regular"
+        android:text="Besvar"
+        android:background="@color/colorForsideBar"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/scrollView3" />
+
     <View
         android:id="@+id/bottomStroke"
         android:layout_width="match_parent"

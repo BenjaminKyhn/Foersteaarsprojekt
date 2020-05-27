@@ -28,13 +28,13 @@
         android:id="@+id/textViewEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/open_sans_regular"
         android:orientation="horizontal"
         android:text="E-mail"
         android:textSize="20sp"
-        android:fontFamily="@font/open_sans_regular"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -43,30 +43,32 @@
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:background="@drawable/loginborder"
-        android:orientation="horizontal"
-        android:textSize="14sp"
-        android:text="camillak@gmail.com"
-        android:inputType="textEmailAddress"
         android:fontFamily="@font/open_sans_regular"
+        android:inputType="textEmailAddress"
+        android:orientation="horizontal"
+        android:text="camillak@gmail.com"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewEmail"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.019" />
 
     <TextView
         android:id="@+id/textViewPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
         android:orientation="horizontal"
         android:text="Password"
         android:textSize="20sp"
-        android:fontFamily="@font/open_sans_regular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.233"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextEmail"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.058" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -97,14 +99,17 @@
 
     <Button
         android:id="@+id/logindButton"
-        android:layout_width="150dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="16dp"
-        android:onClick="logInd"
-        android:text="LOG IND"
-        android:textSize="20sp"
+        android:layout_width="107dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/open_sans_regular"
+        android:onClick="logInd"
+        android:text="Log ind"
+        android:textSize="20sp"
+        android:textAllCaps="false"
+        android:background="@color/colorForsideBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.748"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchLogin" />
 

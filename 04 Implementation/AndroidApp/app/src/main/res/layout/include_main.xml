@@ -34,6 +34,8 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorForsideBar"
         android:text="Log ind"
+        android:textSize="20sp"
+        android:textAllCaps="false"
         android:fontFamily="@font/open_sans_regular"
         android:onClick="skiftTilLogin"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,9 +48,11 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
         android:background="@color/colorForsideBar"
-        android:text="Opret bruger"
         android:fontFamily="@font/open_sans_regular"
         android:onClick="skiftTilOpretBruger"
+        android:text="Opret bruger"
+        android:textAllCaps="false"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
 
@@ -79,7 +83,6 @@
                 android:layout_marginEnd="32dp"
                 android:text="Proffesionel og personlig pleje"
                 android:textSize="20sp"
-                android:textStyle="bold"
                 android:fontFamily="@font/open_sans_regular"
                 app:layout_constraintEnd_toEndOf="@+id/tekst1"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -92,8 +95,9 @@
                 android:layout_height="wrap_content"
 
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:fontFamily="@font/open_sans_regular"
                 android:text="Klinikken på Rosensørs alle 41 flytter \ntil J.M. Thielesvej 1A.
                     \n\n5. Maj slår Frederiksberg Sportsklinik, fysioterapi
                     \nog skadesbehandling dørene op på J.M. Thielesvej.
@@ -111,8 +115,7 @@
                     \nvores specialer.
                     \n\nEr du i tvivl eller har du spørgsmål, er du altid
                     \nvelkommen til at kontakte os."
-                android:textSize="12sp"
-                android:fontFamily="@font/open_sans_regular"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
