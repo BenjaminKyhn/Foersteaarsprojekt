@@ -5,7 +5,8 @@
     <group>
         <item
             android:id="@+id/velkommen"
-            android:title="Velkommen">
+            android:title="Velkommen"
+            android:fontFamily="@font/open_sans_regular">
         </item>
     </group>
 </menu>

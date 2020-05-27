@@ -53,6 +53,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="330dp"
         android:text="Besked Titel"
+        android:fontFamily="@font/open_sans_regular"
         android:clickable="true"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,6 +64,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
+        android:fontFamily="@font/open_sans_regular"
         android:text="dette er test text for at vise hvordan at besked funktionen skal virke"
         android:textSize="10sp"
         android:clickable="true"
@@ -99,6 +101,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="444dp"
         android:text="Besked Titel"
+        android:fontFamily="@font/open_sans_regular"
         android:clickable="true"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -110,6 +113,7 @@
         android:clickable="true"
         android:text="dette er test text for at vise hvordan at besked funktionen skal virke"
         android:textSize="10sp"
+        android:fontFamily="@font/open_sans_regular"
         app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"

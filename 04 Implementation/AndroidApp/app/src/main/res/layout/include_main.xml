@@ -34,6 +34,7 @@
         android:layout_marginTop="16dp"
         android:background="@color/colorForsideBar"
         android:text="Log ind"
+        android:fontFamily="@font/open_sans_regular"
         android:onClick="skiftTilLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -46,6 +47,7 @@
         android:layout_marginEnd="48dp"
         android:background="@color/colorForsideBar"
         android:text="Opret bruger"
+        android:fontFamily="@font/open_sans_regular"
         android:onClick="skiftTilOpretBruger"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header" />
@@ -71,14 +73,16 @@
 
             <TextView
                 android:id="@+id/headline1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="288dp"
+                android:layout_height="44dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 android:text="Proffesionel og personlig pleje"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/open_sans_regular"
                 app:layout_constraintEnd_toEndOf="@+id/tekst1"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,6 +112,7 @@
                     \n\nEr du i tvivl eller har du spørgsmål, er du altid
                     \nvelkommen til at kontakte os."
                 android:textSize="12sp"
+                android:fontFamily="@font/open_sans_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
