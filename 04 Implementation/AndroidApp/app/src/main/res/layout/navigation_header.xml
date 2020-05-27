@@ -39,8 +39,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="44dp"
         android:text="Fornavn Efternavn"
+        android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/FloralWhite_color"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view" />
 
@@ -51,8 +52,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
         android:text="Brugers Email"
+        android:fontFamily="@font/open_sans_regular"
         android:textColor="@color/FloralWhite_color"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
         app:layout_constraintStart_toStartOf="@+id/view" />
 

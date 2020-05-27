@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.NyBeskedActivity">
+    tools:context=".view.NyBeskedActivity">
 
     <include
         android:id="@+id/header"
@@ -54,7 +54,8 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="44dp"
         android:text="Emne:"
-        android:textSize="14dp"
+        android:fontFamily="@font/open_sans_regular"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toStartOf="@+id/emne"
         app:layout_constraintHorizontal_bias="0.384"
@@ -63,15 +64,17 @@
         app:layout_constraintVertical_bias="0.035" />
 
     <TextView
-        android:layout_width="70dp"
-        android:layout_height="25dp"
+        android:layout_width="97dp"
+        android:layout_height="19dp"
+        android:fontFamily="@font/open_sans_regular"
         android:text="Skriv besked:"
-        android:textSize="12dp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
-        app:layout_constraintEnd_toStartOf="@+id/emne"
+        app:layout_constraintEnd_toEndOf="@+id/emne"
+        app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.039" />
+        app:layout_constraintVertical_bias="0.032" />
 
     <EditText
         android:id="@+id/emne"
@@ -82,6 +85,7 @@
         android:textAlignment="gravity"
         android:textSize="14dp"
         android:textStyle="italic"
+        android:fontFamily="@font/open_sans_regular"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.645"
@@ -91,17 +95,18 @@
 
     <EditText
         android:id="@+id/skrivBesked"
-        android:layout_width="196dp"
+        android:layout_width="199dp"
         android:layout_height="240dp"
+        android:fontFamily="@font/open_sans_regular"
         android:gravity="start"
         android:textAlignment="gravity"
-        android:textSize="12dp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.656"
+        app:layout_constraintHorizontal_bias="0.64"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toBottomOf="@+id/emne"
-        app:layout_constraintVertical_bias="0.073" />
+        app:layout_constraintVertical_bias="0.083" />
 
     <Button
         android:id="@+id/sendButton"
@@ -109,7 +114,9 @@
         android:layout_height="wrap_content"
         android:text="Send"
         android:textAllCaps="false"
-        android:textSize="24sp"
+        android:textSize="20sp"
+        android:fontFamily="@font/open_sans_regular"
+        android:background="@color/colorForsideBar"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.852"

@@ -53,19 +53,21 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="330dp"
         android:text="Besked Titel"
+        android:textSize="16sp"
+        android:fontFamily="@font/open_sans_regular"
         android:clickable="true"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/besked1"
-        android:layout_width="220dp"
-        android:layout_height="40dp"
+        android:layout_width="217dp"
+        android:layout_height="57dp"
         android:layout_marginStart="2dp"
-        android:layout_marginLeft="2dp"
-        android:text="dette er test text for at vise hvordan at besked funktionen skal virke"
-        android:textSize="10sp"
         android:clickable="true"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="dette er test text for at vise hvordan at besked funktionen skal virke"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/beskedEmne1" />
 
@@ -98,7 +100,9 @@
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="444dp"
+        android:textSize="18sp"
         android:text="Besked Titel"
+        android:fontFamily="@font/open_sans_regular"
         android:clickable="true"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toTopOf="parent" />
@@ -106,10 +110,11 @@
     <TextView
         android:id="@+id/besked2"
         android:layout_width="220dp"
-        android:layout_height="40dp"
+        android:layout_height="61dp"
         android:clickable="true"
+        android:fontFamily="@font/open_sans_regular"
         android:text="dette er test text for at vise hvordan at besked funktionen skal virke"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.041"

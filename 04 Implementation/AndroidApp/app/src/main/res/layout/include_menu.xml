@@ -27,22 +27,29 @@
 
     <Button
         android:id="@+id/bookingButton"
+        android:background="@color/colorForsideBar"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="64dp"
         android:text="Booking"
-        android:textSize="24sp"
+        android:textAllCaps="false"
+
+        android:fontFamily="@font/open_sans_regular"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
         android:id="@+id/kalenderButton"
+        android:background="@color/colorForsideBar"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="48dp"
         android:text="Kalender"
-        android:textSize="24sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/open_sans_regular"
+        android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
@@ -52,12 +59,15 @@
 
     <Button
         android:id="@+id/BeskederButton"
+        android:background="@color/colorForsideBar"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="48dp"
         android:layout_marginBottom="128dp"
         android:text="Beskeder"
-        android:textSize="24sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/open_sans_regular"
+        android:textSize="22sp"
         android:onClick="skiftTilIndbakke"
         app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
         app:layout_constraintEnd_toEndOf="parent"
