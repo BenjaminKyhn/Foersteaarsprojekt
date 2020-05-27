@@ -16,41 +16,13 @@
         app:layout_constraintTop_toBottomOf="@+id/strokeDesign1"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/profilBillede"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/defaultpicture" />
-    </androidx.cardview.widget.CardView>
-
     <TextView
         android:id="@+id/personNavn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginBottom="44dp"
-        android:text="Fornavn Efternavn"
-        android:textColor="@color/FloralWhite_color"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view" />
-
-    <TextView
-        android:id="@+id/personMail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Brugers Email"
+        android:text="Gæst"
         android:textColor="@color/FloralWhite_color"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/view"
