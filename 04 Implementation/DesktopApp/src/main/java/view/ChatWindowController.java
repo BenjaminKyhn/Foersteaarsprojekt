@@ -21,6 +21,8 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
+import model.exceptions.ForMangeTegnException;
+import model.exceptions.TomBeskedException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -178,10 +180,23 @@ public class ChatWindowController {
 
         /** Giv sendknappen et on click event */
         sendBeskedKnap.setOnMouseClicked(event -> {
-            beskedFacade.sendBesked(tfSendBesked.getText(), chat);
+            String besked = tfSendBesked.getText();
+            try {
+                tjekBesked(besked);
+            } catch (TomBeskedException e) {
+                nyBeskedPopup();
+            } catch (ForMangeTegnException e) {
+                e.printStackTrace();
+            }
+            beskedFacade.sendBesked(besked, chat);
             visBeskeder(chat);
         });
     }
+
+    public void tjekBesked(String besked) throws TomBeskedException, ForMangeTegnException {
+        beskedFacade.tjekBesked(besked);
+    }
+
 
     /**
      * @author Tommy og Patrick
