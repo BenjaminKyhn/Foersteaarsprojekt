@@ -100,6 +100,24 @@ public class DatabaseManager {
         return bruger;
     }
 
+    public ArrayList<Bruger> hentBrugere(){
+        ArrayList<Bruger> brugere = new ArrayList<>();
+        Query query = firestore.collection("brugere");
+
+        try{
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()){
+                for (int i = 0; i < querySnapshot.size(); i++) {
+                    brugere.add(querySnapshot.getDocuments().get(i).toObject(Bruger.class));
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return brugere;
+    }
+
     public void opretChat(Chat chat){
         firestore.collection("chats").document().create(chat);
     }

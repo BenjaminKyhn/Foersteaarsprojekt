@@ -89,7 +89,7 @@ public class ChatWindowController {
     }
 
     public void indlaesChats() {
-        chats = beskedFacade.hentChats();
+        chats = (ArrayList<Chat>) beskedFacade.hentChats();
         chatWindowChatVBox.getChildren().clear();
 
         for (int i = 0; i < chats.size(); i++) {

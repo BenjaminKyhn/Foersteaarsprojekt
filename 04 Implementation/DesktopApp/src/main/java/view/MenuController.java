@@ -48,8 +48,11 @@ public class MenuController {
         aktivBruger = brugerFacade.getAktivBruger();
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
 
-        /** Indlaes alle brugerens chats og send dem til BeskedFacade */
+        /** Indlæs alle brugerens chats og send dem til BeskedFacade */
         beskedFacade.setChats(DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn()));
+
+        /** Indlæs alle brugere og send dem til BrugereFacade */
+        brugerFacade.setBrugere(DatabaseManager.getInstance().hentBrugere());
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);

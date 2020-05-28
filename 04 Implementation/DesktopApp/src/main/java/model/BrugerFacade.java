@@ -4,6 +4,7 @@ import domain.Bruger;
 import model.exceptions.*;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Benjamin
@@ -45,8 +46,8 @@ public class BrugerFacade {
         brugerManager.sletBruger(bruger, password);
     }
 
-    public void logInd(String email, String password) throws ForkertPasswordException {
-        brugerManager.logInd(email, password);
+    public boolean logInd(String email, String password) throws ForkertPasswordException {
+        return brugerManager.logInd(email, password);
     }
 
     public void logUd() {
@@ -61,4 +62,11 @@ public class BrugerFacade {
         return brugerManager.hentBrugerMedNavn(navn);
     }
 
+    public void setBrugere(List<Bruger> brugere){
+        brugerManager.setBrugere(brugere);
+    }
+
+    public List<Bruger> hentBrugere(){
+        return brugerManager.hentBrugere();
+    }
 }
