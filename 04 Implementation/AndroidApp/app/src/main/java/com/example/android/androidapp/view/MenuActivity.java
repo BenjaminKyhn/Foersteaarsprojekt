@@ -85,4 +85,7 @@ public class MenuActivity extends AppCompatActivity {
     public void skiftTilIndbakke(View view) {
         startActivity(new Intent(this, VaelgChatActivity.class));
     }
+    public void skiftTilKalender(View view) {
+        startActivity(new Intent(this, KalenderActivity.class));
+    }
 }

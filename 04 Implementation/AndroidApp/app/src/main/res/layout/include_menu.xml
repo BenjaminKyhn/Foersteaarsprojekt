@@ -50,6 +50,7 @@
         android:textAllCaps="false"
         android:fontFamily="@font/open_sans_regular"
         android:textSize="22sp"
+        android:onClick="skiftTilKalender"
         app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"

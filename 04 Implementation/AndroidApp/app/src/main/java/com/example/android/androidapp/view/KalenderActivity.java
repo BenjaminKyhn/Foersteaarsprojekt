@@ -13,7 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.android.androidapp.R;
 import com.google.android.material.navigation.NavigationView;
-
+/**@author PATRICK**/
 public class KalenderActivity extends AppCompatActivity {
     CalendarView calendarView;
     TextView kalenderBehandlinger;
@@ -30,7 +30,7 @@ public class KalenderActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int dayOfMonth) {
-                String dato = (month + 1) + "/" + dayOfMonth + "/" + year;
+                String dato = dayOfMonth + "/" + (month + 1) + "/" + year;
                 kalenderBehandlinger.setText(dato);
             }
         });
