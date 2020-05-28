@@ -1,5 +1,7 @@
 package com.example.android.androidapp.domain;
 
+import com.example.android.androidapp.util.ObserverbarListe;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class Chat {
     private String modtager;
     private String emne;
     private String sidstAktiv;
-    private ArrayList<Besked> beskeder = new ArrayList<>();
+    private ObserverbarListe<Besked> beskeder = new ObserverbarListe<>();
 
     private Chat() {
         support = new PropertyChangeSupport(this);
@@ -74,11 +76,11 @@ public class Chat {
         this.sidstAktiv = sidstAktiv;
     }
 
-    public ArrayList<Besked> getBeskeder() {
+    public ObserverbarListe<Besked> getBeskeder() {
         return beskeder;
     }
 
-    public void setBeskeder(ArrayList<Besked> beskeder) {
+    public void setBeskeder(ObserverbarListe<Besked> beskeder) {
         this.beskeder = beskeder;
     }
 }

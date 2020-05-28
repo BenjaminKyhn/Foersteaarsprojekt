@@ -5,6 +5,7 @@ import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
+import com.example.android.androidapp.util.ObserverbarListe;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -15,7 +16,7 @@ class ChatPresenter {
     private Chat chat;
     private String beskedAfsender;
     private String beskedModtager;
-    private ArrayList<Besked> beskeder;
+    private ObserverbarListe<Besked> beskeder;
     private PropertyChangeSupport support;
     ChatPresenter(String afsender, String modtager, String emne) {
         chat = BeskedFacade.hentInstans().hentChat(afsender, modtager, emne);
@@ -29,7 +30,9 @@ class ChatPresenter {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("nyBesked")) {
-                    support.firePropertyChange("nyBesked", null, beskeder);
+                    if (!evt.getNewValue().equals(chat.getBeskeder().get(chat.getBeskeder().size() - 1))) {
+                        support.firePropertyChange("nyBesked", null, beskeder);
+                    }
                 }
             }
         });
@@ -46,7 +49,7 @@ class ChatPresenter {
 
     }
 
-    public ArrayList<Besked> getBeskeder() {
+    public ObserverbarListe<Besked> getBeskeder() {
         return beskeder;
     }
 

@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -22,18 +21,18 @@ import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.persistence.DatabaseManager;
+import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     BeskedFacade beskedFacade;
     DatabaseManager databaseManager;
     EditText beskedFelt;
-    ArrayList<Besked> beskeder;
+    ObserverbarListe<Besked> beskeder;
     ChatAdapter chatAdapter;
     ChatPresenter chatPresenter;
     RecyclerView recyclerView;
@@ -77,7 +76,7 @@ public class ChatActivity extends AppCompatActivity {
 
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.observerChat(chatPresenter.getChat());
-        databaseManager.observerBeskederFraFirestore(chatPresenter.getChat(), beskeder);
+        databaseManager.observerBeskederFraFirestore(chatPresenter.getChat());
 
         ImageView menu = findViewById(R.id.burgerMenu);
 
