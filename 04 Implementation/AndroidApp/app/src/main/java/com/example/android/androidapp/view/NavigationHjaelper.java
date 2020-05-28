@@ -56,6 +56,10 @@ class NavigationHjaelper {
                             context.startActivity(new Intent(context, NyBeskedActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
                             break;
+                        case R.id.kalender:
+                            context.startActivity(new Intent(context, KalenderActivity.class));
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
                     }
                     return true;
                 }

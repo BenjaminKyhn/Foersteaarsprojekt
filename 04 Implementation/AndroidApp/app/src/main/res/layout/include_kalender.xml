@@ -23,9 +23,10 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <TextView
+        android:id="@+id/kalenderBehandlinger"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dine Behandlinger"
+        android:text="Vælg Dato"
         android:fontFamily="@font/open_sans_regular"
         android:textSize="22sp"
         android:textFontWeight="500"
