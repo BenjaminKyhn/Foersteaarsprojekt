@@ -36,6 +36,7 @@ public class BrugerManager {
         String enkrypteretPassword = enkrypterTekst(password);
         Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
         databaseManager.gemBruger(bruger);
+        aktivBruger = bruger;
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {

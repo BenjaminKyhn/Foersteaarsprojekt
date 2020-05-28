@@ -22,14 +22,14 @@ public class DatabaseManager {
     private static DatabaseManager databaseManager; /** static, så vi altid kan få fat i den sammme DatabaseManager */
     private Firestore firestore;
 
-    public DatabaseManager() {
+    private DatabaseManager() {
         initializeDB();
 
         /** initializeDB() skal kaldes før firestore kan initaliseres */
         firestore = FirestoreClient.getFirestore();
     }
 
-    public DatabaseManager(boolean test){
+    private DatabaseManager(boolean test){
     }
 
     /** Der må kun være én instans af DatabaseManager, så derfor bruger vi altid getInstance(), når vi skal have fat i

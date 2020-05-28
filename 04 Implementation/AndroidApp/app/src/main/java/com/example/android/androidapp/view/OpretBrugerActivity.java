@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,14 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.BrugerLoggedeIndException;
+import com.example.android.androidapp.persistence.DatabaseManager;
+import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**@author Kelvin**/
 public class OpretBrugerActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     BrugerFacade brugerFacade;
+    ProgressDialog progressDialog;
     EditText navnInput;
     EditText emailInput;
     EditText passwordInput;
@@ -31,6 +40,23 @@ public class OpretBrugerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_opret_bruger);
         drawerLayout = findViewById(R.id.drawer_layout);
         brugerFacade = BrugerFacade.hentInstans();
+
+        ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
+        brugerFacade.saetListeAfBrugere(brugere);
+
+        brugere.tilfoejListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("nyAddition")) {
+                    DatabaseManager databaseManager = new DatabaseManager();
+                    Bruger bruger = (Bruger) evt.getNewValue();
+                    databaseManager.gemBruger(bruger);
+                    progressDialog.dismiss();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                }
+            }
+        });
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
@@ -67,9 +93,11 @@ public class OpretBrugerActivity extends AppCompatActivity {
             Toast.makeText(this, "Password'et blev ikke tastede korrekt", Toast.LENGTH_SHORT).show();
             return;
         }
+        progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
         try {
             brugerFacade.opretBruger(navn, email, password);
         } catch (BrugerLoggedeIndException e) {
+            progressDialog.dismiss();
             Toast.makeText(this, "Bruger må ikke være logged ind.", Toast.LENGTH_SHORT).show();
         }
     }

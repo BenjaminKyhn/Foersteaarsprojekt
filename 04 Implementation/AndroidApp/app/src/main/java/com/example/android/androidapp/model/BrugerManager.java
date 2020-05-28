@@ -20,17 +20,13 @@ class BrugerManager {
         if (aktivBruger != null) {
             throw new BrugerLoggedeIndException();
         }
-        String enkrypteretPassword = enkrypterTekst(password);
-        Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
+        Bruger bruger = new Bruger(navn, email, password);
         brugere.add(bruger);
         aktivBruger = bruger;
     }
 
     void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
-        String enkrypteretPassword = enkrypterTekst(password);
-        String enkrypteretBrugerPassword = bruger.getPassword();
-
-        if (!enkrypteretPassword.equals(enkrypteretBrugerPassword)) {
+        if (!bruger.validerPassword(password)) {
             throw new ForkertPasswordException();
         }
         brugere.remove(bruger);
@@ -41,7 +37,7 @@ class BrugerManager {
         boolean loggedeInd = false;
         for (Bruger bruger : brugere) {
             if (bruger.getEmail().equals(email)) {
-                if (bruger.getPassword().equals(enkrypterTekst(password))) {
+                if (bruger.validerPassword(password)) {
                     aktivBruger = bruger;
                     loggedeInd = true;
                 }
@@ -54,19 +50,6 @@ class BrugerManager {
         if (aktivBruger != null) {
             aktivBruger = null;
         }
-    }
-
-    private String enkrypterTekst(String tekst) {
-        String sha256hex = null;
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] bytes = tekst.getBytes(StandardCharsets.UTF_8);
-            byte[] hash = digest.digest(bytes);
-            sha256hex = new String(Hex.encodeHex(hash));
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return sha256hex;
     }
 
     void setBrugere(List<Bruger> brugere) {

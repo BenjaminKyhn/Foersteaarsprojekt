@@ -33,8 +33,6 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPassword;
     BrugerFacade brugerFacade;
-    ObserverbarListe<Bruger> brugere;
-    DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
 
         brugerFacade = BrugerFacade.hentInstans();
-        brugere = new ObserverbarListe<>();
-        brugerFacade.saetListeAfBrugere(brugere);
-        databaseManager = new DatabaseManager();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
@@ -85,8 +80,8 @@ public class LoginActivity extends AppCompatActivity {
         final String password = editTextPassword.getText().toString();
 
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
-        progressDialog.show();
 
+        DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentBrugereReference().document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
