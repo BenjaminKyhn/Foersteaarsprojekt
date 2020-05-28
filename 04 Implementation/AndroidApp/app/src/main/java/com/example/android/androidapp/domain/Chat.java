@@ -15,7 +15,7 @@ public class Chat {
     private String sidstAktiv;
     private ArrayList<Besked> beskeder = new ArrayList<>();
 
-    public Chat() {
+    private Chat() {
         support = new PropertyChangeSupport(this);
     }
 

@@ -17,37 +17,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Besked;
-import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.persistence.DatabaseManager;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     BeskedFacade beskedFacade;
     DatabaseManager databaseManager;
     EditText beskedFelt;
-    String bruger;
-    String modpart;
     ArrayList<Besked> beskeder;
-    Chat chat;
     ChatAdapter chatAdapter;
+    ChatPresenter chatPresenter;
     RecyclerView recyclerView;
-    boolean firstTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +49,35 @@ public class ChatActivity extends AppCompatActivity {
 
         beskedFelt = findViewById(R.id.editTextBesked);
 
-        bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
+        String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
         Intent intent = getIntent();
         String modtager = intent.getStringExtra("modtager");
         String afsender = intent.getStringExtra("afsender");
         String emne = intent.getStringExtra("emne");
-        modpart = intent.getStringExtra("modpart");
+        String modpart = intent.getStringExtra("modpart");
 
         beskedFacade = BeskedFacade.hentInstans();
         databaseManager = new DatabaseManager();
 
-        chat = beskedFacade.hentChat(afsender, modtager, emne);
-        beskeder = new ArrayList<>();
-        beskeder = chat.getBeskeder();
+        chatPresenter = new ChatPresenter(afsender, modtager, emne);
+        chatPresenter.setBeskedAfsender(bruger);
+        chatPresenter.setBeskedModtager(modpart);
+        chatPresenter.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("nyBesked")) {
+                    chatAdapter.setBeskeder(beskeder);
+                    recyclerView.smoothScrollToPosition(beskeder.size() - 1);
+                }
+            }
+        });
+
+        beskeder = chatPresenter.getBeskeder();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.observerChat(chatPresenter.getChat());
+        databaseManager.observerBeskederFraFirestore(chatPresenter.getChat(), beskeder);
 
         ImageView menu = findViewById(R.id.burgerMenu);
 
@@ -84,8 +88,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        firstTime = true;
-
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText(modpart);
 
@@ -94,27 +96,6 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.chat_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(chatAdapter);
-
-        Query query = databaseManager.hentChatsReference().whereEqualTo("modtager", modpart).whereEqualTo("afsender", afsender).whereEqualTo("emne", emne);
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                DocumentReference documentReference = queryDocumentSnapshots.getDocuments().get(0).getReference();
-                documentReference.collection("beskeder").orderBy("tidspunkt").addSnapshotListener(new EventListener<QuerySnapshot>() {
-                    @Override
-                    public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                        if (firstTime) {
-                            firstTime = false;
-                            return;
-                        }
-                        List<DocumentChange> documentSnapshots = queryDocumentSnapshots.getDocumentChanges();
-                        Besked besked = documentSnapshots.get(documentSnapshots.size() - 1).getDocument().toObject(Besked.class);
-                        beskeder.add(besked);
-                    }
-                });
-
-            }
-        });
     }
 
     public void openDrawer() {
@@ -134,17 +115,11 @@ public class ChatActivity extends AppCompatActivity {
     public void sendBesked(View view) {
         String besked = beskedFelt.getText().toString();
         try {
-            beskedFacade.tjekBesked(besked);
+            chatPresenter.sendBesked(besked);
         } catch (TomBeskedException e) {
             Toast.makeText(this, "Beskeden må ikke være tom", Toast.LENGTH_SHORT).show();
         } catch (ForMangeTegnException e) {
             Toast.makeText(this, "Beskeden må ikke have mere end 1000 tegn", Toast.LENGTH_SHORT).show();
         }
-        beskedFacade.sendBesked(besked, chat, bruger, modpart);
-        beskeder = chat.getBeskeder();
-        chatAdapter.setBeskeder(beskeder);
-        recyclerView.scrollToPosition(beskeder.size() - 1);
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.opdaterChat(chat);
     }
 }
