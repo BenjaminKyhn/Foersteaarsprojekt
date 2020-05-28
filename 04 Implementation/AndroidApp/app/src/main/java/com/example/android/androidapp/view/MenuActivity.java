@@ -61,48 +61,7 @@ public class MenuActivity extends AppCompatActivity {
         beskedFacade.saetListeAfChats(chatListe);
 
         DatabaseManager databaseManager = new DatabaseManager();
-        Query query1 = databaseManager.hentChatsReference().whereEqualTo("afsender", brugerFacade.hentAktivBruger().getNavn());
-        Query query2 = databaseManager.hentChatsReference().whereEqualTo("modtager", brugerFacade.hentAktivBruger().getNavn());
-
-        query1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
-                for (int i = 0; i < queryDocumentSnapshots.getDocumentChanges().size(); i++) {
-                    final Chat chat = temp.get(i);
-                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
-                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                            chat.setBeskeder((ArrayList<Besked>) beskeder);
-                            chatListe.add(chat);
-                            Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
-                        }
-                    });
-                }
-            }
-        });
-
-        query2.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
-                for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
-                    final Chat chat = temp.get(i);
-                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
-                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                            chat.setBeskeder((ArrayList<Besked>) beskeder);
-                            chatListe.add(chat);
-                            Collections.sort(chatListe, Chat.sorterVedSidstAktiv);
-                        }
-                    });
-                }
-            }
-        });
+        databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
     }
 
     public void openDrawer() {

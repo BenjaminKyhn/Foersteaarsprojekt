@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.domain.Chat;
+import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -22,6 +23,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,6 +31,7 @@ import java.util.List;
 public class DatabaseManager {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private ArrayList<Besked> observeretBeskeder;
+    private ObserverbarListe<Chat> nuvaerendeChats;
 
     public void gemBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
@@ -68,6 +71,53 @@ public class DatabaseManager {
                 }
             }
         });
+    }
+
+    public void hentChatsTilBruger(String navn, List<Chat> chats) {
+        nuvaerendeChats = (ObserverbarListe<Chat>) chats;
+        Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
+        Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
+
+        query1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
+                for (int i = 0; i < queryDocumentSnapshots.getDocumentChanges().size(); i++) {
+                    final Chat chat = temp.get(i);
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
+                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
+                            chat.setBeskeder((ArrayList<Besked>) beskeder);
+                            nuvaerendeChats.add(chat);
+                            Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
+                        }
+                    });
+                }
+            }
+        });
+
+        query2.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
+                for (int i = 0; i < queryDocumentSnapshots.getDocumentChanges().size(); i++) {
+                    final Chat chat = temp.get(i);
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
+                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
+                            chat.setBeskeder((ArrayList<Besked>) beskeder);
+                            nuvaerendeChats.add(chat);
+                            Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     public void observerChat(final Chat chat) {
