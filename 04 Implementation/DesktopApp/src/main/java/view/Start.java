@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ToolBar;
 import javafx.stage.Stage;
 
 /** @author Benjamin & Tommy */
@@ -14,8 +15,7 @@ public class Start extends Application{
     public void start(Stage stage) throws Exception {
         // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
-        Scene scene = new Scene(root);
-
+        Scene scene = new Scene(root);;
         stage.setTitle("Fys Desktop App");
         stage.setScene(scene);
         stage.setMinWidth(800);

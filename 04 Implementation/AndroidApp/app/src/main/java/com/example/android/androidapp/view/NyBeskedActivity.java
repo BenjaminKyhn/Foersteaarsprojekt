@@ -14,15 +14,5 @@ public class NyBeskedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ny_besked);
-        configureSendButton();
-    }
-    private void configureSendButton() {
-        Button changeActivityButton = findViewById(R.id.sendButton);
-        changeActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(NyBeskedActivity.this, SendBeskedActivity.class));
-            }
-        });
     }
 }
