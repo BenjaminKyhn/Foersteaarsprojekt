@@ -14,13 +14,11 @@ import java.util.List;
  * @author Benjamin
  */
 public class BeskedManager {
-    private DatabaseManager databaseManager;
     private BrugerManager brugerManager;
     private static BeskedManager beskedManager;
     private List<Chat> chats;
 
     public BeskedManager() {
-        databaseManager = newDatabaseManager();
         brugerManager = newBrugerManager();
     }
 
@@ -33,7 +31,7 @@ public class BeskedManager {
 
     public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         Bruger afsender = brugerManager.getAktivBruger();
-        Bruger modtager = databaseManager.hentBrugerMedNavn(navn); /** brugermanager kommer til at holde en liste, som vi kan bruge til at finde modtager */
+        Bruger modtager = brugerManager.hentBrugerMedNavn(navn);
         String sidstAktiv = new Timestamp(System.currentTimeMillis()).toString();
         if (modtager == null)
             throw new BrugerFindesIkkeException();
@@ -73,10 +71,6 @@ public class BeskedManager {
         Besked beskedObjekt = new Besked(afsender, modtager, besked, tidspunkt);
         chat.tilfoejBesked(beskedObjekt);
         chat.setSidstAktiv(tidspunkt);
-    }
-
-    protected DatabaseManager newDatabaseManager() {
-        return DatabaseManager.getInstance();
     }
 
     protected BrugerManager newBrugerManager() {

@@ -2,12 +2,9 @@ package model;
 
 import domain.Bruger;
 import model.exceptions.*;
-import persistence.DatabaseManager;
 
 /** @author Benjamin */
 class Validering {
-    /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
-    private DatabaseManager databaseManager = DatabaseManager.getInstance();
 
     Validering() {
     }
@@ -15,7 +12,7 @@ class Validering {
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         if (email.equals(""))
             throw new TomEmailException();
-        Bruger bruger = databaseManager.hentBrugerMedEmail(email);
+        Bruger bruger = BrugerManager.getInstance().hentBrugerMedEmail(email);
         if (bruger != null){
             throw new EksisterendeBrugerException();
         }

@@ -21,6 +21,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
+import model.ObserverbarListe;
 import persistence.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;
@@ -33,7 +34,7 @@ public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
     private ChatWindowChatController selectedChat;
-    private ArrayList<Chat> chats;
+    private ObserverbarListe<Chat> chats;
     private Bruger aktivBruger;
 
     @FXML
@@ -65,6 +66,17 @@ public class ChatWindowController {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
+        chats = (ObserverbarListe<Chat>) beskedFacade.hentChats();
+
+        /** Tilføj observer på nye chats */
+        chats.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("Ny Addition")){
+                    DatabaseManager.getInstance().opretChat((Chat) evt.getNewValue());
+                }
+            }
+        });
 
         /** Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
@@ -89,7 +101,6 @@ public class ChatWindowController {
     }
 
     public void indlaesChats() {
-        chats = (ArrayList<Chat>) beskedFacade.hentChats();
         chatWindowChatVBox.getChildren().clear();
 
         for (int i = 0; i < chats.size(); i++) {
@@ -115,6 +126,8 @@ public class ChatWindowController {
             else
                 modtager = brugerFacade.hentBrugerMedNavn(chats.get(i).getAfsender());
 
+            // TODO det rigtige navn vises ikke altid
+
             /** Hent controlleren */
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
             Parent root = null;
@@ -126,7 +139,7 @@ public class ChatWindowController {
             ChatWindowChatController controller = loader.getController();
 
             /** Sæt informationer i chatvinduet */
-            controller.getChatWindowChatNavn().setText(chat.getModtager());
+            controller.getChatWindowChatNavn().setText(modtager.getNavn());
             controller.getChatWindowChatEmne().setText(chat.getEmne());
             if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
@@ -159,7 +172,7 @@ public class ChatWindowController {
 
         for (int i = 0; i < beskeder.size(); i++) {
             VBox chatContainer = new VBox();
-            chatContainer.setStyle("-fx-border-color: gray");
+            chatContainer.setStyle("-fx-border-color: #808080");
 
             String besked = beskeder.get(i).getBesked();
             String afsender = beskeder.get(i).getAfsender();

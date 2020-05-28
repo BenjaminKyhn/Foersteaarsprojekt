@@ -23,6 +23,7 @@ public class Chat {
         this.modtager = modtager;
         this.emne = emne;
         this.sidstAktiv = sidstAktiv;
+        beskeder = new ArrayList<>();
         support = new PropertyChangeSupport(this);
     }
 

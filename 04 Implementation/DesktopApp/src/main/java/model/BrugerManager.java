@@ -4,7 +4,6 @@ import domain.Bruger;
 import model.exceptions.BrugerLoggedIndException;
 import model.exceptions.ForkertPasswordException;
 import org.apache.commons.codec.binary.Hex;
-import persistence.DatabaseManager;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -15,14 +14,11 @@ import java.util.List;
  * @author Benjamin
  */
 public class BrugerManager {
-    private DatabaseManager databaseManager;
     private Bruger aktivBruger;
     private static BrugerManager brugerManager;
     private List<Bruger> brugere;
 
     public BrugerManager() {
-        /** Der kan ikke være 2 instanser af DatabaseManager, så derfor bruger vi getInstance() */
-        databaseManager = DatabaseManager.getInstance();
     }
 
     public static synchronized BrugerManager getInstance() {
@@ -94,6 +90,14 @@ public class BrugerManager {
     public Bruger hentBrugerMedNavn(String navn) {
         for (int i = 0; i < brugere.size(); i++) {
             if (brugere.get(i).getNavn().equals(navn))
+                return brugere.get(i);
+        }
+        return null;
+    }
+
+    public Bruger hentBrugerMedEmail(String email) {
+        for (int i = 0; i < brugere.size(); i++) {
+            if (brugere.get(i).getEmail().equals(email))
                 return brugere.get(i);
         }
         return null;

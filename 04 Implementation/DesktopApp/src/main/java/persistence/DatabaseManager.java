@@ -10,6 +10,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
+import model.ObserverbarListe;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -122,8 +123,8 @@ public class DatabaseManager {
         firestore.collection("chats").document().create(chat);
     }
 
-    public ArrayList<Chat> hentChatsMedNavn(String navn){
-        ArrayList<Chat> chats = new ArrayList<>();
+    public List<Chat> hentChatsMedNavn(String navn){
+        List<Chat> chats = new ObserverbarListe<>();
 
         /** Lav 2 queries, fordi navnet både kan være afsender og modtager */
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
