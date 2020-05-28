@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists()) {
                         Bruger bruger = documentSnapshot.toObject(Bruger.class);
-                        List<Bruger> list = new ArrayList<>();
+                        List<Bruger> list = new ObserverbarListe<>();
                         list.add(bruger);
                         brugerFacade.saetListeAfBrugere(list);
                         boolean loggedeInd = brugerFacade.logInd(email, password);
