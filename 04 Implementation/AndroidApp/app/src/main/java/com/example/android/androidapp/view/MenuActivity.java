@@ -68,9 +68,9 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
-                for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
+                for (int i = 0; i < queryDocumentSnapshots.getDocumentChanges().size(); i++) {
                     final Chat chat = temp.get(i);
-                    DocumentReference documentReference = queryDocumentSnapshots.getDocuments().get(i).getReference();
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
                     documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -90,7 +90,7 @@ public class MenuActivity extends AppCompatActivity {
                 List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
                 for (int i = 0; i < queryDocumentSnapshots.getDocuments().size(); i++) {
                     final Chat chat = temp.get(i);
-                    DocumentReference documentReference = queryDocumentSnapshots.getDocuments().get(i).getReference();
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
                     documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
