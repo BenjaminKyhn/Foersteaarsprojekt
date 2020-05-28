@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.util.ItemClickListener;
+import com.example.android.androidapp.util.ObserverbarListe;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.VaelgChatHolder> {
-    private List<Chat> chats = new ArrayList<>();
+    private List<Chat> chats = new ObserverbarListe<>();
     private String aktivBruger;
     private ItemClickListener itemClickListener;
 

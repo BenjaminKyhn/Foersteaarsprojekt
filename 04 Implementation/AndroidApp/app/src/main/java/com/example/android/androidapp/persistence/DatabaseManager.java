@@ -30,8 +30,10 @@ import java.util.List;
 /** @author Tommy **/
 public class DatabaseManager {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private ArrayList<Besked> observeretBeskeder;
+    private ObserverbarListe<Besked> observeretBeskeder;
     private ObserverbarListe<Chat> nuvaerendeChats;
+    private boolean read;
+    private boolean write;
 
     public void gemBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
@@ -89,7 +91,9 @@ public class DatabaseManager {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                            chat.setBeskeder((ArrayList<Besked>) beskeder);
+                            ObserverbarListe<Besked> observerbarListe = new ObserverbarListe<>();
+                            observerbarListe.addAll(beskeder);
+                            chat.setBeskeder(observerbarListe);
                             nuvaerendeChats.add(chat);
                             Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
                         }
@@ -109,7 +113,9 @@ public class DatabaseManager {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                            chat.setBeskeder((ArrayList<Besked>) beskeder);
+                            ObserverbarListe<Besked> observerbarListe = new ObserverbarListe<>();
+                            observerbarListe.addAll(beskeder);
+                            chat.setBeskeder(observerbarListe);
                             nuvaerendeChats.add(chat);
                             Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
                         }
@@ -125,18 +131,19 @@ public class DatabaseManager {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("nyBesked")) {
-                    opdaterChat(chat);
+                    if (!read) {
+                        write = true;
+                        opdaterChat(chat);
+                    }
                 }
             }
         });
     }
 
-    public void observerBeskederFraFirestore(Chat chat, ArrayList<Besked> beskeder) {
+    public void observerBeskederFraFirestore(final Chat chat) {
         String afsender = chat.getAfsender();
         String modtager = chat.getModtager();
         String emne = chat.getEmne();
-        final int chatBeskedStoerrelse = chat.getBeskeder().size();
-        observeretBeskeder = beskeder;
 
         Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager)
                 .whereEqualTo("emne", emne);
@@ -144,15 +151,23 @@ public class DatabaseManager {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots != null) {
-                    CollectionReference collectionReference = queryDocumentSnapshots.getDocumentChanges().get(0).getDocument().getReference().collection("beskeder");
-                    collectionReference.addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    Query subQuery = queryDocumentSnapshots.getDocumentChanges().get(0).getDocument().getReference().collection("beskeder").orderBy("tidspunkt");
+                    subQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                             if (queryDocumentSnapshots != null) {
-                                if (queryDocumentSnapshots.getDocumentChanges().size() != chatBeskedStoerrelse) {
-                                    List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                                    Besked nyesteBesked = beskeder.get(beskeder.size() - 1);
-                                    observeretBeskeder.add(nyesteBesked);
+                                int stoerrelse = chat.getBeskeder().size();
+                                if (queryDocumentSnapshots.getDocumentChanges().size() != stoerrelse) {
+                                    if (!write) {
+                                        List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
+                                        Besked nyesteBesked = beskeder.get(beskeder.size() - 1);
+                                        read = true;
+                                        chat.tilfoejBesked(nyesteBesked);
+                                        read = false;
+                                    }
+                                    else {
+                                        write = false;
+                                    }
                                 }
                             }
                         }
