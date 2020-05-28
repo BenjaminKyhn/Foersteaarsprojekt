@@ -39,6 +39,10 @@ class NavigationHjaelper {
                 if (BrugerFacade.hentInstans().hentAktivBruger() != null) {
                     Context context = navigationView.getContext();
                     switch (item.getItemId()) {
+                        case R.id.start_menu:
+                            context.startActivity(new Intent(context, MenuActivity.class));
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
                         case R.id.indbakke:
                             context.startActivity(new Intent(context, VaelgChatActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
@@ -47,6 +51,10 @@ class NavigationHjaelper {
                             context.startActivity(new Intent(context, MainActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
                             BrugerFacade.hentInstans().logUd();
+                            break;
+                        case R.id.ny_besked:
+                            context.startActivity(new Intent(context, NyBeskedActivity.class));
+                            drawerLayout.closeDrawer(GravityCompat.START);
                             break;
                     }
                     return true;
