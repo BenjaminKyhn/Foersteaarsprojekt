@@ -89,7 +89,7 @@ public class ChatWindowController {
     }
 
     public void indlaesChats() {
-        chats = beskedFacade.hentChatsMedNavn(aktivBruger.getNavn());
+        chats = beskedFacade.hentChats();
         chatWindowChatVBox.getChildren().clear();
 
         for (int i = 0; i < chats.size(); i++) {

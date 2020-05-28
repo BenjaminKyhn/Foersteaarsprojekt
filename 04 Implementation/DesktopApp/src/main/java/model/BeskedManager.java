@@ -8,12 +8,16 @@ import persistence.DatabaseManager;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ */
 public class BeskedManager {
     private DatabaseManager databaseManager;
     private BrugerManager brugerManager;
     private static BeskedManager beskedManager;
+    private List<Chat> chats;
 
     public BeskedManager() {
         databaseManager = newDatabaseManager();
@@ -21,7 +25,7 @@ public class BeskedManager {
     }
 
     public static synchronized BeskedManager getInstance() {
-        if (beskedManager == null){
+        if (beskedManager == null) {
             beskedManager = new BeskedManager();
         }
         return beskedManager;
@@ -29,27 +33,33 @@ public class BeskedManager {
 
     public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         Bruger afsender = brugerManager.getAktivBruger();
-        Bruger modtager = databaseManager.hentBrugerMedNavn(navn);
+        Bruger modtager = databaseManager.hentBrugerMedNavn(navn); /** brugermanager kommer til at holde en liste, som vi kan bruge til at finde modtager */
         String sidstAktiv = new Timestamp(System.currentTimeMillis()).toString();
         if (modtager == null)
             throw new BrugerFindesIkkeException();
         Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne, sidstAktiv);
-        databaseManager.opretChat(nyChat);
+        chats.add(nyChat);
     }
 
-    public Chat hentChat(String afsender, String modtager, String emne){
-        return databaseManager.hentChat(afsender, modtager, emne);
+    public Chat hentChat(String afsender, String modtager, String emne) {
+        for (int i = 0; i < chats.size(); i++) {
+            if (afsender.equals(chats.get(i).getAfsender()))
+                if (modtager.equals(chats.get(i).getModtager()))
+                    if (emne.equals(chats.get(i).getEmne()))
+                        return chats.get(i);
+        }
+        return null;
     }
 
-    public ArrayList<Chat> hentChatsMedNavn(String navn){
-        return databaseManager.hentChatsMedNavn(navn);
+    public List<Chat> hentChats() {
+        return chats;
     }
 
-    public ArrayList<Besked> hentBeskeder(Chat chat){
+    public ArrayList<Besked> hentBeskeder(Chat chat) {
         return chat.getBeskeder();
     }
 
-    public void sendBesked(String besked, Chat chat){
+    public void sendBesked(String besked, Chat chat) {
         /** Sæt afsender og modtager for beskedobjektet */
         String afsender = brugerManager.getAktivBruger().getNavn();
         String modtager;
@@ -65,11 +75,15 @@ public class BeskedManager {
         chat.setSidstAktiv(tidspunkt);
     }
 
-    protected DatabaseManager newDatabaseManager(){
+    protected DatabaseManager newDatabaseManager() {
         return DatabaseManager.getInstance();
     }
 
-    protected BrugerManager newBrugerManager(){
+    protected BrugerManager newBrugerManager() {
         return BrugerManager.getInstance();
+    }
+
+    public void setChats(List<Chat> chats) {
+        this.chats = chats;
     }
 }

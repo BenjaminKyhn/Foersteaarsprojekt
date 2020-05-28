@@ -60,4 +60,5 @@ public class BrugerFacade {
     public Bruger hentBrugerMedNavn(String navn){
         return brugerManager.hentBrugerMedNavn(navn);
     }
+
 }

@@ -179,7 +179,7 @@ public class DatabaseManager {
         try {
             QuerySnapshot querySnapshot = query.get().get();
             if (!querySnapshot.isEmpty()){
-                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocumentChanges().get(0).getDocument(); /** vi bruger getDocumentChanges for at minimere antallet af reads til databasen. Så bliver Snapshottet kun hentet, hvis der er en ændring */
                 DocumentReference reference = documentSnapshot.getReference();
 
                 int sidsteIndex = chat.getBeskeder().size() - 1;
