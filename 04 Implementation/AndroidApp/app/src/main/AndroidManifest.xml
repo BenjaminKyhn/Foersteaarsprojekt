@@ -11,7 +11,7 @@
         <activity android:name=".view.BookingPatientActivity"></activity>
         <activity android:name=".view.BookingBehandlerActivity" />
         <activity android:name=".view.KalenderActivity" />
-        <activity android:name=".view.PatientProgramActivity" />
+        <activity android:name=".view.TildelProgramActivity" />
         <activity android:name=".view.VaelgChatActivity" />
         <activity android:name=".view.SendBeskedActivity" />
         <activity android:name=".view.NyBeskedActivity" />
