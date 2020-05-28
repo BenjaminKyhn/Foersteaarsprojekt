@@ -1,5 +1,7 @@
 package domain;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -10,8 +12,10 @@ public class Chat {
     private String emne;
     private String sidstAktiv;
     private ArrayList<Besked> beskeder;
+    private PropertyChangeSupport support;
 
     public Chat(){
+        support = new PropertyChangeSupport(this);
     }
 
     public Chat(String afsender, String modtager, String emne, String sidstAktiv){
@@ -19,10 +23,16 @@ public class Chat {
         this.modtager = modtager;
         this.emne = emne;
         this.sidstAktiv = sidstAktiv;
+        support = new PropertyChangeSupport(this);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        support.addPropertyChangeListener(listener);
     }
 
     public void tilfoejBesked(Besked besked){
         beskeder.add(besked);
+        support.firePropertyChange("Ny Besked", null, this);
     }
 
     public String getAfsender() {

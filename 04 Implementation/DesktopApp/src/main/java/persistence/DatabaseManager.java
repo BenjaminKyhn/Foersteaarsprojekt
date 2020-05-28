@@ -169,7 +169,7 @@ public class DatabaseManager {
         return chat;
     }
 
-    public void opdaterChat(Chat chat, Besked besked){
+    public void opdaterChat(Chat chat){
         String afsender = chat.getAfsender();
         String modtager = chat.getModtager();
         String emne = chat.getEmne();
@@ -181,6 +181,9 @@ public class DatabaseManager {
             if (!querySnapshot.isEmpty()){
                 QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
                 DocumentReference reference = documentSnapshot.getReference();
+
+                int sidsteIndex = chat.getBeskeder().size() - 1;
+                Besked besked = chat.getBeskeder().get(sidsteIndex);
                 reference.collection("beskeder").document().set(besked);
             }
         } catch (InterruptedException | ExecutionException e){

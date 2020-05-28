@@ -50,6 +50,12 @@ class BrugerManager {
         return loggedeInd;
     }
 
+    void logUd() {
+        if (aktivBruger != null) {
+            aktivBruger = null;
+        }
+    }
+
     private String enkrypterTekst(String tekst) {
         String sha256hex = null;
         try {

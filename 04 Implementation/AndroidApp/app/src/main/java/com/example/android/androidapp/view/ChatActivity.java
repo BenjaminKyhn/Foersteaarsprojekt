@@ -24,6 +24,7 @@ import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.persistence.DatabaseManager;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -53,6 +54,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
         beskedFelt = findViewById(R.id.editTextBesked);
 

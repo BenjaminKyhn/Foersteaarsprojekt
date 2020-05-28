@@ -63,7 +63,6 @@ public class BeskedManager {
         Besked beskedObjekt = new Besked(afsender, modtager, besked, tidspunkt);
         chat.tilfoejBesked(beskedObjekt);
         chat.setSidstAktiv(tidspunkt);
-        databaseManager.opdaterChat(chat, beskedObjekt);
     }
 
     protected DatabaseManager newDatabaseManager(){

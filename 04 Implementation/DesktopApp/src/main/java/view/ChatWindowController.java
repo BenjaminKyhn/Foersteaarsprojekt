@@ -21,7 +21,10 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
+import persistence.DatabaseManager;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -91,6 +94,16 @@ public class ChatWindowController {
 
         for (int i = 0; i < chats.size(); i++) {
             Chat chat = chats.get(i);
+
+            /** Tilføj observer og opdater chatten i databasen med den nye værdi */
+            chat.tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent evt) {
+                    if (evt.getPropertyName().equals("Ny Besked")){
+                        DatabaseManager.getInstance().opdaterChat((Chat) evt.getNewValue());
+                    }
+                }
+            });
 
             /** Sæt afsender */
             Bruger afsender = aktivBruger;

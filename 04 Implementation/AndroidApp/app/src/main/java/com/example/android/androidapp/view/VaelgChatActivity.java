@@ -18,6 +18,7 @@ import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.util.ItemClickListener;
 import com.example.android.androidapp.util.ObserverbarListe;
+import com.google.android.material.navigation.NavigationView;
 
 public class VaelgChatActivity extends AppCompatActivity implements ItemClickListener {
     DrawerLayout drawerLayout;
@@ -28,6 +29,9 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vaelg_chat);
         drawerLayout = findViewById(R.id.drawer_layout);
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
         ImageView menu = findViewById(R.id.burgerMenu);
 

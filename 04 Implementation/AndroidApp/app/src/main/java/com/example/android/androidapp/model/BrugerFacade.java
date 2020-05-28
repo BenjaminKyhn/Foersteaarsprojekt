@@ -53,6 +53,10 @@ public class BrugerFacade {
         return brugerManager.logInd(email, password);
     }
 
+    public void logUd() {
+        brugerManager.logUd();
+    }
+
     public void saetListeAfBrugere(List<Bruger> brugere) {
         validering.setBrugere(brugere);
         brugerManager.setBrugere(brugere);

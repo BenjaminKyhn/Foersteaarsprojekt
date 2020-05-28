@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.android.androidapp.persistence.DatabaseManager;
 import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -47,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         brugere = new ObserverbarListe<>();
         brugerFacade.saetListeAfBrugere(brugere);
         databaseManager = new DatabaseManager();
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText("Login");
@@ -79,6 +84,9 @@ public class LoginActivity extends AppCompatActivity {
         final String email = editTextEmail.getText().toString();
         final String password = editTextPassword.getText().toString();
 
+        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
+        progressDialog.show();
+
         databaseManager.hentBrugereReference().document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -96,9 +104,11 @@ public class LoginActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
                         }
+                        progressDialog.dismiss();
                     }
                     else {
                         Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
                     }
                 }
             }
