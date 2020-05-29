@@ -151,16 +151,15 @@ public class DatabaseManager {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots != null) {
-                    Query subQuery = queryDocumentSnapshots.getDocumentChanges().get(0).getDocument().getReference().collection("beskeder").orderBy("tidspunkt");
+                    Query subQuery = queryDocumentSnapshots.getDocuments().get(0).getReference().collection("beskeder").orderBy("tidspunkt");
                     subQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                             if (queryDocumentSnapshots != null) {
                                 int stoerrelse = chat.getBeskeder().size();
-                                if (queryDocumentSnapshots.getDocumentChanges().size() != stoerrelse) {
+                                if (queryDocumentSnapshots.getDocuments().size() != stoerrelse) {
                                     if (!write) {
-                                        List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                                        Besked nyesteBesked = beskeder.get(beskeder.size() - 1);
+                                        Besked nyesteBesked = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1).toObject(Besked.class);
                                         read = true;
                                         chat.tilfoejBesked(nyesteBesked);
                                         read = false;
