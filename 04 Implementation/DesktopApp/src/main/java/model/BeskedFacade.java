@@ -7,8 +7,8 @@ import model.exceptions.ForMangeTegnException;
 import model.exceptions.TomBeskedException;
 import model.exceptions.TomEmneException;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /** @author Benjamin */
 public class BeskedFacade {
@@ -36,8 +36,8 @@ public class BeskedFacade {
         return beskedManager.hentChat(afsender, modtager, emne);
     }
 
-    public ArrayList<Chat> hentChatsMedNavn(String navn){
-        return beskedManager.hentChatsMedNavn(navn);
+    public List<Chat> hentChats(){
+        return beskedManager.hentChats();
     }
 
     public ArrayList<Besked> hentBeskeder(Chat chat){
@@ -54,5 +54,9 @@ public class BeskedFacade {
 
     public void tjekBesked(String besked) throws TomBeskedException, ForMangeTegnException {
         validering.tjekBesked(besked);
+    }
+
+    public void setChats(List<Chat> chats){
+        beskedManager.setChats(chats);
     }
 }

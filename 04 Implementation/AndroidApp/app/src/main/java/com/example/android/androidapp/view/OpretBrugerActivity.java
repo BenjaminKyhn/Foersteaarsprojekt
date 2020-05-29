@@ -26,6 +26,7 @@ import java.beans.PropertyChangeListener;
 
 /**@author Kelvin**/
 public class OpretBrugerActivity extends AppCompatActivity {
+    /**@author Tommy**/
     DrawerLayout drawerLayout;
     BrugerFacade brugerFacade;
     ProgressDialog progressDialog;

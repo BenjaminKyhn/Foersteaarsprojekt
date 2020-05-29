@@ -10,6 +10,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
+import model.ObserverbarListe;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -100,12 +101,30 @@ public class DatabaseManager {
         return bruger;
     }
 
+    public ArrayList<Bruger> hentBrugere(){
+        ArrayList<Bruger> brugere = new ArrayList<>();
+        Query query = firestore.collection("brugere");
+
+        try{
+            QuerySnapshot querySnapshot = query.get().get();
+            if (!querySnapshot.isEmpty()){
+                for (int i = 0; i < querySnapshot.size(); i++) {
+                    brugere.add(querySnapshot.getDocuments().get(i).toObject(Bruger.class));
+                }
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        return brugere;
+    }
+
     public void opretChat(Chat chat){
         firestore.collection("chats").document().create(chat);
     }
 
-    public ArrayList<Chat> hentChatsMedNavn(String navn){
-        ArrayList<Chat> chats = new ArrayList<>();
+    public List<Chat> hentChatsMedNavn(String navn){
+        List<Chat> chats = new ObserverbarListe<>();
 
         /** Lav 2 queries, fordi navnet både kan være afsender og modtager */
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
@@ -169,7 +188,7 @@ public class DatabaseManager {
         return chat;
     }
 
-    public void opdaterChat(Chat chat, Besked besked){
+    public void opdaterChat(Chat chat){
         String afsender = chat.getAfsender();
         String modtager = chat.getModtager();
         String emne = chat.getEmne();
@@ -179,8 +198,11 @@ public class DatabaseManager {
         try {
             QuerySnapshot querySnapshot = query.get().get();
             if (!querySnapshot.isEmpty()){
-                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocuments().get(0);
+                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocumentChanges().get(0).getDocument(); /** vi bruger getDocumentChanges for at minimere antallet af reads til databasen. Så bliver Snapshottet kun hentet, hvis der er en ændring */
                 DocumentReference reference = documentSnapshot.getReference();
+
+                int sidsteIndex = chat.getBeskeder().size() - 1;
+                Besked besked = chat.getBeskeder().get(sidsteIndex);
                 reference.collection("beskeder").document().set(besked);
             }
         } catch (InterruptedException | ExecutionException e){
