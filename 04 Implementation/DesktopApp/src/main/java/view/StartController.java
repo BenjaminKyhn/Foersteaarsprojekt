@@ -1,5 +1,6 @@
 package view;
 
+import domain.Bruger;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,8 +19,14 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.exceptions.ForkertPasswordException;
+import persistence.DatabaseManager;
 
-/** @author Benjamin */
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author Benjamin
+ */
 public class StartController {
     private BrugerFacade brugerFacade;
 
@@ -71,23 +78,28 @@ public class StartController {
 
         /** Sæt events på knapperne */
         btnLogInd.setOnAction(event -> {
-            try {
-                if (tfEmail.getText().isEmpty()){
-                    logIndFejlPopup("Fejl: Emailfeltet er tomt");
-                    return;
-                }
-                if (tfPassword.getText().isEmpty()){
-                    logIndFejlPopup("Fejl: Passwordfeltet er tomt");
-                    return;
-                }
-                try {
-                    brugerFacade.logInd(tfEmail.getText(), tfPassword.getText());
-                } catch (ForkertPasswordException fpe){
-                    logIndFejlPopup("Forkert password indtastet");
-                }
-            } catch (Exception e){
-                logIndFejlPopup("Fejl i logind");
+
+            if (tfEmail.getText().isEmpty()) {
+                logIndFejlPopup("Fejl: Emailfeltet er tomt");
+                return;
             }
+            if (tfPassword.getText().isEmpty()) {
+                logIndFejlPopup("Fejl: Passwordfeltet er tomt");
+                return;
+            }
+            try {
+                ArrayList<Bruger> temp = new ArrayList<>();
+                temp.add(DatabaseManager.getInstance().hentBrugerMedEmail(tfEmail.getText()));
+                brugerFacade.setBrugere(temp);
+                if (!brugerFacade.logInd(tfEmail.getText(), tfPassword.getText())) {
+                    logIndFejlPopup("Fejl i logind");
+                }
+            } catch (ForkertPasswordException fpe) {
+                logIndFejlPopup("Forkert password indtastet");
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+
             if (brugerFacade.getAktivBruger() != null)
                 skiftTilMenuScene();
         });
@@ -98,8 +110,7 @@ public class StartController {
         Parent menuLoader = null;
         try {
             menuLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
         }
         Scene menuScene = new Scene(menuLoader);
 
@@ -107,12 +118,11 @@ public class StartController {
         stage.setScene(menuScene);
     }
 
-    public void skiftTilOpretBrugerScene(){
+    public void skiftTilOpretBrugerScene() {
         Parent opretBrugerLoader = null;
         try {
             opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
         }
         Scene opretBrugerScene = new Scene(opretBrugerLoader);
 
@@ -125,8 +135,7 @@ public class StartController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         assert root != null;
