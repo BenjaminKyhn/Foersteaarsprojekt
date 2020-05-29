@@ -75,7 +75,6 @@ public class ChatActivity extends AppCompatActivity {
         beskeder = chatPresenter.getBeskeder();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.observerChat(chatPresenter.getChat());
         databaseManager.observerBeskederFraFirestore(chatPresenter.getChat());
 
         ImageView menu = findViewById(R.id.burgerMenu);

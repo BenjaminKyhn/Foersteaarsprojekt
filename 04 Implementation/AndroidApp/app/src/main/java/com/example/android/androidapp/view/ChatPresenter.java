@@ -5,6 +5,7 @@ import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
+import com.example.android.androidapp.persistence.DatabaseManager;
 import com.example.android.androidapp.util.ObserverbarListe;
 
 import java.beans.PropertyChangeEvent;
@@ -46,7 +47,8 @@ class ChatPresenter {
         BeskedFacade beskedFacade = BeskedFacade.hentInstans();
         beskedFacade.tjekBesked(besked);
         beskedFacade.sendBesked(besked, chat, beskedAfsender, beskedModtager);
-
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.opdaterChat(chat);
     }
 
     public ObserverbarListe<Besked> getBeskeder() {

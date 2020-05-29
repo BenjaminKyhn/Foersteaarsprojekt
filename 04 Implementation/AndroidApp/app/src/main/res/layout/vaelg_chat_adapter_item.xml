@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="96dp"
     android:id="@+id/vaelg_chat_constraint">
-
+    <!-- @@author Tommy  -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="60dp"
