@@ -3,6 +3,7 @@ package view;
 import domain.Besked;
 import domain.Bruger;
 import domain.Chat;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,11 +30,14 @@ import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-/** @author Tommy og Patrick */
+/**
+ * @author Tommy og Patrick
+ */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
-    private ChatWindowChatController selectedChat;
+    private ChatWindowChatController selectedChatController;
+    private Chat selectedChat;
     private ObserverbarListe<Chat> chats;
     private Bruger aktivBruger;
 
@@ -61,7 +65,9 @@ public class ChatWindowController {
     @FXML
     private Label lblBrugernavn, lblEmail;
 
-    /** @author Benjamin */
+    /**
+     * @author Benjamin
+     */
     public void initialize() {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
@@ -72,7 +78,7 @@ public class ChatWindowController {
         chats.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("Ny Addition")){
+                if (evt.getPropertyName().equals("Ny Addition")) {
                     DatabaseManager.getInstance().opretChat((Chat) evt.getNewValue());
                 }
             }
@@ -113,8 +119,8 @@ public class ChatWindowController {
             chat.tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
-                    if (evt.getPropertyName().equals("Ny Besked")){
-                        visBeskeder((Chat) evt.getNewValue());
+                    if (evt.getPropertyName().equals("Ny Besked")) {
+                        Platform.runLater(() -> visBeskeder((Chat) evt.getNewValue()));
                     }
                 }
             });
@@ -151,12 +157,14 @@ public class ChatWindowController {
 
             /** Sæt en onMouseClicked-metode til chatpanelet */
             controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
-                if (selectedChat != null) {
-                    selectedChat.getChatWindowChatAnchorPane().setStyle(null);
+                if (selectedChatController != null) {
+                    selectedChatController.getChatWindowChatAnchorPane().setStyle(null);
                 }
                 controller.getChatWindowChatAnchorPane().setStyle("-fx-background-color: dodgerblue");
-                selectedChat = controller;
+                selectedChatController = controller;
+                selectedChat = chat;
                 visBeskeder(chat);
+
             });
 
 
@@ -167,6 +175,10 @@ public class ChatWindowController {
     }
 
     public void visBeskeder(Chat chat) {
+        if (!chat.equals(selectedChat)) {
+            return;
+        }
+
         aktivBruger = brugerFacade.getAktivBruger();
         ArrayList<Besked> beskeder = chat.getBeskeder();
 
@@ -246,7 +258,9 @@ public class ChatWindowController {
         stage.setScene(scene);
     }
 
-    /** @author Benjamin */
+    /**
+     * @author Benjamin
+     */
     public void nyBeskedPopup() {
         Parent root = null;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyBesked.fxml"));

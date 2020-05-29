@@ -251,17 +251,18 @@ public class DatabaseManager {
             query.get().get().getDocuments().get(0).getReference().collection("beskeder").orderBy("tidspunkt").addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot value, @Nullable FirestoreException error) {
-                    if (value != null) {
-                        List<QueryDocumentSnapshot> list = value.getDocuments();
-                        if (list.size() != chat.getBeskeder().size()) {
-                            if (!write) {
+                    if (!write) {
+                        if (value != null) {
+                            List<QueryDocumentSnapshot> list = value.getDocuments();
+                            if (list.size() != chat.getBeskeder().size()) {
+
                                 Besked besked = list.get(list.size() - 1).toObject(Besked.class);
                                 chat.tilfoejBesked(besked);
                             }
-                            else {
-                                write = false;
-                            }
                         }
+                    }
+                    else {
+                        write = false;
                     }
                 }
             });
