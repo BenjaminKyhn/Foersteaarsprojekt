@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,7 +15,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"/>
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -23,7 +24,62 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.25" />
 
+    <TextView
+        android:id="@+id/textViewVaelgPatient"
+        android:layout_width="150sp"
+        android:layout_height="25dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="@font/open_sans_regular"
+        android:gravity="center"
+        android:text="Vælg Klient"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.193"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.0" />
 
+    <Spinner
+        android:id="@+id/vaelgPatient"
+        android:layout_width="150sp"
+        android:layout_height="25dp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.814"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textViewVaelgOevelse"
+        android:layout_width="150sp"
+        android:layout_height="25dp"
+        android:layout_marginTop="67dp"
+        android:fontFamily="@font/open_sans_regular"
+        android:gravity="center"
+        android:text="Vælg Øvelser"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.197"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintVertical_bias="0.027" />
+
+
+
+    <Spinner
+        android:id="@+id/vaelgOevelse"
+        android:layout_width="150sp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textViewVaelgOevelse"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.14" />
 
     <View
         android:id="@+id/bottomStroke"
