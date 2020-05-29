@@ -13,11 +13,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Source;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -27,7 +30,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-/** @author Tommy **/
+/**
+ * @author Tommy
+ **/
 public class DatabaseManager {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private ObserverbarListe<Besked> observeretBeskeder;
@@ -52,6 +57,7 @@ public class DatabaseManager {
     }
 
     public void opdaterChat(final Chat chat) {
+        write = true;
         Query query = firestore.collection("chats").whereEqualTo("afsender", chat.getAfsender()).whereEqualTo("modtager", chat.getModtager())
                 .whereEqualTo("emne", chat.getEmne());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -126,20 +132,6 @@ public class DatabaseManager {
 
     }
 
-    public void observerChat(final Chat chat) {
-        chat.tilfoejObserver(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("nyBesked")) {
-                    if (!read) {
-                        write = true;
-                        opdaterChat(chat);
-                    }
-                }
-            }
-        });
-    }
-
     public void observerBeskederFraFirestore(final Chat chat) {
         String afsender = chat.getAfsender();
         String modtager = chat.getModtager();
@@ -147,7 +139,9 @@ public class DatabaseManager {
 
         Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager)
                 .whereEqualTo("emne", emne);
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+        Source source = Source.SERVER;
+        query.get(source).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (queryDocumentSnapshots != null) {
@@ -155,19 +149,17 @@ public class DatabaseManager {
                     subQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                            if (queryDocumentSnapshots != null) {
-                                int stoerrelse = chat.getBeskeder().size();
-                                if (queryDocumentSnapshots.getDocuments().size() != stoerrelse) {
-                                    if (!write) {
-                                        Besked nyesteBesked = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1).toObject(Besked.class);
-                                        read = true;
-                                        chat.tilfoejBesked(nyesteBesked);
-                                        read = false;
-                                    }
-                                    else {
-                                        write = false;
+                            if (!write) {
+                                if (queryDocumentSnapshots != null) {
+                                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                    if (list.size() != chat.getBeskeder().size()) {
+                                        Besked besked = list.get(list.size() - 1).toObject(Besked.class);
+                                        chat.tilfoejBesked(besked);
                                     }
                                 }
+                            }
+                            else {
+                                write = false;
                             }
                         }
                     });

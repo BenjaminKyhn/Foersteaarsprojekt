@@ -106,12 +106,15 @@ public class ChatWindowController {
         for (int i = 0; i < chats.size(); i++) {
             Chat chat = chats.get(i);
 
+            DatabaseManager databaseManager = DatabaseManager.getInstance();
+            databaseManager.observerKaldFraFirestoreTilChat(chat);
+
             /** Tilføj observer og opdater chatten i databasen med den nye værdi */
             chat.tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
                     if (evt.getPropertyName().equals("Ny Besked")){
-                        DatabaseManager.getInstance().opdaterChat((Chat) evt.getNewValue());
+                        visBeskeder((Chat) evt.getNewValue());
                     }
                 }
             });
@@ -205,6 +208,7 @@ public class ChatWindowController {
         /** Giv sendknappen et on click event */
         sendBeskedKnap.setOnMouseClicked(event -> {
             beskedFacade.sendBesked(tfSendBesked.getText(), chat);
+            DatabaseManager.getInstance().opdaterChat(chat);
             visBeskeder(chat);
         });
     }
