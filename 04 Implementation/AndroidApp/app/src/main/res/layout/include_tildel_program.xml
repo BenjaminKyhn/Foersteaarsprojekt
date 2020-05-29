@@ -81,6 +81,20 @@
         app:layout_constraintTop_toTopOf="@+id/guideline"
         app:layout_constraintVertical_bias="0.14" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
+        android:gravity="center"
+        android:text="Valgte Øvelser"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.178"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewVaelgOevelse"
+        app:layout_constraintVertical_bias="1.0" />
+
     <View
         android:id="@+id/bottomStroke"
         android:layout_width="match_parent"
@@ -92,5 +106,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView2"
         app:layout_constraintVertical_bias="0.964" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="300dp"
+        android:layout_height="243dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewVaelgOevelse"
+        app:layout_constraintVertical_bias="0.307" />
+
+    <Button
+        android:id="@+id/fjernOevelse"
+        android:layout_width="140sp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorForsideBar"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="Fjern Øvelse"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.189"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintVertical_bias="0.544" />
+
+    <Button
+        android:id="@+id/tildelProgram"
+        android:layout_width="140sp"
+        android:layout_height="wrap_content"
+        android:background="@color/colorForsideBar"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="Tildel Program"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:layout_constraintVertical_bias="0.544" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
