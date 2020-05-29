@@ -13,7 +13,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.BrugerFacade;
+import model.ObserverbarListe;
 import model.exceptions.*;
+import persistence.DatabaseManager;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 /**
  * @author Benjamin
@@ -21,6 +27,7 @@ import model.exceptions.*;
 public class OpretBrugerController {
     private BrugerFacade brugerFacade;
     private Bruger aktivBruger;
+    private ObserverbarListe<Bruger> brugere;
 
     @FXML
     private AnchorPane opretBrugerAnchorPane;
@@ -40,6 +47,22 @@ public class OpretBrugerController {
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
+        if (brugerFacade.hentBrugere() == null){
+            brugere = new ObserverbarListe<>();
+            brugerFacade.setBrugere(brugere);
+        }
+
+        else
+            brugere = (ObserverbarListe<Bruger>) brugerFacade.hentBrugere();
+
+        /** Tilføj observer på listen */
+        brugere.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("Ny Addition"))
+                    DatabaseManager.getInstance().gemBruger((Bruger) evt.getNewValue());
+            }
+        });
 
         /** Sæt events på knapperne */
         btnOpretBruger.setOnMouseClicked(event -> {
@@ -51,7 +74,10 @@ public class OpretBrugerController {
                     popupWindow("Fej: Password matcher ikke");
                     return;
                 }
+
+                /** Tilføj bruger til listen i BrugerManager */
                 brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText());
+
                 popupWindow("Brugeren er oprettet");
             } catch (TomNavnException tne) {
                 popupWindow("Fejl: Navnefeltet kan ikke være tomt");

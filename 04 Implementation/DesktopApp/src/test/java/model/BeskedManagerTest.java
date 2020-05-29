@@ -63,11 +63,6 @@ public class BeskedManagerTest {
 
     private class TestbarBeskedManager extends BeskedManager{
         @Override
-        protected DatabaseManager newDatabaseManager() {
-            return new MockDatabaseManager();
-        }
-
-        @Override
         protected BrugerManager newBrugerManager() {
             return new MockBrugerManager();
         }

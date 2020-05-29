@@ -14,7 +14,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import model.BeskedFacade;
 import model.BrugerFacade;
+import persistence.DatabaseManager;
 
 import java.io.IOException;
 
@@ -44,6 +46,13 @@ public class MenuController {
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+
+        /** Indlæs alle brugerens chats og send dem til BeskedFacade */
+        beskedFacade.setChats(DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn()));
+
+        /** Indlæs alle brugere og send dem til BrugereFacade */
+        brugerFacade.setBrugere(DatabaseManager.getInstance().hentBrugere());
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
