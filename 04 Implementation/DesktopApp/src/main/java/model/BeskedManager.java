@@ -32,7 +32,7 @@ public class BeskedManager {
     public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         Bruger afsender = brugerManager.getAktivBruger();
         Bruger modtager = brugerManager.hentBrugerMedNavn(navn);
-        String sidstAktiv = new Timestamp(System.currentTimeMillis()).toString();
+        long sidstAktiv = System.currentTimeMillis();
         if (modtager == null)
             throw new BrugerFindesIkkeException();
         Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne, sidstAktiv);
@@ -67,7 +67,7 @@ public class BeskedManager {
             modtager = chat.getAfsender();
 
         /** Lav et beskedobjekt og tilføj det til chatobjektet */
-        String tidspunkt = new Timestamp(System.currentTimeMillis()).toString();
+        long tidspunkt = System.currentTimeMillis();
         Besked beskedObjekt = new Besked(afsender, modtager, besked, tidspunkt);
         chat.tilfoejBesked(beskedObjekt);
         chat.setSidstAktiv(tidspunkt);

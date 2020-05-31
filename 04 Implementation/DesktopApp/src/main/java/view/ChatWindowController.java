@@ -28,7 +28,9 @@ import persistence.DatabaseManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Tommy og Patrick
@@ -191,7 +193,9 @@ public class ChatWindowController {
 
             String besked = beskeder.get(i).getBesked();
             String afsender = beskeder.get(i).getAfsender();
-            String tidspunkt = beskeder.get(i).getTidspunkt().substring(0, 16);
+
+            Date date = new Date(beskeder.get(i).getTidspunkt());
+            String tidspunkt = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
 
             Label navnLabel = new Label(afsender + " " + tidspunkt);
             navnLabel.setStyle("-fx-font-weight: bold");

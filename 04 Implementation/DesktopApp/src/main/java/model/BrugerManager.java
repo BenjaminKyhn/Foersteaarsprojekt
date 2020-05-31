@@ -34,7 +34,7 @@ public class BrugerManager {
         }
 
         String enkrypteretPassword = enkrypterTekst(password);
-        Bruger bruger = new Bruger(navn, email, enkrypteretPassword);
+        Bruger bruger = new Bruger(navn, email, enkrypteretPassword, true);
         brugere.add(bruger);
     }
 

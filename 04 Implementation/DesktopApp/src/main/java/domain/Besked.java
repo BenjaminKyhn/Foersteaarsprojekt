@@ -3,7 +3,7 @@ package domain;
 /** @author Benjamin */
 public class Besked {
     private String besked;
-    private String tidspunkt;
+    private long tidspunkt;
     private String afsender;
     private String modtager;
 
@@ -14,7 +14,7 @@ public class Besked {
         this.besked = besked;
     }
 
-    public Besked(String afsender, String modtager, String besked, String tidspunkt){
+    public Besked(String afsender, String modtager, String besked, long tidspunkt){
         this.afsender = afsender;
         this.modtager = modtager;
         this.besked = besked;
@@ -29,11 +29,11 @@ public class Besked {
         this.besked = besked;
     }
 
-    public String getTidspunkt() {
+    public long getTidspunkt() {
         return tidspunkt;
     }
 
-    public void setTidspunkt(String tidspunkt) {
+    public void setTidspunkt(long tidspunkt) {
         this.tidspunkt = tidspunkt;
     }
 
