@@ -1,14 +1,11 @@
 package model;
 
 import domain.Bruger;
-import domain.Chat;
 import model.exceptions.BrugerFindesIkkeException;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import persistence.DatabaseManager;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class BeskedManagerTest {
     @Test

@@ -4,6 +4,7 @@ import domain.Bruger;
 import model.exceptions.BrugerLoggedIndException;
 import model.exceptions.ForkertPasswordException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
