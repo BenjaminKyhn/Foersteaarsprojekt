@@ -41,7 +41,17 @@ public class VideoActivity extends AppCompatActivity {
         Drawable progress = ratingBar.getProgressDrawable();
         progress.setTint(Color.YELLOW);
 
-        MediaController mediaController = new MediaController(this);
+        MediaController mediaController = new MediaController(this) {
+            @Override
+            public void show() {
+                super.show(0);
+            }
+
+            @Override
+            public void hide() {
+                super.show(0);
+            }
+        };
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
 
