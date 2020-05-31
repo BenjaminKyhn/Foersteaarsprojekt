@@ -25,8 +25,8 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
-    public Chat hentChat(String afsender, String modtager, String emne) {
-        return beskedManager.hentChat(afsender, modtager, emne);
+    public Chat hentChat(String[] deltagere, String emne) {
+        return beskedManager.hentChat(deltagere, emne);
     }
 
     public List<Chat> hentNuvaerendeListe() {

@@ -11,20 +11,18 @@ import java.util.Comparator;
 public class Chat {
     private PropertyChangeSupport support;
 
-    private String afsender;
-    private String modtager;
+    private String[] deltagere;
     private String emne;
-    private String sidstAktiv;
+    private long sidstAktiv;
     private ObserverbarListe<Besked> beskeder = new ObserverbarListe<>();
 
     private Chat() {
         support = new PropertyChangeSupport(this);
     }
 
-    public Chat(String afsender, String modtager, String emne) {
+    public Chat(String[] deltagere, String emne) {
         this();
-        this.afsender = afsender;
-        this.modtager = modtager;
+        this.deltagere = deltagere;
         this.emne = emne;
     }
 
@@ -40,24 +38,16 @@ public class Chat {
     public static Comparator<Chat> sorterVedSidstAktiv = new Comparator<Chat>() {
         @Override
         public int compare(Chat o1, Chat o2) {
-            return o2.sidstAktiv.compareTo(o1.sidstAktiv);
+            return Long.compare(o1.sidstAktiv, o2.sidstAktiv);
         }
     };
 
-    public String getAfsender() {
-        return afsender;
+    public String[] getDeltagere() {
+        return deltagere;
     }
 
-    public void setAfsender(String afsender) {
-        this.afsender = afsender;
-    }
-
-    public String getModtager() {
-        return modtager;
-    }
-
-    public void setModtager(String modtager) {
-        this.modtager = modtager;
+    public void setDeltagere(String[] deltagere) {
+        this.deltagere = deltagere;
     }
 
     public String getEmne() {
@@ -68,11 +58,11 @@ public class Chat {
         this.emne = emne;
     }
 
-    public String getSidstAktiv() {
+    public long getSidstAktiv() {
         return sidstAktiv;
     }
 
-    public void setSidstAktiv(String sidstAktiv) {
+    public void setSidstAktiv(long sidstAktiv) {
         this.sidstAktiv = sidstAktiv;
     }
 

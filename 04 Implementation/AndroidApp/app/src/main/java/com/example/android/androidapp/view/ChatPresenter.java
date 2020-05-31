@@ -11,7 +11,6 @@ import com.example.android.androidapp.util.ObserverbarListe;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.ArrayList;
 
 class ChatPresenter {
     private Chat chat;
@@ -19,8 +18,8 @@ class ChatPresenter {
     private String beskedModtager;
     private ObserverbarListe<Besked> beskeder;
     private PropertyChangeSupport support;
-    ChatPresenter(String afsender, String modtager, String emne) {
-        chat = BeskedFacade.hentInstans().hentChat(afsender, modtager, emne);
+    ChatPresenter(String[] deltagere, String emne) {
+        chat = BeskedFacade.hentInstans().hentChat(deltagere, emne);
         beskeder = chat.getBeskeder();
         support = new PropertyChangeSupport(this);
         observerChat(chat);

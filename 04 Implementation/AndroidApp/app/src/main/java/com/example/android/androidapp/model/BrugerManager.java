@@ -3,12 +3,6 @@ package com.example.android.androidapp.model;
 import com.example.android.androidapp.domain.Bruger;
 import com.example.android.androidapp.model.exceptions.BrugerLoggedeIndException;
 import com.example.android.androidapp.model.exceptions.ForkertPasswordException;
-
-import org.apache.commons.codec.binary.Hex;
-
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /** @author Tommy **/
@@ -20,7 +14,7 @@ class BrugerManager {
         if (aktivBruger != null) {
             throw new BrugerLoggedeIndException();
         }
-        Bruger bruger = new Bruger(navn, email, password);
+        Bruger bruger = new Bruger(navn, email, password, false);
         brugere.add(bruger);
         aktivBruger = bruger;
     }

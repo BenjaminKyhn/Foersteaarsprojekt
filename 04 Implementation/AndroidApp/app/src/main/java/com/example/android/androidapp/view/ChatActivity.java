@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Besked;
-import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
@@ -29,7 +28,6 @@ import java.beans.PropertyChangeListener;
 
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    BeskedFacade beskedFacade;
     DatabaseManager databaseManager;
     EditText beskedFelt;
     ObserverbarListe<Besked> beskeder;
@@ -51,15 +49,13 @@ public class ChatActivity extends AppCompatActivity {
         String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
         Intent intent = getIntent();
-        String modtager = intent.getStringExtra("modtager");
-        String afsender = intent.getStringExtra("afsender");
+        String[] deltagere = intent.getStringArrayExtra("deltagere");
         String emne = intent.getStringExtra("emne");
         String modpart = intent.getStringExtra("modpart");
 
-        beskedFacade = BeskedFacade.hentInstans();
         databaseManager = new DatabaseManager();
 
-        chatPresenter = new ChatPresenter(afsender, modtager, emne);
+        chatPresenter = new ChatPresenter(deltagere, emne);
         chatPresenter.setBeskedAfsender(bruger);
         chatPresenter.setBeskedModtager(modpart);
         chatPresenter.tilfoejObserver(new PropertyChangeListener() {

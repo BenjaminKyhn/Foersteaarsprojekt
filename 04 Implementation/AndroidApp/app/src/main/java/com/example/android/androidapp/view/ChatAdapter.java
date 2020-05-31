@@ -12,12 +12,12 @@ import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.util.ObserverbarListe;
 
-import java.util.ArrayList;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolder> {
     private List<Besked> beskeder = new ObserverbarListe<>();
-
 
     @NonNull
     @Override
@@ -32,7 +32,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
         Besked besked = beskeder.get(position);
         holder.afsender.setText(besked.getAfsender());
         holder.besked.setText(besked.getBesked());
-        holder.tidspunkt.setText(besked.getTidspunkt());
+        Date date = new Date(besked.getTidspunkt());
+        String format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
+        holder.tidspunkt.setText(format);
     }
 
     @Override

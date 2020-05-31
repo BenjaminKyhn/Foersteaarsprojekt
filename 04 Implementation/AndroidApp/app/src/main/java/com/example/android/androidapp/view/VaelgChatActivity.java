@@ -76,18 +76,22 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
     public void onClick(View view, int position) {
         final Chat chat = chats.get(position);
         BrugerFacade brugerFacade = BrugerFacade.hentInstans();
+        String navn = brugerFacade.hentAktivBruger().getNavn();
         String modpart = "";
-        if (chat.getAfsender().equals(brugerFacade.hentAktivBruger().getNavn())) {
-            modpart = chat.getModtager();
+        if (chat.getDeltagere()[0].equals(navn)) {
+            modpart = chat.getDeltagere()[1];
         }
         else {
-            modpart = chat.getAfsender();
+            modpart = chat.getDeltagere()[0];
         }
         Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("afsender", chat.getAfsender());
-        intent.putExtra("modtager", chat.getModtager());
+        intent.putExtra("deltagere", chat.getDeltagere());
         intent.putExtra("emne", chat.getEmne());
         intent.putExtra("modpart", modpart);
         startActivity(intent);
+    }
+
+    public void nySamtale(View view) {
+
     }
 }

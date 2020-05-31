@@ -10,10 +10,10 @@ import java.util.List;
 class BeskedManager {
     private List<Chat> chats;
 
-    Chat hentChat(String afsender, String modtager, String emne) {
+    Chat hentChat(String[] deltagere, String emne) {
         for (Chat chat : chats) {
-            if (chat.getAfsender().equals(afsender)) {
-                if (chat.getModtager().equals(modtager)) {
+            if (chat.getDeltagere()[0].equals(deltagere[0])) {
+                if (chat.getDeltagere()[1].equals(deltagere[1])) {
                     if (chat.getEmne().equals(emne)) {
                         return chat;
                     }
@@ -24,12 +24,13 @@ class BeskedManager {
     }
 
     private void opretChat(String afsender, String modtager, String emne) {
-        Chat chat = new Chat(afsender, modtager, emne);
+        String[] deltagere = {afsender, modtager};
+        Chat chat = new Chat(deltagere, emne);
         chats.add(chat);
     }
 
     void sendBesked(String besked, Chat chat, String afsender, String modtager) {
-        String now = new Timestamp(System.currentTimeMillis()).toString();
+        long now = System.currentTimeMillis();
         Besked beskedObjekt = new Besked(besked, now, afsender, modtager);
         chat.tilfoejBesked(beskedObjekt);
     }
