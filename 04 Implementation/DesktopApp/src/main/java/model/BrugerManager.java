@@ -1,6 +1,7 @@
 package model;
 
 import domain.Bruger;
+import javafx.collections.ObservableList;
 import model.exceptions.BrugerLoggedIndException;
 import model.exceptions.ForkertPasswordException;
 import org.apache.commons.codec.binary.Hex;
@@ -109,5 +110,17 @@ public class BrugerManager {
 
     public List<Bruger> hentBrugere() {
         return brugere;
+    }
+
+    public List<Bruger> hentPatienter() {
+        ObserverbarListe<Bruger> patienter = new ObserverbarListe<>();
+        if (brugere != null) {
+            for (Bruger bruger : brugere) {
+                if (!bruger.isErBehandler()) {
+                    patienter.add(bruger);
+                }
+            }
+        }
+        return patienter;
     }
 }

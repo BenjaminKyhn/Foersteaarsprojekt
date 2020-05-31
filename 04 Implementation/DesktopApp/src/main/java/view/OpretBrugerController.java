@@ -20,6 +20,7 @@ import persistence.DatabaseManager;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * @author Benjamin
@@ -52,8 +53,10 @@ public class OpretBrugerController {
             brugerFacade.setBrugere(brugere);
         }
 
-        else
-            brugere = (ObserverbarListe<Bruger>) brugerFacade.hentBrugere();
+        else {
+            brugere = new ObserverbarListe<>();
+            brugere.addAll(brugerFacade.hentBrugere());
+        }
 
         /** Tilføj observer på listen */
         brugere.tilfoejObserver(new PropertyChangeListener() {
@@ -71,7 +74,7 @@ public class OpretBrugerController {
                 brugerFacade.tjekEmail(tfEmail.getText());
                 brugerFacade.tjekPassword(pfPassword.getText());
                 if (!tjekOmPasswordMatcher(pfPassword.getText(), pfGentagPassword.getText())) {
-                    popupWindow("Fej: Password matcher ikke");
+                    popupWindow("Fejl: Password matcher ikke");
                     return;
                 }
 
