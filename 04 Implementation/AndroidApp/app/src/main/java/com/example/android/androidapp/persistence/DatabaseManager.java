@@ -44,6 +44,11 @@ public class DatabaseManager {
     }
 
     public void gemChat(Chat chat) {
+        HashMap<String, Object> gemtData = new HashMap<>();
+        gemtData.put("afsender", chat.getAfsender());
+        gemtData.put("modtager", chat.getModtager());
+        gemtData.put("emne", chat.getEmne());
+
         firestore.collection("chats").document().set(chat);
     }
 
@@ -73,7 +78,7 @@ public class DatabaseManager {
                     updatedChat.put("afsender", chat.getAfsender());
                     updatedChat.put("modtager", chat.getModtager());
                     updatedChat.put("emne", chat.getEmne());
-                    String nu = new Timestamp(System.currentTimeMillis()).toString();
+                    long nu = System.currentTimeMillis();
                     updatedChat.put("sidstAktiv", nu);
                     DocumentReference reference = querySnapshot.getDocumentChanges().get(0).getDocument().getReference();
                     reference.set(updatedChat);

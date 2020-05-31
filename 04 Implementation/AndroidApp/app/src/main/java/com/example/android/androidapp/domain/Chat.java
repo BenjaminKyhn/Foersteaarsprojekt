@@ -24,6 +24,7 @@ public class Chat {
         this.afsender = afsender;
         this.modtager = modtager;
         this.emne = emne;
+        sidstAktiv = System.currentTimeMillis();
     }
 
     public void tilfoejObserver(PropertyChangeListener propertyChangeListener) {
