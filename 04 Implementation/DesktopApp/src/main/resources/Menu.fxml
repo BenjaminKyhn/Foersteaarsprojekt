@@ -87,7 +87,7 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <Label text="Træningsprogram">
+      <Label fx:id="lblTraeningsprogram" text="Træningsprogram">
          <font>
             <Font size="36.0" />
          </font>
