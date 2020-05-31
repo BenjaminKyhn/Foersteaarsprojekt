@@ -42,21 +42,19 @@
 
     <Button
         android:id="@+id/kalenderButton"
-        android:background="@color/colorForsideBar"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="48dp"
+        android:background="@color/colorForsideBar"
+        android:fontFamily="@font/open_sans_regular"
+        android:onClick="skiftTilKalender"
         android:text="Kalender"
         android:textAllCaps="false"
-        android:fontFamily="@font/open_sans_regular"
         android:textSize="22sp"
-        android:onClick="skiftTilKalender"
-        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bookingButton"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/bookingButton" />
 
     <Button
         android:id="@+id/BeskederButton"
@@ -75,6 +73,23 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/kalenderButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/traeningsprogramButton"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="48dp"
+        android:background="@color/colorForsideBar"
+        android:fontFamily="@font/open_sans_regular"
+        android:onClick="skiftTilTraening"
+        android:text="Træningsprogram"
+        android:textAllCaps="false"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/BeskederButton"
         app:layout_constraintVertical_bias="0.0" />
 
     <View

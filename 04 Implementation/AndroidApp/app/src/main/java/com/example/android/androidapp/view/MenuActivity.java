@@ -76,4 +76,8 @@ public class MenuActivity extends AppCompatActivity {
     public void skiftTilKalender(View view) {
         startActivity(new Intent(this, KalenderActivity.class));
     }
+
+    public void skiftTilTraening(View view) {
+        startActivity(new Intent(this, VideoActivity.class));
+    }
 }
