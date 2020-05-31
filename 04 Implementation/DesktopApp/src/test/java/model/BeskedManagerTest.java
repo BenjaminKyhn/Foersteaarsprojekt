@@ -7,6 +7,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import persistence.DatabaseManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BeskedManagerTest {
     @Test
     public void opretChatUT010101() throws BrugerFindesIkkeException {
@@ -26,27 +29,17 @@ public class BeskedManagerTest {
         assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat(null, "Skulderskade"));
     }
 
-    private class MockDatabaseManager extends DatabaseManager {
-        @Override
-        public void opretChat(Chat chat){
-            System.out.println("Chat er oprettet");
-        }
-
-        @Override
-        public Bruger hentBrugerMedNavn(String navn){
-            if (navn != "Boris")
-                return null;
-            return new MockBruger(navn);
-        }
-
-        public MockDatabaseManager() {
-            super(false);
-        }
-    }
 
     private class MockBrugerManager extends BrugerManager {
         public Bruger getAktivBruger(){
             return new MockBruger();
+        }
+
+        @Override
+        public Bruger hentBrugerMedNavn(String navn) {
+            if (navn != "Boris")
+                return null;
+            return new MockBruger(navn);
         }
     }
 
@@ -62,8 +55,10 @@ public class BeskedManagerTest {
     }
 
     private class TestbarBeskedManager extends BeskedManager{
+
         @Override
         protected BrugerManager newBrugerManager() {
+            setChats(new ArrayList<>());
             return new MockBrugerManager();
         }
     }
