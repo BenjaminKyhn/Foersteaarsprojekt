@@ -4,16 +4,17 @@ import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Chat;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
 class BeskedManager {
     private List<Chat> chats;
 
-    Chat hentChat(String[] deltagere, String emne) {
+    Chat hentChat(String afsender, String modtager, String emne) {
         for (Chat chat : chats) {
-            if (chat.getDeltagere()[0].equals(deltagere[0])) {
-                if (chat.getDeltagere()[1].equals(deltagere[1])) {
+            if (chat.getAfsender().equals(afsender)) {
+                if (chat.getModtager().equals(modtager)) {
                     if (chat.getEmne().equals(emne)) {
                         return chat;
                     }
@@ -23,9 +24,8 @@ class BeskedManager {
         return null;
     }
 
-    private void opretChat(String afsender, String modtager, String emne) {
-        String[] deltagere = {afsender, modtager};
-        Chat chat = new Chat(deltagere, emne);
+    void opretChat(String afsender, String modtager, String emne) {
+        Chat chat = new Chat(afsender, modtager, emne);
         chats.add(chat);
     }
 

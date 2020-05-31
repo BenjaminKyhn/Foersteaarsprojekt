@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Besked;
-import com.example.android.androidapp.util.ObserverbarListe;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolder> {
-    private List<Besked> beskeder = new ObserverbarListe<>();
+    private List<Besked> beskeder = new ArrayList<>();
 
     @NonNull
     @Override

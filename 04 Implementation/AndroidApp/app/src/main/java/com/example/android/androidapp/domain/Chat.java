@@ -1,7 +1,5 @@
 package com.example.android.androidapp.domain;
 
-import com.example.android.androidapp.util.ObserverbarListe;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -11,18 +9,20 @@ import java.util.Comparator;
 public class Chat {
     private PropertyChangeSupport support;
 
-    private String[] deltagere;
+    private String afsender;
+    private String modtager;
     private String emne;
     private long sidstAktiv;
-    private ObserverbarListe<Besked> beskeder = new ObserverbarListe<>();
+    private ArrayList<Besked> beskeder = new ArrayList<>();
 
     private Chat() {
         support = new PropertyChangeSupport(this);
     }
 
-    public Chat(String[] deltagere, String emne) {
+    public Chat(String afsender, String modtager, String emne) {
         this();
-        this.deltagere = deltagere;
+        this.afsender = afsender;
+        this.modtager = modtager;
         this.emne = emne;
     }
 
@@ -38,16 +38,24 @@ public class Chat {
     public static Comparator<Chat> sorterVedSidstAktiv = new Comparator<Chat>() {
         @Override
         public int compare(Chat o1, Chat o2) {
-            return Long.compare(o1.sidstAktiv, o2.sidstAktiv);
+            return Long.compare(o2.sidstAktiv, o1.sidstAktiv);
         }
     };
 
-    public String[] getDeltagere() {
-        return deltagere;
+    public String getAfsender() {
+        return afsender;
     }
 
-    public void setDeltagere(String[] deltagere) {
-        this.deltagere = deltagere;
+    public void setAfsender(String afsender) {
+        this.afsender = afsender;
+    }
+
+    public String getModtager() {
+        return modtager;
+    }
+
+    public void setModtager(String modtager) {
+        this.modtager = modtager;
     }
 
     public String getEmne() {
@@ -66,11 +74,11 @@ public class Chat {
         this.sidstAktiv = sidstAktiv;
     }
 
-    public ObserverbarListe<Besked> getBeskeder() {
+    public ArrayList<Besked> getBeskeder() {
         return beskeder;
     }
 
-    public void setBeskeder(ObserverbarListe<Besked> beskeder) {
+    public void setBeskeder(ArrayList<Besked> beskeder) {
         this.beskeder = beskeder;
     }
 }

@@ -42,6 +42,7 @@
         android:paddingEnd="16dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:onClick="nySamtaleDialog"
         android:text="Åben ny samtale"
         android:textAllCaps="false"
 

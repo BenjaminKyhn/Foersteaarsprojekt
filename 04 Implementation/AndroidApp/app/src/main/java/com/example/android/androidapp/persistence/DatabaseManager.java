@@ -43,6 +43,10 @@ public class DatabaseManager {
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
     }
 
+    public void gemChat(Chat chat) {
+        firestore.collection("chats").document().set(chat);
+    }
+
     public CollectionReference hentBrugereReference() {
         return firestore.collection("brugere");
     }
@@ -57,7 +61,7 @@ public class DatabaseManager {
 
     public void opdaterChat(final Chat chat) {
         write = true;
-        Query query = firestore.collection("chats").whereArrayContains("deltagere", chat.getDeltagere())
+        Query query = firestore.collection("chats").whereEqualTo("afsender", chat.getAfsender()).whereEqualTo("modtager", chat.getModtager())
                 .whereEqualTo("emne", chat.getEmne());
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -66,9 +70,10 @@ public class DatabaseManager {
                 assert querySnapshot != null;
                 if (!querySnapshot.isEmpty()) {
                     HashMap<String, Object> updatedChat = new HashMap<>();
-                    updatedChat.put("deltagere", chat.getDeltagere());
+                    updatedChat.put("afsender", chat.getAfsender());
+                    updatedChat.put("modtager", chat.getModtager());
                     updatedChat.put("emne", chat.getEmne());
-                    long nu = System.currentTimeMillis();
+                    String nu = new Timestamp(System.currentTimeMillis()).toString();
                     updatedChat.put("sidstAktiv", nu);
                     DocumentReference reference = querySnapshot.getDocumentChanges().get(0).getDocument().getReference();
                     reference.set(updatedChat);
@@ -81,10 +86,10 @@ public class DatabaseManager {
 
     public void hentChatsTilBruger(String navn, List<Chat> chats) {
         nuvaerendeChats = (ObserverbarListe<Chat>) chats;
-        Query query = firestore.collection("chats").whereArrayContains("deltagere", navn);
+        Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
+        Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
 
-
-        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        query1.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
@@ -105,26 +110,48 @@ public class DatabaseManager {
                 }
             }
         });
+
+        query2.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Chat> temp = queryDocumentSnapshots.toObjects(Chat.class);
+                for (int i = 0; i < queryDocumentSnapshots.getDocumentChanges().size(); i++) {
+                    final Chat chat = temp.get(i);
+                    DocumentReference documentReference = queryDocumentSnapshots.getDocumentChanges().get(i).getDocument().getReference();
+                    documentReference.collection("beskeder").orderBy("tidspunkt").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
+                            chat.setBeskeder(new ArrayList<>(beskeder));
+                            nuvaerendeChats.add(chat);
+                            Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
+                        }
+                    });
+                }
+            }
+        });
+
     }
 
     public void observerBeskederFraFirestore(final Chat chat) {
-        String[] deltagere = chat.getDeltagere();
+        String afsender = chat.getAfsender();
+        String modtager = chat.getModtager();
         String emne = chat.getEmne();
 
-        Query query = firestore.collection("chats").whereArrayContains("deltagere", deltagere)
+        Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager)
                 .whereEqualTo("emne", emne);
 
         Source source = Source.SERVER;
         query.get(source).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots != null) {
+                if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                     Query subQuery = queryDocumentSnapshots.getDocuments().get(0).getReference().collection("beskeder").orderBy("tidspunkt");
                     subQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                             if (!write) {
-                                if (queryDocumentSnapshots != null) {
+                                if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                     if (list.size() != chat.getBeskeder().size()) {
                                         Besked besked = list.get(list.size() - 1).toObject(Besked.class);

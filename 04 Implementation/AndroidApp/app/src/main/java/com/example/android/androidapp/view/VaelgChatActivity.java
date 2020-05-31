@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,12 +17,18 @@ import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
+import com.example.android.androidapp.persistence.DatabaseManager;
 import com.example.android.androidapp.util.ItemClickListener;
 import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
-public class VaelgChatActivity extends AppCompatActivity implements ItemClickListener {
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+public class VaelgChatActivity extends AppCompatActivity implements ItemClickListener, VaelgChatDialog.VaelgChatListener {
     DrawerLayout drawerLayout;
+    BeskedFacade beskedFacade;
+    BrugerFacade brugerFacade;
     ObserverbarListe<Chat> chats;
 
     @Override
@@ -45,12 +52,23 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText("Vælg samtale");
 
-        BrugerFacade brugerFacade = BrugerFacade.hentInstans();
-        BeskedFacade beskedFacade = BeskedFacade.hentInstans();
+        brugerFacade = BrugerFacade.hentInstans();
+        beskedFacade = BeskedFacade.hentInstans();
 
         chats = (ObserverbarListe<Chat>) beskedFacade.hentNuvaerendeListe();
 
-        VaelgChatAdapter vaelgChatAdapter = new VaelgChatAdapter(brugerFacade.hentAktivBruger().getNavn());
+        final VaelgChatAdapter vaelgChatAdapter = new VaelgChatAdapter(brugerFacade.hentAktivBruger().getNavn());
+
+        chats.tilfoejListener(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("nyAddition")) {
+                    new DatabaseManager().gemChat((Chat) evt.getNewValue());
+                    vaelgChatAdapter.setChats(chats);
+                }
+            }
+        });
+
         vaelgChatAdapter.setClickListener(this);
         vaelgChatAdapter.setChats(chats);
         RecyclerView recyclerView = findViewById(R.id.vaelg_chat_recycler_view);
@@ -78,20 +96,28 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
         BrugerFacade brugerFacade = BrugerFacade.hentInstans();
         String navn = brugerFacade.hentAktivBruger().getNavn();
         String modpart = "";
-        if (chat.getDeltagere()[0].equals(navn)) {
-            modpart = chat.getDeltagere()[1];
+        if (chat.getAfsender().equals(navn)) {
+            modpart = chat.getModtager();
         }
         else {
-            modpart = chat.getDeltagere()[0];
+            modpart = chat.getAfsender();
         }
         Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("deltagere", chat.getDeltagere());
+        intent.putExtra("afsender", chat.getAfsender());
+        intent.putExtra("modtager", chat.getModtager());
         intent.putExtra("emne", chat.getEmne());
         intent.putExtra("modpart", modpart);
         startActivity(intent);
     }
 
-    public void nySamtale(View view) {
+    public void nySamtaleDialog(View view) {
+        DialogFragment nySamtale = new VaelgChatDialog();
+        nySamtale.show(getSupportFragmentManager(), "nySamtale");
+    }
 
+    @Override
+    public void nySamtale(String modtager, String emne) {
+        String afsender =  brugerFacade.hentAktivBruger().getNavn();
+        beskedFacade.opretChat(afsender, modtager, emne);
     }
 }

@@ -20,17 +20,17 @@ import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.persistence.DatabaseManager;
-import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     DatabaseManager databaseManager;
     EditText beskedFelt;
-    ObserverbarListe<Besked> beskeder;
+    ArrayList<Besked> beskeder;
     ChatAdapter chatAdapter;
     ChatPresenter chatPresenter;
     RecyclerView recyclerView;
@@ -49,13 +49,16 @@ public class ChatActivity extends AppCompatActivity {
         String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
         Intent intent = getIntent();
-        String[] deltagere = intent.getStringArrayExtra("deltagere");
+
+
+        String afsender = intent.getStringExtra("afsender");
+        String modtager = intent.getStringExtra("modtager");
         String emne = intent.getStringExtra("emne");
         String modpart = intent.getStringExtra("modpart");
 
         databaseManager = new DatabaseManager();
 
-        chatPresenter = new ChatPresenter(deltagere, emne);
+        chatPresenter = new ChatPresenter(afsender, modtager, emne);
         chatPresenter.setBeskedAfsender(bruger);
         chatPresenter.setBeskedModtager(modpart);
         chatPresenter.tilfoejObserver(new PropertyChangeListener() {
