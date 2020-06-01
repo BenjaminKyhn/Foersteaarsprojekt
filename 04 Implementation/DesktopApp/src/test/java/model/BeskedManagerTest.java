@@ -12,6 +12,8 @@ public class BeskedManagerTest {
     public void opretChatUT010101() throws BrugerFindesIkkeException {
         BeskedManager beskedManager = new TestbarBeskedManager();
         beskedManager.opretChat("Boris", "Skulderskade");
+        String output = beskedManager.hentChats().get(0).getModtager();
+        assertEquals("Boris", output);
     }
 
     @Test
@@ -28,26 +30,30 @@ public class BeskedManagerTest {
 
 
     private class MockBrugerManager extends BrugerManager {
+        @Override
         public Bruger getAktivBruger(){
-            return new MockBruger();
+            return new MockBruger("Hans");
         }
 
         @Override
         public Bruger hentBrugerMedNavn(String navn) {
-            if (navn != "Boris")
+            if (!navn.equals("Boris")) {
                 return null;
+            }
             return new MockBruger(navn);
         }
     }
 
-    private class MockBruger extends Bruger{
+    private class MockBruger extends Bruger {
         String navn;
-
-        public MockBruger(){
-        }
 
         public MockBruger(String navn){
             this.navn = navn;
+        }
+
+        @Override
+        public String getNavn() {
+            return navn;
         }
     }
 

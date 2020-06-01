@@ -34,7 +34,7 @@ public class BrugerManager {
         }
 
         String hashedPassword = tekstHasher.hashTekst(password);
-        Bruger bruger = new Bruger(navn, email, hashedPassword);
+        Bruger bruger = new Bruger(navn, email, hashedPassword, true);
         brugere.add(bruger);
     }
 
