@@ -14,7 +14,7 @@ public class Chat {
     private ArrayList<Besked> beskeder;
     private PropertyChangeSupport support;
 
-    public Chat(){
+    public Chat() {
         support = new PropertyChangeSupport(this);
     }
 
