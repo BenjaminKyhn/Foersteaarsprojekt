@@ -5,15 +5,14 @@ import domain.Bruger;
 import domain.Chat;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -45,6 +44,9 @@ public class ChatWindowController {
 
     @FXML
     private AnchorPane chatWindowAnchorPane;
+
+    @FXML
+    private ScrollPane chatScrollPane;
 
     @FXML
     private VBox chatWindowChatVBox;
@@ -220,6 +222,14 @@ public class ChatWindowController {
                     VBox.setMargin(chatContainer, new Insets(8, 32, 8, 16));
             }
         }
+
+        /** Scroll ned til seneste besked */
+        chatScrollPane.setVvalue(1.0);
+
+        /** Tilføj en listener på VBoxen, som scroller viewet, hvis der tilføjes flere children */
+        chatWindowMessageVBox.getChildren().addListener((ListChangeListener<Node>) c -> {
+            Platform.runLater(() -> chatScrollPane.setVvalue(chatWindowMessageVBox.getHeight()));
+        });
 
         /** Giv sendknappen et on click event */
         sendBeskedKnap.setOnMouseClicked(event -> {
