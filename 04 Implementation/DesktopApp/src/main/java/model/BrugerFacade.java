@@ -3,7 +3,6 @@ package model;
 import domain.Bruger;
 import model.exceptions.*;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -38,7 +37,7 @@ public class BrugerFacade {
         validering.tjekPassword(password);
     }
 
-    public void opretBruger(String navn, String email, String password) throws BrugerLoggedIndException {
+    public void opretBruger(String navn, String email, String password) throws BrugerErIkkeBehandlerException {
         brugerManager.opretBruger(navn, email, password);
     }
 
