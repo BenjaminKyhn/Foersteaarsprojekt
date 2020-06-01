@@ -5,16 +5,18 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.PatientRegisterController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PatientRegisterController">
    <children>
       <TableView fx:id="patientTableView" layoutX="119.0" layoutY="90.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="64.0">
         <columns>
           <TableColumn fx:id="patientNavn" prefWidth="150.0" text="Navn" />
           <TableColumn fx:id="patientEmail" prefWidth="150.0" text="Email" />
-            <TableColumn fx:id="patientSidsteCheck" prefWidth="150.0" text="Sidste check" />
+            <TableColumn prefWidth="153.5999755859375" text="Behandler" />
+            <TableColumn fx:id="patientSidsteCheck" prefWidth="128.79998779296875" text="Sidste check" />
         </columns>
       </TableView>
-      <Button layoutX="14.0" layoutY="25.0" mnemonicParsing="false" text="Slet patient fra register" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="16.0" />
+      <Button layoutX="281.0" layoutY="16.0" mnemonicParsing="false" text="Slet patient fra register" AnchorPane.leftAnchor="281.0" AnchorPane.topAnchor="16.0" />
+      <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Opret patient" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="16.0" />
+      <Button layoutX="107.0" layoutY="16.0" mnemonicParsing="false" text="Tilknyt patient til behandler" AnchorPane.leftAnchor="107.0" AnchorPane.topAnchor="16.0" />
    </children>
 </AnchorPane>

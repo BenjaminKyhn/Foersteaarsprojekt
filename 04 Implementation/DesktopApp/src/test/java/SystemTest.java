@@ -1,6 +1,6 @@
-import model.BrugerFacade;
-import model.exceptions.EksisterendeBrugerException;
-import model.exceptions.TomEmailException;
+import usecases.BrugerFacade;
+import entities.exceptions.EksisterendeBrugerException;
+import entities.exceptions.TomEmailException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
