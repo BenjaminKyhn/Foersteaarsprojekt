@@ -1,11 +1,9 @@
 package model;
 
 import domain.Bruger;
-import javafx.collections.ObservableList;
-import model.exceptions.BrugerLoggedIndException;
+import model.exceptions.BrugerErIkkeBehandlerException;
 import model.exceptions.ForkertPasswordException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,9 +26,9 @@ public class BrugerManager {
         return brugerManager;
     }
 
-    public void opretBruger(String navn, String email, String password) throws BrugerLoggedIndException {
-        if (aktivBruger != null) {
-            throw new BrugerLoggedIndException();
+    public void opretBruger(String navn, String email, String password) throws BrugerErIkkeBehandlerException {
+        if (!aktivBruger.isErBehandler()) {
+            throw new BrugerErIkkeBehandlerException();
         }
 
         String hashedPassword = tekstHasher.hashTekst(password);
@@ -108,5 +106,9 @@ public class BrugerManager {
             }
         }
         return patienter;
+    }
+
+    public void setAktivBruger(Bruger aktivBruger) {
+        this.aktivBruger = aktivBruger;
     }
 }

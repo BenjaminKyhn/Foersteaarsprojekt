@@ -19,8 +19,6 @@ import persistence.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * @author Benjamin
@@ -92,7 +90,7 @@ public class OpretBrugerController {
                 popupWindow("Fejl: Passwordfeltet kan ikke være tomt");
             } catch (PasswordLaengdeException ple) {
                 popupWindow("Fejl: Password skal være mellem 6 og 20 tegn");
-            } catch (BrugerLoggedIndException blie) {
+            } catch (BrugerErIkkeBehandlerException blie) {
                 popupWindow("Fejl: Du er allerede logged ind");
             } catch (Exception e) {
                 e.printStackTrace();
