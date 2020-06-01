@@ -6,14 +6,16 @@ public class Bruger {
     private String email;
     private String password;
     private String fotoURL;
+    private boolean erBehandler;
 
     public Bruger(){
     }
 
-    public Bruger(String navn, String email, String password){
+    public Bruger(String navn, String email, String password, boolean erBehandler){
         this.navn = navn;
         this.email = email;
         this.password = password;
+        this.erBehandler = erBehandler;
     }
 
     public String getNavn() {
@@ -46,5 +48,13 @@ public class Bruger {
 
     public void setFotoURL(String fotoURL) {
         this.fotoURL = fotoURL;
+    }
+
+    public boolean isErBehandler() {
+        return erBehandler;
+    }
+
+    public void setErBehandler(boolean erBehandler) {
+        this.erBehandler = erBehandler;
     }
 }

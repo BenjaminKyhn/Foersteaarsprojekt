@@ -5,6 +5,7 @@ import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.model.exceptions.TomEmneException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
@@ -27,6 +28,10 @@ public class BeskedFacade {
 
     public Chat hentChat(String afsender, String modtager, String emne) {
         return beskedManager.hentChat(afsender, modtager, emne);
+    }
+
+    public void opretChat(String afsender, String modtager, String emne) {
+        beskedManager.opretChat(afsender, modtager, emne);
     }
 
     public List<Chat> hentNuvaerendeListe() {

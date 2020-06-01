@@ -35,13 +35,21 @@ import java.util.List;
  **/
 public class DatabaseManager {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private ObserverbarListe<Besked> observeretBeskeder;
     private ObserverbarListe<Chat> nuvaerendeChats;
     private boolean read;
     private boolean write;
 
     public void gemBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    }
+
+    public void gemChat(Chat chat) {
+        HashMap<String, Object> gemtData = new HashMap<>();
+        gemtData.put("afsender", chat.getAfsender());
+        gemtData.put("modtager", chat.getModtager());
+        gemtData.put("emne", chat.getEmne());
+
+        firestore.collection("chats").document().set(chat);
     }
 
     public CollectionReference hentBrugereReference() {
@@ -70,7 +78,7 @@ public class DatabaseManager {
                     updatedChat.put("afsender", chat.getAfsender());
                     updatedChat.put("modtager", chat.getModtager());
                     updatedChat.put("emne", chat.getEmne());
-                    String nu = new Timestamp(System.currentTimeMillis()).toString();
+                    long nu = System.currentTimeMillis();
                     updatedChat.put("sidstAktiv", nu);
                     DocumentReference reference = querySnapshot.getDocumentChanges().get(0).getDocument().getReference();
                     reference.set(updatedChat);
@@ -119,9 +127,7 @@ public class DatabaseManager {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                            ObserverbarListe<Besked> observerbarListe = new ObserverbarListe<>();
-                            observerbarListe.addAll(beskeder);
-                            chat.setBeskeder(observerbarListe);
+                            chat.setBeskeder(new ArrayList<>(beskeder));
                             nuvaerendeChats.add(chat);
                             Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
                         }
@@ -144,13 +150,13 @@ public class DatabaseManager {
         query.get(source).addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots != null) {
+                if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                     Query subQuery = queryDocumentSnapshots.getDocuments().get(0).getReference().collection("beskeder").orderBy("tidspunkt");
                     subQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                             if (!write) {
-                                if (queryDocumentSnapshots != null) {
+                                if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                     if (list.size() != chat.getBeskeder().size()) {
                                         Besked besked = list.get(list.size() - 1).toObject(Besked.class);

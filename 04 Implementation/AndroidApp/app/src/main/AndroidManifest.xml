@@ -8,9 +8,11 @@
         android:label="FRB SPORT"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.BookingPatientActivity"></activity>
+        <activity android:name=".view.BookingPatientActivity" />
         <activity android:name=".view.BookingBehandlerActivity" />
         <activity android:name=".view.KalenderActivity" />
+        <activity android:name=".view.TraeningsprogramActivity" />
+        <activity android:name=".view.VideoActivity" />
         <activity android:name=".view.TildelProgramActivity" />
         <activity android:name=".view.VaelgChatActivity" />
         <activity android:name=".view.SendBeskedActivity" />

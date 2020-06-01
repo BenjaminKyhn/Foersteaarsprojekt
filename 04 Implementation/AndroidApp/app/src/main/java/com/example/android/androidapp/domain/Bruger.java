@@ -7,14 +7,16 @@ public class Bruger {
     private String navn;
     private String email;
     private String password;
+    private boolean erBehandler;
 
     public Bruger() {
     }
 
-    public Bruger(String navn, String email, String password) {
+    public Bruger(String navn, String email, String password, boolean erBehandler) {
         this.navn = navn;
         this.email = email;
         this.password = TekstHasher.hashTekst(password);
+        this.erBehandler = erBehandler;
     }
 
     public boolean validerPassword(String password) {
@@ -44,5 +46,13 @@ public class Bruger {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isErBehandler() {
+        return erBehandler;
+    }
+
+    public void setErBehandler(boolean erBehandler) {
+        this.erBehandler = erBehandler;
     }
 }

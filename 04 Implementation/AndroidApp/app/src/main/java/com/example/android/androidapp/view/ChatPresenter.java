@@ -17,7 +17,7 @@ class ChatPresenter {
     private Chat chat;
     private String beskedAfsender;
     private String beskedModtager;
-    private ObserverbarListe<Besked> beskeder;
+    private ArrayList<Besked> beskeder;
     private PropertyChangeSupport support;
     ChatPresenter(String afsender, String modtager, String emne) {
         chat = BeskedFacade.hentInstans().hentChat(afsender, modtager, emne);
@@ -51,7 +51,7 @@ class ChatPresenter {
         databaseManager.opdaterChat(chat);
     }
 
-    public ObserverbarListe<Besked> getBeskeder() {
+    public ArrayList<Besked> getBeskeder() {
         return beskeder;
     }
 

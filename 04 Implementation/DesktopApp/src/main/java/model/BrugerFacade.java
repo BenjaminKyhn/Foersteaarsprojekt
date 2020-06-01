@@ -69,4 +69,8 @@ public class BrugerFacade {
     public List<Bruger> hentBrugere(){
         return brugerManager.hentBrugere();
     }
+
+    public List<Bruger> hentPatienter() {
+        return brugerManager.hentPatienter();
+    }
 }

@@ -40,7 +40,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label alignment="TOP_LEFT" prefHeight="27.0" prefWidth="170.0" text="Patientregister">
+      <Label fx:id="lblPatientregister" alignment="TOP_LEFT" prefHeight="27.0" prefWidth="170.0" text="Patientregister">
          <font>
             <Font size="18.0" />
          </font>
@@ -87,7 +87,7 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <Label text="Træningsprogram">
+      <Label fx:id="lblTraeningsprogram" text="Træningsprogram">
          <font>
             <Font size="36.0" />
          </font>

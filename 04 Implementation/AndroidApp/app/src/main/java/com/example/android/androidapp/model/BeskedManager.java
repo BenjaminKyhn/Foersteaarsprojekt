@@ -4,6 +4,7 @@ import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Chat;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
@@ -23,13 +24,13 @@ class BeskedManager {
         return null;
     }
 
-    private void opretChat(String afsender, String modtager, String emne) {
+    void opretChat(String afsender, String modtager, String emne) {
         Chat chat = new Chat(afsender, modtager, emne);
         chats.add(chat);
     }
 
     void sendBesked(String besked, Chat chat, String afsender, String modtager) {
-        String now = new Timestamp(System.currentTimeMillis()).toString();
+        long now = System.currentTimeMillis();
         Besked beskedObjekt = new Besked(besked, now, afsender, modtager);
         chat.tilfoejBesked(beskedObjekt);
     }

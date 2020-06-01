@@ -34,7 +34,7 @@ public class MenuController {
     private Rectangle topRectangle, bundRectangle;
 
     @FXML
-    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblOpretPatient;
+    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblPatientregister, lblTraeningsprogram, lblOpretPatient;
 
     @FXML
     private Circle fotoCircle;
@@ -71,8 +71,10 @@ public class MenuController {
         /** Sæt egenskaber på labels */
         lblBeskeder.setOnMouseClicked(event -> skiftTilChatvindue());
         lblIndstillinger.setOnMouseClicked(event -> skiftTilBrugerindstillinger());
+        lblPatientregister.setOnMouseClicked(event -> patientregister());
         lblLogUd.setOnMouseClicked(event -> logUd());
         lblOpretPatient.setOnMouseClicked(event -> opretPatient());
+        lblTraeningsprogram.setOnMouseClicked(event -> traeningsprogram());
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -126,6 +128,32 @@ public class MenuController {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/OpretBruger.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) logoImageView.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+    public void patientregister() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/PatientRegister.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setTitle("Patientregister");
+        stage.show();
+    }
+
+    public void traeningsprogram() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/TildelProgram.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

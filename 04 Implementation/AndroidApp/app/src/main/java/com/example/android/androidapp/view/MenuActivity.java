@@ -11,21 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
-import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.persistence.DatabaseManager;
 import com.example.android.androidapp.util.ObserverbarListe;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 /**@author Patrick**/
 public class MenuActivity extends AppCompatActivity {
@@ -78,14 +69,16 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-//    public void skiftTilIndbakke(View view) {
-//        startActivity(new Intent(this, IndbakkeActivity.class));
-//    }
-
     public void skiftTilIndbakke(View view) {
         startActivity(new Intent(this, VaelgChatActivity.class));
     }
     public void skiftTilKalender(View view) {
         startActivity(new Intent(this, KalenderActivity.class));
+    }
+
+    public void skiftTilTraening(View view) {
+        Intent intent = new Intent(this, TraeningsprogramActivity.class);
+        intent.putExtra("intetProgram", false);
+        startActivity(intent);
     }
 }

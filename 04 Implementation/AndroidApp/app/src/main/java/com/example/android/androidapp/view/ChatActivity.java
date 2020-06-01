@@ -16,23 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.domain.Besked;
-import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.model.exceptions.TomBeskedException;
 import com.example.android.androidapp.persistence.DatabaseManager;
-import com.example.android.androidapp.util.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    BeskedFacade beskedFacade;
     DatabaseManager databaseManager;
     EditText beskedFelt;
-    ObserverbarListe<Besked> beskeder;
+    ArrayList<Besked> beskeder;
     ChatAdapter chatAdapter;
     ChatPresenter chatPresenter;
     RecyclerView recyclerView;
@@ -51,12 +49,13 @@ public class ChatActivity extends AppCompatActivity {
         String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
         Intent intent = getIntent();
-        String modtager = intent.getStringExtra("modtager");
+
+
         String afsender = intent.getStringExtra("afsender");
+        String modtager = intent.getStringExtra("modtager");
         String emne = intent.getStringExtra("emne");
         String modpart = intent.getStringExtra("modpart");
 
-        beskedFacade = BeskedFacade.hentInstans();
         databaseManager = new DatabaseManager();
 
         chatPresenter = new ChatPresenter(afsender, modtager, emne);

@@ -3,14 +3,14 @@ package com.example.android.androidapp.domain;
 /** @author Tommy **/
 public class Besked {
     private String besked;
-    private String tidspunkt;
+    private long tidspunkt;
     private String afsender;
     private String modtager;
 
     public Besked() {
     }
 
-    public Besked(String besked, String tidspunkt, String afsender, String modtager) {
+    public Besked(String besked, long tidspunkt, String afsender, String modtager) {
         this.besked = besked;
         this.tidspunkt = tidspunkt;
         this.afsender = afsender;
@@ -25,11 +25,11 @@ public class Besked {
         this.besked = besked;
     }
 
-    public String getTidspunkt() {
+    public long getTidspunkt() {
         return tidspunkt;
     }
 
-    public void setTidspunkt(String tidspunkt) {
+    public void setTidspunkt(long tidspunkt) {
         this.tidspunkt = tidspunkt;
     }
 
