@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 
 import domain.Bruger;
 import model.exceptions.BrugerErIkkeBehandlerException;
+import model.exceptions.ForkertPasswordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -32,6 +33,27 @@ public class BrugerManagerTest {
         assertEquals("Hans", output);
     }
 
+    @Test
+    public void UT020101() throws ForkertPasswordException {
+        String test123 = "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae";
+        MockBruger mockBruger = new MockBruger("Johnny", test123, true);
+        BrugerManager brugerManager = new TestbarBrugerManager(mockBruger);
+        brugerManager.setAktivBruger(mockBruger);
+        assertNotNull(brugerManager.getAktivBruger());
+        brugerManager.sletBruger(mockBruger, "test123");
+        assertNull(brugerManager.getAktivBruger());
+    }
+
+    @Test
+    public void UT020102() {
+        String test123 = "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae";
+        MockBruger mockBruger = new MockBruger("Johnny", test123, true);
+        BrugerManager brugerManager = new TestbarBrugerManager(mockBruger);
+        brugerManager.setAktivBruger(mockBruger);
+        assertNotNull(brugerManager.getAktivBruger());
+        assertThrows(ForkertPasswordException.class, () -> brugerManager.sletBruger(mockBruger, "test1234"));
+    }
+
     private class MockBruger extends Bruger {
         String navn;
         String password;
@@ -50,7 +72,7 @@ public class BrugerManagerTest {
 
         @Override
         public String getPassword() {
-            return super.getPassword();
+            return password;
         }
 
         @Override
@@ -60,15 +82,14 @@ public class BrugerManagerTest {
     }
 
     private class TestbarBrugerManager extends BrugerManager {
-        MockBruger aktivBruger;
-
         public TestbarBrugerManager() {
             setBrugere(new ArrayList<>());
         }
 
-        @Override
-        public Bruger getAktivBruger() {
-            return aktivBruger;
+        public TestbarBrugerManager(MockBruger bruger) {
+            ArrayList<Bruger> mockBrugere = new ArrayList<>();
+            mockBrugere.add(bruger);
+            setBrugere(mockBrugere);
         }
     }
 }
