@@ -12,7 +12,7 @@ public class SystemTest {
 //        String email = "test@mail.dk";
 //        brugerFacade.tjekEmail(email);
 //    }
-    // TODO det skaber problemer for vores tests, at listen med brugere først sættes i viewet
+    // TODO det skaber problemer for vores tests, at listen med brugere først sættes i viewet. Løses ved at lave en MockDatabaseManager med lister.
 
     @Test
     public void ST010102() {
