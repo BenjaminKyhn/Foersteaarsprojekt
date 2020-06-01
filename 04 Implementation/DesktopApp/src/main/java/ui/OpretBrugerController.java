@@ -1,6 +1,7 @@
 package ui;
 
 import entities.Bruger;
+import entities.exceptions.*;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

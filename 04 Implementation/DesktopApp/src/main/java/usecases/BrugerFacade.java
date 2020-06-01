@@ -1,6 +1,7 @@
 package usecases;
 
 import entities.Bruger;
+import entities.exceptions.*;
 
 import java.util.List;
 
