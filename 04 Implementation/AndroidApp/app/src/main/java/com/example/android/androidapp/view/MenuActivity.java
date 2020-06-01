@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.androidapp.R;
-import com.example.android.androidapp.domain.Besked;
 import com.example.android.androidapp.domain.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
@@ -78,6 +77,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void skiftTilTraening(View view) {
-        startActivity(new Intent(this, VideoActivity.class));
+        Intent intent = new Intent(this, TraeningsprogramActivity.class);
+        intent.putExtra("intetProgram", false);
+        startActivity(intent);
     }
 }

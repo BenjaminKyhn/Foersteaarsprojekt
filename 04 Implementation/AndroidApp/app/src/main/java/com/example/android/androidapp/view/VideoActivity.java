@@ -21,10 +21,9 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
 
-        final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Indlæser video", true);
 
         final VideoView videoView = findViewById(R.id.videoView);
-        String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.hofteboejer;
+        String videoPath = getIntent().getStringExtra("videoPath");
         Uri uri = Uri.parse(videoPath);
         videoView.setVideoURI(uri);
         videoView.start();
@@ -33,7 +32,6 @@ public class VideoActivity extends AppCompatActivity {
             public void onPrepared(MediaPlayer mp) {
                 videoView.seekTo(1);
                 videoView.pause();
-                progressDialog.dismiss();
             }
         });
 
@@ -41,17 +39,7 @@ public class VideoActivity extends AppCompatActivity {
         Drawable progress = ratingBar.getProgressDrawable();
         progress.setTint(Color.YELLOW);
 
-        MediaController mediaController = new MediaController(this) {
-            @Override
-            public void show() {
-                super.show(0);
-            }
-
-            @Override
-            public void hide() {
-                super.show(0);
-            }
-        };
+        MediaController mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
         mediaController.setAnchorView(videoView);
 
