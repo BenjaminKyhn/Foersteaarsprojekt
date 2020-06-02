@@ -76,7 +76,11 @@ public class OpretBrugerController {
                 }
 
                 /** Tilføj bruger til listen i BrugerManager */
-                brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText());
+                boolean erBehandler = false;
+                if (brugerFacade.getAktivBruger() != null){
+                    erBehandler = true;
+                }
+                brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText(), erBehandler);
 
                 popupWindow("Brugeren er oprettet");
             } catch (TomNavnException tne) {
