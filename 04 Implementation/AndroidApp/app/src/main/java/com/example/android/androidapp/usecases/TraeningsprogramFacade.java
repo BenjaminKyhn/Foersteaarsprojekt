@@ -1,5 +1,6 @@
 package com.example.android.androidapp.usecases;
 
+/** @author Tommy */
 public class TraeningsprogramFacade {
     private static TraeningsprogramFacade traeningsprogramFacade;
 

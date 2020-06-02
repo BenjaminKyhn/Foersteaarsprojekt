@@ -1,7 +1,6 @@
 package com.example.android.androidapp.usecases;
 
-import java.util.function.Predicate;
-
+/** @author Tommy */
 public class TraeningsprogramManager {
     ObserverbarListe<String> program;
 

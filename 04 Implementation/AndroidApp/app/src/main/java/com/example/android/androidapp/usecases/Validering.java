@@ -66,4 +66,5 @@ class Validering {
     void setBrugere(List<Bruger> brugere) {
         this.brugere = brugere;
     }
+
 }

@@ -1,5 +1,6 @@
 package usecases;
 
+/** @author Tommy */
 public class TraeningsprogramManager {
     ObserverbarListe<String> program;
 

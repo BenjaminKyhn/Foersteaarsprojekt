@@ -4,6 +4,7 @@ import entities.Bruger;
 import entities.exceptions.EksisterendeBrugerException;
 import entities.exceptions.TomEmailException;
 import entities.exceptions.TomNavnException;
+import entities.exceptions.TomPasswordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -23,7 +24,6 @@ public class ValideringTest {
         Validering validering = new TestbarValidering();
         String email = "fys@frbsport.dk";
         assertThrows(EksisterendeBrugerException.class, () -> validering.tjekEmail(email));
-
     }
 
     @Test
@@ -61,7 +61,19 @@ public class ValideringTest {
         validering.tjekNavn(navn);
     }
 
+    @Test
+    public void tjekPasswordUT010301() {
+        Validering validering = new Validering();
+        String password = null;
+        assertThrows(NullPointerException.class, () -> validering.tjekPassword(password));
+    }
 
+    @Test
+    public void tjekPasswordUT010302() {
+        Validering validering = new Validering();
+        String password = "";
+        assertThrows(TomPasswordException.class, () -> validering.tjekPassword(password));
+    }
 
         private class MockBrugerManager extends BrugerManager {
             @Override
@@ -87,8 +99,6 @@ public class ValideringTest {
             return email;
         }
     }
-
-
 
     private class TestbarValidering extends Validering{
 

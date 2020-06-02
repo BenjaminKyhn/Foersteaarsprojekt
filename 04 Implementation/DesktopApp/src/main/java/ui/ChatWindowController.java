@@ -3,6 +3,8 @@ package ui;
 import entities.Besked;
 import entities.Bruger;
 import entities.Chat;
+import entities.exceptions.ForMangeTegnException;
+import entities.exceptions.TomBeskedException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.collections.ListChangeListener;
@@ -233,9 +235,15 @@ public class ChatWindowController {
 
         /** Giv sendknappen et on click event */
         sendBeskedKnap.setOnMouseClicked(event -> {
-            beskedFacade.sendBesked(tfSendBesked.getText(), chat);
-            DatabaseManager.getInstance().opdaterChat(chat);
-            visBeskeder(chat);
+            try {
+                beskedFacade.sendBesked(tfSendBesked.getText(), chat);
+                DatabaseManager.getInstance().opdaterChat(chat);
+                visBeskeder(chat);
+            } catch (TomBeskedException tbe){
+                popupWindow("Beskeden er tom");
+            } catch (ForMangeTegnException fmt){
+                popupWindow("Du har skrevet mere end 160 tegn");
+            }
         });
     }
 
@@ -294,6 +302,26 @@ public class ChatWindowController {
         stage.setOnHidden(event -> indlaesChats());
 
         stage.show();
+    }
+
+    public void popupWindow(String infoText) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        try {
+            root = fxmlLoader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Infoboks");
+        stage.setScene(popupScene);
+        stage.show();
+
+        SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
+        systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
 
     //TODO få menuen til at scale med vinduets størrelse

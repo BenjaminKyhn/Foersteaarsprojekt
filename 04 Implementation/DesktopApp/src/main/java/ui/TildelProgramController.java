@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import usecases.BrugerFacade;
 import usecases.TraeningsprogramFacade;
 
+/** @author Tommy */
 public class TildelProgramController {
     @FXML
     private AnchorPane tildelProgramAnchorPane;

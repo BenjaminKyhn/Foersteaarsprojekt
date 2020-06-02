@@ -1,5 +1,6 @@
 package usecases;
 
+/** @author Tommy */
 public class TraeningsprogramFacade {
     TraeningsprogramManager traeningsprogramManager;
 

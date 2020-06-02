@@ -1,5 +1,7 @@
 package ui;
 
+import entities.exceptions.ForMangeTegnException;
+import entities.exceptions.TomEmneException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,8 +47,14 @@ public class NyChatPopupController {
         try {
             beskedFacade.opretChat(navn, emne);
         }
-        catch (BrugerFindesIkkeException e){
+        catch (BrugerFindesIkkeException bfie){
             popupWindow("Brugeren findes ikke");
+        }
+        catch (TomEmneException tee){
+            popupWindow("Tomt emnefelt");
+        }
+        catch (ForMangeTegnException fmte){
+            popupWindow("Du har skrevet mere end 50 tegn");
         }
     }
 

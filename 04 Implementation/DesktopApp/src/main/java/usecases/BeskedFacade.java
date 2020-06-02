@@ -28,7 +28,8 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
-    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
+    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException, TomEmneException, ForMangeTegnException {
+        tjekEmne(emne);
         beskedManager.opretChat(navn, emne);
     }
 
@@ -44,7 +45,8 @@ public class BeskedFacade {
         return beskedManager.hentBeskeder(chat);
     }
 
-    public void sendBesked(String besked, Chat chat){
+    public void sendBesked(String besked, Chat chat) throws TomBeskedException, ForMangeTegnException {
+        tjekBesked(besked);
         beskedManager.sendBesked(besked, chat);
     }
 
