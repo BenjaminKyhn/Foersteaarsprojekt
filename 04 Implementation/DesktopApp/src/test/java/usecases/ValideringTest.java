@@ -35,9 +35,9 @@ public class ValideringTest {
 
     @Test
     public void tjekEmailUT010104() throws EksisterendeBrugerException, TomEmailException {
-        Validering validering = new Validering();
+        Validering validering = new TestbarValidering();
         String email = "gertrud57@hotmail.com";
-       validering.tjekEmail(email);
+        validering.tjekEmail(email);
     }
 
     @Test
@@ -66,14 +66,19 @@ public class ValideringTest {
         private class MockBrugerManager extends BrugerManager {
             @Override
             public Bruger hentBrugerMedEmail(String email) {
-                return new MockBruger("fys@frbsport.dk");
+                if (email.equals("fys@frbsport.dk")) {
+                    return new MockBruger("fys@frbsport.dk");
+                }
+                else {
+                    return null;
+                }
             }
         }
 
     private class MockBruger extends Bruger {
         String email;
 
-        public MockBruger(String email){
+        public MockBruger(String email) {
             this.email = email;
         }
 
