@@ -242,7 +242,7 @@ public class ChatWindowController {
             } catch (TomBeskedException tbe){
                 popupWindow("Beskeden er tom");
             } catch (ForMangeTegnException fmt){
-                popupWindow("Du har skrevet mere end 255 tegn");
+                popupWindow("Du har skrevet mere end 160 tegn");
             }
         });
     }

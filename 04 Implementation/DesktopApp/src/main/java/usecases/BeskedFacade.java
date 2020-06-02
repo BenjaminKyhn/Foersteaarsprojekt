@@ -28,7 +28,8 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
-    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
+    public void opretChat(String navn, String emne) throws BrugerFindesIkkeException, TomEmneException, ForMangeTegnException {
+        tjekEmne(emne);
         beskedManager.opretChat(navn, emne);
     }
 

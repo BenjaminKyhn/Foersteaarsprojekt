@@ -34,14 +34,14 @@ class Validering {
     public void tjekEmne(String emne) throws TomEmneException, ForMangeTegnException {
         if (emne.equals(""))
             throw new TomEmneException();
-        if (emne.length() > 100)
+        if (emne.length() > 50)
             throw new ForMangeTegnException();
     }
 
     public void tjekBesked(String besked) throws TomBeskedException, ForMangeTegnException {
         if (besked.equals(""))
             throw new TomBeskedException();
-        if (besked.length() > 255)
+        if (besked.length() > 160)
             throw new ForMangeTegnException();
     }
     protected BrugerManager newBrugerManager() {
