@@ -38,7 +38,7 @@ public class BrugerManager {
         }
     }
 
-    private void opretBruger(String navn, String email, String password, boolean erBehandler) {
+    public void opretBruger(String navn, String email, String password, boolean erBehandler) {
             String hashedPassword = tekstHasher.hashTekst(password);
             Bruger bruger = new Bruger(navn, email, hashedPassword, erBehandler);
             brugere.add(bruger);
