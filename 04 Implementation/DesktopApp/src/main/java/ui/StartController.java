@@ -90,6 +90,7 @@ public class StartController {
                 ArrayList<Bruger> temp = new ArrayList<>();
                 temp.add(DatabaseManager.getInstance().hentBrugerMedEmail(tfEmail.getText()));
                 brugerFacade.setBrugere(temp);
+                // TODO logind metoden i brugermanager kaldes ikke
                 if (!brugerFacade.logInd(tfEmail.getText(), tfPassword.getText())) {
                     logIndFejlPopup("Fejl i logind");
                 }

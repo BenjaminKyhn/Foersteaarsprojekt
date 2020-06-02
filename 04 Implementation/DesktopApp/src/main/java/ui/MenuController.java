@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 import usecases.BeskedFacade;
 import usecases.BrugerFacade;
 import database.DatabaseManager;
+import usecases.ObserverbarListe;
 
 import java.io.IOException;
 

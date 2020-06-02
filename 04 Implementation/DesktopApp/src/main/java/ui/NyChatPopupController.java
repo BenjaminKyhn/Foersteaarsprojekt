@@ -14,7 +14,7 @@ import usecases.BeskedFacade;
 import entities.exceptions.BrugerFindesIkkeException;
 
 /** @author Benjamin */
-public class NyBeskedPopupController {
+public class NyChatPopupController {
     private BeskedFacade beskedFacade;
 
     @FXML

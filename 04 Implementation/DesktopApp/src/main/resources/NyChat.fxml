@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="nyBeskedAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.NyBeskedPopupController">
+<AnchorPane fx:id="nyBeskedAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.NyChatPopupController">
     <children>
         <Label layoutX="60.0" layoutY="23.0" text="Opret Ny Besked">
             <font>
@@ -32,7 +32,7 @@
                 <Label fx:id="lblEmne" text="Emne:" GridPane.rowIndex="2" />
                 <TextField fx:id="tfNavn" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <TextField fx:id="tfEmne" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <Button fx:id="btnSend" mnemonicParsing="false" text="Send" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button fx:id="btnSend" mnemonicParsing="false" text="Start Samtale" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
     </children>

@@ -52,8 +52,7 @@ public class OpretBrugerController {
         }
 
         else {
-            brugere = new ObserverbarListe<>();
-            brugere.addAll(brugerFacade.hentBrugere());
+            brugere = (ObserverbarListe<Bruger>) brugerFacade.hentBrugere();
         }
 
         /** Tilføj observer på listen */
@@ -77,7 +76,12 @@ public class OpretBrugerController {
                 }
 
                 /** Tilføj bruger til listen i BrugerManager */
-                brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText());
+                boolean erBehandler = false;
+                if (brugerFacade.getAktivBruger() == null){
+                    erBehandler = true;
+                }
+                // TODO tilføj tjekboks i UI til at afgøre, om den oprettede bruger skal være behandler eller ej
+                brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText(), erBehandler);
 
                 popupWindow("Brugeren er oprettet");
             } catch (TomNavnException tne) {

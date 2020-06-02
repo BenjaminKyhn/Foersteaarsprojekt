@@ -28,7 +28,7 @@
                   <AnchorPane layoutX="20.0" layoutY="125.0" prefHeight="421.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="99.0" layoutY="14.0" prefHeight="18.0" prefWidth="43.0" text="Søg" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="98.0" AnchorPane.topAnchor="14.0" />
-                        <Button fx:id="nyBeskedKnap" layoutX="94.0" layoutY="79.0" mnemonicParsing="false" text="Ny besked" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="72.0" />
+                        <Button fx:id="nyChatKnap" layoutX="94.0" layoutY="79.0" mnemonicParsing="false" text="Ny Samtale" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="72.0" />
                         <Separator layoutX="20.0" layoutY="118.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <ScrollPane layoutX="20.0" layoutY="120.0" prefHeight="328.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                            <content>
