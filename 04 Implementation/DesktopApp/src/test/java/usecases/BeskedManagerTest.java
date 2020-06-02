@@ -22,11 +22,11 @@ public class BeskedManagerTest {
         assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat("Egon", "Skulderskade"));
     }
 
-//    @Test
-//    public void opretChatUT010103() {
-//        BeskedManager beskedManager = new TestbarBeskedManager();
-//        assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat(null, "Skulderskade"));
-//    }
+    @Test
+    public void opretChatUT010103() {
+        BeskedManager beskedManager = new TestbarBeskedManager();
+        assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat(null, "Skulderskade"));
+    }
 
 
     private class MockBrugerManager extends BrugerManager {
@@ -37,6 +37,10 @@ public class BeskedManagerTest {
 
         @Override
         public Bruger hentBrugerMedNavn(String navn) {
+            if (navn == null) {
+                return null;
+            }
+
             if (!navn.equals("Boris")) {
                 return null;
             }
