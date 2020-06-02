@@ -12,11 +12,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import usecases.BrugerFacade;
 import usecases.TraeningsprogramFacade;
 
 public class TildelProgramController {
+    @FXML
+    private AnchorPane tildelProgramAnchorPane;
+
     @FXML
     private TableView<Bruger> tableViewPatient;
 
@@ -136,5 +140,20 @@ public class TildelProgramController {
 
         Stage stage = (Stage) tableViewPatient.getScene().getWindow();
         stage.setScene(menuScene);
+    }
+
+    public void tilbage() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
+
     }
 }

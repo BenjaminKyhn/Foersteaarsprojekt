@@ -50,11 +50,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="lblSletPatient" text="Slet Patient">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
       <Label fx:id="lblLogUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
          <font>
             <Font size="18.0" />

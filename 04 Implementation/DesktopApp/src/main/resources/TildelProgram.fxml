@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TildelProgramController">
+<AnchorPane fx:id="tildelProgramAnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TildelProgramController">
    <children>
       <TableView fx:id="tableViewPatient" layoutX="53.0" layoutY="50.0" prefHeight="518.0" prefWidth="248.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="64.0">
         <columns>
@@ -53,7 +53,7 @@
                                </Menu>
                            </menus>
                        </MenuBar>
-                       <Button fx:id="btnTilbage" mnemonicParsing="false" prefWidth="60.0" text="Tilbage" />
+                       <Button fx:id="btnTilbage" mnemonicParsing="false" prefWidth="60.0" text="Tilbage" onAction="#tilbage" />
                    </children>
                </HBox>
            </children>
