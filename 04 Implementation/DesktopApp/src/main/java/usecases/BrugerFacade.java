@@ -38,7 +38,7 @@ public class BrugerFacade {
     }
 
     public void opretBruger(String navn, String email, String password) throws BrugerErIkkeBehandlerException {
-        brugerManager.opretBruger(navn, email, password);
+        brugerManager.opretBrugerTjek(navn, email, password);
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {

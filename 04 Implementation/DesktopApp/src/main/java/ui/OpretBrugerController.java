@@ -52,8 +52,7 @@ public class OpretBrugerController {
         }
 
         else {
-            brugere = new ObserverbarListe<>();
-            brugere.addAll(brugerFacade.hentBrugere());
+            brugere = (ObserverbarListe<Bruger>) brugerFacade.hentBrugere();
         }
 
         /** Tilføj observer på listen */

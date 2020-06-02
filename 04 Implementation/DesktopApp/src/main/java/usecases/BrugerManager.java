@@ -26,14 +26,22 @@ public class BrugerManager {
         return brugerManager;
     }
 
-    public void opretBruger(String navn, String email, String password) throws BrugerErIkkeBehandlerException {
-        if (!aktivBruger.isErBehandler()) {
-            throw new BrugerErIkkeBehandlerException();
+    public void opretBrugerTjek(String navn, String email, String password) throws BrugerErIkkeBehandlerException {
+        if (aktivBruger != null){
+            if (!aktivBruger.isErBehandler()) {
+                throw new BrugerErIkkeBehandlerException();
+            }
+            opretBruger(navn, email, password);
         }
+        else {
+            opretBruger(navn, email, password);
+        }
+    }
 
-        String hashedPassword = tekstHasher.hashTekst(password);
-        Bruger bruger = new Bruger(navn, email, hashedPassword, true);
-        brugere.add(bruger);
+    private void opretBruger(String navn, String email, String password) {
+            String hashedPassword = tekstHasher.hashTekst(password);
+            Bruger bruger = new Bruger(navn, email, hashedPassword, true);
+            brugere.add(bruger);
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {

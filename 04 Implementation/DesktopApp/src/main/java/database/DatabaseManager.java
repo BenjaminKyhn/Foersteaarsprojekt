@@ -106,8 +106,8 @@ public class DatabaseManager {
         return bruger;
     }
 
-    public ArrayList<Bruger> hentBrugere() {
-        ArrayList<Bruger> brugere = new ArrayList<>();
+    public ObserverbarListe<Bruger> hentBrugere() {
+        ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
         Query query = firestore.collection("brugere");
 
         try {
