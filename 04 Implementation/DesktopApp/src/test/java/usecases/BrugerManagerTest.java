@@ -17,7 +17,7 @@ public class BrugerManagerTest {
         String navn = "Hans";
         String email = "hans@email.dk";
         String password = "123";
-        assertThrows(BrugerErIkkeBehandlerException.class, () -> brugerManager.opretBruger(navn, email, password));
+        assertThrows(BrugerErIkkeBehandlerException.class, () -> brugerManager.opretBruger(navn, email, password, false));
     }
 
     @Test
@@ -28,7 +28,8 @@ public class BrugerManagerTest {
         String navn = "Hans";
         String email = "hans@email.dk";
         String password = "123";
-        brugerManager.opretBruger(navn, email, password);
+        boolean erBehandler = false;
+        brugerManager.opretBruger(navn, email, password, erBehandler);
         String output = brugerManager.hentBrugere().get(0).getNavn();
         assertEquals("Hans", output);
     }

@@ -61,7 +61,7 @@ public class ChatWindowController {
     private Circle chatUserPhotoCircle;
 
     @FXML
-    private Button nyBeskedKnap, sendBeskedKnap, btnTilbage;
+    private Button nyChatKnap, sendBeskedKnap, btnTilbage;
 
     @FXML
     private TextField tfSendBesked;
@@ -98,7 +98,7 @@ public class ChatWindowController {
         if (aktivBruger.getEmail() != null)
             lblEmail.setText(aktivBruger.getEmail());
 
-        nyBeskedKnap.setOnMouseClicked(event -> nyBeskedPopup());
+        nyChatKnap.setOnMouseClicked(event -> nyChatPopup());
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -275,9 +275,9 @@ public class ChatWindowController {
     /**
      * @author Benjamin
      */
-    public void nyBeskedPopup() {
+    public void nyChatPopup() {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyBesked.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyChat.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {
