@@ -6,6 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/** @author Tommy */
 public class TekstHasher {
     public static String hashTekst(String tekst) {
         String sha256hex = null;
