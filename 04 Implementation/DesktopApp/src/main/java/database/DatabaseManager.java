@@ -3,6 +3,7 @@ package database;
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.*;
+import com.google.cloud.firestore.EventListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -14,9 +15,7 @@ import usecases.ObserverbarListe;
 
 import javax.annotation.Nullable;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -28,7 +27,6 @@ public class DatabaseManager {
      * static, så vi altid kan få fat i den sammme DatabaseManager
      */
     private Firestore firestore;
-    private boolean read;
     private boolean write;
 
     private DatabaseManager() {
@@ -36,9 +34,6 @@ public class DatabaseManager {
 
         /** initializeDB() skal kaldes før firestore kan initaliseres */
         firestore = FirestoreClient.getFirestore();
-    }
-
-    private DatabaseManager(boolean test) {
     }
 
     /**
@@ -260,8 +255,7 @@ public class DatabaseManager {
                                 chat.tilfoejBesked(besked);
                             }
                         }
-                    }
-                    else {
+                    } else {
                         write = false;
                     }
                 }
@@ -269,6 +263,16 @@ public class DatabaseManager {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    public void opdaterTraeningsprogram(Bruger bruger, ObserverbarListe<String> program) {
+        ArrayList<Object> cast = new ArrayList<>(program);
+        Map<String, Object> map = new HashMap<>();
+        map.put("program", cast);
+        firestore.collection("træningsprogram")
+                .document(bruger.getEmail())
+                .set(map);
+
     }
 
 }

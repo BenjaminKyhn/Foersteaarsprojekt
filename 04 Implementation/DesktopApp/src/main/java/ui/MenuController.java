@@ -49,10 +49,14 @@ public class MenuController {
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */
-        beskedFacade.setChats(DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn()));
+        if (beskedFacade.hentChats() == null) {
+            beskedFacade.setChats(DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn()));
+        }
 
         /** Indlæs alle brugere og send dem til BrugereFacade */
-        brugerFacade.setBrugere(DatabaseManager.getInstance().hentBrugere());
+        if (brugerFacade.hentBrugere() == null) {
+            brugerFacade.setBrugere(DatabaseManager.getInstance().hentBrugere());
+        }
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);

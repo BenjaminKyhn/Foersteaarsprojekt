@@ -15,6 +15,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.database.DatabaseManager;
+import com.example.android.androidapp.usecases.BrugerFacade;
+import com.example.android.androidapp.usecases.ObserverbarListe;
+import com.example.android.androidapp.usecases.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
 
 public class TraeningsprogramActivity extends AppCompatActivity {
@@ -65,9 +69,9 @@ public class TraeningsprogramActivity extends AppCompatActivity {
     }
 
     private void initialiserTraeningslayout() {
-        ListView listView = findViewById(R.id.listViewTraening);
-        String[] programmer = {"Hoftebøjer", "Nakke", "Siddende glidende knæ- og ankelbevægelse"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, programmer);
+        final ListView listView = findViewById(R.id.listViewTraening);
+        ObserverbarListe<String> program = TraeningsprogramFacade.hentInstans().hentListe();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, program);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -75,15 +79,22 @@ public class TraeningsprogramActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), VideoActivity.class);
                 String videoPath;
-                switch (position) {
-                    case 0:
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.hofteboejer;
+                String valgtFraListen = listView.getItemAtPosition(position).toString();
+                switch (valgtFraListen) {
+                    case "Dødløft":
+                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.doedloeft;
                         break;
-                    case 1:
+                    case "Nakke":
                         videoPath = "android.resource://" + getPackageName() + "/" + R.raw.nakke;
                         break;
-                    case 2:
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.siddende_glidende_knae_og_ankelbevaegelse;
+                    case "Hoftebøjer":
+                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.hofteboejer;
+                        break;
+                    case "Planken på albuer og tær":
+                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.planke;
+                        break;
+                    case "Firefodstående krum - svaj":
+                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.svaj;
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + position);

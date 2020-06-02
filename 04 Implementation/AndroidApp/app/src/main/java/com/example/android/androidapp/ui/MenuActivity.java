@@ -16,6 +16,7 @@ import com.example.android.androidapp.usecases.BeskedFacade;
 import com.example.android.androidapp.usecases.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
 import com.example.android.androidapp.usecases.ObserverbarListe;
+import com.example.android.androidapp.usecases.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
 
 /**@author Patrick**/
@@ -53,6 +54,11 @@ public class MenuActivity extends AppCompatActivity {
 
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
+
+        ObserverbarListe<String> program = new ObserverbarListe<>();
+        TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
+        databaseManager.hentProgram(BrugerFacade.hentInstans().hentAktivBruger(), program);
+        traeningsprogramFacade.angivListe(program);
     }
 
     public void openDrawer() {

@@ -168,4 +168,19 @@ public class DatabaseManager {
             }
         });
     }
+
+    public void hentProgram(Bruger bruger, final ObserverbarListe<String> program) {
+        firestore.collection("træningsprogram").document(bruger.getEmail()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot != null && documentSnapshot.exists()) {
+                    if (documentSnapshot.getData() != null) {
+                        for (Object item : documentSnapshot.getData().values()) {
+                            program.add(item.toString().substring(1, item.toString().length() - 1));
+                        }
+                    }
+                }
+            }
+        });
+    }
 }

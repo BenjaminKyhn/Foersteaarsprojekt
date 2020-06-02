@@ -100,6 +100,7 @@ public class StartController {
             }
 
             if (brugerFacade.getAktivBruger() != null)
+                brugerFacade.setBrugere(null);
                 skiftTilMenuScene();
         });
         btnOpretBruger.setOnAction(event -> skiftTilOpretBrugerScene());
