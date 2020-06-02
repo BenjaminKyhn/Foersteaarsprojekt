@@ -24,7 +24,6 @@ public class ValideringTest {
         Validering validering = new TestbarValidering();
         String email = "fys@frbsport.dk";
         assertThrows(EksisterendeBrugerException.class, () -> validering.tjekEmail(email));
-
     }
 
     @Test
@@ -76,8 +75,6 @@ public class ValideringTest {
         assertThrows(TomPasswordException.class, () -> validering.tjekPassword(password));
     }
 
-
-
         private class MockBrugerManager extends BrugerManager {
             @Override
             public Bruger hentBrugerMedEmail(String email) {
@@ -102,8 +99,6 @@ public class ValideringTest {
             return email;
         }
     }
-
-
 
     private class TestbarValidering extends Validering{
 
