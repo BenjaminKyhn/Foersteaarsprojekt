@@ -77,9 +77,10 @@ public class OpretBrugerController {
 
                 /** Tilføj bruger til listen i BrugerManager */
                 boolean erBehandler = false;
-                if (brugerFacade.getAktivBruger() != null){
+                if (brugerFacade.getAktivBruger() == null){
                     erBehandler = true;
                 }
+                // TODO tilføj tjekboks i UI til at afgøre, om den oprettede bruger skal være behandler eller ej
                 brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText(), erBehandler);
 
                 popupWindow("Brugeren er oprettet");
