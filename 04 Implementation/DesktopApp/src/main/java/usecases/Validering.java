@@ -41,7 +41,7 @@ class Validering {
     public void tjekBesked(String besked) throws TomBeskedException, ForMangeTegnException {
         if (besked.equals(""))
             throw new TomBeskedException();
-        if (besked.length() > 1000)
+        if (besked.length() > 255)
             throw new ForMangeTegnException();
     }
     protected BrugerManager newBrugerManager() {

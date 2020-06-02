@@ -44,7 +44,8 @@ public class BeskedFacade {
         return beskedManager.hentBeskeder(chat);
     }
 
-    public void sendBesked(String besked, Chat chat){
+    public void sendBesked(String besked, Chat chat) throws TomBeskedException, ForMangeTegnException {
+        tjekBesked(besked);
         beskedManager.sendBesked(besked, chat);
     }
 
