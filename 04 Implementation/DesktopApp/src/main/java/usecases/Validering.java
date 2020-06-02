@@ -5,14 +5,15 @@ import entities.exceptions.*;
 
 /** @author Benjamin */
 class Validering {
-
+    BrugerManager brugerManager;
     Validering() {
+        brugerManager = newBrugerManager();
     }
 
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         if (email.equals(""))
             throw new TomEmailException();
-        Bruger bruger = BrugerManager.getInstance().hentBrugerMedEmail(email);
+        Bruger bruger = brugerManager.hentBrugerMedEmail(email);
         if (bruger != null){
             throw new EksisterendeBrugerException();
         }
@@ -42,5 +43,8 @@ class Validering {
             throw new TomBeskedException();
         if (besked.length() > 1000)
             throw new ForMangeTegnException();
+    }
+    protected BrugerManager newBrugerManager() {
+        return BrugerManager.getInstance();
     }
 }

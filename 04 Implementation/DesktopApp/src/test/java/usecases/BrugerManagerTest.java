@@ -7,7 +7,7 @@ import entities.exceptions.ForkertPasswordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
-
+/**@author Tommy**/
 public class BrugerManagerTest {
     @Test
     public void UT010401() {

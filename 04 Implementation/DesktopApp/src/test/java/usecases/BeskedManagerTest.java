@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
+/**@author Benjamin**/
 public class BeskedManagerTest {
     @Test
     public void opretChatUT010101() throws BrugerFindesIkkeException {
