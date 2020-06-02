@@ -21,6 +21,7 @@ import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.database.DatabaseManager;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     DatabaseManager databaseManager;
-    EditText beskedFelt;
+    TextInputEditText beskedFelt;
     ArrayList<Besked> beskeder;
     ChatAdapter chatAdapter;
     ChatPresenter chatPresenter;
@@ -44,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.navigation_view);
         NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
-        beskedFelt = findViewById(R.id.editTextBesked);
+        beskedFelt = findViewById(R.id.besked_input_edit_text);
 
         String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
