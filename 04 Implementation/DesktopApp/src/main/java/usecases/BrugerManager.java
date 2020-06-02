@@ -26,19 +26,19 @@ public class BrugerManager {
         return brugerManager;
     }
 
-    public void opretBrugerTjek(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException {
+    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException {
         if (aktivBruger != null){
             if (!aktivBruger.isErBehandler()) {
                 throw new BrugerErIkkeBehandlerException();
             }
-            opretBruger(navn, email, password, erBehandler);
+            opretBrugerService(navn, email, password, erBehandler);
         }
         else {
-            opretBruger(navn, email, password, erBehandler);
+            opretBrugerService(navn, email, password, erBehandler);
         }
     }
 
-    public void opretBruger(String navn, String email, String password, boolean erBehandler) {
+    private void opretBrugerService(String navn, String email, String password, boolean erBehandler) {
             String hashedPassword = tekstHasher.hashTekst(password);
             Bruger bruger = new Bruger(navn, email, hashedPassword, erBehandler);
             brugere.add(bruger);
