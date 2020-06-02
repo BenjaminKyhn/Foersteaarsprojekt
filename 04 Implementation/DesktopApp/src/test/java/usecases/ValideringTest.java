@@ -4,6 +4,7 @@ import entities.Bruger;
 import entities.exceptions.EksisterendeBrugerException;
 import entities.exceptions.TomEmailException;
 import entities.exceptions.TomNavnException;
+import entities.exceptions.TomPasswordException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -59,6 +60,20 @@ public class ValideringTest {
         Validering validering = new Validering();
         String navn = "Thomas Gustafsson";
         validering.tjekNavn(navn);
+    }
+
+    @Test
+    public void tjekPasswordUT010301() {
+        Validering validering = new Validering();
+        String password = null;
+        assertThrows(NullPointerException.class, () -> validering.tjekPassword(password));
+    }
+
+    @Test
+    public void tjekPasswordUT010302() {
+        Validering validering = new Validering();
+        String password = "";
+        assertThrows(TomPasswordException.class, () -> validering.tjekPassword(password));
     }
 
 
