@@ -31,8 +31,9 @@
         android:text="Giv feedback"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
 
+    <!-- @@author Patrick, bruges ikke endnu
     <RatingBar
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
@@ -41,4 +42,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+        -->
 </androidx.constraintlayout.widget.ConstraintLayout>

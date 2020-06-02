@@ -34,9 +34,9 @@ public class VideoActivity extends AppCompatActivity {
             }
         });
 
-        RatingBar ratingBar = findViewById(R.id.ratingBar);
-        Drawable progress = ratingBar.getProgressDrawable();
-        progress.setTint(Color.YELLOW);
+//        RatingBar ratingBar = findViewById(R.id.ratingBar);
+//        Drawable progress = ratingBar.getProgressDrawable();
+//        progress.setTint(Color.YELLOW);
 
         MediaController mediaController = new MediaController(this);
         videoView.setMediaController(mediaController);
