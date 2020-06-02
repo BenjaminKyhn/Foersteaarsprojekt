@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/** @author Benjamin */
 public class ValideringTest {
     @Test
     public void tjekEmailUT010101() {
