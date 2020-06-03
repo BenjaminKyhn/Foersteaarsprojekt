@@ -13,9 +13,11 @@ public class BrugerManager {
     private static BrugerManager brugerManager;
     private List<Bruger> brugere;
     private TekstHasher tekstHasher;
+    private Validering validering;
 
     public BrugerManager() {
         tekstHasher = new TekstHasher();
+        validering = newValidering();
     }
 
     public static synchronized BrugerManager getInstance() {
@@ -27,7 +29,6 @@ public class BrugerManager {
 
     public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomNavnException, EksisterendeBrugerException, TomEmailException, PasswordLaengdeException, TomPasswordException {
         if (aktivBruger != null){
-            Validering validering = new Validering();
             if (!aktivBruger.isErBehandler()) {
                 throw new BrugerErIkkeBehandlerException();
             }
@@ -121,5 +122,9 @@ public class BrugerManager {
 
     public void setAktivBruger(Bruger aktivBruger) {
         this.aktivBruger = aktivBruger;
+    }
+
+    protected Validering newValidering() {
+        return new Validering(this);
     }
 }

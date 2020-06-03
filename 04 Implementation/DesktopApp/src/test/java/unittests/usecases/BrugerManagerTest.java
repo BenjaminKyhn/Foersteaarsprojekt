@@ -26,7 +26,7 @@ public class BrugerManagerTest {
         brugerManager.setAktivBruger(mockBruger);
         String navn = "Hans";
         String email = "hans@email.dk";
-        String password = "123";
+        String password = "123456";
         boolean erBehandler = false;
         brugerManager.opretBruger(navn, email, password, erBehandler);
         String output = brugerManager.hentBrugere().get(0).getNavn();
@@ -81,9 +81,21 @@ public class BrugerManagerTest {
         }
     }
 
+    private class MockValidering extends Validering{
+
+        @Override
+        public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
+        }
+    }
+
     private class TestbarBrugerManager extends BrugerManager {
         public TestbarBrugerManager() {
             setBrugere(new ArrayList<>());
+        }
+
+        @Override
+        protected Validering newValidering() {
+            return new MockValidering();
         }
 
         public TestbarBrugerManager(MockBruger bruger) {
