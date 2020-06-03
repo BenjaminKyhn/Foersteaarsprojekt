@@ -7,6 +7,8 @@ import unittests.usecases.BrugerFacade;
 import unittests.usecases.ObserverbarListe;
 import unittests.usecases.TekstHasher;
 
+import static org.junit.Assert.*;
+
 public class STD0201 {
 
     @Test
@@ -16,6 +18,15 @@ public class STD0201 {
         brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
         Bruger bruger = brugerFacade.hentBrugere().get(0);
         brugerFacade.sletBruger(bruger, "testpw");
+    }
+
+    @Test
+    public void sletBrugerST020102() throws ForkertPasswordException {
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        Bruger bruger = brugerFacade.hentBrugere().get(0);
+        assertThrows(ForkertPasswordException.class, () -> brugerFacade.sletBruger(bruger, "forkertpw"));
     }
 
     private class MockDatabaseManager {
