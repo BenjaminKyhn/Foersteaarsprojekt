@@ -2,8 +2,7 @@ package systemtest;
 
 import entities.Bruger;
 import entities.Chat;
-import entities.exceptions.BrugerFindesIkkeException;
-import entities.exceptions.ForkertPasswordException;
+import entities.exceptions.*;
 import org.junit.Test;
 import unittests.usecases.*;
 
@@ -12,11 +11,11 @@ import static org.junit.Assert.*;
 /** @author Benjamin */
 public class STD0301 {
     @Test
-    public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException {
+    public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException, TomEmneException, ForMangeTegnException {
         /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BeskedManager beskedManager = BeskedManager.getInstance();
-        beskedManager.setChats(mockDatabaseManager.hentChats());
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
 
         /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
         BrugerFacade brugerFacade = BrugerFacade.getInstance();
@@ -24,16 +23,16 @@ public class STD0301 {
         brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
         /** Opret en chat */
-        beskedManager.opretChat("Karsten Wiren", "Ondt i ryggen");
-        assertEquals("Ondt i ryggen", beskedManager.hentChats().get(beskedManager.hentChats().size() - 1).getEmne());
+        beskedFacade.opretChat("Karsten Wiren", "Ondt i ryggen");
+        assertEquals("Ondt i ryggen", beskedFacade.hentChats().get(beskedFacade.hentChats().size() - 1).getEmne());
     }
 
     @Test
     public void opretChatST030302() throws ForkertPasswordException {
         /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BeskedManager beskedManager = BeskedManager.getInstance();
-        beskedManager.setChats(mockDatabaseManager.hentChats());
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
 
         /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
         BrugerFacade brugerFacade = BrugerFacade.getInstance();
@@ -41,24 +40,24 @@ public class STD0301 {
         brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
         /** Opret en chat */
-        assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat("Ejnar Gunnarsen", "Dårligt knæ"));
+        assertThrows(BrugerFindesIkkeException.class, () -> beskedFacade.opretChat("Ejnar Gunnarsen", "Dårligt knæ"));
     }
 
     @Test
-    public void sendBeskedST030501() throws ForkertPasswordException {
+    public void sendBeskedST030501() throws ForkertPasswordException, TomBeskedException, ForMangeTegnException {
         /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BeskedManager beskedManager = BeskedManager.getInstance();
-        beskedManager.setChats(mockDatabaseManager.hentChats());
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
 
         /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
         BrugerFacade brugerFacade = BrugerFacade.getInstance();
         brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
         brugerFacade.logInd("karstenw@gmail.com", "testpw");
 
-        Chat chat = beskedManager.hentChats().get(0);
-        beskedManager.sendBesked("Hej Christian", chat);
-        assertEquals("Hej Christian", beskedManager.hentBeskeder(chat).get(0).getBesked());
+        Chat chat = beskedFacade.hentChats().get(0);
+        beskedFacade.sendBesked("Hej Christian", chat);
+        assertEquals("Hej Christian", beskedFacade.hentBeskeder(chat).get(0).getBesked());
     }
 
     private class MockDatabaseManager {
