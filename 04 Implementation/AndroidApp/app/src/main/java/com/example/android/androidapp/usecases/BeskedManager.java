@@ -9,6 +9,7 @@ import java.util.List;
 /** @author Tommy **/
 class BeskedManager {
     private List<Chat> chats;
+    private BrugerManager brugerManager;
 
     Chat hentChat(String afsender, String modtager, String emne) {
         for (Chat chat : chats) {
@@ -28,6 +29,8 @@ class BeskedManager {
             throw new BrugerFindesIkkeException();
         Chat chat = new Chat(afsender, modtager, emne);
         chats.add(chat);
+
+        //TODO Lav tjek, om modtageren eksister. Der skal laves en setter til brugerManager;
     }
 
     void sendBesked(String besked, Chat chat, String afsender, String modtager) {
@@ -40,7 +43,11 @@ class BeskedManager {
         this.chats = chats;
     }
 
-    public List<Chat> getChats() {
+    public List<Chat> hentChats() {
         return chats;
+    }
+
+    protected BrugerManager newBrugerManager() {
+        return new BrugerManager();
     }
 }

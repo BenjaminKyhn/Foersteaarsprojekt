@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
+import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 import com.example.android.androidapp.usecases.BeskedFacade;
 import com.example.android.androidapp.usecases.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
@@ -115,7 +116,7 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
     }
 
     @Override
-    public void nySamtale(String modtager, String emne) {
+    public void nySamtale(String modtager, String emne) throws BrugerFindesIkkeException {
         String afsender =  brugerFacade.hentAktivBruger().getNavn();
         beskedFacade.opretChat(afsender, modtager, emne);
     }

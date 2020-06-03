@@ -1,34 +1,35 @@
 package com.example.android.androidapp.usecases;
 
 import com.example.android.androidapp.entities.Besked;
-import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BeskedManagerTest {
     @Test
-    public void opretChatUT030302() {
+    public void hentChatsUT030101() {
         BeskedManager beskedManager = new TestbarBeskedManager();
-        assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat("Egon", "Kurt", "Skulderskade"));
+        MockChat mockChat = new MockChat("test");
+        List<Chat> chats = new ArrayList<>();
+        chats.add(mockChat);
+        beskedManager.setChats(chats);
+        assertEquals("test", beskedManager.hentChats().get(0).getEmne());
     }
 
-    private class MockBruger extends Bruger {
-        String navn;
-
-        public MockBruger(String navn){
-            this.navn = navn;
-        }
-
-        @Override
-        public String getNavn() {
-            return navn;
-        }
+    @Test
+    public void sendBeskedUT030501(){
+        BeskedManager beskedManager = new TestbarBeskedManager();
+        Chat chat = new Chat("Hans", "Mogens", "testemne");
+        String besked = "testbesked";
+        beskedManager.sendBesked(besked, chat, "Hans", "Mogens");
+        assertEquals("testbesked", chat.getBeskeder().get(0).getBesked());
+        assertEquals("Hans", chat.getBeskeder().get(0).getAfsender());
+        assertEquals("Mogens", chat.getBeskeder().get(0).getModtager());
     }
 
     private class MockChat extends Chat {
@@ -56,24 +57,10 @@ public class BeskedManagerTest {
         }
     }
 
-    private class MockBesked extends Besked{
-        String besked;
+    private class TestbarBeskedManager extends BeskedManager {
 
-        public MockBesked(String besked){
-            this.besked = besked;
-        }
-
-        public String getBesked(){
-            return besked;
-        }
-    }
-
-    private class TestbarBeskedManager extends BeskedManager{
-
-        @Override
-        protected BrugerManager newBrugerManager() {
+        public TestbarBeskedManager(){
             setChats(new ArrayList<>());
-            return new MockBrugerManager();
         }
     }
 }

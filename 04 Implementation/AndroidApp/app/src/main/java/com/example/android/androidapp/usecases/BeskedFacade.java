@@ -1,6 +1,7 @@
 package com.example.android.androidapp.usecases;
 
 import com.example.android.androidapp.entities.Chat;
+import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.entities.exceptions.TomEmneException;
@@ -29,12 +30,12 @@ public class BeskedFacade {
         return beskedManager.hentChat(afsender, modtager, emne);
     }
 
-    public void opretChat(String afsender, String modtager, String emne) {
+    public void opretChat(String afsender, String modtager, String emne) throws BrugerFindesIkkeException {
         beskedManager.opretChat(afsender, modtager, emne);
     }
 
     public List<Chat> hentNuvaerendeListe() {
-        return beskedManager.getChats();
+        return beskedManager.hentChats();
     }
 
     public void sendBesked(String besked, Chat chat, String afsender, String modtager) {
