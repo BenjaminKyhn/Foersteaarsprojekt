@@ -37,7 +37,7 @@ public class BrugerFacade {
         validering.tjekPassword(password);
     }
 
-    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException {
+    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomPasswordException, PasswordLaengdeException, TomNavnException, EksisterendeBrugerException, TomEmailException {
         brugerManager.opretBruger(navn, email, password, erBehandler);
     }
 

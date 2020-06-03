@@ -1,8 +1,7 @@
 package unittests.usecases;
 
 import entities.Bruger;
-import entities.exceptions.BrugerErIkkeBehandlerException;
-import entities.exceptions.ForkertPasswordException;
+import entities.exceptions.*;
 
 import java.util.List;
 
@@ -26,11 +25,15 @@ public class BrugerManager {
         return brugerManager;
     }
 
-    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException {
+    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomNavnException, EksisterendeBrugerException, TomEmailException, PasswordLaengdeException, TomPasswordException {
         if (aktivBruger != null){
+            Validering validering = new Validering();
             if (!aktivBruger.isErBehandler()) {
                 throw new BrugerErIkkeBehandlerException();
             }
+            validering.tjekNavn(navn);
+            validering.tjekEmail(email);
+            validering.tjekPassword(password);
             opretBrugerService(navn, email, password, erBehandler);
         }
         else {

@@ -2,8 +2,7 @@ package unittests.usecases;
 import static org.junit.Assert.*;
 
 import entities.Bruger;
-import entities.exceptions.BrugerErIkkeBehandlerException;
-import entities.exceptions.ForkertPasswordException;
+import entities.exceptions.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ public class BrugerManagerTest {
     }
 
     @Test
-    public void UT010402() throws BrugerErIkkeBehandlerException {
+    public void UT010402() throws BrugerErIkkeBehandlerException, TomPasswordException, PasswordLaengdeException, TomNavnException, EksisterendeBrugerException, TomEmailException {
         MockBruger mockBruger = new MockBruger("Johnny", "fas39luck", true);
         BrugerManager brugerManager = new TestbarBrugerManager();
         brugerManager.setAktivBruger(mockBruger);
