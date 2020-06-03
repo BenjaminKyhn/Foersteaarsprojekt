@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 
 public class VaelgChatDialog extends DialogFragment {
     private EditText editTextVaelgBehandler;
@@ -47,7 +48,12 @@ public class VaelgChatDialog extends DialogFragment {
         bekraeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bekraeft();
+                try {
+                    bekraeft();
+                } catch (BrugerFindesIkkeException e) {
+                    e.printStackTrace();
+                    // TODO lav en fejlbesked
+                }
                 dismiss();
             }
         });
@@ -66,13 +72,13 @@ public class VaelgChatDialog extends DialogFragment {
         listener = (VaelgChatListener) context;
     }
 
-    public void bekraeft() {
+    public void bekraeft() throws BrugerFindesIkkeException {
         String modtager = editTextVaelgBehandler.getText().toString();
         String emne = editTextVaelgEmne.getText().toString();
         listener.nySamtale(modtager, emne);
     }
 
     interface VaelgChatListener {
-        void nySamtale(String modtager, String emne);
+        void nySamtale(String modtager, String emne) throws BrugerFindesIkkeException;
     }
 }
