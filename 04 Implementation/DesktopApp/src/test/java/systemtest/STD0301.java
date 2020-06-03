@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class STD0301 {
     @Test
-    public void opretChatST030101() throws BrugerFindesIkkeException, ForkertPasswordException {
+    public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException {
         /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
         BeskedManager beskedManager = BeskedManager.getInstance();
@@ -25,6 +25,22 @@ public class STD0301 {
         /** Opret en chat */
         beskedManager.opretChat("Karsten Wiren", "Ondt i ryggen");
         assertEquals("Ondt i ryggen", beskedManager.hentChats().get(beskedManager.hentChats().size() - 1).getEmne());
+    }
+
+    @Test
+    public void opretChatST030302() throws BrugerFindesIkkeException, ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedManager beskedManager = BeskedManager.getInstance();
+        beskedManager.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        brugerFacade.logInd("fys@frbsport.dk", "testpw");
+
+        /** Opret en chat */
+        assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat("Ejnar Gunnarsen", "Dårligt knæ"));
     }
 
     private class MockDatabaseManager {
