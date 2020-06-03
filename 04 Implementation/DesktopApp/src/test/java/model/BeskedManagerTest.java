@@ -63,8 +63,6 @@ public class BeskedManagerTest {
         MockBesked mockBesked = new MockBesked("testbesked");
         mockChat.tilfoejBesked(mockBesked);
         assertEquals("testbesked", beskedManager.hentBeskeder(mockChat).get(0).getBesked());
-
-        /** Er det ok at mocke alting på nær beskedManager.hentBeskeder? */
     }
 
     private class MockBrugerManager extends BrugerManager {
