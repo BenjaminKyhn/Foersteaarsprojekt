@@ -7,7 +7,10 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
-/**@author Kelvin**/
+
+/**
+ * @author Kelvin
+ **/
 public class ValideringTest {
     @Test
     public void tjekEmailUT010101() {
@@ -154,20 +157,16 @@ public class ValideringTest {
         validering.tjekBesked(besked);
     }
 
-
-
-
-        private class MockBrugerManager extends BrugerManager {
-            @Override
-            public Bruger hentBrugerMedEmail(String email) {
-                if (email.equals("fys@frbsport.dk")) {
-                    return new MockBruger("fys@frbsport.dk");
-                }
-                else {
-                    return null;
-                }
+    private class MockBrugerManager extends BrugerManager {
+        @Override
+        public Bruger hentBrugerMedEmail(String email) {
+            if (email.equals("fys@frbsport.dk")) {
+                return new MockBruger("fys@frbsport.dk");
+            } else {
+                return null;
             }
         }
+    }
 
     private class MockBruger extends Bruger {
         String email;
@@ -182,7 +181,7 @@ public class ValideringTest {
         }
     }
 
-    private class TestbarValidering extends Validering{
+    private class TestbarValidering extends Validering {
 
         @Override
         protected BrugerManager newBrugerManager() {
