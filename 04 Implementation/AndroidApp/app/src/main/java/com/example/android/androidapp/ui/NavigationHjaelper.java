@@ -3,11 +3,13 @@ package com.example.android.androidapp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
@@ -52,10 +54,10 @@ class NavigationHjaelper {
                             drawerLayout.closeDrawer(GravityCompat.START);
                             BrugerFacade.hentInstans().logUd();
                             break;
-                        case R.id.ny_besked:
-                            context.startActivity(new Intent(context, NyBeskedActivity.class));
+                        /**case R.id.ny_besked:
+                            context.startActivity(new Intent(context, VaelgChatActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
-                            break;
+                            break;*/
                         case R.id.kalender:
                             context.startActivity(new Intent(context, KalenderActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
