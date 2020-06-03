@@ -9,6 +9,7 @@ import unittests.usecases.TekstHasher;
 
 import static org.junit.Assert.*;
 
+/** @author Benjamin */
 public class STD0201 {
 
     @Test

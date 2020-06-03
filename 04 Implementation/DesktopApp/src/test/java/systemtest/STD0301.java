@@ -9,6 +9,7 @@ import unittests.usecases.*;
 
 import static org.junit.Assert.*;
 
+/** @author Benjamin */
 public class STD0301 {
     @Test
     public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException {
@@ -28,7 +29,7 @@ public class STD0301 {
     }
 
     @Test
-    public void opretChatST030302() throws BrugerFindesIkkeException, ForkertPasswordException {
+    public void opretChatST030302() throws ForkertPasswordException {
         /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
         BeskedManager beskedManager = BeskedManager.getInstance();
@@ -43,9 +44,28 @@ public class STD0301 {
         assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat("Ejnar Gunnarsen", "Dårligt knæ"));
     }
 
+    @Test
+    public void sendBeskedST030501() throws ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedManager beskedManager = BeskedManager.getInstance();
+        beskedManager.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        brugerFacade.logInd("karstenw@gmail.com", "testpw");
+
+        Chat chat = beskedManager.hentChats().get(0);
+        beskedManager.sendBesked("Hej Christian", chat);
+        assertEquals("Hej Christian", beskedManager.hentBeskeder(chat).get(0).getBesked());
+    }
+
     private class MockDatabaseManager {
         public ObserverbarListe<Chat> hentChats() {
             ObserverbarListe<Chat> chats = new ObserverbarListe<>();
+            Chat chat = new Chat("Karsten Wiren", "Christian Iuul", "Hold i nakken", System.currentTimeMillis());
+            chats.add(chat);
             return chats;
         }
 
