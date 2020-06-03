@@ -1,10 +1,7 @@
 package usecases;
 
 import entities.Bruger;
-import entities.exceptions.EksisterendeBrugerException;
-import entities.exceptions.TomEmailException;
-import entities.exceptions.TomNavnException;
-import entities.exceptions.TomPasswordException;
+import entities.exceptions.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -74,6 +71,91 @@ public class ValideringTest {
         String password = "";
         assertThrows(TomPasswordException.class, () -> validering.tjekPassword(password));
     }
+
+    @Test
+    public void tjekPasswordUT010303() {
+        Validering validering = new Validering();
+        String password = "12345";
+        assertThrows(PasswordLaengdeException.class, () -> validering.tjekPassword(password));
+    }
+
+    @Test
+    public void tjekPasswordUT010304() {
+        Validering validering = new Validering();
+        String password = "123456789123456789123";
+        assertThrows(PasswordLaengdeException.class, () -> validering.tjekPassword(password));
+    }
+
+    @Test
+    public void tjekPasswordUT010305() throws Exception {
+        Validering validering = new Validering();
+        String password = "1234567";
+        validering.tjekPassword(password);
+    }
+
+    @Test
+    public void tjekEmneUT030301() {
+        Validering validering = new Validering();
+        String emne = null;
+        assertThrows(NullPointerException.class, () -> validering.tjekEmne(emne));
+
+    }
+
+    @Test
+    public void tjekEmneUT030302() {
+        Validering validering = new Validering();
+        String emne = "";
+        assertThrows(TomEmneException.class, () -> validering.tjekEmne(emne));
+    }
+
+    @Test
+    public void tjekEmneUT030303() {
+        Validering validering = new Validering();
+        String emne = "Emne1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+        assertThrows(ForMangeTegnException.class, () -> validering.tjekEmne(emne));
+    }
+
+    @Test
+    public void tjekEmneUT030304() throws TomEmneException, ForMangeTegnException {
+        Validering validering = new Validering();
+        String emne = "Emne";
+        validering.tjekEmne(emne);
+
+    }
+
+    @Test
+    public void tjekBeskedUT030401() {
+        Validering validering = new Validering();
+        String besked = null;
+        assertThrows(NullPointerException.class, () -> validering.tjekBesked(besked));
+
+    }
+
+    @Test
+    public void tjekBeskedUT030402() {
+        Validering validering = new Validering();
+        String besked = "";
+        assertThrows(TomBeskedException.class, () -> validering.tjekBesked(besked));
+
+    }
+
+    @Test
+    public void tjekBeskedUT030403() {
+        Validering validering = new Validering();
+        String besked = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestte";
+        assertThrows(ForMangeTegnException.class, () -> validering.tjekBesked(besked));
+
+    }
+
+    @Test
+    public void tjekBeskedUT030404() throws TomBeskedException, ForMangeTegnException {
+        Validering validering = new Validering();
+        String besked = "test";
+        validering.tjekBesked(besked);
+    }
+
+
+
 
         private class MockBrugerManager extends BrugerManager {
             @Override
