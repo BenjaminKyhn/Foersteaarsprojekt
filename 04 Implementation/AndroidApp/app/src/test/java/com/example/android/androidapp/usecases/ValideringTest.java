@@ -7,7 +7,6 @@ import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import java.util.ArrayList;
 import java.util.List;
