@@ -6,8 +6,13 @@ import entities.exceptions.*;
 /** @author Benjamin */
 class Validering {
     BrugerManager brugerManager;
+
     Validering() {
         brugerManager = newBrugerManager();
+    }
+
+    Validering(BrugerManager brugerManager) {
+        this.brugerManager = brugerManager;
     }
 
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
@@ -44,6 +49,7 @@ class Validering {
         if (besked.length() > 160)
             throw new ForMangeTegnException();
     }
+
     protected BrugerManager newBrugerManager() {
         return BrugerManager.getInstance();
     }

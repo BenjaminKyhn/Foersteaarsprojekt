@@ -2,8 +2,7 @@ package unittests.usecases;
 import static org.junit.Assert.*;
 
 import entities.Bruger;
-import entities.exceptions.BrugerErIkkeBehandlerException;
-import entities.exceptions.ForkertPasswordException;
+import entities.exceptions.*;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -21,13 +20,13 @@ public class BrugerManagerTest {
     }
 
     @Test
-    public void UT010402() throws BrugerErIkkeBehandlerException {
+    public void UT010402() throws BrugerErIkkeBehandlerException, TomPasswordException, PasswordLaengdeException, TomNavnException, EksisterendeBrugerException, TomEmailException {
         MockBruger mockBruger = new MockBruger("Johnny", "fas39luck", true);
         BrugerManager brugerManager = new TestbarBrugerManager();
         brugerManager.setAktivBruger(mockBruger);
         String navn = "Hans";
         String email = "hans@email.dk";
-        String password = "123";
+        String password = "123456";
         boolean erBehandler = false;
         brugerManager.opretBruger(navn, email, password, erBehandler);
         String output = brugerManager.hentBrugere().get(0).getNavn();
@@ -82,9 +81,21 @@ public class BrugerManagerTest {
         }
     }
 
+    private class MockValidering extends Validering{
+
+        @Override
+        public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
+        }
+    }
+
     private class TestbarBrugerManager extends BrugerManager {
         public TestbarBrugerManager() {
             setBrugere(new ArrayList<>());
+        }
+
+        @Override
+        protected Validering newValidering() {
+            return new MockValidering();
         }
 
         public TestbarBrugerManager(MockBruger bruger) {

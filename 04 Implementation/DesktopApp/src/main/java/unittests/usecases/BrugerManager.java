@@ -1,8 +1,7 @@
 package unittests.usecases;
 
 import entities.Bruger;
-import entities.exceptions.BrugerErIkkeBehandlerException;
-import entities.exceptions.ForkertPasswordException;
+import entities.exceptions.*;
 
 import java.util.List;
 
@@ -14,9 +13,11 @@ public class BrugerManager {
     private static BrugerManager brugerManager;
     private List<Bruger> brugere;
     private TekstHasher tekstHasher;
+    private Validering validering;
 
     public BrugerManager() {
         tekstHasher = new TekstHasher();
+        validering = newValidering();
     }
 
     public static synchronized BrugerManager getInstance() {
@@ -26,11 +27,14 @@ public class BrugerManager {
         return brugerManager;
     }
 
-    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException {
+    public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomNavnException, EksisterendeBrugerException, TomEmailException, PasswordLaengdeException, TomPasswordException {
         if (aktivBruger != null){
             if (!aktivBruger.isErBehandler()) {
                 throw new BrugerErIkkeBehandlerException();
             }
+            validering.tjekNavn(navn);
+            validering.tjekEmail(email);
+            validering.tjekPassword(password);
             opretBrugerService(navn, email, password, erBehandler);
         }
         else {
@@ -118,5 +122,9 @@ public class BrugerManager {
 
     public void setAktivBruger(Bruger aktivBruger) {
         this.aktivBruger = aktivBruger;
+    }
+
+    protected Validering newValidering() {
+        return new Validering(this);
     }
 }
