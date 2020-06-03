@@ -92,6 +92,38 @@ public class STD0301 {
         assertEquals("Hej Christian", beskedFacade.hentBeskeder(chat).get(0).getBesked());
     }
 
+    @Test
+    public void sendBeskedST030502() throws ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        brugerFacade.logInd("karstenw@gmail.com", "testpw");
+
+        Chat chat = beskedFacade.hentChats().get(0);
+        assertThrows(TomBeskedException.class, () -> beskedFacade.sendBesked("", chat));
+    }
+
+    @Test
+    public void sendBeskedST030503() throws ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        brugerFacade.logInd("karstenw@gmail.com", "testpw");
+
+        Chat chat = beskedFacade.hentChats().get(0);
+        assertThrows(ForMangeTegnException.class, () -> beskedFacade.sendBesked("testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestt", chat));
+    }
+
     private class MockDatabaseManager {
         public ObserverbarListe<Chat> hentChats() {
             ObserverbarListe<Chat> chats = new ObserverbarListe<>();
