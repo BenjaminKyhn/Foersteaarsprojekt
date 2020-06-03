@@ -6,7 +6,6 @@ import unittests.usecases.BrugerFacade;
 import org.junit.Test;
 import unittests.usecases.ObserverbarListe;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -67,6 +66,8 @@ public class STD0101 {
      * så bruger testene de egentlige klasser i programmet.
      */
     private class MockDatabaseManager {
+
+        /** Metoden hentBrugere efterligner metoden i den rigtige DatabaseManager */
         public ObserverbarListe<Bruger> hentBrugere() {
             ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", "testpw", true);
