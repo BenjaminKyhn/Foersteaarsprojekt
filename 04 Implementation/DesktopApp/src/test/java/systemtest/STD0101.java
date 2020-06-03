@@ -1,4 +1,4 @@
-package systemtests;
+package systemtest;
 
 import entities.Bruger;
 import entities.exceptions.*;
