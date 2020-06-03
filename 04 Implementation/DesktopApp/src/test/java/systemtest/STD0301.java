@@ -1,39 +1,40 @@
 package systemtest;
 
 import entities.Bruger;
+import entities.Chat;
+import entities.exceptions.BrugerFindesIkkeException;
 import entities.exceptions.ForkertPasswordException;
 import org.junit.Test;
-import unittests.usecases.BrugerFacade;
-import unittests.usecases.ObserverbarListe;
-import unittests.usecases.TekstHasher;
+import unittests.usecases.*;
 
 import static org.junit.Assert.*;
 
-public class STD0201 {
-
+public class STD0301 {
     @Test
-    public void sletBrugerST020101() throws ForkertPasswordException {
+    public void opretChatST030101() throws BrugerFindesIkkeException, ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedManager beskedManager = BeskedManager.getInstance();
+        beskedManager.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
         BrugerFacade brugerFacade = BrugerFacade.getInstance();
         brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        Bruger bruger = brugerFacade.hentBrugere().get(0);
-        brugerFacade.sletBruger(bruger, "testpw");
-    }
+        brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
-    @Test
-    public void sletBrugerST020102() {
-        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        Bruger bruger = brugerFacade.hentBrugere().get(0);
-        assertThrows(ForkertPasswordException.class, () -> brugerFacade.sletBruger(bruger, "forkertpw"));
+        /** Opret en chat */
+        beskedManager.opretChat("Karsten Wiren", "Ondt i ryggen");
+        assertEquals("Ondt i ryggen", beskedManager.hentChats().get(beskedManager.hentChats().size() - 1).getEmne());
     }
 
     private class MockDatabaseManager {
+        public ObserverbarListe<Chat> hentChats() {
+            ObserverbarListe<Chat> chats = new ObserverbarListe<>();
+            return chats;
+        }
+
         public ObserverbarListe<Bruger> hentBrugere() {
-            /** Vi starter med at hashe passwordet, fordi metoden sletBruger hasher det indtastede password. Dvs. det
-             * password, der ligger i listen af brugere, er nødt til at være hashed, før sletBruger kan lave et
-             * passwordtjek.*/
+            /** Hash passwordet */
             TekstHasher tekstHasher = new TekstHasher();
             String password = tekstHasher.hashTekst("testpw");
 
