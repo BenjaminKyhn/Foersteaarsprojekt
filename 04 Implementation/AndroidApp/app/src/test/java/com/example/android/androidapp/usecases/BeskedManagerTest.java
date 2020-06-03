@@ -10,6 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/** @author Benjamin */
 public class BeskedManagerTest {
     @Test
     public void hentChatsUT030101() {
