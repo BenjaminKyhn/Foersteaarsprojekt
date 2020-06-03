@@ -65,8 +65,7 @@ public class BeskedManagerTest {
         mockChat.tilfoejBesked(mockBesked);
         assertEquals("testbesked", beskedManager.hentBeskeder(mockChat).get(0).getBesked());
     }
-
-
+    
     private class MockBrugerManager extends BrugerManager {
         @Override
         public Bruger getAktivBruger(){

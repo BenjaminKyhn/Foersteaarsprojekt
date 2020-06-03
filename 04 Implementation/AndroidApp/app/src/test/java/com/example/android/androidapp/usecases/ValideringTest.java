@@ -27,24 +27,14 @@ public class ValideringTest {
     public void tjekEmailUT010102() {
         final Validering validering = new TestbarValidering();
         final String email = "fys@frbsport.dk";
-        assertThrows(EksisterendeBrugerException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekEmail(email);
-            }
-        });
+        assertThrows(EksisterendeBrugerException.class, () -> validering.tjekEmail(email));
     }
 
     @Test
     public void tjekEmailUT010103() {
         final Validering validering = new Validering();
         final String email = "";
-        assertThrows(TomEmailException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekEmail(email);
-            }
-        });
+        assertThrows(TomEmailException.class, () -> validering.tjekEmail(email));
     }
 
     @Test
@@ -58,24 +48,14 @@ public class ValideringTest {
     public void tjekNavnUT010201() {
         final Validering validering = new Validering();
         final String navn = null;
-        assertThrows(NullPointerException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekNavn(navn);
-            }
-        });
+        assertThrows(NullPointerException.class, () -> validering.tjekNavn(navn));
     }
 
     @Test
     public void tjekNavnUT010202() {
         final Validering validering = new Validering();
         final String navn = "";
-        assertThrows(TomNavnException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekNavn(navn);
-            }
-        });
+        assertThrows(TomNavnException.class, () -> validering.tjekNavn(navn));
     }
 
     @Test
@@ -89,24 +69,14 @@ public class ValideringTest {
     public void tjekPasswordUT010301() {
         final Validering validering = new Validering();
         final String password = null;
-        assertThrows(NullPointerException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekPassword(password);
-            }
-        });
+        assertThrows(NullPointerException.class, () -> validering.tjekPassword(password));
     }
 
     @Test
     public void tjekPasswordUT010302() {
         final Validering validering = new Validering();
         final String password = "";
-        assertThrows(TomPasswordException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekPassword(password);
-            }
-        });
+        assertThrows(TomPasswordException.class, () -> validering.tjekPassword(password));
     }
 
     private class TestbarValidering extends Validering{
