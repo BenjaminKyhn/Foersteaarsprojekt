@@ -1,4 +1,4 @@
-package usecases;
+package unittests.usecases;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

@@ -1,10 +1,8 @@
-package usecases;
+package unittests.usecases;
 
 import entities.Bruger;
 import entities.exceptions.*;
 import org.junit.Test;
-
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 

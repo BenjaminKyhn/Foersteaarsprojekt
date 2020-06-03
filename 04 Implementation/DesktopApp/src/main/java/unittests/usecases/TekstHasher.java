@@ -1,4 +1,4 @@
-package usecases;
+package unittests.usecases;
 
 import org.apache.commons.codec.binary.Hex;
 

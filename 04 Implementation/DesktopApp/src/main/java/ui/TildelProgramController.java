@@ -14,8 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import usecases.BrugerFacade;
-import usecases.TraeningsprogramFacade;
+import unittests.usecases.BrugerFacade;
+import unittests.usecases.TraeningsprogramFacade;
 
 /** @author Tommy */
 public class TildelProgramController {

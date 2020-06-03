@@ -1,4 +1,4 @@
-package usecases;
+package unittests.usecases;
 
 /** @author Tommy */
 public class TraeningsprogramManager {

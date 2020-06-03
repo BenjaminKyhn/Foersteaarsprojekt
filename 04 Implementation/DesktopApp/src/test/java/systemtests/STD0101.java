@@ -1,14 +1,16 @@
+package systemtests;
+
 import entities.Bruger;
-import usecases.BrugerFacade;
+import unittests.usecases.BrugerFacade;
 import entities.exceptions.EksisterendeBrugerException;
 import entities.exceptions.TomEmailException;
 import org.junit.Test;
-import usecases.ObserverbarListe;
+import unittests.usecases.ObserverbarListe;
 
 import static org.junit.Assert.*;
 
 /** @author Benjamin */
-public class SystemTest {
+public class STD0101 {
 
     @Test
     public void ST010101() throws TomEmailException, EksisterendeBrugerException {

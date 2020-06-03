@@ -11,7 +11,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import entities.Besked;
 import entities.Bruger;
 import entities.Chat;
-import usecases.ObserverbarListe;
+import unittests.usecases.ObserverbarListe;
 
 import javax.annotation.Nullable;
 import java.io.FileInputStream;

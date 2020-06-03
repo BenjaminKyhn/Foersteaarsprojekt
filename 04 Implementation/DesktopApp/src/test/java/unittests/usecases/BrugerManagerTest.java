@@ -1,4 +1,4 @@
-package usecases;
+package unittests.usecases;
 import static org.junit.Assert.*;
 
 import entities.Bruger;

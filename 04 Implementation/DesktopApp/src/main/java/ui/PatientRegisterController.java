@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import usecases.BrugerFacade;
+import unittests.usecases.BrugerFacade;
 import database.DatabaseManager;
 
 public class PatientRegisterController {
