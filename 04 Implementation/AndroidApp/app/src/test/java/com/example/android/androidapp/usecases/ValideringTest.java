@@ -20,12 +20,7 @@ public class ValideringTest {
     public void tjekEmailUT010101() {
         final Validering validering = new Validering();
         final String email = null;
-        assertThrows(NullPointerException.class, new Executable() {
-            @Override
-            public void execute() throws Throwable {
-                validering.tjekEmail(email);
-            }
-        });
+        assertThrows(NullPointerException.class, () -> validering.tjekEmail(email));
     }
 
     @Test

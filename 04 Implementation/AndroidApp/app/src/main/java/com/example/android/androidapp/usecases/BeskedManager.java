@@ -2,6 +2,7 @@ package com.example.android.androidapp.usecases;
 
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Chat;
+import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 
 import java.util.List;
 
@@ -22,7 +23,9 @@ class BeskedManager {
         return null;
     }
 
-    void opretChat(String afsender, String modtager, String emne) {
+    void opretChat(String afsender, String modtager, String emne) throws BrugerFindesIkkeException {
+        if (modtager == null)
+            throw new BrugerFindesIkkeException();
         Chat chat = new Chat(afsender, modtager, emne);
         chats.add(chat);
     }
