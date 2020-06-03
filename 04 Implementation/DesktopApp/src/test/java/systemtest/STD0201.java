@@ -31,14 +31,13 @@ public class STD0201 {
     }
 
     private class MockDatabaseManager {
+        /** Vi starter med at hashe passwordet, fordi metoden sletBruger hasher det indtastede password. Dvs. det
+         * password, der ligger i listen af brugere, er nødt til at være hashed, før sletBruger kan lave et
+         * passwordtjek.*/
         public ObserverbarListe<Bruger> hentBrugere() {
-            /** Vi starter med at hashe passwordet, fordi metoden sletBruger hasher det indtastede password. Dvs. det
-             * password, der ligger i listen af brugere, er nødt til at være hashed, før sletBruger kan lave et
-             * passwordtjek.*/
             TekstHasher tekstHasher = new TekstHasher();
             String password = tekstHasher.hashTekst("testpw");
 
-            /** Lav en liste af brugere og returner den */
             ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", password, true);
             Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com", password, false);
