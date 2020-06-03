@@ -44,6 +44,38 @@ public class STD0301 {
     }
 
     @Test
+    public void opretChatST030303() throws ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        brugerFacade.logInd("fys@frbsport.dk", "testpw");
+
+        /** Opret en chat */
+        assertThrows(TomEmneException.class, () -> beskedFacade.opretChat("Karsten Wiren", ""));
+    }
+
+    @Test
+    public void opretChatST030304() throws ForkertPasswordException {
+        /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
+        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
+        BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        beskedFacade.setChats(mockDatabaseManager.hentChats());
+
+        /** Vi instantierer en BrugerFacade for at kunne kalde logInd*/
+        BrugerFacade brugerFacade = BrugerFacade.getInstance();
+        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
+        brugerFacade.logInd("fys@frbsport.dk", "testpw");
+
+        /** Opret en chat */
+        assertThrows(ForMangeTegnException.class, () -> beskedFacade.opretChat("Karsten Wiren", "testtesttesttesttesttesttesttesttesttesttesttesttest"));
+    }
+
+    @Test
     public void sendBeskedST030501() throws ForkertPasswordException, TomBeskedException, ForMangeTegnException {
         /** Vi instantierer en MockDatabaseManager for at fylde listen af chats */
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
