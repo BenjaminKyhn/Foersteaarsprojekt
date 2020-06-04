@@ -30,7 +30,7 @@ public class BeskedFacade {
         return beskedManager.hentChat(afsender, modtager, emne);
     }
 
-    public void opretChat(String afsender, String modtager, String emne) throws BrugerFindesIkkeException {
+    public void opretChat(String afsender, String modtager, String emne) throws BrugerFindesIkkeException, TomEmneException, ForMangeTegnException {
         beskedManager.opretChat(afsender, modtager, emne);
     }
 
@@ -38,7 +38,7 @@ public class BeskedFacade {
         return beskedManager.hentChats();
     }
 
-    public void sendBesked(String besked, Chat chat, String afsender, String modtager) {
+    public void sendBesked(String besked, Chat chat, String afsender, String modtager) throws TomBeskedException, ForMangeTegnException {
         beskedManager.sendBesked(besked, chat, afsender, modtager);
     }
 

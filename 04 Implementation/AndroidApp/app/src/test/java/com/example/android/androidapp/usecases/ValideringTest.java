@@ -78,14 +78,29 @@ public class ValideringTest {
         assertThrows(TomPasswordException.class, () -> validering.tjekPassword(password));
     }
 
-    private class TestbarValidering extends Validering{
-        List<Bruger> brugere;
+    private static class MockBrugerManager extends BrugerManager {
 
-        private TestbarValidering(){
-            Bruger bruger = new Bruger("Christian Iuul", "fys@frbsport.dk", "test55", true);
-            brugere = new ArrayList<>();
-            brugere.add(bruger);
-            setBrugere(brugere);
+        @Override
+        Bruger hentBrugerMedEmail(String email) {
+            if (email.equals("fys@frbsport.dk")) {
+                return new MockBruger();
+            }
+            return null;
+        }
+    }
+
+    private static class MockBruger extends Bruger {
+        String email;
+
+        public MockBruger() {
+            email = "fys@frbsport.dk";
+        }
+    }
+
+    private static class TestbarValidering extends Validering{
+        @Override
+        protected BrugerManager newBrugerManager() {
+            return new MockBrugerManager();
         }
     }
 }

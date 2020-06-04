@@ -2,6 +2,8 @@ package com.example.android.androidapp.usecases;
 
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Chat;
+import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
+import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +25,7 @@ public class BeskedManagerTest {
     }
 
     @Test
-    public void sendBeskedUT030501(){
+    public void sendBeskedUT030501() throws TomBeskedException, ForMangeTegnException {
         BeskedManager beskedManager = new TestbarBeskedManager();
         Chat chat = new Chat("Hans", "Mogens", "testemne");
         String besked = "testbesked";
@@ -33,7 +35,7 @@ public class BeskedManagerTest {
         assertEquals("Mogens", chat.getBeskeder().get(0).getModtager());
     }
 
-    private class MockChat extends Chat {
+    private static class MockChat extends Chat {
         String emne;
         ArrayList<Besked> beskeder;
 
@@ -58,7 +60,7 @@ public class BeskedManagerTest {
         }
     }
 
-    private class TestbarBeskedManager extends BeskedManager {
+    private static class TestbarBeskedManager extends BeskedManager {
 
         public TestbarBeskedManager(){
             setChats(new ArrayList<>());
