@@ -27,6 +27,17 @@ public class BrugerManager {
         return brugerManager;
     }
 
+    public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException {
+        if (patient.isErBehandler())
+            throw new ForkertRolleException();
+        if (!behandler.isErBehandler()) {
+            throw new ForkertRolleException();
+        }
+        String navn = behandler.getNavn();
+        patient.getBehandlere().add(navn);
+
+    }
+
     public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomNavnException, EksisterendeBrugerException, TomEmailException, PasswordLaengdeException, TomPasswordException {
         if (aktivBruger != null){
             if (!aktivBruger.isErBehandler()) {
