@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
 import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
+import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
+import com.example.android.androidapp.entities.exceptions.TomEmneException;
 import com.example.android.androidapp.usecases.BeskedFacade;
 import com.example.android.androidapp.usecases.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
@@ -116,8 +119,16 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
     }
 
     @Override
-    public void nySamtale(String modtager, String emne) throws BrugerFindesIkkeException {
+    public void nySamtale(String modtager, String emne) {
         String afsender =  brugerFacade.hentAktivBruger().getNavn();
-        beskedFacade.opretChat(afsender, modtager, emne);
+        try {
+            beskedFacade.opretChat(afsender, modtager, emne);
+        } catch (BrugerFindesIkkeException e) {
+            Toast.makeText(this, "Bruger findes ikke", Toast.LENGTH_LONG).show();
+        } catch (TomEmneException e) {
+            Toast.makeText(this, "Emnet må ikke være tomt", Toast.LENGTH_LONG).show();
+        } catch (ForMangeTegnException e) {
+            Toast.makeText(this, "Emnet må ikke være mere end 100 tegn", Toast.LENGTH_LONG).show();
+        }
     }
 }

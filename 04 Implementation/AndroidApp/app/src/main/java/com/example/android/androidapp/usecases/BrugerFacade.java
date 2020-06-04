@@ -18,8 +18,8 @@ public class BrugerFacade {
     private static BrugerFacade brugerFacade;
 
     private BrugerFacade() {
-        validering = new Validering();
         brugerManager = new BrugerManager();
+        validering = new Validering(brugerManager);
     }
 
     public static synchronized BrugerFacade hentInstans() {
@@ -58,11 +58,14 @@ public class BrugerFacade {
     }
 
     public void saetListeAfBrugere(List<Bruger> brugere) {
-        validering.setBrugere(brugere);
         brugerManager.setBrugere(brugere);
     }
 
     public Bruger hentAktivBruger() {
         return brugerManager.getAktivBruger();
+    }
+
+    public BrugerManager hentBrugerManager() {
+        return brugerManager;
     }
 }

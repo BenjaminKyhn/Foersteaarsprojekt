@@ -10,6 +10,24 @@ class BrugerManager {
     private Bruger aktivBruger;
     private List<Bruger> brugere;
 
+    Bruger hentBrugerMedNavn(String navn) {
+        for (Bruger bruger : brugere) {
+            if (bruger.getNavn().equals(navn)) {
+                return bruger;
+            }
+        }
+        return null;
+    }
+
+    Bruger hentBrugerMedEmail(String email) {
+        for (Bruger bruger : brugere) {
+            if (bruger.getEmail().equals(email)) {
+                return bruger;
+            }
+        }
+        return null;
+    }
+
     void opretBruger(String navn, String email, String password) throws BrugerLoggedeIndException {
         if (aktivBruger != null) {
             throw new BrugerLoggedeIndException();

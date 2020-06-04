@@ -1,6 +1,5 @@
 package com.example.android.androidapp.usecases;
 
-import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.exceptions.EksisterendeBrugerException;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.PasswordLaengdeException;
@@ -10,20 +9,25 @@ import com.example.android.androidapp.entities.exceptions.TomEmneException;
 import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
-import java.util.List;
 
 /** @author Tommy **/
 class Validering {
-    private List<Bruger> brugere;
+    private BrugerManager brugerManager;
+
+    public Validering() {
+        brugerManager = newBrugerManager();
+    }
+
+    public Validering(BrugerManager brugerManager) {
+        this.brugerManager = brugerManager;
+    }
 
     void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         if (email.equals("")) {
             throw new TomEmailException();
         }
-        for (Bruger bruger : brugere) {
-            if (bruger.getEmail().equals(email)) {
-                throw new EksisterendeBrugerException();
-            }
+        if (brugerManager.hentBrugerMedEmail(email) != null) {
+            throw new EksisterendeBrugerException();
         }
     }
 
@@ -63,8 +67,8 @@ class Validering {
         }
     }
 
-    void setBrugere(List<Bruger> brugere) {
-        this.brugere = brugere;
+    protected BrugerManager newBrugerManager() {
+        return new BrugerManager();
     }
 
 }
