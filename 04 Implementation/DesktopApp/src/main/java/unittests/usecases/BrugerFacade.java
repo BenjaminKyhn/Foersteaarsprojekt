@@ -25,6 +25,10 @@ public class BrugerFacade {
         return brugerFacade;
     }
 
+    public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException {
+
+    }
+
     public void tjekEmail(String email) throws EksisterendeBrugerException, TomEmailException {
         validering.tjekEmail(email);
     }
