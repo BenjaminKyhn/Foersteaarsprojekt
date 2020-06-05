@@ -3,6 +3,7 @@ package unittests.usecases;
 import entities.Bruger;
 import entities.exceptions.*;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public class BrugerFacade {
         return brugerFacade;
     }
 
-    public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException {
+    public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException, BehandlerFindesAlleredeException {
         brugerManager.tilknytBehandler(patient, behandler);
     }
 
@@ -79,5 +80,9 @@ public class BrugerFacade {
 
     public List<Bruger> hentBehandlere() {
         return brugerManager.hentBehandlere();
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        brugerManager.tilfoejObserver(listener);
     }
 }

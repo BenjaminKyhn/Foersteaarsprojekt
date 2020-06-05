@@ -13,7 +13,7 @@
         <columns>
           <TableColumn fx:id="patientNavn" prefWidth="150.0" text="Navn" />
           <TableColumn fx:id="patientEmail" prefWidth="150.0" text="Email" />
-            <TableColumn prefWidth="153.5999755859375" text="Behandler" />
+            <TableColumn fx:id="patientBehandler" prefWidth="153.5999755859375" text="Behandler" />
             <TableColumn fx:id="patientSidsteCheck" prefWidth="128.79998779296875" text="Sidste check" />
         </columns>
       </TableView>

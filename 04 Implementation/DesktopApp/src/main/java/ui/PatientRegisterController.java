@@ -1,6 +1,8 @@
 package ui;
 
 import entities.Bruger;
+import entities.Chat;
+import entities.exceptions.BehandlerFindesAlleredeException;
 import entities.exceptions.ForkertRolleException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,8 @@ import javafx.stage.Stage;
 import unittests.usecases.BrugerFacade;
 import database.DatabaseManager;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -28,7 +32,7 @@ public class PatientRegisterController {
     private TableView<Bruger> patientTableView;
 
     @FXML
-    private TableColumn<Bruger, String> patientNavn, patientEmail, patientSidsteCheck;
+    private TableColumn<Bruger, String> patientNavn, patientEmail, patientBehandler, patientSidsteCheck;
 
     @FXML
     private ChoiceBox behandlerChoiceBox;
@@ -45,6 +49,7 @@ public class PatientRegisterController {
 
         patientNavn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         patientEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        patientBehandler.setCellValueFactory(new PropertyValueFactory<>("behandlere"));
 
         ObservableList<Bruger> patienter = FXCollections.observableList(brugerFacade.hentPatienter());
         patientTableView.setItems(patienter);
@@ -57,16 +62,29 @@ public class PatientRegisterController {
                 tilknytBehandler();
             } catch (ForkertRolleException fre) {
                 popupWindow("Brugeren er ikke behandler");
+            } catch (BehandlerFindesAlleredeException bfae){
+                popupWindow("Behandleren er allerede tilknyttet denne patient");
+            }
+        });
+
+        brugerFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("Ny Behandler")){
+                    databaseManager.opdaterBruger((Bruger) evt.getNewValue());
+                }
             }
         });
     }
 
-    public void tilknytBehandler() throws ForkertRolleException {
+    public void tilknytBehandler() throws ForkertRolleException, BehandlerFindesAlleredeException {
         if (patientTableView.getSelectionModel().getSelectedItem() != null && behandlerChoiceBox.getSelectionModel().getSelectedItem() != null) {
             Bruger patient = patientTableView.getSelectionModel().getSelectedItem();
             String behandlerNavn = (String) behandlerChoiceBox.getSelectionModel().getSelectedItem();
             Bruger behandler = brugerFacade.hentBrugerMedNavn(behandlerNavn);
             brugerFacade.tilknytBehandler(patient, behandler);
+            popupWindow("Behandleren er tilknyttet");
+            patientTableView.refresh();
         }
     }
 
