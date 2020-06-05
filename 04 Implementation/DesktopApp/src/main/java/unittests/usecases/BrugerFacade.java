@@ -26,7 +26,7 @@ public class BrugerFacade {
     }
 
     public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException {
-
+        brugerManager.tilknytBehandler(patient, behandler);
     }
 
     public void tjekEmail(String email) throws EksisterendeBrugerException, TomEmailException {
@@ -75,5 +75,9 @@ public class BrugerFacade {
 
     public List<Bruger> hentPatienter() {
         return brugerManager.hentPatienter();
+    }
+
+    public List<Bruger> hentBehandlere() {
+        return brugerManager.hentBehandlere();
     }
 }

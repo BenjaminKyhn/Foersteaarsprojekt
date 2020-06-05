@@ -35,7 +35,6 @@ public class BrugerManager {
         }
         String navn = behandler.getNavn();
         patient.getBehandlere().add(navn);
-
     }
 
     public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomNavnException, EksisterendeBrugerException, TomEmailException, PasswordLaengdeException, TomPasswordException {
@@ -129,6 +128,18 @@ public class BrugerManager {
             }
         }
         return patienter;
+    }
+
+    public List<Bruger> hentBehandlere() {
+        ObserverbarListe<Bruger> behandlere = new ObserverbarListe<>();
+        if (brugere != null) {
+            for (Bruger bruger : brugere) {
+                if (bruger.isErBehandler()) {
+                    behandlere.add(bruger);
+                }
+            }
+        }
+        return behandlere;
     }
 
     public void setAktivBruger(Bruger aktivBruger) {
