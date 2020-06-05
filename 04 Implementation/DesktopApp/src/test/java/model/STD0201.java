@@ -16,6 +16,7 @@ public class STD0201 {
         brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
         Bruger bruger = brugerFacade.hentBrugere().get(0);
         brugerFacade.sletBruger(bruger, "testpw");
+        assertNull(brugerFacade.hentBrugerMedNavn(bruger.getNavn()));
     }
 
     @Test
