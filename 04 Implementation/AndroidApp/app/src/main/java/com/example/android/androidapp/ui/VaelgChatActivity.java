@@ -19,10 +19,10 @@ import com.example.android.androidapp.entities.Chat;
 import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomEmneException;
-import com.example.android.androidapp.usecases.BeskedFacade;
-import com.example.android.androidapp.usecases.BrugerFacade;
+import com.example.android.androidapp.model.BeskedFacade;
+import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.usecases.ObserverbarListe;
+import com.example.android.androidapp.model.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;

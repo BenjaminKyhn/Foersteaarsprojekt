@@ -1,6 +1,6 @@
 package com.example.android.androidapp.entities;
 
-import com.example.android.androidapp.usecases.TekstHasher;
+import com.example.android.androidapp.model.TekstHasher;
 
 /** @author Tommy **/
 public class Bruger {

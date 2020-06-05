@@ -3,7 +3,6 @@ package com.example.android.androidapp.ui;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,11 +12,11 @@ import android.widget.TextView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.usecases.BeskedFacade;
-import com.example.android.androidapp.usecases.BrugerFacade;
+import com.example.android.androidapp.model.BeskedFacade;
+import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.usecases.ObserverbarListe;
-import com.example.android.androidapp.usecases.TraeningsprogramFacade;
+import com.example.android.androidapp.model.ObserverbarListe;
+import com.example.android.androidapp.model.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
 
 /**@author Patrick**/

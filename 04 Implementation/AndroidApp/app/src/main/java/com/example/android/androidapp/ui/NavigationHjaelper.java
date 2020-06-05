@@ -3,17 +3,15 @@ package com.example.android.androidapp.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.DialogFragment;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
-import com.example.android.androidapp.usecases.BrugerFacade;
+import com.example.android.androidapp.model.BrugerFacade;
 import com.google.android.material.navigation.NavigationView;
 
 class NavigationHjaelper {

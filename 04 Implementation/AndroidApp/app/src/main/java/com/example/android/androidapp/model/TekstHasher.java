@@ -1,4 +1,4 @@
-package com.example.android.androidapp.usecases;
+package com.example.android.androidapp.model;
 
 import org.apache.commons.codec.binary.Hex;
 

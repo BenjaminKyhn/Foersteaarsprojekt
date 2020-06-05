@@ -16,14 +16,16 @@ import android.widget.Toast;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
-import com.example.android.androidapp.usecases.BrugerFacade;
+import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.usecases.ObserverbarListe;
+import com.example.android.androidapp.model.ObserverbarListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**@author Patrick**/
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText editTextEmail;
     EditText editTextPassword;
     BrugerFacade brugerFacade;
+    DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.editTextPassword);
 
         brugerFacade = BrugerFacade.hentInstans();
+        databaseManager = new DatabaseManager();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
@@ -81,30 +85,31 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
 
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.hentBrugereReference().document(email).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        databaseManager.hentBrugerMedEmail(email);
+
+        databaseManager.fjernAlleListeners();
+        databaseManager.tilfoejListener(new PropertyChangeListener() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isComplete()) {
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot.exists()) {
-                        Bruger bruger = documentSnapshot.toObject(Bruger.class);
-                        List<Bruger> list = new ObserverbarListe<>();
-                        list.add(bruger);
-                        brugerFacade.saetListeAfBrugere(list);
-                        boolean loggedeInd = brugerFacade.logInd(email, password);
-                        if (loggedeInd) {
-                            startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
-                        }
-                        progressDialog.dismiss();
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("hentBrugerMedEmailSuccess")) {
+                    List<Bruger> brugerList = new ObserverbarListe<>();
+                    brugerList.add((Bruger) evt.getNewValue());
+                    brugerFacade.saetListeAfBrugere(brugerList);
+                    boolean loggedeInd = brugerFacade.logInd(email, password);
+                    if (loggedeInd) {
+                        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                     }
                     else {
-                        Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
                     }
+                    progressDialog.dismiss();
+                    return;
                 }
+                if (evt.getPropertyName().equals("hentBrugerMedEmailFejl")) {
+                    Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+
             }
         });
     }

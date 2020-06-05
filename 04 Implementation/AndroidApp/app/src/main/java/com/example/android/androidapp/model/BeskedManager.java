@@ -1,4 +1,4 @@
-package com.example.android.androidapp.usecases;
+package com.example.android.androidapp.model;
 
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Bruger;

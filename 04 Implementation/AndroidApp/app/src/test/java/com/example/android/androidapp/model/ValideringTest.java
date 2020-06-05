@@ -1,4 +1,4 @@
-package com.example.android.androidapp.usecases;
+package com.example.android.androidapp.model;
 
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.exceptions.EksisterendeBrugerException;
@@ -7,9 +7,6 @@ import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
