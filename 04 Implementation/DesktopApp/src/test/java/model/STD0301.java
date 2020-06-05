@@ -12,18 +12,19 @@ public class STD0301 {
     /** Vi instantierer en MockDatabaseManager for at fylde listen af chats og vi instantierer en BrugerFacade for at
      *  kunne kalde logInd*/
     @Test
-    public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException, TomEmneException, ForMangeTegnException {
+    public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException,
+            TomEmneException, ForMangeTegnException {
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
         beskedFacade.setChats(mockDatabaseManager.hentChats());
-
 
         BrugerFacade brugerFacade = BrugerFacade.getInstance();
         brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
         brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
         beskedFacade.opretChat("Karsten Wiren", "Ondt i ryggen");
-        assertEquals("Ondt i ryggen", beskedFacade.hentChats().get(beskedFacade.hentChats().size() - 1).getEmne());
+        String output = beskedFacade.hentChats().get(beskedFacade.hentChats().size() - 1).getEmne();
+        assertEquals("Ondt i ryggen", output);
     }
 
     @Test
@@ -111,7 +112,8 @@ public class STD0301 {
     private class MockDatabaseManager {
         public ObserverbarListe<Chat> hentChats() {
             ObserverbarListe<Chat> chats = new ObserverbarListe<>();
-            Chat chat = new Chat("Karsten Wiren", "Christian Iuul", "Hold i nakken", System.currentTimeMillis());
+            Chat chat = new Chat("Karsten Wiren", "Christian Iuul",
+                    "Hold i nakken", System.currentTimeMillis());
             chats.add(chat);
             return chats;
         }
@@ -122,9 +124,12 @@ public class STD0301 {
             String password = tekstHasher.hashTekst("testpw");
 
             ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
-            Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", password, true);
-            Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com", password, false);
-            Bruger patient2 = new Bruger("Karsten Wiren", "karstenw@gmail.com", password, false);
+            Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk",
+                    password, true);
+            Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com",
+                    password, false);
+            Bruger patient2 = new Bruger("Karsten Wiren", "karstenw@gmail.com",
+                    password, false);
             brugere.add(behandler1);
             brugere.add(patient1);
             brugere.add(patient2);
