@@ -77,6 +77,7 @@ public class PatientRegisterController {
         });
     }
 
+    /** @author Benjamin */
     public void tilknytBehandler() throws ForkertRolleException, BehandlerFindesAlleredeException {
         if (patientTableView.getSelectionModel().getSelectedItem() != null && behandlerChoiceBox.getSelectionModel().getSelectedItem() != null) {
             Bruger patient = patientTableView.getSelectionModel().getSelectedItem();

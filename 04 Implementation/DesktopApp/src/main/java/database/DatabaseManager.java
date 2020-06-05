@@ -18,9 +18,7 @@ import java.io.FileInputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-/**
- * @author Benjamin
- */
+/**@author Benjamin*/
 public class DatabaseManager {
     private static DatabaseManager databaseManager;
     /**

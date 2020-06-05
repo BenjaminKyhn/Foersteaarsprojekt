@@ -1,5 +1,5 @@
 package ui;
 
-/** @author Tommy og Patrick */
+/** @author Tommy */
 public class ChatWindowBeskedController {
 }

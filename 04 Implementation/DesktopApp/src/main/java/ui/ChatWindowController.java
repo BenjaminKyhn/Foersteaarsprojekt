@@ -33,9 +33,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- * @author Tommy og Patrick
- */
+/**@author Tommy */
 public class ChatWindowController {
     private BeskedFacade beskedFacade;
     private BrugerFacade brugerFacade;
