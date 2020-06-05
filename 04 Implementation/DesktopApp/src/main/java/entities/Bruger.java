@@ -1,7 +1,5 @@
 package entities;
 
-import unittests.usecases.ObserverbarListe;
-
 import java.util.ArrayList;
 
 /** @author Benjamin */
@@ -21,6 +19,7 @@ public class Bruger {
         this.email = email;
         this.password = password;
         this.erBehandler = erBehandler;
+        behandlere = new ArrayList<>();
     }
 
     public ArrayList<String> getBehandlere() {return behandlere;}

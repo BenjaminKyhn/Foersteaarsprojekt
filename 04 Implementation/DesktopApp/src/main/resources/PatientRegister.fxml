@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,12 +13,14 @@
         <columns>
           <TableColumn fx:id="patientNavn" prefWidth="150.0" text="Navn" />
           <TableColumn fx:id="patientEmail" prefWidth="150.0" text="Email" />
-            <TableColumn prefWidth="153.5999755859375" text="Behandler" />
+            <TableColumn fx:id="patientBehandler" prefWidth="153.5999755859375" text="Behandler" />
             <TableColumn fx:id="patientSidsteCheck" prefWidth="128.79998779296875" text="Sidste check" />
         </columns>
       </TableView>
-      <Button layoutX="281.0" layoutY="16.0" mnemonicParsing="false" text="Slet patient fra register" AnchorPane.leftAnchor="281.0" AnchorPane.topAnchor="16.0" />
-      <Button layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Opret patient" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="16.0" />
-      <Button layoutX="107.0" layoutY="16.0" mnemonicParsing="false" text="Tilknyt patient til behandler" AnchorPane.leftAnchor="107.0" AnchorPane.topAnchor="16.0" />
+      <Button fx:id="btnSletPatient" layoutX="96.0" layoutY="16.0" mnemonicParsing="false" text="Slet patient" AnchorPane.leftAnchor="112.0" AnchorPane.topAnchor="16.0" />
+      <Button fx:id="btnOpretPatient" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" text="Opret patient" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="16.0" />
+      <Button fx:id="btnTilknytBehandler" layoutX="189.0" layoutY="16.0" mnemonicParsing="false" text="Tilknyt behandler" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="16.0" />
+      <ChoiceBox fx:id="behandlerChoiceBox" layoutX="392.0" layoutY="16.0" prefWidth="150.0" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="16.0" />
+      <Label layoutX="313.0" layoutY="20.0" text="Behandlere:" AnchorPane.leftAnchor="329.0" AnchorPane.topAnchor="20.0" />
    </children>
 </AnchorPane>

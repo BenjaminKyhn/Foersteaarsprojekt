@@ -275,6 +275,9 @@ public class DatabaseManager {
 
     }
 
+    public void opdaterBruger(Bruger bruger){
+        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    }
 }
 
 //TODO får beskeder til at opdateres live med addSnapshotListener
