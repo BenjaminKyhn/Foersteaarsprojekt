@@ -55,14 +55,6 @@ public class DatabaseManager {
         firestore.collection("chats").document().set(chat);
     }
 
-    public CollectionReference hentBrugereReference() {
-        return firestore.collection("brugere");
-    }
-
-    public CollectionReference hentChatsReference() {
-        return firestore.collection("chats");
-    }
-
     public void sletBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).delete();
     }
@@ -75,6 +67,26 @@ public class DatabaseManager {
             }
             else {
                 support.firePropertyChange("hentBrugerMedEmailFejl", null, null);
+            }
+        });
+    }
+
+    public void hentBehandlereTilBruger(Bruger bruger, List<Bruger> brugere) {
+        firestore.collection("brugere").document(bruger.getEmail()).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                Bruger patient = documentSnapshot.toObject(Bruger.class);
+                assert patient != null;
+                ArrayList<String> behandlere = patient.getBehandlere();
+                if (behandlere.size() != 0) {
+                    for (String behandler : behandlere) {
+                        firestore.collection("brugere").whereEqualTo("navn", behandler)
+                                .get().addOnSuccessListener(queryDocumentSnapshots -> {
+                           Bruger brugerFraDB = queryDocumentSnapshots.getDocuments().get(0).toObject(Bruger.class);
+                           brugere.add(brugerFraDB);
+                        });
+                    }
+
+                }
             }
         });
     }

@@ -54,6 +54,7 @@ public class MenuActivity extends AppCompatActivity {
 
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
+        databaseManager.hentBehandlereTilBruger(brugerFacade.hentAktivBruger(), brugerFacade.hentBrugere());
 
         ObserverbarListe<String> program = new ObserverbarListe<>();
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();

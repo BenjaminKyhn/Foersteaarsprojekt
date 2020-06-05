@@ -6,8 +6,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,9 +18,12 @@ import androidx.fragment.app.DialogFragment;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
+import com.example.android.androidapp.model.BrugerFacade;
+
+import java.util.ArrayList;
 
 public class VaelgChatDialog extends DialogFragment {
-    private EditText editTextVaelgBehandler;
+    private Spinner spinner;
     private EditText editTextVaelgEmne;
     private VaelgChatListener listener;
 
@@ -32,7 +37,13 @@ public class VaelgChatDialog extends DialogFragment {
         LayoutInflater inflater = requireActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_ny_samtale, null);
 
-        editTextVaelgBehandler = view.findViewById(R.id.editTextVaelgBehandler);
+        spinner = view.findViewById(R.id.spinner);
+
+        ArrayList<String> behandlere = BrugerFacade.hentInstans().hentBehandlereNavne();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>((Context) listener, R.layout.support_simple_spinner_dropdown_item, behandlere);
+        spinner.setAdapter(adapter);
+
         editTextVaelgEmne = view.findViewById(R.id.editTextVaelgEmne);
 
         Button fortryd = view.findViewById(R.id.button_cancel);
@@ -73,7 +84,7 @@ public class VaelgChatDialog extends DialogFragment {
     }
 
     public void bekraeft() throws BrugerFindesIkkeException {
-        String modtager = editTextVaelgBehandler.getText().toString();
+        String modtager = spinner.getSelectedItem().toString();
         String emne = editTextVaelgEmne.getText().toString();
         listener.nySamtale(modtager, emne);
     }

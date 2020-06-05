@@ -9,6 +9,7 @@ import com.example.android.androidapp.entities.exceptions.TomEmailException;
 import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
@@ -63,6 +64,14 @@ public class BrugerFacade {
 
     public Bruger hentAktivBruger() {
         return brugerManager.getAktivBruger();
+    }
+
+    public List<Bruger> hentBrugere() {
+        return brugerManager.hentBrugere();
+    }
+
+    public ArrayList<String> hentBehandlereNavne() {
+        return brugerManager.hentBehandlereNavne();
     }
 
     public BrugerManager hentBrugerManager() {

@@ -88,29 +88,26 @@ public class LoginActivity extends AppCompatActivity {
         databaseManager.hentBrugerMedEmail(email);
 
         databaseManager.fjernAlleListeners();
-        databaseManager.tilfoejListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("hentBrugerMedEmailSuccess")) {
-                    List<Bruger> brugerList = new ObserverbarListe<>();
-                    brugerList.add((Bruger) evt.getNewValue());
-                    brugerFacade.saetListeAfBrugere(brugerList);
-                    boolean loggedeInd = brugerFacade.logInd(email, password);
-                    if (loggedeInd) {
-                        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
-                    }
-                    progressDialog.dismiss();
-                    return;
+        databaseManager.tilfoejListener(evt -> {
+            if (evt.getPropertyName().equals("hentBrugerMedEmailSuccess")) {
+                List<Bruger> brugerList = new ObserverbarListe<>();
+                brugerList.add((Bruger) evt.getNewValue());
+                brugerFacade.saetListeAfBrugere(brugerList);
+                boolean loggedeInd = brugerFacade.logInd(email, password);
+                if (loggedeInd) {
+                    startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                 }
-                if (evt.getPropertyName().equals("hentBrugerMedEmailFejl")) {
-                    Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
-                    progressDialog.dismiss();
+                else {
+                    Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
                 }
-
+                progressDialog.dismiss();
+                return;
             }
+            if (evt.getPropertyName().equals("hentBrugerMedEmailFejl")) {
+                Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
+            }
+
         });
     }
 }

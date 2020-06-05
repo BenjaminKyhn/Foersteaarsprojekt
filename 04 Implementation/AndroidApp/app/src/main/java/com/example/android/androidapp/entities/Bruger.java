@@ -2,12 +2,15 @@ package com.example.android.androidapp.entities;
 
 import com.example.android.androidapp.model.TekstHasher;
 
+import java.util.ArrayList;
+
 /** @author Tommy **/
 public class Bruger {
     private String navn;
     private String email;
     private String password;
     private boolean erBehandler;
+    private ArrayList<String> behandlere;
 
     public Bruger() {
     }
@@ -17,6 +20,7 @@ public class Bruger {
         this.email = email;
         this.password = TekstHasher.hashTekst(password);
         this.erBehandler = erBehandler;
+        behandlere = new ArrayList<>();
     }
 
     public boolean validerPassword(String password) {
@@ -54,5 +58,13 @@ public class Bruger {
 
     public void setErBehandler(boolean erBehandler) {
         this.erBehandler = erBehandler;
+    }
+
+    public ArrayList<String> getBehandlere() {
+        return behandlere;
+    }
+
+    public void setBehandlere(ArrayList<String> behandlere) {
+        this.behandlere = behandlere;
     }
 }

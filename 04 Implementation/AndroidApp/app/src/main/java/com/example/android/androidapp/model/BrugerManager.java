@@ -3,6 +3,8 @@ package com.example.android.androidapp.model;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.exceptions.BrugerLoggedeIndException;
 import com.example.android.androidapp.entities.exceptions.ForkertPasswordException;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
@@ -66,6 +68,20 @@ class BrugerManager {
 
     void setBrugere(List<Bruger> brugere) {
         this.brugere = brugere;
+    }
+
+    public List<Bruger> hentBrugere() {
+        return brugere;
+    }
+
+    public ArrayList<String> hentBehandlereNavne() {
+        ArrayList<String> behandlere = new ArrayList<>();
+        for (Bruger bruger : brugere) {
+            if (bruger.isErBehandler()) {
+                behandlere.add(bruger.getNavn());
+            }
+        }
+        return behandlere;
     }
 
     Bruger getAktivBruger() {
