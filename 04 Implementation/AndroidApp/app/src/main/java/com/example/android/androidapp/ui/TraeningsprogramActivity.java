@@ -15,10 +15,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.android.androidapp.R;
-import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.usecases.BrugerFacade;
-import com.example.android.androidapp.usecases.ObserverbarListe;
-import com.example.android.androidapp.usecases.TraeningsprogramFacade;
+import com.example.android.androidapp.model.ObserverbarListe;
+import com.example.android.androidapp.model.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
 
 public class TraeningsprogramActivity extends AppCompatActivity {

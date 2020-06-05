@@ -1,4 +1,4 @@
-package com.example.android.androidapp.usecases;
+package com.example.android.androidapp.model;
 
 /** @author Tommy */
 public class TraeningsprogramManager {

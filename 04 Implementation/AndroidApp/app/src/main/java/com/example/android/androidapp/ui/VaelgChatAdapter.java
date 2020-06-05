@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.usecases.ObserverbarListe;
+import com.example.android.androidapp.model.ObserverbarListe;
 
 import java.util.List;
 

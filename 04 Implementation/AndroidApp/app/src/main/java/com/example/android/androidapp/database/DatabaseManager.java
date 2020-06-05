@@ -6,7 +6,7 @@ import androidx.annotation.Nullable;
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.usecases.ObserverbarListe;
+import com.example.android.androidapp.model.ObserverbarListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +20,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Source;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -33,6 +35,12 @@ public class DatabaseManager {
     private ObserverbarListe<Chat> nuvaerendeChats;
     private boolean read;
     private boolean write;
+    private PropertyChangeSupport support;
+    private PropertyChangeListener[] listeners;
+
+    public DatabaseManager() {
+        support = new PropertyChangeSupport(this);
+    }
 
     public void gemBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
@@ -57,6 +65,18 @@ public class DatabaseManager {
 
     public void sletBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).delete();
+    }
+
+    public void hentBrugerMedEmail(String email) {
+        firestore.collection("brugere").document(email).get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                Bruger bruger = documentSnapshot.toObject(Bruger.class);
+                support.firePropertyChange("hentBrugerMedEmailSuccess", null, bruger);
+            }
+            else {
+                support.firePropertyChange("hentBrugerMedEmailFejl", null, null);
+            }
+        });
     }
 
     public void opdaterChat(final Chat chat) {
@@ -182,5 +202,18 @@ public class DatabaseManager {
                 }
             }
         });
+    }
+
+    public void tilfoejListener(PropertyChangeListener propertyChangeListener) {
+        support.addPropertyChangeListener(propertyChangeListener);
+    }
+
+    public void fjernListener(PropertyChangeListener propertyChangeListener) {
+        support.removePropertyChangeListener(propertyChangeListener);
+    }
+
+    public void fjernAlleListeners() {
+        listeners = support.getPropertyChangeListeners();
+        listeners = null;
     }
 }

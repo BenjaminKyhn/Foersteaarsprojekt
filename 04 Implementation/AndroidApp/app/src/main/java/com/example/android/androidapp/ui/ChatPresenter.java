@@ -2,7 +2,7 @@ package com.example.android.androidapp.ui;
 
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.usecases.BeskedFacade;
+import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.database.DatabaseManager;

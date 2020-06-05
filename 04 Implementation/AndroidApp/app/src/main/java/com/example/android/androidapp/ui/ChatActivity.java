@@ -3,7 +3,6 @@ package com.example.android.androidapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Besked;
-import com.example.android.androidapp.usecases.BrugerFacade;
+import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.database.DatabaseManager;
