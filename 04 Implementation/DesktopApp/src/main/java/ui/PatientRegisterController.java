@@ -1,7 +1,6 @@
 package ui;
 
 import entities.Bruger;
-import entities.Chat;
 import entities.exceptions.BehandlerFindesAlleredeException;
 import entities.exceptions.ForkertRolleException;
 import javafx.collections.FXCollections;
@@ -16,7 +15,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import unittests.usecases.BrugerFacade;
+import model.BrugerFacade;
 import database.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;

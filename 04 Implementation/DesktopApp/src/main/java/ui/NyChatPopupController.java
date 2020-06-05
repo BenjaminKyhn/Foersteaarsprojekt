@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import unittests.usecases.BeskedFacade;
+import model.BeskedFacade;
 import entities.exceptions.BrugerFindesIkkeException;
 
 /** @author Benjamin */

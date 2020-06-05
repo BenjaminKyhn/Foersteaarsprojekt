@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import unittests.usecases.BrugerFacade;
+import model.BrugerFacade;
 
 /** @author Benjamin */
 public class SletBrugerController {

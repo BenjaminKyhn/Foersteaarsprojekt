@@ -1,10 +1,8 @@
-package systemtest;
+package model;
 
 import entities.Bruger;
 import entities.exceptions.*;
-import unittests.usecases.BrugerFacade;
 import org.junit.Test;
-import unittests.usecases.ObserverbarListe;
 
 import java.util.List;
 

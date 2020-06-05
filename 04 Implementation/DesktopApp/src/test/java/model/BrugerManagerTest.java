@@ -1,4 +1,4 @@
-package unittests.usecases;
+package model;
 import static org.junit.Assert.*;
 
 import entities.Bruger;
@@ -55,7 +55,7 @@ public class BrugerManagerTest {
     }
 
     @Test
-    public void tilknytBehandlerUT050101() throws ForkertRolleException {
+    public void tilknytBehandlerUT050101() throws ForkertRolleException, BehandlerFindesAlleredeException {
         String test123 = "";
         MockBruger patient = new MockBruger("Stanley Woo", test123, false);
         MockBruger behandler = new MockBruger("Tommy Lee", test123, true);

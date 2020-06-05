@@ -1,78 +1,16 @@
-package unittests.usecases;
+package model;
 
 import entities.Bruger;
 import entities.Chat;
 import entities.exceptions.*;
 import org.junit.Test;
 
-import java.util.List;
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-
-public class SystemtestTilCodeCoverage {
-    @Test
-    public void tjekEmailST010101() {
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        String email = null;
-        assertThrows(NullPointerException.class, () -> brugerFacade.tjekEmail(email));
-    }
-
-    @Test
-    public void tjekEmailST010102() throws TomEmailException, EksisterendeBrugerException {
-        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        String email = "test@mail.dk";
-        brugerFacade.tjekEmail(email);
-    }
-
-    @Test
-    public void tjekEmailST010103() {
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        String email = "";
-        assertThrows(TomEmailException.class, () -> brugerFacade.tjekEmail(email));
-    }
-
-    @Test
-    public void tjekEmailST010104() {
-        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        String email = "fys@frbsport.dk";
-        assertThrows(EksisterendeBrugerException.class, () -> brugerFacade.tjekEmail(email));
-    }
-
-    @Test
-    public void opretBrugerST010401() throws BrugerErIkkeBehandlerException, EksisterendeBrugerException, TomEmailException, TomNavnException, TomPasswordException, PasswordLaengdeException {
-        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        // aktivBruger er ikke null her?
-        brugerFacade.opretBruger("Søren Nielsen", "soerenn@gmail.com", "testpw", false);
-        List<Bruger> midlertidigListe = brugerFacade.hentBrugere();
-        String output = brugerFacade.hentBrugere().get(midlertidigListe.size() - 1).getNavn();
-        assertEquals("Søren Nielsen", output);
-    }
-
-    @Test
-    public void sletBrugerST020101() throws ForkertPasswordException {
-        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        Bruger bruger = brugerFacade.hentBrugere().get(0);
-        brugerFacade.sletBruger(bruger, "testpw");
-    }
-
-    @Test
-    public void sletBrugerST020102() {
-        MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
-        BrugerFacade brugerFacade = BrugerFacade.getInstance();
-        brugerFacade.setBrugere(mockDatabaseManager.hentBrugere());
-        Bruger bruger = brugerFacade.hentBrugere().get(0);
-        assertThrows(ForkertPasswordException.class, () -> brugerFacade.sletBruger(bruger, "forkertpw"));
-    }
-
+/** @author Benjamin */
+public class STD0301 {
+    /** Vi instantierer en MockDatabaseManager for at fylde listen af chats og vi instantierer en BrugerFacade for at
+     *  kunne kalde logInd*/
     @Test
     public void opretChatST030301() throws BrugerFindesIkkeException, ForkertPasswordException, TomEmneException, ForMangeTegnException {
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
@@ -86,8 +24,6 @@ public class SystemtestTilCodeCoverage {
 
         beskedFacade.opretChat("Karsten Wiren", "Ondt i ryggen");
         assertEquals("Ondt i ryggen", beskedFacade.hentChats().get(beskedFacade.hentChats().size() - 1).getEmne());
-
-        brugerFacade.logUd();
     }
 
     @Test
@@ -101,8 +37,6 @@ public class SystemtestTilCodeCoverage {
         brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
         assertThrows(BrugerFindesIkkeException.class, () -> beskedFacade.opretChat("Ejnar Gunnarsen", "Dårligt knæ"));
-
-        brugerFacade.logUd();
     }
 
     @Test
@@ -116,8 +50,6 @@ public class SystemtestTilCodeCoverage {
         brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
         assertThrows(TomEmneException.class, () -> beskedFacade.opretChat("Karsten Wiren", ""));
-
-        brugerFacade.logUd();
     }
 
     @Test
@@ -131,8 +63,6 @@ public class SystemtestTilCodeCoverage {
         brugerFacade.logInd("fys@frbsport.dk", "testpw");
 
         assertThrows(ForMangeTegnException.class, () -> beskedFacade.opretChat("Karsten Wiren", "testtesttesttesttesttesttesttesttesttesttesttesttest"));
-
-        brugerFacade.logUd();
     }
 
     @Test
@@ -148,8 +78,6 @@ public class SystemtestTilCodeCoverage {
         Chat chat = beskedFacade.hentChats().get(0);
         beskedFacade.sendBesked("Hej Christian", chat);
         assertEquals("Hej Christian", beskedFacade.hentBeskeder(chat).get(0).getBesked());
-
-        brugerFacade.logUd();
     }
 
     @Test
@@ -164,8 +92,6 @@ public class SystemtestTilCodeCoverage {
 
         Chat chat = beskedFacade.hentChats().get(0);
         assertThrows(TomBeskedException.class, () -> beskedFacade.sendBesked("", chat));
-
-        brugerFacade.logUd();
     }
 
     @Test
@@ -180,8 +106,6 @@ public class SystemtestTilCodeCoverage {
 
         Chat chat = beskedFacade.hentChats().get(0);
         assertThrows(ForMangeTegnException.class, () -> beskedFacade.sendBesked("testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestt", chat));
-
-        brugerFacade.logUd();
     }
 
     private class MockDatabaseManager {

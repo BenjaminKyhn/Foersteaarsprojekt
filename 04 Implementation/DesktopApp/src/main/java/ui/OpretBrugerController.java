@@ -13,8 +13,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import unittests.usecases.BrugerFacade;
-import unittests.usecases.ObserverbarListe;
+import model.BrugerFacade;
+import model.ObserverbarListe;
 import database.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;

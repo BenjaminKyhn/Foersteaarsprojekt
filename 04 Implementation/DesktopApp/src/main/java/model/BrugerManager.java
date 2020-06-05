@@ -1,4 +1,4 @@
-package unittests.usecases;
+package model;
 
 import entities.Bruger;
 import entities.exceptions.*;

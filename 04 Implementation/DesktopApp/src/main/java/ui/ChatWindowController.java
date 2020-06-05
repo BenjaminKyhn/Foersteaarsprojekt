@@ -21,9 +21,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import unittests.usecases.BeskedFacade;
-import unittests.usecases.BrugerFacade;
-import unittests.usecases.ObserverbarListe;
+import model.BeskedFacade;
+import model.BrugerFacade;
+import model.ObserverbarListe;
 import database.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;
