@@ -1,10 +1,9 @@
-package systemtest;
+package model;
 
 import entities.Bruger;
 import entities.Chat;
 import entities.exceptions.*;
 import org.junit.Test;
-import unittests.usecases.*;
 
 import static org.junit.Assert.*;
 

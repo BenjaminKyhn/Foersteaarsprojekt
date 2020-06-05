@@ -11,16 +11,14 @@ import com.google.firebase.cloud.FirestoreClient;
 import entities.Besked;
 import entities.Bruger;
 import entities.Chat;
-import unittests.usecases.ObserverbarListe;
+import model.ObserverbarListe;
 
 import javax.annotation.Nullable;
 import java.io.FileInputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-/**
- * @author Benjamin
- */
+/**@author Benjamin*/
 public class DatabaseManager {
     private static DatabaseManager databaseManager;
     /**
@@ -275,6 +273,9 @@ public class DatabaseManager {
 
     }
 
+    public void opdaterBruger(Bruger bruger){
+        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    }
 }
 
 //TODO får beskeder til at opdateres live med addSnapshotListener

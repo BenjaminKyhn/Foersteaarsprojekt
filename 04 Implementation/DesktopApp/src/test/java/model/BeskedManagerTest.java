@@ -1,4 +1,4 @@
-package unittests.usecases;
+package model;
 
 import entities.Besked;
 import entities.Bruger;
@@ -138,9 +138,12 @@ public class BeskedManagerTest {
 
     private class TestbarBeskedManager extends BeskedManager{
 
+        public TestbarBeskedManager(){
+            setChats(new ArrayList<>());
+        }
+
         @Override
         protected BrugerManager newBrugerManager() {
-            setChats(new ArrayList<>());
             return new MockBrugerManager();
         }
     }

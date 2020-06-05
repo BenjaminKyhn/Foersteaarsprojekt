@@ -17,7 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import unittests.usecases.BrugerFacade;
+import model.BrugerFacade;
 import entities.exceptions.ForkertPasswordException;
 import database.DatabaseManager;
 

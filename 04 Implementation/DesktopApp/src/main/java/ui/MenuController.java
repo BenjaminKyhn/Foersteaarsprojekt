@@ -14,8 +14,8 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import unittests.usecases.BeskedFacade;
-import unittests.usecases.BrugerFacade;
+import model.BeskedFacade;
+import model.BrugerFacade;
 import database.DatabaseManager;
 
 import java.io.IOException;

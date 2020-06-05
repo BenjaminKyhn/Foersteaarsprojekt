@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
-/** @author Tommy og Patrick */
+/** @author Tommy */
 public class ChatWindowChatController {
     @FXML
     private AnchorPane chatWindowChatAnchorPane;

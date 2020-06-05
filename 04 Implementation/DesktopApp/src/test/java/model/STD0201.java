@@ -1,11 +1,8 @@
-package systemtest;
+package model;
 
 import entities.Bruger;
 import entities.exceptions.ForkertPasswordException;
 import org.junit.Test;
-import unittests.usecases.BrugerFacade;
-import unittests.usecases.ObserverbarListe;
-import unittests.usecases.TekstHasher;
 
 import static org.junit.Assert.*;
 

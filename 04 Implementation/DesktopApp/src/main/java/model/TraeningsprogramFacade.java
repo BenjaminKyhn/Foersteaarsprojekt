@@ -1,4 +1,4 @@
-package unittests.usecases;
+package model;
 
 /** @author Tommy */
 public class TraeningsprogramFacade {

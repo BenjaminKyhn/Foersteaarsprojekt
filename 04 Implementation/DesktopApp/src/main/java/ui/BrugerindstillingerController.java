@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import unittests.usecases.BrugerFacade;
+import model.BrugerFacade;
 
 import java.io.IOException;
 

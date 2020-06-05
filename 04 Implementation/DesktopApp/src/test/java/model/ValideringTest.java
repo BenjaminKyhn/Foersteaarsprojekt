@@ -1,4 +1,4 @@
-package unittests.usecases;
+package model;
 
 import entities.Bruger;
 import entities.exceptions.*;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class ValideringTest {
     @Test
     public void tjekEmailUT010101() {
-        Validering validering = new Validering();
+        Validering validering = new TestbarValidering();
         String email = null;
         assertThrows(NullPointerException.class, () -> validering.tjekEmail(email));
     }
@@ -26,7 +26,7 @@ public class ValideringTest {
 
     @Test
     public void tjekEmailUT010103() {
-        Validering validering = new Validering();
+        Validering validering = new TestbarValidering();
         String email = "";
         assertThrows(TomEmailException.class, () -> validering.tjekEmail(email));
     }

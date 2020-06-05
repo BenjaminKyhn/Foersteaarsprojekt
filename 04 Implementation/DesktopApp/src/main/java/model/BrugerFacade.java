@@ -1,8 +1,9 @@
-package unittests.usecases;
+package model;
 
 import entities.Bruger;
 import entities.exceptions.*;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 /**
@@ -25,6 +26,12 @@ public class BrugerFacade {
         return brugerFacade;
     }
 
+    /** @author Kelvin */
+    public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException, BehandlerFindesAlleredeException {
+        brugerManager.tilknytBehandler(patient, behandler);
+    }
+
+    /** @author Benjamin */
     public void tjekEmail(String email) throws EksisterendeBrugerException, TomEmailException {
         validering.tjekEmail(email);
     }
@@ -69,7 +76,17 @@ public class BrugerFacade {
         return brugerManager.hentBrugere();
     }
 
+    /** @author Kelvin */
     public List<Bruger> hentPatienter() {
         return brugerManager.hentPatienter();
+    }
+
+    /** @author Benjamin */
+    public List<Bruger> hentBehandlere() {
+        return brugerManager.hentBehandlere();
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        brugerManager.tilfoejObserver(listener);
     }
 }

@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+
 /** @author Benjamin */
 public class Bruger {
     private String navn;
@@ -7,6 +9,7 @@ public class Bruger {
     private String password;
     private String fotoURL;
     private boolean erBehandler;
+    private ArrayList<String> behandlere;
 
     public Bruger(){
     }
@@ -16,7 +19,12 @@ public class Bruger {
         this.email = email;
         this.password = password;
         this.erBehandler = erBehandler;
+        behandlere = new ArrayList<>();
     }
+
+    public ArrayList<String> getBehandlere() {return behandlere;}
+
+    public void setBehandlere(ArrayList<String> behandlere) {this.behandlere = behandlere;}
 
     public String getNavn() {
         return navn;

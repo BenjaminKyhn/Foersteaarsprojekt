@@ -1,4 +1,4 @@
-package unittests.usecases;
+package model;
 import static org.junit.Assert.*;
 
 import entities.Bruger;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 /**@author Tommy**/
 public class BrugerManagerTest {
     @Test
-    public void UT010401() {
+    public void opretBrugerUT010401() {
         MockBruger mockBruger = new MockBruger("Johnny", "fas39luck", false);
         BrugerManager brugerManager = new TestbarBrugerManager();
         brugerManager.setAktivBruger(mockBruger);
@@ -20,7 +20,7 @@ public class BrugerManagerTest {
     }
 
     @Test
-    public void UT010402() throws BrugerErIkkeBehandlerException, TomPasswordException, PasswordLaengdeException, TomNavnException, EksisterendeBrugerException, TomEmailException {
+    public void opretBrugerUT010402() throws BrugerErIkkeBehandlerException, TomPasswordException, PasswordLaengdeException, TomNavnException, EksisterendeBrugerException, TomEmailException {
         MockBruger mockBruger = new MockBruger("Johnny", "fas39luck", true);
         BrugerManager brugerManager = new TestbarBrugerManager();
         brugerManager.setAktivBruger(mockBruger);
@@ -34,7 +34,7 @@ public class BrugerManagerTest {
     }
 
     @Test
-    public void UT020101() throws ForkertPasswordException {
+    public void sletBrugerUT020101() throws ForkertPasswordException {
         String test123 = "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae";
         MockBruger mockBruger = new MockBruger("Johnny", test123, true);
         BrugerManager brugerManager = new TestbarBrugerManager(mockBruger);
@@ -45,13 +45,43 @@ public class BrugerManagerTest {
     }
 
     @Test
-    public void UT020102() {
+    public void sletBrugerUT020102() {
         String test123 = "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae";
         MockBruger mockBruger = new MockBruger("Johnny", test123, true);
         BrugerManager brugerManager = new TestbarBrugerManager(mockBruger);
         brugerManager.setAktivBruger(mockBruger);
         assertNotNull(brugerManager.getAktivBruger());
         assertThrows(ForkertPasswordException.class, () -> brugerManager.sletBruger(mockBruger, "test1234"));
+    }
+
+    @Test
+    public void tilknytBehandlerUT050101() throws ForkertRolleException, BehandlerFindesAlleredeException {
+        String test123 = "";
+        MockBruger patient = new MockBruger("Stanley Woo", test123, false);
+        MockBruger behandler = new MockBruger("Tommy Lee", test123, true);
+        BrugerManager brugerManager = new TestbarBrugerManager();
+        brugerManager.tilknytBehandler(patient, behandler);
+        assertEquals("Tommy Lee", patient.getBehandlere().get(0));
+
+    }
+
+   @Test
+   public void tilknytBehandlerUT050102() {
+        String test123 = "";
+       MockBruger patient = new MockBruger("Flint Westwood", test123, true);
+       MockBruger behandler = new MockBruger("Stevie Wonders", test123, false);
+       BrugerManager brugerManager = new TestbarBrugerManager();
+       assertThrows(ForkertRolleException.class, () -> brugerManager.tilknytBehandler(patient, behandler));
+    }
+
+    @Test
+    public void tilknytBehandlerUT050103() {
+        String test123 = "";
+        MockBruger patient = new MockBruger("Warwick Davis", test123, false);
+        MockBruger behandler = new MockBruger("Charles Manson", test123, true);
+        patient.setBehandlere(null);
+        BrugerManager brugerManager = new TestbarBrugerManager();
+        assertThrows(NullPointerException.class, () -> brugerManager.tilknytBehandler(patient,behandler));
     }
 
     private class MockBruger extends Bruger {
@@ -63,6 +93,7 @@ public class BrugerManagerTest {
             this.navn = navn;
             this.password = password;
             this.erBehandler = erBehandler;
+            setBehandlere(new ArrayList<>());
         }
 
         @Override
