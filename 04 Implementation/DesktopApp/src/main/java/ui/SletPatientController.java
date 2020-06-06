@@ -25,29 +25,39 @@ public class SletPatientController {
     @FXML
     private Button btnBekraeft;
 
-    public void initialize(){
-        if (patient != null)
-        lblNavn.setText(patient.getNavn());
-
+    public void initialize() {
         btnBekraeft.setOnMouseClicked(e -> sletPatient());
     }
 
-    public SletPatientController(){
+    public void initData(Bruger patient) {
+        if (patient != null) {
+            this.patient = patient;
+            lblNavn.setText(patient.getNavn());
+        }
+    }
+
+    public SletPatientController() {
         brugerFacade = BrugerFacade.getInstance();
     }
 
-    public void sletPatient(){
+    public void sletPatient() {
         String email = tfEmail.getText();
         String gentagEmail = tfGentagEmail.getText();
         if (!email.equals(gentagEmail))
-            System.out.println("Fejl: email matcher ikke");
-
-        if (patient != null){
-            try {
-                brugerFacade.sletPatient(patient, email);
-            } catch (ForkertEmailException fee){
-                popupWindow("Forkert email indtastet");
+            popupWindow("Fejl: email matcher ikke");
+        else {
+            if (patient != null) {
+                try {
+                    brugerFacade.sletPatient(patient, email);
+                    patient = null;
+                } catch (ForkertEmailException fee) {
+                    popupWindow("Fejl: Forkert email indtastet");
+                }
+                if (patient == null)
+                    popupWindow("Patientens bruger er slettet");
             }
+            else
+                popupWindow("Patienten findes ikke i systemet");
         }
     }
 
@@ -70,10 +80,4 @@ public class SletPatientController {
         SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
         systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
-
-    public void setPatient(Bruger patient) {
-        this.patient = patient;
-    }
-
-
 }

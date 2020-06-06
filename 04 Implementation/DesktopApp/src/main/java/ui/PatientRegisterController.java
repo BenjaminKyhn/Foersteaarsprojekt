@@ -143,9 +143,6 @@ public class PatientRegisterController {
         if (patient == null) {
             popupWindow("Ingen patient valgt");
         } else {
-            SletPatientController sletPatientController = new SletPatientController();
-            sletPatientController.setPatient(patient);
-
             Parent root = null;
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SletPatient.fxml"));
             try {
@@ -160,6 +157,9 @@ public class PatientRegisterController {
             stage.setTitle("Slet Patient");
             stage.setScene(popupScene);
             stage.show();
+
+            SletPatientController sletPatientController = fxmlLoader.getController();
+            sletPatientController.initData(patient);
         }
     }
 }

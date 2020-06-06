@@ -36,13 +36,13 @@ public class SletBrugerController {
         String password = tfPassword.getText();
         String gentagPassword = tfGentagPw.getText();
         if (!password.equals(gentagPassword))
-            System.out.println("Fejl: password matcher ikke");
+            popupWindow("Fejl: password matcher ikke");
 
         try {
             brugerFacade.sletBruger(aktivBruger, password);
             skiftTilStartscene();
         } catch (ForkertPasswordException fpe){
-            System.out.println("Fejl: passwordet er forkert");
+            popupWindow("Fejl: passwordet er forkert");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -61,5 +61,25 @@ public class SletBrugerController {
 
         Stage stage = (Stage) sletBrugerAnchorPane.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    public void popupWindow(String infoText) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        try {
+            root = fxmlLoader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Infoboks");
+        stage.setScene(popupScene);
+        stage.show();
+
+        SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
+        systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
 }
