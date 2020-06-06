@@ -61,13 +61,16 @@ public class PatientRegisterController {
 
         /* Tilføj et events til knapperne */
         btnOpretPatient.setOnMouseClicked(e -> opretPatient());
-
+        btnSletPatient.setOnMouseClicked(e -> {
+            Bruger patient = patientTableView.getSelectionModel().getSelectedItem();
+            sletPatient(patient);
+        });
         btnTilknytBehandler.setOnMouseClicked(e -> {
             try {
                 tilknytBehandler();
             } catch (ForkertRolleException fre) {
                 popupWindow("Brugeren er ikke behandler");
-            } catch (BehandlerFindesAlleredeException bfae){
+            } catch (BehandlerFindesAlleredeException bfae) {
                 popupWindow("Behandleren er allerede tilknyttet denne patient");
             }
         });
@@ -75,14 +78,16 @@ public class PatientRegisterController {
         brugerFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("Ny Behandler")){
+                if (evt.getPropertyName().equals("Ny Behandler")) {
                     databaseManager.opdaterBruger((Bruger) evt.getNewValue());
                 }
             }
         });
     }
 
-    /** @author Benjamin */
+    /**
+     * @author Benjamin
+     */
     public void tilknytBehandler() throws ForkertRolleException, BehandlerFindesAlleredeException {
         if (patientTableView.getSelectionModel().getSelectedItem() != null && behandlerChoiceBox.getSelectionModel().getSelectedItem() != null) {
             Bruger patient = patientTableView.getSelectionModel().getSelectedItem();
@@ -122,7 +127,7 @@ public class PatientRegisterController {
         systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
 
-    public void opretPatient(){
+    public void opretPatient() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/OpretBruger.fxml"));
@@ -132,5 +137,29 @@ public class PatientRegisterController {
         Scene scene = new Scene(root);
         Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    public void sletPatient(Bruger patient) {
+        if (patient == null) {
+            popupWindow("Ingen patient valgt");
+        } else {
+            SletPatientController sletPatientController = new SletPatientController();
+            sletPatientController.setPatient(patient);
+
+            Parent root = null;
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SletPatient.fxml"));
+            try {
+                root = fxmlLoader.load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            assert root != null;
+
+            Scene popupScene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle("Slet Patient");
+            stage.setScene(popupScene);
+            stage.show();
+        }
     }
 }

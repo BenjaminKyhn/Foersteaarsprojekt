@@ -52,6 +52,10 @@ public class BrugerFacade {
         brugerManager.sletBruger(bruger, password);
     }
 
+    public void sletPatient(Bruger bruger, String email) throws ForkertEmailException {
+        brugerManager.sletPatient(bruger, email);
+    }
+
     public boolean logInd(String email, String password) throws ForkertPasswordException {
         return brugerManager.logInd(email, password);
     }

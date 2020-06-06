@@ -81,6 +81,12 @@ public class BrugerManager {
         // TODO Anders ville have Bruger til at klare hashing?
     }
 
+    public void sletPatient(Bruger bruger, String email) throws ForkertEmailException {
+        if (!email.equals(bruger.getEmail()))
+            throw new ForkertEmailException();
+        brugere.remove(bruger);
+    }
+
     public Bruger getAktivBruger() {
         return aktivBruger;
     }
