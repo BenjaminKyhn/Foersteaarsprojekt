@@ -9,12 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.model.ObserverbarListe;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.VaelgChatHolder> {
-    private List<Chat> chats = new ObserverbarListe<>();
+    private ArrayList<Chat> chats = new ArrayList<>();
     private String aktivBruger;
     private ItemClickListener itemClickListener;
 
@@ -45,7 +44,7 @@ public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.Vael
         return chats.size();
     }
 
-    void setChats(List<Chat> chats) {
+    void setChats(ArrayList<Chat> chats) {
         this.chats = chats;
         notifyDataSetChanged();
     }

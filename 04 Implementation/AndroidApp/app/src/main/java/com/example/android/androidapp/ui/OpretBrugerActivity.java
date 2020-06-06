@@ -18,11 +18,11 @@ import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.entities.exceptions.BrugerLoggedeIndException;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.model.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 /**@author Kelvin**/
 public class OpretBrugerActivity extends AppCompatActivity {
@@ -42,13 +42,10 @@ public class OpretBrugerActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
         brugerFacade = BrugerFacade.hentInstans();
 
-        ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
-        brugerFacade.saetListeAfBrugere(brugere);
-
-        brugere.tilfoejListener(new PropertyChangeListener() {
+        brugerFacade.tilfoejListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("nyAddition")) {
+                if (evt.getPropertyName().equals("opretBruger")) {
                     DatabaseManager databaseManager = new DatabaseManager();
                     Bruger bruger = (Bruger) evt.getNewValue();
                     databaseManager.gemBruger(bruger);

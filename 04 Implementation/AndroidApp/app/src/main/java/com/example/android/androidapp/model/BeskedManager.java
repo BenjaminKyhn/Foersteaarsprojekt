@@ -8,19 +8,21 @@ import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.entities.exceptions.TomEmneException;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
 class BeskedManager {
-    private List<Chat> chats;
+    private ArrayList<Chat> chats;
     private BrugerManager brugerManager;
+    private PropertyChangeSupport support;
 
     public BeskedManager() {
         brugerManager = newBrugerManager();
-    }
-
-    public BeskedManager(BrugerManager brugerManager) {
-        this.brugerManager = brugerManager;
+        support = new PropertyChangeSupport(this);
+        chats = new ArrayList<>();
     }
 
     Chat hentChat(String afsender, String modtager, String emne) {
@@ -45,8 +47,7 @@ class BeskedManager {
             throw new BrugerFindesIkkeException();
         Chat chat = new Chat(afsender, hentedeBruger.getNavn(), emne);
         chats.add(chat);
-
-        //TODO Lav tjek, om modtageren eksister. Der skal laves en setter til brugerManager;
+        support.firePropertyChange("opretChat", null, chat);
     }
 
     void sendBesked(String besked, Chat chat, String afsender, String modtager) throws TomBeskedException, ForMangeTegnException {
@@ -57,15 +58,27 @@ class BeskedManager {
         chat.tilfoejBesked(beskedObjekt);
     }
 
-    void setChats(List<Chat> chats) {
+    void setChats(ArrayList<Chat> chats) {
         this.chats = chats;
     }
 
-    public List<Chat> hentChats() {
+    ArrayList<Chat> hentChats() {
         return chats;
+    }
+
+    void tilfoejListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    void fjernListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 
     protected BrugerManager newBrugerManager() {
         return new BrugerManager();
+    }
+
+    void setBrugerManager(BrugerManager brugerManager) {
+        this.brugerManager = brugerManager;
     }
 }

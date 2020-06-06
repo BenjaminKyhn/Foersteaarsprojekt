@@ -14,11 +14,11 @@ import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 class Validering {
     private BrugerManager brugerManager;
 
-    public Validering() {
+    Validering() {
         brugerManager = newBrugerManager();
     }
 
-    public Validering(BrugerManager brugerManager) {
+    Validering(BrugerManager brugerManager) {
         this.brugerManager = brugerManager;
     }
 

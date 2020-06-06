@@ -28,7 +28,6 @@ import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
-    DatabaseManager databaseManager;
     TextInputEditText beskedFelt;
     ArrayList<Besked> beskeder;
     ChatAdapter chatAdapter;
@@ -56,7 +55,7 @@ public class ChatActivity extends AppCompatActivity {
         String emne = intent.getStringExtra("emne");
         String modpart = intent.getStringExtra("modpart");
 
-        databaseManager = new DatabaseManager();
+
 
         chatPresenter = new ChatPresenter(afsender, modtager, emne);
         chatPresenter.setBeskedAfsender(bruger);
@@ -64,7 +63,7 @@ public class ChatActivity extends AppCompatActivity {
         chatPresenter.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("nyBesked")) {
+                if (evt.getPropertyName().equals("nyBeskedPresenter")) {
                     chatAdapter.setBeskeder(beskeder);
                     recyclerView.smoothScrollToPosition(beskeder.size() - 1);
                 }
@@ -72,9 +71,6 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         beskeder = chatPresenter.getBeskeder();
-
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.observerBeskederFraFirestore(chatPresenter.getChat());
 
         ImageView menu = findViewById(R.id.burgerMenu);
 
@@ -113,6 +109,7 @@ public class ChatActivity extends AppCompatActivity {
         String besked = beskedFelt.getText().toString();
         try {
             chatPresenter.sendBesked(besked);
+            beskedFelt.setText("");
         } catch (TomBeskedException e) {
             Toast.makeText(this, "Beskeden må ikke være tom", Toast.LENGTH_SHORT).show();
         } catch (ForMangeTegnException e) {

@@ -6,11 +6,9 @@ import androidx.annotation.Nullable;
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.model.ObserverbarListe;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -32,11 +30,9 @@ import java.util.List;
  **/
 public class DatabaseManager {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    private ObserverbarListe<Chat> nuvaerendeChats;
-    private boolean read;
+    private ArrayList<Chat> nuvaerendeChats;
     private boolean write;
     private PropertyChangeSupport support;
-    private PropertyChangeListener[] listeners;
 
     public DatabaseManager() {
         support = new PropertyChangeSupport(this);
@@ -116,8 +112,8 @@ public class DatabaseManager {
         });
     }
 
-    public void hentChatsTilBruger(String navn, List<Chat> chats) {
-        nuvaerendeChats = (ObserverbarListe<Chat>) chats;
+    public void hentChatsTilBruger(String navn, ArrayList<Chat> chats) {
+        nuvaerendeChats = chats;
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
         Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
 
@@ -132,9 +128,8 @@ public class DatabaseManager {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                             List<Besked> beskeder = queryDocumentSnapshots.toObjects(Besked.class);
-                            ObserverbarListe<Besked> observerbarListe = new ObserverbarListe<>();
-                            observerbarListe.addAll(beskeder);
-                            chat.setBeskeder(observerbarListe);
+                            ArrayList<Besked> arrayList = new ArrayList<>(beskeder);
+                            chat.setBeskeder(arrayList);
                             nuvaerendeChats.add(chat);
                             Collections.sort(nuvaerendeChats, Chat.sorterVedSidstAktiv);
                         }
@@ -201,7 +196,7 @@ public class DatabaseManager {
         });
     }
 
-    public void hentProgram(Bruger bruger, final ObserverbarListe<String> program) {
+    public void hentProgram(Bruger bruger, final ArrayList<String> program) {
         firestore.collection("træningsprogram").document(bruger.getEmail()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -222,10 +217,5 @@ public class DatabaseManager {
 
     public void fjernListener(PropertyChangeListener propertyChangeListener) {
         support.removePropertyChangeListener(propertyChangeListener);
-    }
-
-    public void fjernAlleListeners() {
-        listeners = support.getPropertyChangeListeners();
-        listeners = null;
     }
 }

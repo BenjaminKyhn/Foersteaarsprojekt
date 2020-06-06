@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolder> {
-    private List<Besked> beskeder = new ArrayList<>();
+    private ArrayList<Besked> beskeder = new ArrayList<>();
 
     @NonNull
     @Override
@@ -42,7 +42,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
         return beskeder.size();
     }
 
-    void setBeskeder(List<Besked> beskeder) {
+    void setBeskeder(ArrayList<Besked> beskeder) {
         this.beskeder = beskeder;
         notifyDataSetChanged();
     }

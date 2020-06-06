@@ -4,13 +4,21 @@ import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.exceptions.BrugerLoggedeIndException;
 import com.example.android.androidapp.entities.exceptions.ForkertPasswordException;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
 class BrugerManager {
     private Bruger aktivBruger;
-    private List<Bruger> brugere;
+    private ArrayList<Bruger> brugere;
+    private PropertyChangeSupport support;
+
+    BrugerManager() {
+        support = new PropertyChangeSupport(this);
+        brugere = new ArrayList<>();
+    }
 
     Bruger hentBrugerMedNavn(String navn) {
         for (Bruger bruger : brugere) {
@@ -37,6 +45,7 @@ class BrugerManager {
         Bruger bruger = new Bruger(navn, email, password, false);
         brugere.add(bruger);
         aktivBruger = bruger;
+        support.firePropertyChange("opretBruger", null, bruger);
     }
 
     void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
@@ -45,6 +54,7 @@ class BrugerManager {
         }
         brugere.remove(bruger);
         aktivBruger = null;
+        support.firePropertyChange("sletBruger", null, bruger);
     }
 
     boolean logInd(String email, String password) {
@@ -66,11 +76,11 @@ class BrugerManager {
         }
     }
 
-    void setBrugere(List<Bruger> brugere) {
+    void setBrugere(ArrayList<Bruger> brugere) {
         this.brugere = brugere;
     }
 
-    public List<Bruger> hentBrugere() {
+    public ArrayList<Bruger> hentBrugere() {
         return brugere;
     }
 
@@ -86,5 +96,13 @@ class BrugerManager {
 
     Bruger getAktivBruger() {
         return aktivBruger;
+    }
+
+    void tilfoejListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    void fjernListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }

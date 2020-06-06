@@ -18,15 +18,9 @@ import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.model.ObserverbarListe;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.firestore.DocumentSnapshot;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.List;
+import java.util.ArrayList;
 
 /**@author Patrick**/
 public class LoginActivity extends AppCompatActivity {
@@ -87,10 +81,9 @@ public class LoginActivity extends AppCompatActivity {
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentBrugerMedEmail(email);
 
-        databaseManager.fjernAlleListeners();
         databaseManager.tilfoejListener(evt -> {
             if (evt.getPropertyName().equals("hentBrugerMedEmailSuccess")) {
-                List<Bruger> brugerList = new ObserverbarListe<>();
+                ArrayList<Bruger> brugerList = new ArrayList<>();
                 brugerList.add((Bruger) evt.getNewValue());
                 brugerFacade.saetListeAfBrugere(brugerList);
                 boolean loggedeInd = brugerFacade.logInd(email, password);
