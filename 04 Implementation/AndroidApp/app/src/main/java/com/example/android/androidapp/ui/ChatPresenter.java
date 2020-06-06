@@ -18,11 +18,17 @@ class ChatPresenter {
     private String beskedModtager;
     private ArrayList<Besked> beskeder;
     private PropertyChangeSupport support;
+    private DatabaseManager databaseManager;
+    private boolean write;
+
+
     ChatPresenter(String afsender, String modtager, String emne) {
         chat = BeskedFacade.hentInstans().hentChat(afsender, modtager, emne);
         beskeder = chat.getBeskeder();
         support = new PropertyChangeSupport(this);
         observerChat(chat);
+        databaseManager = new DatabaseManager();
+        databaseManager.observerBeskederFraFirestore(chat);
     }
 
     private void observerChat(final Chat chat) {
@@ -30,8 +36,12 @@ class ChatPresenter {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("nyBesked")) {
+                    if (write) {
+                        databaseManager.opdaterChat(chat);
+                    }
+                    write = false;
                     if (!evt.getNewValue().equals(chat.getBeskeder().get(chat.getBeskeder().size() - 1))) {
-                        support.firePropertyChange("nyBesked", null, beskeder);
+                        support.firePropertyChange("nyBeskedPresenter", null, beskeder);
                     }
                 }
             }
@@ -43,11 +53,10 @@ class ChatPresenter {
     }
 
     void sendBesked(String besked) throws TomBeskedException, ForMangeTegnException {
+        write = true;
         BeskedFacade beskedFacade = BeskedFacade.hentInstans();
         beskedFacade.tjekBesked(besked);
         beskedFacade.sendBesked(besked, chat, beskedAfsender, beskedModtager);
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.opdaterChat(chat);
     }
 
     public ArrayList<Besked> getBeskeder() {

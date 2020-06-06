@@ -5,6 +5,8 @@ import entities.Chat;
 import entities.exceptions.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /** @author Benjamin */
@@ -110,20 +112,20 @@ public class STD0301 {
     }
 
     private class MockDatabaseManager {
-        public ObserverbarListe<Chat> hentChats() {
-            ObserverbarListe<Chat> chats = new ObserverbarListe<>();
+        public ArrayList<Chat> hentChats() {
+            ArrayList<Chat> chats = new ArrayList<>();
             Chat chat = new Chat("Karsten Wiren", "Christian Iuul",
                     "Hold i nakken", System.currentTimeMillis());
             chats.add(chat);
             return chats;
         }
 
-        public ObserverbarListe<Bruger> hentBrugere() {
+        public ArrayList<Bruger> hentBrugere() {
 
             TekstHasher tekstHasher = new TekstHasher();
             String password = tekstHasher.hashTekst("testpw");
 
-            ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
+            ArrayList<Bruger> brugere = new ArrayList<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk",
                     password, true);
             Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com",

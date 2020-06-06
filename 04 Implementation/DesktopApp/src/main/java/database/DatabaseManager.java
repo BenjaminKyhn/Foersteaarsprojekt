@@ -11,7 +11,6 @@ import com.google.firebase.cloud.FirestoreClient;
 import entities.Besked;
 import entities.Bruger;
 import entities.Chat;
-import model.ObserverbarListe;
 
 import javax.annotation.Nullable;
 import java.io.FileInputStream;
@@ -104,8 +103,8 @@ public class DatabaseManager {
         return bruger;
     }
 
-    public ObserverbarListe<Bruger> hentBrugere() {
-        ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
+    public ArrayList<Bruger> hentBrugere() {
+        ArrayList<Bruger> brugere = new ArrayList<>();
         Query query = firestore.collection("brugere");
 
         try {
@@ -126,8 +125,8 @@ public class DatabaseManager {
         firestore.collection("chats").document().create(chat);
     }
 
-    public List<Chat> hentChatsMedNavn(String navn) {
-        List<Chat> chats = new ObserverbarListe<>();
+    public ArrayList<Chat> hentChatsMedNavn(String navn) {
+        ArrayList<Chat> chats = new ArrayList<>();
 
         /** Lav 2 queries, fordi navnet både kan være afsender og modtager */
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
@@ -263,7 +262,7 @@ public class DatabaseManager {
         }
     }
 
-    public void opdaterTraeningsprogram(Bruger bruger, ObserverbarListe<String> program) {
+    public void opdaterTraeningsprogram(Bruger bruger, ArrayList<String> program) {
         ArrayList<Object> cast = new ArrayList<>(program);
         Map<String, Object> map = new HashMap<>();
         map.put("program", cast);

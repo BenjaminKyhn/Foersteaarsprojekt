@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 /** @author Tommy */
 public class TraeningsprogramFacade {
     TraeningsprogramManager traeningsprogramManager;
@@ -16,11 +18,11 @@ public class TraeningsprogramFacade {
         traeningsprogramManager.fjernOevelse(oevelse);
     }
 
-    public void angivListe(ObserverbarListe<String> liste) {
+    public void angivListe(ArrayList<String> liste) {
         traeningsprogramManager.angivListe(liste);
     }
 
-    public ObserverbarListe<String> hentListe() {
+    public ArrayList<String> hentListe() {
         return traeningsprogramManager.hentListe();
     }
 }

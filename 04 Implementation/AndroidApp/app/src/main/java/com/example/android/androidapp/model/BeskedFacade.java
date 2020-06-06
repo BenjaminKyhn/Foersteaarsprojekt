@@ -6,6 +6,8 @@ import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.entities.exceptions.TomEmneException;
 
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
@@ -34,7 +36,7 @@ public class BeskedFacade {
         beskedManager.opretChat(afsender, modtager, emne);
     }
 
-    public List<Chat> hentNuvaerendeListe() {
+    public ArrayList<Chat> hentNuvaerendeListe() {
         return beskedManager.hentChats();
     }
 
@@ -50,7 +52,19 @@ public class BeskedFacade {
         validering.tjekBesked(besked);
     }
 
-    public void saetListeAfChats(List<Chat> chats) {
+    public void saetListeAfChats(ArrayList<Chat> chats) {
         beskedManager.setChats(chats);
+    }
+
+    public void tilfoejListener(PropertyChangeListener listener) {
+        beskedManager.tilfoejListener(listener);
+    }
+
+    public void fjernListener(PropertyChangeListener listener) {
+        beskedManager.fjernListener(listener);
+    }
+
+    public void setBrugerManager(BrugerManager brugerManager) {
+        beskedManager.setBrugerManager(brugerManager);
     }
 }

@@ -9,6 +9,7 @@ import com.example.android.androidapp.entities.exceptions.TomEmailException;
 import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class BrugerFacade {
         brugerManager.logUd();
     }
 
-    public void saetListeAfBrugere(List<Bruger> brugere) {
+    public void saetListeAfBrugere(ArrayList<Bruger> brugere) {
         brugerManager.setBrugere(brugere);
     }
 
@@ -66,7 +67,7 @@ public class BrugerFacade {
         return brugerManager.getAktivBruger();
     }
 
-    public List<Bruger> hentBrugere() {
+    public ArrayList<Bruger> hentBrugere() {
         return brugerManager.hentBrugere();
     }
 
@@ -76,5 +77,13 @@ public class BrugerFacade {
 
     public BrugerManager hentBrugerManager() {
         return brugerManager;
+    }
+
+    public void tilfoejListener(PropertyChangeListener listener) {
+        brugerManager.tilfoejListener(listener);
+    }
+
+    public void fjernListener(PropertyChangeListener listener) {
+        brugerManager.tilfoejListener(listener);
     }
 }

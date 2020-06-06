@@ -14,11 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.BrugerFacade;
-import model.ObserverbarListe;
 import database.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 /**
  * @author Benjamin
@@ -26,7 +26,7 @@ import java.beans.PropertyChangeListener;
 public class OpretBrugerController {
     private BrugerFacade brugerFacade;
     private Bruger aktivBruger;
-    private ObserverbarListe<Bruger> brugere;
+    private ArrayList<Bruger> brugere;
 
     @FXML
     private AnchorPane opretBrugerAnchorPane;
@@ -47,19 +47,19 @@ public class OpretBrugerController {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
         if (brugerFacade.hentBrugere() == null){
-            brugere = new ObserverbarListe<>();
+            brugere = new ArrayList<>();
             brugerFacade.setBrugere(brugere);
         }
 
         else {
-            brugere = (ObserverbarListe<Bruger>) brugerFacade.hentBrugere();
+            brugere = brugerFacade.hentBrugere();
         }
 
         /** Tilføj observer på listen */
-        brugere.tilfoejObserver(new PropertyChangeListener() {
+        brugerFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("Ny Addition"))
+                if (evt.getPropertyName().equals("opretBruger"))
                     DatabaseManager.getInstance().gemBruger((Bruger) evt.getNewValue());
             }
         });

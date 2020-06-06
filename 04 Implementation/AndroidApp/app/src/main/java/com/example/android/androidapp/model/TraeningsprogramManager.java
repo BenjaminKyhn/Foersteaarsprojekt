@@ -1,30 +1,37 @@
 package com.example.android.androidapp.model;
 
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+
 /** @author Tommy */
 public class TraeningsprogramManager {
-    ObserverbarListe<String> program;
+    private ArrayList<String> program;
+    private PropertyChangeSupport support;
 
-    public TraeningsprogramManager() {
-        program = new ObserverbarListe<>();
+    TraeningsprogramManager() {
+        program = new ArrayList<>();
+        support = new PropertyChangeSupport(this);
     }
 
-    public void tilfoejOevelse(String oevelse) {
+    void tilfoejOevelse(String oevelse) {
         program.add(oevelse);
+        support.firePropertyChange("tilfoejOevelse", null, oevelse);
     }
 
-    public void fjernOevelse(String oevelse) {
+    void fjernOevelse(String oevelse) {
         for (String programoevelse : program) {
             if (programoevelse.equals(oevelse)) {
                 program.remove(programoevelse);
+                support.firePropertyChange("fjernOevelse", null, programoevelse);
             }
         }
     }
 
-    public void angivListe(ObserverbarListe<String> liste) {
+    void angivListe(ArrayList<String> liste) {
         program = liste;
     }
 
-    public ObserverbarListe<String> hentListe() {
+    ArrayList<String> hentListe() {
         return program;
     }
 

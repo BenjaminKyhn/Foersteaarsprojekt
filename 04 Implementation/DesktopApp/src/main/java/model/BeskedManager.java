@@ -5,6 +5,8 @@ import entities.Bruger;
 import entities.Chat;
 import entities.exceptions.BrugerFindesIkkeException;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +16,12 @@ import java.util.List;
 public class BeskedManager {
     private BrugerManager brugerManager;
     private static BeskedManager beskedManager;
-    private List<Chat> chats;
+    private ArrayList<Chat> chats;
+    private PropertyChangeSupport support;
 
     public BeskedManager() {
         brugerManager = newBrugerManager();
+        support = new PropertyChangeSupport(this);
     }
 
     public static synchronized BeskedManager getInstance() {
@@ -35,6 +39,7 @@ public class BeskedManager {
             throw new BrugerFindesIkkeException();
         Chat nyChat = new Chat(afsender.getNavn(), modtager.getNavn(), emne, sidstAktiv);
         chats.add(nyChat);
+        support.firePropertyChange("opretChat", null, nyChat);
     }
 
     public Chat hentChat(String afsender, String modtager, String emne) {
@@ -47,7 +52,7 @@ public class BeskedManager {
         return null;
     }
 
-    public List<Chat> hentChats() {
+    public ArrayList<Chat> hentChats() {
         return chats;
     }
 
@@ -75,7 +80,11 @@ public class BeskedManager {
         return BrugerManager.getInstance();
     }
 
-    public void setChats(List<Chat> chats) {
+    public void setChats(ArrayList<Chat> chats) {
         this.chats = chats;
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        support.addPropertyChangeListener(listener);
     }
 }

@@ -22,17 +22,17 @@ import com.example.android.androidapp.entities.exceptions.TomEmneException;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.model.ObserverbarListe;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class VaelgChatActivity extends AppCompatActivity implements ItemClickListener, VaelgChatDialog.VaelgChatListener {
     DrawerLayout drawerLayout;
     BeskedFacade beskedFacade;
     BrugerFacade brugerFacade;
-    ObserverbarListe<Chat> chats;
+    ArrayList<Chat> chats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +58,14 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
         brugerFacade = BrugerFacade.hentInstans();
         beskedFacade = BeskedFacade.hentInstans();
 
-        chats = (ObserverbarListe<Chat>) beskedFacade.hentNuvaerendeListe();
+        chats = beskedFacade.hentNuvaerendeListe();
 
-        final VaelgChatAdapter vaelgChatAdapter = new VaelgChatAdapter(brugerFacade.hentAktivBruger().getNavn());
+        VaelgChatAdapter vaelgChatAdapter = new VaelgChatAdapter(brugerFacade.hentAktivBruger().getNavn());
 
-        chats.tilfoejListener(new PropertyChangeListener() {
+        beskedFacade.tilfoejListener(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("nyAddition")) {
+                if (evt.getPropertyName().equals("opretChat")) {
                     new DatabaseManager().gemChat((Chat) evt.getNewValue());
                     vaelgChatAdapter.setChats(chats);
                 }
@@ -121,6 +121,7 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
     @Override
     public void nySamtale(String modtager, String emne) {
         String afsender =  brugerFacade.hentAktivBruger().getNavn();
+        beskedFacade.setBrugerManager(brugerFacade.hentBrugerManager());
         try {
             beskedFacade.opretChat(afsender, modtager, emne);
         } catch (BrugerFindesIkkeException e) {

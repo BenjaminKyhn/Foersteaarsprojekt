@@ -23,7 +23,6 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
-import model.ObserverbarListe;
 import database.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;
@@ -39,7 +38,7 @@ public class ChatWindowController {
     private BrugerFacade brugerFacade;
     private ChatWindowChatController selectedChatController;
     private Chat selectedChat;
-    private ObserverbarListe<Chat> chats;
+    private ArrayList<Chat> chats;
     private Bruger aktivBruger;
 
     @FXML
@@ -76,13 +75,13 @@ public class ChatWindowController {
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
-        chats = (ObserverbarListe<Chat>) beskedFacade.hentChats();
+        chats = beskedFacade.hentChats();
 
         /** Tilføj observer på nye chats */
-        chats.tilfoejObserver(new PropertyChangeListener() {
+        beskedFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("Ny Addition")) {
+                if (evt.getPropertyName().equals("opretChat")) {
                     DatabaseManager.getInstance().opretChat((Chat) evt.getNewValue());
                 }
             }

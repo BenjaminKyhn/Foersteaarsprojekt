@@ -4,6 +4,8 @@ import entities.Bruger;
 import entities.exceptions.ForkertPasswordException;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /** @author Benjamin */
@@ -32,11 +34,11 @@ public class STD0201 {
         /** Vi starter med at hashe passwordet, fordi metoden sletBruger hasher det indtastede password. Dvs. det
          * password, der ligger i listen af brugere, er nødt til at være hashed, før sletBruger kan lave et
          * passwordtjek.*/
-        public ObserverbarListe<Bruger> hentBrugere() {
+        public ArrayList<Bruger> hentBrugere() {
             TekstHasher tekstHasher = new TekstHasher();
             String password = tekstHasher.hashTekst("testpw");
 
-            ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
+            ArrayList<Bruger> brugere = new ArrayList<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", password, true);
             Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com", password, false);
             Bruger patient2 = new Bruger("Karsten Wiren", "karstenw@gmail.com", password, false);

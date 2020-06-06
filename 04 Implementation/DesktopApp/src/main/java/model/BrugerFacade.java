@@ -4,6 +4,7 @@ import entities.Bruger;
 import entities.exceptions.*;
 
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -72,21 +73,21 @@ public class BrugerFacade {
         return brugerManager.hentBrugerMedNavn(navn);
     }
 
-    public void setBrugere(List<Bruger> brugere){
+    public void setBrugere(ArrayList<Bruger> brugere){
         brugerManager.setBrugere(brugere);
     }
 
-    public List<Bruger> hentBrugere(){
+    public ArrayList<Bruger> hentBrugere(){
         return brugerManager.hentBrugere();
     }
 
     /** @author Kelvin */
-    public List<Bruger> hentPatienter() {
+    public ArrayList<Bruger> hentPatienter() {
         return brugerManager.hentPatienter();
     }
 
     /** @author Benjamin */
-    public List<Bruger> hentBehandlere() {
+    public ArrayList<Bruger> hentBehandlere() {
         return brugerManager.hentBehandlere();
     }
 

@@ -15,16 +15,17 @@ import com.example.android.androidapp.entities.Chat;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
-import com.example.android.androidapp.model.ObserverbarListe;
 import com.example.android.androidapp.model.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 /**@author Patrick**/
 public class MenuActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     BrugerFacade brugerFacade;
     BeskedFacade beskedFacade;
-    ObserverbarListe<Chat> chatListe;
+    ArrayList<Chat> chatListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +50,14 @@ public class MenuActivity extends AppCompatActivity {
         brugerFacade = BrugerFacade.hentInstans();
         beskedFacade = BeskedFacade.hentInstans();
 
-        chatListe = new ObserverbarListe<>();
+        chatListe = new ArrayList<>();
         beskedFacade.saetListeAfChats(chatListe);
 
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
         databaseManager.hentBehandlereTilBruger(brugerFacade.hentAktivBruger(), brugerFacade.hentBrugere());
 
-        ObserverbarListe<String> program = new ObserverbarListe<>();
+        ArrayList<String> program = new ArrayList<>();
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
         databaseManager.hentProgram(BrugerFacade.hentInstans().hentAktivBruger(), program);
         traeningsprogramFacade.angivListe(program);

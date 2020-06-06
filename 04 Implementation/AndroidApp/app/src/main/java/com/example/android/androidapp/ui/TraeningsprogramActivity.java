@@ -15,9 +15,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.android.androidapp.R;
-import com.example.android.androidapp.model.ObserverbarListe;
 import com.example.android.androidapp.model.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
 
 public class TraeningsprogramActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
@@ -68,7 +69,7 @@ public class TraeningsprogramActivity extends AppCompatActivity {
 
     private void initialiserTraeningslayout() {
         final ListView listView = findViewById(R.id.listViewTraening);
-        ObserverbarListe<String> program = TraeningsprogramFacade.hentInstans().hentListe();
+        ArrayList<String> program = TraeningsprogramFacade.hentInstans().hentListe();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, program);
         listView.setAdapter(adapter);
 

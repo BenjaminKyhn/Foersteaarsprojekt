@@ -4,6 +4,7 @@ import entities.Bruger;
 import entities.exceptions.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -66,8 +67,8 @@ public class STD0101 {
     private class MockDatabaseManager {
 
         /** Metoden hentBrugere efterligner metoden i den rigtige DatabaseManager */
-        public ObserverbarListe<Bruger> hentBrugere() {
-            ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
+        public ArrayList<Bruger> hentBrugere() {
+            ArrayList<Bruger> brugere = new ArrayList<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", "testpw", true);
             Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com", "testpw", false);
             Bruger patient2 = new Bruger("Karsten Wiren", "karstenw@gmail.com", "testpw", false);
