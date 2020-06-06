@@ -14,18 +14,22 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 import database.DatabaseManager;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
 import java.util.List;
 
 /**
  * @author Tommy
  */
 public class PatientRegisterController {
+    @FXML
+    private AnchorPane patientregisterAnchorPane;
 
     @FXML
     private TableView<Bruger> patientTableView;
@@ -55,7 +59,9 @@ public class PatientRegisterController {
 
         fyldChoiceBox();
 
-        /** Tilføj et event til knappen */
+        /* Tilføj et events til knapperne */
+        btnOpretPatient.setOnMouseClicked(e -> opretPatient());
+
         btnTilknytBehandler.setOnMouseClicked(e -> {
             try {
                 tilknytBehandler();
@@ -114,5 +120,17 @@ public class PatientRegisterController {
 
         SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
         systemBeskedPopupController.getTxtLabel().setText(infoText);
+    }
+
+    public void opretPatient(){
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/OpretBruger.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
     }
 }

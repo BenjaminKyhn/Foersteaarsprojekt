@@ -34,7 +34,7 @@ public class MenuController {
     private Rectangle topRectangle, bundRectangle;
 
     @FXML
-    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblPatientregister, lblTraeningsprogram, lblOpretPatient;
+    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblPatientregister, lblTraeningsprogram;
 
     @FXML
     private Circle fotoCircle;
@@ -77,7 +77,6 @@ public class MenuController {
         lblIndstillinger.setOnMouseClicked(event -> skiftTilBrugerindstillinger());
         lblPatientregister.setOnMouseClicked(event -> patientregister());
         lblLogUd.setOnMouseClicked(event -> logUd());
-        lblOpretPatient.setOnMouseClicked(event -> opretPatient());
         lblTraeningsprogram.setOnMouseClicked(event -> traeningsprogram());
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
@@ -125,18 +124,6 @@ public class MenuController {
         Scene scene = new Scene(root);
 
         Stage stage = (Stage) menuAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
-    }
-
-    public void opretPatient(){
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/OpretBruger.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
         stage.setScene(scene);
     }
 
