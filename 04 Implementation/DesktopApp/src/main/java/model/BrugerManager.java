@@ -5,6 +5,7 @@ import entities.exceptions.*;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
 public class BrugerManager {
     private Bruger aktivBruger;
     private static BrugerManager brugerManager;
-    private List<Bruger> brugere;
+    private ArrayList<Bruger> brugere;
     private TekstHasher tekstHasher;
     private Validering validering;
     private PropertyChangeSupport support;
@@ -66,6 +67,7 @@ public class BrugerManager {
             String hashedPassword = tekstHasher.hashTekst(password);
             Bruger bruger = new Bruger(navn, email, hashedPassword, erBehandler);
             brugere.add(bruger);
+            support.firePropertyChange("opretBruger", null, bruger);
     }
 
     public void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
@@ -76,6 +78,7 @@ public class BrugerManager {
             throw new ForkertPasswordException();
 
         brugere.remove(bruger);
+        support.firePropertyChange("sletBruger", null, bruger);
 
         aktivBruger = null;
         // TODO Anders ville have Bruger til at klare hashing?
@@ -120,17 +123,17 @@ public class BrugerManager {
         return null;
     }
 
-    public void setBrugere(List<Bruger> brugere) {
+    public void setBrugere(ArrayList<Bruger> brugere) {
         this.brugere = brugere;
     }
 
-    public List<Bruger> hentBrugere() {
+    public ArrayList<Bruger> hentBrugere() {
         return brugere;
     }
 
     /** @author Kelvin */
-    public List<Bruger> hentPatienter() {
-        ObserverbarListe<Bruger> patienter = new ObserverbarListe<>();
+    public ArrayList<Bruger> hentPatienter() {
+        ArrayList<Bruger> patienter = new ArrayList<>();
         if (brugere != null) {
             for (Bruger bruger : brugere) {
                 if (!bruger.isErBehandler()) {
@@ -142,8 +145,8 @@ public class BrugerManager {
     }
 
     /** @author Benjamin */
-    public List<Bruger> hentBehandlere() {
-        ObserverbarListe<Bruger> behandlere = new ObserverbarListe<>();
+    public ArrayList<Bruger> hentBehandlere() {
+        ArrayList<Bruger> behandlere = new ArrayList<>();
         if (brugere != null) {
             for (Bruger bruger : brugere) {
                 if (bruger.isErBehandler()) {

@@ -4,6 +4,8 @@ import entities.Bruger;
 import entities.exceptions.*;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
@@ -41,12 +43,12 @@ public class STD0501 {
     }
 
     private class MockDatabaseManager {
-        public ObserverbarListe<Bruger> hentBrugere() {
+        public ArrayList<Bruger> hentBrugere() {
 
             TekstHasher tekstHasher = new TekstHasher();
             String password = tekstHasher.hashTekst("testpw");
 
-            ObserverbarListe<Bruger> brugere = new ObserverbarListe<>();
+            ArrayList<Bruger> brugere = new ArrayList<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", password, true);
             Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com", password, false);
             Bruger patient2 = new Bruger("Karsten Wiren", "karstenw@gmail.com", password, false);

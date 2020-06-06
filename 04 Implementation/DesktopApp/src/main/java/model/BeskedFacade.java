@@ -7,6 +7,7 @@ import entities.exceptions.ForMangeTegnException;
 import entities.exceptions.TomBeskedException;
 import entities.exceptions.TomEmneException;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class BeskedFacade {
         return beskedManager.hentChat(afsender, modtager, emne);
     }
 
-    public List<Chat> hentChats(){
+    public ArrayList<Chat> hentChats(){
         return beskedManager.hentChats();
     }
 
@@ -58,8 +59,12 @@ public class BeskedFacade {
         validering.tjekBesked(besked);
     }
 
-    public void setChats(List<Chat> chats){
+    public void setChats(ArrayList<Chat> chats){
         beskedManager.setChats(chats);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        beskedManager.tilfoejObserver(listener);
     }
 }
 

@@ -1,26 +1,34 @@
 package model;
 
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+
 /** @author Tommy */
 public class TraeningsprogramManager {
-    ObserverbarListe<String> program;
+    ArrayList<String> program;
+    PropertyChangeSupport support;
 
     public TraeningsprogramManager() {
-        program = new ObserverbarListe<>();
+        program = new ArrayList<>();
+        support = new PropertyChangeSupport(this);
     }
 
     public void tilfoejOevelse(String oevelse) {
         program.add(oevelse);
+        support.firePropertyChange("tilfoejOevelse", null, oevelse);
     }
 
     public void fjernOevelse(String oevelse) {
-        program.removeIf(programoevelse -> programoevelse.equals(oevelse));
+        if (program.removeIf(programoevelse -> programoevelse.equals(oevelse))) {
+            support.firePropertyChange("fjernOevelse", null, oevelse);
+        }
     }
 
-    public void angivListe(ObserverbarListe<String> liste) {
+    public void angivListe(ArrayList<String> liste) {
         program = liste;
     }
 
-    public ObserverbarListe<String> hentListe() {
+    public ArrayList<String> hentListe() {
         return program;
     }
 
