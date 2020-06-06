@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 
+/** @author Benjamin */
 public class SletPatientController {
     private BrugerFacade brugerFacade;
     private Bruger patient;
