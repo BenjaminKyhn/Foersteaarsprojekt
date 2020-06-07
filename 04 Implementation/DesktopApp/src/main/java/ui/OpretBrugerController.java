@@ -55,7 +55,7 @@ public class OpretBrugerController {
             brugere = brugerFacade.hentBrugere();
         }
 
-        /** Tilføj observer på listen */
+        /* Tilføj observer på listen */
         brugerFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
@@ -64,7 +64,7 @@ public class OpretBrugerController {
             }
         });
 
-        /** Sæt events på knapperne */
+        /* Sæt events på knapperne */
         btnOpretBruger.setOnMouseClicked(event -> {
             try {
                 brugerFacade.tjekNavn(tfNavn.getText());
@@ -75,7 +75,7 @@ public class OpretBrugerController {
                     return;
                 }
 
-                /** Tilføj bruger til listen i BrugerManager */
+                /* Tilføj bruger til listen i BrugerManager */
                 boolean erBehandler = false;
                 if (brugerFacade.getAktivBruger() == null){
                     erBehandler = true;

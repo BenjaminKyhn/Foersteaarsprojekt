@@ -1,5 +1,6 @@
 package ui;
 
+import database.DatabaseManager;
 import entities.Bruger;
 import entities.exceptions.ForkertEmailException;
 import javafx.fxml.FXML;
@@ -11,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.BrugerFacade;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /** @author Benjamin */
 public class SletPatientController {
@@ -27,6 +31,16 @@ public class SletPatientController {
     private Button btnBekraeft;
 
     public void initialize() {
+        brugerFacade = BrugerFacade.getInstance();
+
+        brugerFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("sletBruger"))
+                    DatabaseManager.getInstance().sletBruger((Bruger) evt.getNewValue());
+            }
+        });
+
         btnBekraeft.setOnMouseClicked(e -> sletPatient());
     }
 

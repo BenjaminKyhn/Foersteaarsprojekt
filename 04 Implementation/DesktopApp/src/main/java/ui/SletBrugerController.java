@@ -1,5 +1,6 @@
 package ui;
 
+import database.DatabaseManager;
 import entities.Bruger;
 import entities.exceptions.*;
 import javafx.fxml.FXML;
@@ -11,6 +12,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.BrugerFacade;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /** @author Benjamin */
 public class SletBrugerController {
@@ -29,6 +33,15 @@ public class SletBrugerController {
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
+
+        brugerFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("sletBruger"))
+                    DatabaseManager.getInstance().sletBruger((Bruger) evt.getNewValue());
+            }
+        });
+
         btnSletBruger.setOnMouseClicked(event -> sletBruger());
     }
 

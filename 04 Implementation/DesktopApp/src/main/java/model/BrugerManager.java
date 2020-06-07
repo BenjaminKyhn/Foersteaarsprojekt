@@ -82,14 +82,13 @@ public class BrugerManager {
 
         aktivBruger = null;
         // TODO Anders ville have Bruger til at klare hashing?
-        // TODO Brugeren bliver kun slettet fra listen og ikke databasen
     }
 
-    public void sletPatient(Bruger bruger, String email) throws ForkertEmailException {
-        if (!email.equals(bruger.getEmail()))
+    public void sletPatient(Bruger patient, String email) throws ForkertEmailException {
+        if (!email.equals(patient.getEmail()))
             throw new ForkertEmailException();
-        brugere.remove(bruger);
-        // TODO Brugeren bliver kun slettet fra listen og ikke databasen
+        brugere.remove(patient);
+        support.firePropertyChange("sletBruger", null, patient);
     }
 
     public Bruger getAktivBruger() {

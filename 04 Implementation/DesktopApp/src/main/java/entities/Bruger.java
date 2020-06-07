@@ -22,9 +22,13 @@ public class Bruger {
         behandlere = new ArrayList<>();
     }
 
-    public ArrayList<String> getBehandlere() {return behandlere;}
+    public ArrayList<String> getBehandlere() {
+        return behandlere;
+    }
 
-    public void setBehandlere(ArrayList<String> behandlere) {this.behandlere = behandlere;}
+    public void setBehandlere(ArrayList<String> behandlere) {
+        this.behandlere = behandlere;
+    }
 
     public String getNavn() {
         return navn;
