@@ -43,6 +43,9 @@ public class OpretBrugerController {
     @FXML
     private CheckBox cbBehandler;
 
+    @FXML
+    private Label lblInfo;
+
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
@@ -55,8 +58,12 @@ public class OpretBrugerController {
             brugere = brugerFacade.hentBrugere();
         }
 
+        /* Check om brugeren er logged ind og tilpas de visuelle elementer */
         if (aktivBruger == null)
             cbBehandler.setVisible(false);
+        else
+            lblInfo.setVisible(false);
+
 
         /* Tilføj observer på listen */
         brugerFacade.tilfoejObserver(new PropertyChangeListener() {
