@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.BrugerFacade;
@@ -43,6 +40,9 @@ public class OpretBrugerController {
     @FXML
     private PasswordField pfPassword, pfGentagPassword;
 
+    @FXML
+    private CheckBox cbBehandler;
+
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
@@ -54,6 +54,9 @@ public class OpretBrugerController {
         else {
             brugere = brugerFacade.hentBrugere();
         }
+
+        if (aktivBruger == null)
+            cbBehandler.setVisible(false);
 
         /* Tilføj observer på listen */
         brugerFacade.tilfoejObserver(new PropertyChangeListener() {
@@ -75,12 +78,12 @@ public class OpretBrugerController {
                     return;
                 }
 
-                /* Tilføj bruger til listen i BrugerManager */
+                /* Tjek om checkbox'en er checked */
                 boolean erBehandler = false;
-                if (brugerFacade.getAktivBruger() == null){
+                if (cbBehandler.isSelected())
                     erBehandler = true;
-                }
-                // TODO tilføj tjekboks i UI til at afgøre, om den oprettede bruger skal være behandler eller ej
+
+                /* Tilføj bruger til listen i BrugerManager */
                 brugerFacade.opretBruger(tfNavn.getText(), tfEmail.getText(), pfPassword.getText(), erBehandler);
 
                 popupWindow("Brugeren er oprettet");

@@ -6,11 +6,8 @@ import entities.exceptions.*;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * @author Benjamin
- */
+/** @author Benjamin */
 public class BrugerManager {
     private Bruger aktivBruger;
     private static BrugerManager brugerManager;

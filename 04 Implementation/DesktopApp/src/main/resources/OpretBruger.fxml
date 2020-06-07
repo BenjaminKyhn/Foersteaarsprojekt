@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -19,9 +20,9 @@
          <children>
             <VBox layoutX="246.0" layoutY="110.0" prefHeight="210.0" prefWidth="308.0" spacing="10.0">
                <children>
-                  <Label text="Opret Brugerlogin">
+                  <Label prefWidth="239.0" text="Opret Brugerlogind">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="22.0" />
                      </font>
                      <VBox.margin>
                         <Insets left="110.0" />
@@ -51,11 +52,16 @@
                         <PasswordField fx:id="pfGentagPassword" prefHeight="25.0" prefWidth="200.0" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                      <children>
+                        <CheckBox fx:id="cbBehandler" mnemonicParsing="false" text="Behandler">
+                           <HBox.margin>
+                              <Insets left="137.0" top="4.0" />
+                           </HBox.margin>
+                        </CheckBox>
                         <Button fx:id="btnOpretBruger" mnemonicParsing="false" text="Opret Bruger">
                            <HBox.margin>
-                              <Insets left="222.0" />
+                              <Insets />
                            </HBox.margin>
                         </Button>
                      </children>
