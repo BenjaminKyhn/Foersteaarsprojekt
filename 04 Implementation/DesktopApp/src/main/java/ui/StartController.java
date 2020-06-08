@@ -1,6 +1,7 @@
 package ui;
 
 import entities.Bruger;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,8 @@ import model.BrugerFacade;
 import entities.exceptions.ForkertPasswordException;
 import database.DatabaseManager;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +31,7 @@ import java.util.ArrayList;
  */
 public class StartController {
     private BrugerFacade brugerFacade;
+    private DatabaseManager databaseManager;
 
     @FXML
     private AnchorPane startAnchorPane;
@@ -38,8 +42,12 @@ public class StartController {
     @FXML
     private GridPane startGridPane;
 
+    private Label lblLoggerInd;
+    private boolean fortrydLogIndCheck;
+
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
+        databaseManager = DatabaseManager.getInstance();
 
         /** Lav TextFields, Buttons, Labels og ImageView */
         TextField tfEmail = new TextField();
@@ -58,6 +66,9 @@ public class StartController {
         tfEmail.setText("fys@frbsport.dk");
         tfPassword.setText("morsfødselsdag228");
 
+        lblLoggerInd = new Label("Logger ind...");
+        lblLoggerInd.setVisible(false);
+
         /** Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
         startGridPane.setVgap(10);
@@ -66,6 +77,7 @@ public class StartController {
         startGridPane.add(lblPassword, 0, 1);
         startGridPane.add(tfPassword, 1, 1);
         startGridPane.add(buttonHolder, 1, 2);
+        startGridPane.add(lblLoggerInd, 1, 3);
         startGridPane.setAlignment(Pos.CENTER);
 
         /** Sæt UI-elementer til at skalere */
@@ -74,6 +86,7 @@ public class StartController {
             logoImageView.setX(startAnchorPane.getWidth() / 2 - logoImageView.getFitWidth() / 2);
         };
         startAnchorPane.widthProperty().addListener(redraw);
+
 
         /** Sæt events på knapperne */
         btnLogInd.setOnAction(event -> {
@@ -86,25 +99,45 @@ public class StartController {
                 logIndFejlPopup("Fejl: Passwordfeltet er tomt");
                 return;
             }
-            try {
-                ArrayList<Bruger> temp = new ArrayList<>();
-                temp.add(DatabaseManager.getInstance().hentBrugerMedEmail(tfEmail.getText()));
-                brugerFacade.setBrugere(temp);
-                // TODO logind metoden i brugermanager kaldes ikke
-                if (!brugerFacade.logInd(tfEmail.getText(), tfPassword.getText())) {
-                    logIndFejlPopup("Fejl i logind");
-                }
-            } catch (ForkertPasswordException fpe) {
-                logIndFejlPopup("Forkert password indtastet");
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+            lblLoggerInd.setVisible(true);
+            databaseManager.hentBrugerMedEmail(tfEmail.getText());
 
-            if (brugerFacade.getAktivBruger() != null)
-                brugerFacade.setBrugere(null);
-                skiftTilMenuScene();
         });
-        btnOpretBruger.setOnAction(event -> skiftTilOpretBrugerScene());
+
+        databaseManager.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                if (propertyChangeEvent.getPropertyName().equals("hentBrugerMedEmail") && !fortrydLogIndCheck) {
+                    lblLoggerInd.setVisible(false);
+                    Bruger bruger = (Bruger) propertyChangeEvent.getNewValue();
+                    if (bruger == null) {
+                        Platform.runLater(() -> logIndFejlPopup("Bruger findes ikke"));
+                        return;
+                    }
+                    ArrayList<Bruger> temp = new ArrayList<>();
+                    temp.add(bruger);
+                    brugerFacade.setBrugere(temp);
+                    try {
+                        if (!brugerFacade.logInd(tfEmail.getText(), tfPassword.getText())) {
+                            Platform.runLater(() -> logIndFejlPopup("Fejl i logind"));
+                        }
+
+                        if (brugerFacade.getAktivBruger() != null)
+                            brugerFacade.setBrugere(null);
+                        Platform.runLater(() -> skiftTilMenuScene());
+                    } catch (ForkertPasswordException e) {
+                        Platform.runLater(() -> logIndFejlPopup("Forkert password indtastet"));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        btnOpretBruger.setOnAction(event -> {
+            fortrydLogIndCheck = true;
+            skiftTilOpretBrugerScene();
+        });
     }
 
     public void skiftTilMenuScene() {

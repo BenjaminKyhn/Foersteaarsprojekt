@@ -13,6 +13,8 @@ import entities.Bruger;
 import entities.Chat;
 
 import javax.annotation.Nullable;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.FileInputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -25,9 +27,11 @@ public class DatabaseManager {
      */
     private Firestore firestore;
     private boolean write;
+    private PropertyChangeSupport support;
 
     private DatabaseManager() {
         initializeDB();
+        support = new PropertyChangeSupport(this);
 
         /** initializeDB() skal kaldes før firestore kan initaliseres */
         firestore = FirestoreClient.getFirestore();
@@ -72,18 +76,22 @@ public class DatabaseManager {
         firestore.collection("brugere").document(email).delete();
     }
 
-    public Bruger hentBrugerMedEmail(String email) {
-        Bruger bruger = null;
+    public void hentBrugerMedEmail(String email) {
         ApiFuture<DocumentSnapshot> document = firestore.collection("brugere").document(email).get();
 
-        try {
-            if (document.get().exists()) {
-                bruger = document.get().toObject(Bruger.class);
+        Thread thread = new Thread(() -> {
+            try {
+                Bruger bruger = null;
+                if (document.get().exists()) {
+                    bruger = document.get().toObject(Bruger.class);
+
+                }
+                support.firePropertyChange("hentBrugerMedEmail", null, bruger);
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return bruger;
+        });
+        thread.start();
     }
 
     public Bruger hentBrugerMedNavn(String navn) {
@@ -103,72 +111,79 @@ public class DatabaseManager {
         return bruger;
     }
 
-    public ArrayList<Bruger> hentBrugere() {
-        ArrayList<Bruger> brugere = new ArrayList<>();
+    public void hentBrugere() {
         Query query = firestore.collection("brugere");
 
-        try {
-            QuerySnapshot querySnapshot = query.get().get();
-            if (!querySnapshot.isEmpty()) {
-                for (int i = 0; i < querySnapshot.size(); i++) {
-                    brugere.add(querySnapshot.getDocuments().get(i).toObject(Bruger.class));
-                }
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        Thread thread = new Thread(() -> {
+            ArrayList<Bruger> brugere = new ArrayList<>();
 
-        return brugere;
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        brugere.add(querySnapshot.getDocuments().get(i).toObject(Bruger.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentBrugere", null, brugere);
+        });
+        thread.start();
     }
 
     public void opretChat(Chat chat) {
         firestore.collection("chats").document().create(chat);
     }
 
-    public ArrayList<Chat> hentChatsMedNavn(String navn) {
-        ArrayList<Chat> chats = new ArrayList<>();
-
+    public void hentChatsMedNavn(String navn) {
         /** Lav 2 queries, fordi navnet både kan være afsender og modtager */
         Query query1 = firestore.collection("chats").whereEqualTo("afsender", navn);
         Query query2 = firestore.collection("chats").whereEqualTo("modtager", navn);
 
         /** Tilføj alle chats, hvor navnet er afsender til listen af chats */
-        try {
-            QuerySnapshot querySnapshot1 = query1.get().get();
-            if (!querySnapshot1.isEmpty()) {
-                for (int i = 0; i < querySnapshot1.size(); i++) {
-                    QueryDocumentSnapshot qds = querySnapshot1.getDocuments().get(i);
-                    Chat chat = qds.toObject(Chat.class);
-                    DocumentReference reference = qds.getReference();
-                    chat.setBeskeder(hentBeskeder(reference));
-                    chats.add(chat);
+        Thread thread = new Thread(() -> {
+            ArrayList<Chat> chats = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot1 = query1.get().get();
+                if (!querySnapshot1.isEmpty()) {
+                    for (int i = 0; i < querySnapshot1.size(); i++) {
+                        QueryDocumentSnapshot qds = querySnapshot1.getDocuments().get(i);
+                        Chat chat = qds.toObject(Chat.class);
+                        DocumentReference reference = qds.getReference();
+                        chat.setBeskeder(hentBeskeder(reference));
+                        chats.add(chat);
+                    }
                 }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
-        /** Tilføj alle chats, hvor navnet er modtager til listen af chats */
-        try {
-            QuerySnapshot querySnapshot2 = query2.get().get();
-            if (!querySnapshot2.isEmpty()) {
-                for (int i = 0; i < querySnapshot2.size(); i++) {
-                    QueryDocumentSnapshot qds = querySnapshot2.getDocuments().get(i);
-                    Chat chat = qds.toObject(Chat.class);
-                    DocumentReference reference = qds.getReference();
-                    chat.setBeskeder(hentBeskeder(reference));
-                    chats.add(chat);
+            /** Tilføj alle chats, hvor navnet er modtager til listen af chats */
+            try {
+                QuerySnapshot querySnapshot2 = query2.get().get();
+                if (!querySnapshot2.isEmpty()) {
+                    for (int i = 0; i < querySnapshot2.size(); i++) {
+                        QueryDocumentSnapshot qds = querySnapshot2.getDocuments().get(i);
+                        Chat chat = qds.toObject(Chat.class);
+                        DocumentReference reference = qds.getReference();
+                        chat.setBeskeder(hentBeskeder(reference));
+                        chats.add(chat);
+                    }
                 }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
-        /** Sorter listen */
-        Collections.sort(chats, Chat.ChatTidspunktComparator);
+            /** Sorter listen */
+            Collections.sort(chats, Chat.ChatTidspunktComparator);
 
-        /** Returner listen */
-        return chats;
+            /** Returner listen */
+            support.firePropertyChange("hentChatsMedNavn", null, chats);
+        });
+        thread.start();
     }
 
     public Chat hentChat(String afsender, String modtager, String emne) {
@@ -214,7 +229,7 @@ public class DatabaseManager {
         }
     }
 
-    public ArrayList<Besked> hentBeskeder(DocumentReference reference) {
+    private ArrayList<Besked> hentBeskeder(DocumentReference reference) {
         ArrayList<Besked> beskeder = new ArrayList<>();
         ApiFuture<QuerySnapshot> document = reference.collection("beskeder").orderBy("tidspunkt").get();
 
@@ -274,6 +289,10 @@ public class DatabaseManager {
 
     public void opdaterBruger(Bruger bruger){
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 }
 
