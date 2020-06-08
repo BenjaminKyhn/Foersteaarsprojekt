@@ -1,9 +1,13 @@
 package model;
 
+import database.DatabaseManager;
 import entities.Bruger;
+import entities.Chat;
 import entities.exceptions.*;
 import org.junit.Test;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +61,11 @@ public class STD0101 {
         assertEquals("Søren Nielsen", output);
     }
 
+    @Test
+    public void opretBrugerST010402(){
+        // Assert på listen i MockDatabaseManager for at teste observerkaldet
+    }
+
     /**
      * Vi kan ikke bruge den rigtige DatabaseManager i vores tests, fordi det vil være meget upraktisk at kalde metoder
      * som sletBruger og opretBruger i vores tests, da disse metoder vil forstyrre den egentlige funktionalitet af
@@ -65,10 +74,11 @@ public class STD0101 {
      * så bruger testene de egentlige klasser i programmet.
      */
     private class MockDatabaseManager {
+        ArrayList<Bruger> brugere;
 
         /** Metoden hentBrugere efterligner metoden i den rigtige DatabaseManager */
         public ArrayList<Bruger> hentBrugere() {
-            ArrayList<Bruger> brugere = new ArrayList<>();
+            brugere = new ArrayList<>();
             Bruger behandler1 = new Bruger("Christian Iuul", "fys@frbsport.dk", "testpw", true);
             Bruger patient1 = new Bruger("Camilla Kron", "camillak@gmail.com", "testpw", false);
             Bruger patient2 = new Bruger("Karsten Wiren", "karstenw@gmail.com", "testpw", false);

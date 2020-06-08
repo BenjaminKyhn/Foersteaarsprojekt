@@ -9,7 +9,6 @@ import entities.exceptions.TomEmneException;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.List;
 
 /** @author Benjamin */
 public class BeskedFacade {
