@@ -77,7 +77,7 @@ public class ChatWindowController {
         aktivBruger = brugerFacade.getAktivBruger();
         chats = beskedFacade.hentChats();
 
-        /** Tilføj observer på nye chats */
+        /* Tilføj observer på nye chats */
         beskedFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
