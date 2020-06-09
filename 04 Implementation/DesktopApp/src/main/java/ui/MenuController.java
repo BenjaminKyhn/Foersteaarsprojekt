@@ -1,6 +1,7 @@
 package ui;
 
 import entities.Bruger;
+import entities.Chat;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +19,10 @@ import model.BeskedFacade;
 import model.BrugerFacade;
 import database.DatabaseManager;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * @author Tommy og Patrick
@@ -42,7 +46,9 @@ public class MenuController {
     @FXML
     private ImageView logoImageView;
 
-    /** @author Benjamin */
+    /**
+     * @author Benjamin
+     */
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
@@ -50,12 +56,33 @@ public class MenuController {
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */
         if (beskedFacade.hentChats() == null) {
-            beskedFacade.setChats(DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn()));
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentChatsMedNavn")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Chat> chats = (ArrayList<Chat>) propertyChangeEvent.getNewValue();
+                        beskedFacade.setChats(chats);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn());
         }
 
         /** Indlæs alle brugere og send dem til BrugereFacade */
         if (brugerFacade.hentBrugere() == null) {
-            brugerFacade.setBrugere(DatabaseManager.getInstance().hentBrugere());
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentBrugere")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Bruger> brugere = (ArrayList<Bruger>) propertyChangeEvent.getNewValue();
+                        brugerFacade.setBrugere(brugere);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentBrugere();
+
         }
 
         Image image = new Image("Logo2x.png");
@@ -99,7 +126,7 @@ public class MenuController {
         stage.setScene(scene);
     }
 
-    public void skiftTilBrugerindstillinger(){
+    public void skiftTilBrugerindstillinger() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/Brugerindstillinger.fxml"));
