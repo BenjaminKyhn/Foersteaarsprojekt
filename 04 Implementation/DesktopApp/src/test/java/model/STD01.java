@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 /**
  * @author Benjamin
  */
-public class STD0101 {
+public class STD01 {
 
     @Test
     public void tjekEmailST010101() {

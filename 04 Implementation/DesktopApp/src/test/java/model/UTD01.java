@@ -1,15 +1,13 @@
 package model;
+import static org.junit.Assert.*;
 
 import entities.Bruger;
 import entities.exceptions.*;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-/**
- * @author Kelvin
- **/
-public class ValideringTest {
+import java.util.ArrayList;
+/**@author Tommy**/
+public class UTD01 {
     @Test
     public void tjekEmailUT010101() {
         Validering validering = new TestbarValidering();
@@ -95,64 +93,79 @@ public class ValideringTest {
     }
 
     @Test
-    public void tjekEmneUT030301() {
-        Validering validering = new Validering();
-        String emne = null;
-        assertThrows(NullPointerException.class, () -> validering.tjekEmne(emne));
-
+    public void opretBrugerUT010401() {
+        MockBruger mockBruger = new MockBruger("Johnny", "fas39luck", false);
+        BrugerManager brugerManager = new TestbarBrugerManager();
+        brugerManager.setAktivBruger(mockBruger);
+        String navn = "Hans";
+        String email = "hans@email.dk";
+        String password = "123";
+        assertThrows(BrugerErIkkeBehandlerException.class, () -> brugerManager.opretBruger(navn, email, password, false));
     }
 
     @Test
-    public void tjekEmneUT030302() {
-        Validering validering = new Validering();
-        String emne = "";
-        assertThrows(TomEmneException.class, () -> validering.tjekEmne(emne));
+    public void opretBrugerUT010402() throws BrugerErIkkeBehandlerException, TomPasswordException, PasswordLaengdeException, TomNavnException, EksisterendeBrugerException, TomEmailException {
+        MockBruger mockBruger = new MockBruger("Johnny", "fas39luck", true);
+        BrugerManager brugerManager = new TestbarBrugerManager();
+        brugerManager.setAktivBruger(mockBruger);
+        String navn = "Hans";
+        String email = "hans@email.dk";
+        String password = "123456";
+        boolean erBehandler = false;
+        brugerManager.opretBruger(navn, email, password, erBehandler);
+        String output = brugerManager.hentBrugere().get(0).getNavn();
+        assertEquals("Hans", output);
     }
 
-    @Test
-    public void tjekEmneUT030303() {
-        Validering validering = new Validering();
-        String emne = "Emne1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
-        assertThrows(ForMangeTegnException.class, () -> validering.tjekEmne(emne));
+    private class MockBruger extends Bruger {
+        String navn;
+        String email;
+        String password;
+        boolean erBehandler;
+
+        public MockBruger(String navn, String password, boolean erBehandler){
+            this.navn = navn;
+            this.password = password;
+            this.erBehandler = erBehandler;
+            setBehandlere(new ArrayList<>());
+        }
+
+        public MockBruger(String email) {
+            this.email = email;
+        }
+
+        @Override
+        public String getNavn() {
+            return navn;
+        }
+
+        @Override
+        public String getPassword() {
+            return password;
+        }
+
+        @Override
+        public boolean isErBehandler() {
+            return erBehandler;
+        }
     }
 
-    @Test
-    public void tjekEmneUT030304() throws TomEmneException, ForMangeTegnException {
-        Validering validering = new Validering();
-        String emne = "Emne";
-        validering.tjekEmne(emne);
+    private class MockValidering extends Validering{
 
+        @Override
+        public void tjekEmail(String email) {
+        }
     }
 
-    @Test
-    public void tjekBeskedUT030401() {
-        Validering validering = new Validering();
-        String besked = null;
-        assertThrows(NullPointerException.class, () -> validering.tjekBesked(besked));
+    private class TestbarBrugerManager extends BrugerManager {
+        public TestbarBrugerManager() {
+            setBrugere(new ArrayList<>());
+        }
 
-    }
-
-    @Test
-    public void tjekBeskedUT030402() {
-        Validering validering = new Validering();
-        String besked = "";
-        assertThrows(TomBeskedException.class, () -> validering.tjekBesked(besked));
-
-    }
-
-    @Test
-    public void tjekBeskedUT030403() {
-        Validering validering = new Validering();
-        String besked = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestte";
-        assertThrows(ForMangeTegnException.class, () -> validering.tjekBesked(besked));
-
-    }
-
-    @Test
-    public void tjekBeskedUT030404() throws TomBeskedException, ForMangeTegnException {
-        Validering validering = new Validering();
-        String besked = "test";
-        validering.tjekBesked(besked);
+        @Override
+        protected Validering newValidering() {
+            return new MockValidering();
+        }
     }
 
     private class MockBrugerManager extends BrugerManager {
@@ -166,24 +179,11 @@ public class ValideringTest {
         }
     }
 
-    private class MockBruger extends Bruger {
-        String email;
-
-        public MockBruger(String email) {
-            this.email = email;
-        }
-
-        @Override
-        public String getEmail() {
-            return email;
-        }
-    }
-
     private class TestbarValidering extends Validering {
 
         @Override
         protected BrugerManager newBrugerManager() {
-            return new ValideringTest.MockBrugerManager();
+            return new MockBrugerManager();
         }
     }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-public class STD0501 {
+public class STD05 {
     @Test
     public void tilknytBehandlerST050101() throws ForkertRolleException, BehandlerFindesAlleredeException {
         MockDatabaseManager mockDatabaseManager = new MockDatabaseManager();
