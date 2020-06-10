@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /** @author Benjamin */
-public class STD0301 {
+public class STD03 {
     /** Vi instantierer en MockDatabaseManager for at fylde listen af chats og vi instantierer en BrugerFacade for at
      *  kunne kalde logInd*/
     @Test

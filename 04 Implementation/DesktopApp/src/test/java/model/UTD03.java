@@ -4,14 +4,16 @@ import entities.Besked;
 import entities.Bruger;
 import entities.Chat;
 import entities.exceptions.BrugerFindesIkkeException;
+import entities.exceptions.ForMangeTegnException;
+import entities.exceptions.TomBeskedException;
+import entities.exceptions.TomEmneException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**@author Benjamin**/
-public class BeskedManagerTest {
+public class UTD03 {
     @Test
     public void hentChatsUT030101() {
         BeskedManager beskedManager = new TestbarBeskedManager();
@@ -31,6 +33,36 @@ public class BeskedManagerTest {
     }
 
     @Test
+    public void tjekEmneUT030201() {
+        Validering validering = new Validering();
+        String emne = null;
+        assertThrows(NullPointerException.class, () -> validering.tjekEmne(emne));
+
+    }
+
+    @Test
+    public void tjekEmneUT030202() {
+        Validering validering = new Validering();
+        String emne = "";
+        assertThrows(TomEmneException.class, () -> validering.tjekEmne(emne));
+    }
+
+    @Test
+    public void tjekEmneUT030203() {
+        Validering validering = new Validering();
+        String emne = "Emne1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+        assertThrows(ForMangeTegnException.class, () -> validering.tjekEmne(emne));
+    }
+
+    @Test
+    public void tjekEmneUT030204() throws TomEmneException, ForMangeTegnException {
+        Validering validering = new Validering();
+        String emne = "Emne";
+        validering.tjekEmne(emne);
+
+    }
+
+    @Test
     public void opretChatUT030302() {
         BeskedManager beskedManager = new TestbarBeskedManager();
         assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat("Egon", "Skulderskade"));
@@ -40,6 +72,34 @@ public class BeskedManagerTest {
     public void opretChatUT030303() {
         BeskedManager beskedManager = new TestbarBeskedManager();
         assertThrows(BrugerFindesIkkeException.class, () -> beskedManager.opretChat(null, "Skulderskade"));
+    }
+
+    @Test
+    public void tjekBeskedUT030401() {
+        Validering validering = new Validering();
+        String besked = null;
+        assertThrows(NullPointerException.class, () -> validering.tjekBesked(besked));
+    }
+
+    @Test
+    public void tjekBeskedUT030402() {
+        Validering validering = new Validering();
+        String besked = "";
+        assertThrows(TomBeskedException.class, () -> validering.tjekBesked(besked));
+    }
+
+    @Test
+    public void tjekBeskedUT030403() {
+        Validering validering = new Validering();
+        String besked = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttestte";
+        assertThrows(ForMangeTegnException.class, () -> validering.tjekBesked(besked));
+    }
+
+    @Test
+    public void tjekBeskedUT030404() throws TomBeskedException, ForMangeTegnException {
+        Validering validering = new Validering();
+        String besked = "test";
+        validering.tjekBesked(besked);
     }
 
     @Test
@@ -55,15 +115,6 @@ public class BeskedManagerTest {
 
         /** Vi kan ikke lave assertEquals på tidspunktet, da metoden sendBesked bruger System.currentTimeMillis(),
          * hvilket betyder, at vi så ville teste på System-klassen */
-    }
-
-    @Test
-    public void hentBeskederUT040201(){
-        BeskedManager beskedManager = new TestbarBeskedManager();
-        MockChat mockChat = new MockChat("testemne");
-        MockBesked mockBesked = new MockBesked("testbesked");
-        mockChat.tilfoejBesked(mockBesked);
-        assertEquals("testbesked", beskedManager.hentBeskeder(mockChat).get(0).getBesked());
     }
 
     private class MockBrugerManager extends BrugerManager {
@@ -121,18 +172,6 @@ public class BeskedManagerTest {
         @Override
         public ArrayList<Besked> getBeskeder(){
             return beskeder;
-        }
-    }
-
-    private class MockBesked extends Besked{
-        String besked;
-
-        public MockBesked(String besked){
-            this.besked = besked;
-        }
-
-        public String getBesked(){
-            return besked;
         }
     }
 

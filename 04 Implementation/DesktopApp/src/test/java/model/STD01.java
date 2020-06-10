@@ -1,13 +1,9 @@
 package model;
 
-import database.DatabaseManager;
 import entities.Bruger;
-import entities.Chat;
 import entities.exceptions.*;
 import org.junit.Test;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +12,7 @@ import static org.junit.Assert.*;
 /**
  * @author Benjamin
  */
-public class STD0101 {
+public class STD01 {
 
     @Test
     public void tjekEmailST010101() {

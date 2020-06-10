@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static org.junit.Assert.*;
 
 /** @author Benjamin */
-public class STD0201 {
+public class STD02 {
 
     @Test
     public void sletBrugerST020101() throws ForkertPasswordException {

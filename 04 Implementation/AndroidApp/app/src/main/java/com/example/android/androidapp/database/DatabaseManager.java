@@ -57,13 +57,11 @@ public class DatabaseManager {
 
     public void hentBrugerMedEmail(String email) {
         firestore.collection("brugere").document(email).get().addOnSuccessListener(documentSnapshot -> {
+            Bruger bruger = null;
             if (documentSnapshot.exists()) {
-                Bruger bruger = documentSnapshot.toObject(Bruger.class);
-                support.firePropertyChange("hentBrugerMedEmailSuccess", null, bruger);
+                bruger = documentSnapshot.toObject(Bruger.class);
             }
-            else {
-                support.firePropertyChange("hentBrugerMedEmailFejl", null, null);
-            }
+            support.firePropertyChange("hentBrugerMedEmail", null, bruger);
         });
     }
 
@@ -77,8 +75,8 @@ public class DatabaseManager {
                     for (String behandler : behandlere) {
                         firestore.collection("brugere").whereEqualTo("navn", behandler)
                                 .get().addOnSuccessListener(queryDocumentSnapshots -> {
-                           Bruger brugerFraDB = queryDocumentSnapshots.getDocuments().get(0).toObject(Bruger.class);
-                           brugere.add(brugerFraDB);
+                            Bruger brugerFraDB = queryDocumentSnapshots.getDocuments().get(0).toObject(Bruger.class);
+                            brugere.add(brugerFraDB);
                         });
                     }
 
@@ -185,8 +183,7 @@ public class DatabaseManager {
                                         chat.tilfoejBesked(besked);
                                     }
                                 }
-                            }
-                            else {
+                            } else {
                                 write = false;
                             }
                         }

@@ -22,7 +22,9 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-/**@author Patrick**/
+/**
+ * @author Patrick
+ **/
 public class LoginActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     EditText editTextEmail;
@@ -66,8 +68,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -82,25 +83,24 @@ public class LoginActivity extends AppCompatActivity {
         databaseManager.hentBrugerMedEmail(email);
 
         databaseManager.tilfoejListener(evt -> {
-            if (evt.getPropertyName().equals("hentBrugerMedEmailSuccess")) {
+            if (evt.getPropertyName().equals("hentBrugerMedEmail")) {
+                progressDialog.dismiss();
+                Bruger bruger = (Bruger) evt.getNewValue();
+                if (bruger == null) {
+                    Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ArrayList<Bruger> brugerList = new ArrayList<>();
-                brugerList.add((Bruger) evt.getNewValue());
+                brugerList.add(bruger);
                 brugerFacade.saetListeAfBrugere(brugerList);
                 boolean loggedeInd = brugerFacade.logInd(email, password);
                 if (loggedeInd) {
                     startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-                }
-                else {
+                } else {
                     Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
                 }
                 progressDialog.dismiss();
-                return;
             }
-            if (evt.getPropertyName().equals("hentBrugerMedEmailFejl")) {
-                Toast.makeText(getApplicationContext(), "Brugeren findes ikke", Toast.LENGTH_SHORT).show();
-                progressDialog.dismiss();
-            }
-
         });
     }
 }
