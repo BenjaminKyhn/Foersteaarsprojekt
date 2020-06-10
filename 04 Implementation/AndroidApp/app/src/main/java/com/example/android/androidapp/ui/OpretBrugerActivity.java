@@ -16,13 +16,12 @@ import android.widget.Toast;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
-import com.example.android.androidapp.entities.exceptions.BrugerLoggedeIndException;
+import com.example.android.androidapp.entities.exceptions.BrugerAlleredeLoggedIndException;
 import com.example.android.androidapp.database.DatabaseManager;
 import com.google.android.material.navigation.NavigationView;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 
 /**@author Kelvin**/
 public class OpretBrugerActivity extends AppCompatActivity {
@@ -94,7 +93,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
         try {
             brugerFacade.opretBruger(navn, email, password);
-        } catch (BrugerLoggedeIndException e) {
+        } catch (BrugerAlleredeLoggedIndException e) {
             progressDialog.dismiss();
             Toast.makeText(this, "Bruger må ikke være logged ind.", Toast.LENGTH_SHORT).show();
         }
