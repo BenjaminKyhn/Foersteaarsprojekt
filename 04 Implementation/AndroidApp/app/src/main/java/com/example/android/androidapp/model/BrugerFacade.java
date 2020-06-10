@@ -1,7 +1,7 @@
 package com.example.android.androidapp.model;
 
 import com.example.android.androidapp.entities.Bruger;
-import com.example.android.androidapp.entities.exceptions.BrugerLoggedeIndException;
+import com.example.android.androidapp.entities.exceptions.BrugerAlleredeLoggedIndException;
 import com.example.android.androidapp.entities.exceptions.EksisterendeBrugerException;
 import com.example.android.androidapp.entities.exceptions.ForkertPasswordException;
 import com.example.android.androidapp.entities.exceptions.PasswordLaengdeException;
@@ -11,7 +11,6 @@ import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.List;
 
 /** @author Tommy **/
 public class BrugerFacade {
@@ -43,7 +42,7 @@ public class BrugerFacade {
         validering.tjekPassword(password);
     }
 
-    public void opretBruger(String navn, String email, String password) throws BrugerLoggedeIndException {
+    public void opretBruger(String navn, String email, String password) throws BrugerAlleredeLoggedIndException {
         brugerManager.opretBruger(navn, email, password);
     }
 

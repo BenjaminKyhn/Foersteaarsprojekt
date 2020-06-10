@@ -1,13 +1,12 @@
 package com.example.android.androidapp.model;
 
 import com.example.android.androidapp.entities.Bruger;
-import com.example.android.androidapp.entities.exceptions.BrugerLoggedeIndException;
+import com.example.android.androidapp.entities.exceptions.BrugerAlleredeLoggedIndException;
 import com.example.android.androidapp.entities.exceptions.ForkertPasswordException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.List;
 
 /** @author Tommy **/
 class BrugerManager {
@@ -38,9 +37,9 @@ class BrugerManager {
         return null;
     }
 
-    void opretBruger(String navn, String email, String password) throws BrugerLoggedeIndException {
+    void opretBruger(String navn, String email, String password) throws BrugerAlleredeLoggedIndException {
         if (aktivBruger != null) {
-            throw new BrugerLoggedeIndException();
+            throw new BrugerAlleredeLoggedIndException();
         }
         Bruger bruger = new Bruger(navn, email, password, false);
         brugere.add(bruger);
@@ -53,8 +52,8 @@ class BrugerManager {
             throw new ForkertPasswordException();
         }
         brugere.remove(bruger);
-        aktivBruger = null;
         support.firePropertyChange("sletBruger", null, bruger);
+        aktivBruger = null;
     }
 
     boolean logInd(String email, String password) {
