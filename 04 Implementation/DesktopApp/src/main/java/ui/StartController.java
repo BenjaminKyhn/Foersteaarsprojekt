@@ -63,8 +63,8 @@ public class StartController {
         Image image = new Image("Logo2x.png");
 
         /** temporary */
-        tfEmail.setText("fys@frbsport.dk");
-        tfPassword.setText("morsfødselsdag228");
+        tfEmail.setText("sigurdo@gmail.com");
+        tfPassword.setText("sigurdpw");
 
         lblLoggerInd = new Label("Logger ind...");
         lblLoggerInd.setVisible(false);

@@ -15,7 +15,7 @@ public class Start extends Application{
         // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
         Scene scene = new Scene(root);;
-        stage.setTitle("Fys Desktop App");
+        stage.setTitle("Frederiksberg Sportsklinik");
         stage.setScene(scene);
         stage.setMinWidth(800);
         stage.setMinHeight(600);
