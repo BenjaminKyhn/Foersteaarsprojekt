@@ -52,7 +52,7 @@ class Validering {
             throw new TomEmneException();
         }
 
-        if (emne.length() > 100) {
+        if (emne.length() > 50) {
             throw new ForMangeTegnException();
         }
     }
@@ -62,7 +62,7 @@ class Validering {
             throw new TomBeskedException();
         }
 
-        if (besked.length() > 1000) {
+        if (besked.length() > 160) {
             throw new ForMangeTegnException();
         }
     }
