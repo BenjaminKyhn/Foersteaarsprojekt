@@ -22,7 +22,7 @@ public class BrugerManager {
     /**
      * Denne constructor er private, fordi vi anvender singleton pattern.
      */
-    private BrugerManager() {
+    BrugerManager() {
         tekstHasher = new TekstHasher();
         validering = newValidering();
         support = new PropertyChangeSupport(this);

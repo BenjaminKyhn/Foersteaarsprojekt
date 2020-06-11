@@ -23,7 +23,7 @@ public class BeskedManager {
     /**
      * Denne constructor er private, fordi vi anvender singleton pattern.
      */
-    private BeskedManager() {
+    BeskedManager() {
         brugerManager = newBrugerManager();
         support = new PropertyChangeSupport(this);
     }
