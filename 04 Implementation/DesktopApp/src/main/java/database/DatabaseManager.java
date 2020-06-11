@@ -94,23 +94,6 @@ public class DatabaseManager {
         thread.start();
     }
 
-    public Bruger hentBrugerMedNavn(String navn) {
-        Bruger bruger = null;
-        Query query = firestore.collection("brugere").whereEqualTo("navn", navn);
-
-        try {
-            QuerySnapshot querySnapshot = query.get().get();
-            if (!querySnapshot.isEmpty()) {
-                QueryDocumentSnapshot qds = querySnapshot.getDocuments().get(0);
-                bruger = qds.toObject(Bruger.class);
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return bruger;
-    }
-
     public void hentBrugere() {
         Query query = firestore.collection("brugere");
 
@@ -184,25 +167,6 @@ public class DatabaseManager {
             support.firePropertyChange("hentChatsMedNavn", null, chats);
         });
         thread.start();
-    }
-
-    public Chat hentChat(String afsender, String modtager, String emne) {
-        Chat chat = null;
-        Query query = firestore.collection("chats").whereEqualTo("afsender", afsender).whereEqualTo("modtager", modtager).whereEqualTo("emne", emne);
-
-        try {
-            QuerySnapshot querySnapshot = query.get().get();
-            if (!querySnapshot.isEmpty()) {
-                QueryDocumentSnapshot qds = querySnapshot.getDocuments().get(0);
-                chat = qds.toObject(Chat.class);
-                DocumentReference reference = qds.getReference();
-                chat.setBeskeder(hentBeskeder(reference));
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        return chat;
     }
 
     public void opdaterChat(Chat chat) {

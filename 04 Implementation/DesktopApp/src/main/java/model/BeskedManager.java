@@ -42,16 +42,6 @@ public class BeskedManager {
         support.firePropertyChange("opretChat", null, nyChat);
     }
 
-    public Chat hentChat(String afsender, String modtager, String emne) {
-        for (int i = 0; i < chats.size(); i++) {
-            if (afsender.equals(chats.get(i).getAfsender()))
-                if (modtager.equals(chats.get(i).getModtager()))
-                    if (emne.equals(chats.get(i).getEmne()))
-                        return chats.get(i);
-        }
-        return null;
-    }
-
     public ArrayList<Chat> hentChats() {
         return chats;
     }

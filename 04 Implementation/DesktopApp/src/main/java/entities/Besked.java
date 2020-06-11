@@ -10,10 +10,6 @@ public class Besked {
     public Besked(){
     }
 
-    public Besked(String besked){
-        this.besked = besked;
-    }
-
     public Besked(String afsender, String modtager, String besked, long tidspunkt){
         this.afsender = afsender;
         this.modtager = modtager;

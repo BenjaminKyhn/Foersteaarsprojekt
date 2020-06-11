@@ -33,10 +33,6 @@ public class BeskedFacade {
         beskedManager.opretChat(navn, emne);
     }
 
-    public Chat hentChat(String afsender, String modtager, String emne){
-        return beskedManager.hentChat(afsender, modtager, emne);
-    }
-
     public ArrayList<Chat> hentChats(){
         return beskedManager.hentChats();
     }
