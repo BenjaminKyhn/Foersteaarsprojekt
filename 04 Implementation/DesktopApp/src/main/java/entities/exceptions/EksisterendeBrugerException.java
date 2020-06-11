@@ -1,5 +1,5 @@
 package entities.exceptions;
 
 /** @author Benjamin */
-public class EksisterendeBrugerException extends Throwable {
+public class EksisterendeBrugerException extends Exception {
 }

@@ -19,7 +19,11 @@ import java.io.FileInputStream;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 
-/**@author Benjamin*/
+/**
+ * @author Benjamin
+ * DatabaseManager håndterer alle kald til Firebase Firestore.
+ * Den kendes kun af UI'et for at holde en clean architecture.
+ */
 public class DatabaseManager {
     /** static, så vi altid kan få fat i den sammme DatabaseManager */
     private static DatabaseManager databaseManager;

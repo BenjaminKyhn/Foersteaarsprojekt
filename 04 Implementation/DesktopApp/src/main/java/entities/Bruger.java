@@ -2,7 +2,11 @@ package entities;
 
 import java.util.ArrayList;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ * Brugerobjektet bruges til at holde styr på patienterne og behandlers informationer. Passwordet er hashed, så det er
+ * kun personen selv, der kender det.
+ */
 public class Bruger {
     private String navn;
     private String email;
@@ -11,9 +15,19 @@ public class Bruger {
     private boolean erBehandler;
     private ArrayList<String> behandlere;
 
+    /**
+     * Den tomme constructor bruges i test
+     */
     public Bruger(){
     }
 
+    /**
+     * Denne constructor bruges, når der instantieres nye brugerobjekter
+     * @param navn  brugerens fulde navn
+     * @param email brugerens emailadresse
+     * @param password  brugerens password (dette er hashed)
+     * @param erBehandler   true, hvis brugeren er behandler hos klinikken og false, hvis brugeren er patient
+     */
     public Bruger(String navn, String email, String password, boolean erBehandler){
         this.navn = navn;
         this.email = email;

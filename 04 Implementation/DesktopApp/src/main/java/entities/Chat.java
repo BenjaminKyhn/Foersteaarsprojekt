@@ -5,7 +5,11 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ * Chatobjektet bruges til at samle beskeder i en samtale. Den har en support, så vi kan lave observerkald, når der sker
+ * ændringer i beskeder.
+ */
 public class Chat {
     private String afsender;
     private String modtager;
@@ -14,10 +18,20 @@ public class Chat {
     private ArrayList<Besked> beskeder;
     private PropertyChangeSupport support;
 
+    /**
+     * Den tomme constructor bruges i test.
+     */
     public Chat() {
         support = new PropertyChangeSupport(this);
     }
 
+    /**
+     * Denne constructor bruges, når der instantieres nye chatobjekter.
+     * @param afsender  afsenderens navn
+     * @param modtager  modtagerens navn
+     * @param emne  samtalens emne
+     * @param sidstAktiv    tidspunkt, hvor der sidst blev tilføjet en besked til beskeder
+     */
     public Chat(String afsender, String modtager, String emne, long sidstAktiv){
         this.afsender = afsender;
         this.modtager = modtager;
@@ -27,10 +41,18 @@ public class Chat {
         support = new PropertyChangeSupport(this);
     }
 
+    /**
+     * Tilføj en ny observer til chatobjektet.
+     * @param listener observeren
+     */
     public void tilfoejObserver(PropertyChangeListener listener){
         support.addPropertyChangeListener(listener);
     }
 
+    /**
+     * Tilføj en ny besked til beskeder og notificer observere.
+     * @param besked beskeden, som skal tilføjes listen af beskeder.
+     */
     public void tilfoejBesked(Besked besked){
         beskeder.add(besked);
         support.firePropertyChange("Ny Besked", null, this);
