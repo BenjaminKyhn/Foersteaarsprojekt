@@ -79,6 +79,7 @@ public class BrugerManager {
 
         aktivBruger = null;
         // TODO Anders ville have Bruger til at klare hashing?
+        // TODO Husk at håndtere chats, der stadig eksisterer med slettede brugere
     }
 
     public void sletPatient(Bruger patient, String email) throws ForkertEmailException {
