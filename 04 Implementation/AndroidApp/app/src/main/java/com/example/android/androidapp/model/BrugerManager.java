@@ -93,7 +93,7 @@ class BrugerManager {
         return behandlere;
     }
 
-    Bruger getAktivBruger() {
+    Bruger hentAktivBruger() {
         return aktivBruger;
     }
 

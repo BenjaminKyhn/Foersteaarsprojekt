@@ -63,7 +63,7 @@ public class BrugerFacade {
     }
 
     public Bruger hentAktivBruger() {
-        return brugerManager.getAktivBruger();
+        return brugerManager.hentAktivBruger();
     }
 
     public ArrayList<Bruger> hentBrugere() {
