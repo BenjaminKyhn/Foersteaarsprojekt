@@ -12,6 +12,7 @@ import java.util.List;
 
 /**
  * @author Benjamin
+ * BeskedManager håndterer skabelse og slettelse af chat- og beskedobjekter.
  */
 public class BeskedManager {
     private BrugerManager brugerManager;
@@ -19,11 +20,18 @@ public class BeskedManager {
     private ArrayList<Chat> chats;
     private PropertyChangeSupport support;
 
-    public BeskedManager() {
+    /**
+     * Denne constructor er private, fordi vi anvender singleton pattern.
+     */
+    private BeskedManager() {
         brugerManager = newBrugerManager();
         support = new PropertyChangeSupport(this);
     }
 
+    /**
+     * Når man skal bruge BeskedManager kaldes denne metode for at sikre, at der aldrig findes mere end én BeskedManager.
+     * @return  returnerer sit statiske variabel beskedManager
+     */
     public static synchronized BeskedManager getInstance() {
         if (beskedManager == null) {
             beskedManager = new BeskedManager();
@@ -31,6 +39,12 @@ public class BeskedManager {
         return beskedManager;
     }
 
+    /**
+     * Kaldes, når der skal oprettes en ny chat.
+     * @param navn modtagerens navn
+     * @param emne emnets indhold
+     * @throws BrugerFindesIkkeException når modtageren ikke findes af brugerManager
+     */
     public void opretChat(String navn, String emne) throws BrugerFindesIkkeException {
         Bruger afsender = brugerManager.getAktivBruger();
         Bruger modtager = brugerManager.hentBrugerMedNavn(navn);
@@ -42,14 +56,30 @@ public class BeskedManager {
         support.firePropertyChange("opretChat", null, nyChat);
     }
 
+    /**
+     * Getter til BeskedManagers liste af chats
+     * @return en liste af alle chats i systemet
+     */
     public ArrayList<Chat> hentChats() {
         return chats;
     }
 
+    /**
+     * Getter til den beskedliste, som findes i en specifik chat.
+     * @param chat den chat, du ønsker at hente beskeder fra
+     * @return en liste af alle chattens beskeder
+     */
     public ArrayList<Besked> hentBeskeder(Chat chat) {
         return chat.getBeskeder();
     }
 
+    /**
+     * Kaldes, når der sendes en ny besked. Metoden skaber et ny beskedobjekt med aktivBruger som afsender.
+     * Derefter tjekker den, hvem der er afsender og modtager på chatten. Modtageren af beskeden må være den modsatte af
+     * aktivBruger. Metoden tilføjer beskeden til et chatobjekt og opdaterer sidstAktiv.
+     * @param besked indholdet af den besked, som skal skabes.
+     * @param chat chatten, som skal indeholde beskeden.
+     */
     public void sendBesked(String besked, Chat chat) {
         /** Sæt afsender og modtager for beskedobjektet */
         String afsender = brugerManager.getAktivBruger().getNavn();
@@ -66,6 +96,10 @@ public class BeskedManager {
         chat.setSidstAktiv(tidspunkt);
     }
 
+    /**
+     * Denne metode bruges til at skabe en MockBrugerManager i test.
+     * @return kalder BrugerManagers constructor.
+     */
     protected BrugerManager newBrugerManager() {
         return BrugerManager.getInstance();
     }

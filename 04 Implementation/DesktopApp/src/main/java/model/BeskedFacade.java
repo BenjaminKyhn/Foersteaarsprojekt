@@ -10,17 +10,28 @@ import entities.exceptions.TomEmneException;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ * BeskedFacade fungerer som et samlet koblingspunkt for UI-elementer, der vil ændre på beskedelementer. Dens primære
+ * funktion er at sende metodekald videre til enten Validering eller BeskedManager.
+ */
 public class BeskedFacade {
     private BeskedManager beskedManager;
     private Validering validering;
     private static BeskedFacade beskedFacade;
 
-    public BeskedFacade() {
+    /**
+     * Denne constructor er private, fordi vi anvender singleton pattern.
+     */
+    private BeskedFacade() {
         beskedManager = BeskedManager.getInstance();
         validering = new Validering();
     }
 
+    /**
+     * Når man skal bruge BeskedFacade kaldes denne metode for at sikre, at der aldrig findes mere end én BeskedFacade.
+     * @return  returnerer sit statiske variabel beskedFacade
+     */
     public static synchronized BeskedFacade getInstance() {
         if (beskedFacade == null){
             beskedFacade = new BeskedFacade();
@@ -28,6 +39,14 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
+    /**
+     * Kaldes, når der skal skabes en ny chat.
+     * @param navn modtagerens navn
+     * @param emne emne for chatten
+     * @throws BrugerFindesIkkeException hvis modtageren ikke findes
+     * @throws TomEmneException hvis emnet er en tom String
+     * @throws ForMangeTegnException hvis emnet har for mange tegn
+     */
     public void opretChat(String navn, String emne) throws BrugerFindesIkkeException, TomEmneException, ForMangeTegnException {
         tjekEmne(emne);
         beskedManager.opretChat(navn, emne);
