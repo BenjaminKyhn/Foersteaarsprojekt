@@ -18,7 +18,7 @@ public class BeskedManagerTest {
     public void hentChatsUT030101() {
         BeskedManager beskedManager = new TestbarBeskedManager();
         MockChat mockChat = new MockChat("test");
-        List<Chat> chats = new ArrayList<>();
+        ArrayList<Chat> chats = new ArrayList<>();
         chats.add(mockChat);
         beskedManager.setChats(chats);
         assertEquals("test", beskedManager.hentChats().get(0).getEmne());
