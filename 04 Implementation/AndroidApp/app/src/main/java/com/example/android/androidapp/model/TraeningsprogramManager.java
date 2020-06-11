@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /** @author Tommy */
+// træningsprogramManager klasse instantieret i traeningsprogramFacade
 public class TraeningsprogramManager {
     private ArrayList<String> program;
     private PropertyChangeSupport support;

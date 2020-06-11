@@ -13,6 +13,7 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /** @author Tommy **/
+// Denne klasse fungere som udvendig access point til alt der har med brugere at gøre.
 public class BrugerFacade {
     private BrugerManager brugerManager;
     private Validering validering;
@@ -23,6 +24,7 @@ public class BrugerFacade {
         validering = new Validering(brugerManager);
     }
 
+    // Beskedfacaden bruger singleton design pattern for nemt at bevare brugere mellem activities.
     public static synchronized BrugerFacade hentInstans() {
         if (brugerFacade == null) {
             brugerFacade = new BrugerFacade();

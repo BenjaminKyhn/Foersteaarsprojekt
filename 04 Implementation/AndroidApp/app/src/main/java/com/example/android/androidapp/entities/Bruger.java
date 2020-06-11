@@ -5,6 +5,8 @@ import com.example.android.androidapp.model.TekstHasher;
 import java.util.ArrayList;
 
 /** @author Tommy **/
+// Bruger klassen som har alt information som en bruger behøver i programmet.
+// Getters og setters på engelsk da et specifikt navn er nødvendig for at Cloud Firestore kan mappe objektet.
 public class Bruger {
     private String navn;
     private String email;

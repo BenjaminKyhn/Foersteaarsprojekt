@@ -11,6 +11,7 @@ import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
 
 /** @author Tommy **/
+// Klasse til at håndtere validering af brugerinputs. Brugt både i besked klasser og bruger klasser
 class Validering {
     private BrugerManager brugerManager;
 

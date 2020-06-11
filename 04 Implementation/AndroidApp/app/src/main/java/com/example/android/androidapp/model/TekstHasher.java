@@ -7,6 +7,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /** @author Tommy */
+// Denne klasse har en statisk metode der returner den passerede tekst som hash med SHA-256 algoritmen.
 public class TekstHasher {
     public static String hashTekst(String tekst) {
         String sha256hex = null;

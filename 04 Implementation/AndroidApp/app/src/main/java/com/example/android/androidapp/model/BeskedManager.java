@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /** @author Tommy **/
+// Beskedmanageren er den egentlige klasse der er ekspert i håndtere beskeder. Den indeholder en samling af chats.
 class BeskedManager {
     private ArrayList<Chat> chats;
     private BrugerManager brugerManager;
@@ -25,6 +26,8 @@ class BeskedManager {
         chats = new ArrayList<>();
     }
 
+    /* Da listen af chats er usorteret så må vi iterere igennem den hele indtil vi finder den søgte chat, hvilket i værste tilfælde kan betyder at den .
+    * går igennem hele listen inden den finder chatten. */
     Chat hentChat(String afsender, String modtager, String emne) {
         for (Chat chat : chats) {
             if (chat.getAfsender().equals(afsender)) {
@@ -42,17 +45,22 @@ class BeskedManager {
         Validering validering = new Validering();
         validering.tjekEmne(emne);
 
+        // brugerManager finder brugeren ved navn og kaster en exception hvis den ikke kan finde en.
         Bruger hentedeBruger = brugerManager.hentBrugerMedNavn(modtager);
         if (hentedeBruger == null)
             throw new BrugerFindesIkkeException();
         Chat chat = new Chat(afsender, hentedeBruger.getNavn(), emne);
         chats.add(chat);
+
+        // Observerkald så tilmeldte listeners for besked.
         support.firePropertyChange("opretChat", null, chat);
     }
 
     void sendBesked(String besked, Chat chat, String afsender, String modtager) throws TomBeskedException, ForMangeTegnException {
         Validering validering = new Validering();
         validering.tjekBesked(besked);
+
+        // Tidspunktet i beskeden er unix time og så kan denne formateres et andet sted.
         long tidspunkt = System.currentTimeMillis();
         Besked beskedObjekt = new Besked(besked, tidspunkt, afsender, modtager);
         chat.tilfoejBesked(beskedObjekt);
