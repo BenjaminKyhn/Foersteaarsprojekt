@@ -28,6 +28,7 @@ import java.util.List;
 /**
  * @author Tommy
  **/
+// Denne klasse instantierer firebase og håndterer alle databasekald i programmet.
 public class DatabaseManager {
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private ArrayList<Chat> nuvaerendeChats;

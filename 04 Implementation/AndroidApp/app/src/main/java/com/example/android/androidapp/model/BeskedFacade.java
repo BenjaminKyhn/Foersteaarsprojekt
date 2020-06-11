@@ -8,9 +8,9 @@ import com.example.android.androidapp.entities.exceptions.TomEmneException;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
-import java.util.List;
 
 /** @author Tommy **/
+// Denne klasse fungere som udvendig access point til alt der har med beskeder at gøre.
 public class BeskedFacade {
     private BeskedManager beskedManager;
     private Validering validering;
@@ -21,6 +21,7 @@ public class BeskedFacade {
         validering = new Validering();
     }
 
+    // Beskedfacaden bruger singleton design pattern for nemt at bevare beskeder mellem activities.
     public static synchronized BeskedFacade hentInstans() {
         if (beskedFacade == null) {
             beskedFacade = new BeskedFacade();

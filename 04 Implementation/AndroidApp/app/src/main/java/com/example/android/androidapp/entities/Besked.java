@@ -1,6 +1,8 @@
 package com.example.android.androidapp.entities;
 
 /** @author Tommy **/
+// Besked klassen som har alt information som en besked behøver i programmet.
+// Getters og setters på engelsk da et specifikt navn er nødvendig for at Cloud Firestore kan mappe objektet.
 public class Besked {
     private String besked;
     private long tidspunkt;

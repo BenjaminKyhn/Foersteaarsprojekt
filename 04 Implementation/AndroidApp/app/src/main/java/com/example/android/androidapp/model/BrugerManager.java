@@ -9,7 +9,9 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /** @author Tommy **/
+// Brugermanageren er den egentlige klasse der er ekspert i at håndtere brugere. Den indeholder en samling af brugere.
 class BrugerManager {
+    // aktiveBruger er det bruger objekt som er loggede ind.
     private Bruger aktivBruger;
     private ArrayList<Bruger> brugere;
     private PropertyChangeSupport support;
@@ -18,6 +20,8 @@ class BrugerManager {
         support = new PropertyChangeSupport(this);
         brugere = new ArrayList<>();
     }
+
+    // Usorterede lister itereres igennem for at finde den ønskede bruger.
 
     Bruger hentBrugerMedNavn(String navn) {
         for (Bruger bruger : brugere) {
@@ -37,6 +41,7 @@ class BrugerManager {
         return null;
     }
 
+    // På Android app'en må brugeren ikke være loggede ind modsat Desktop app'en hvor det er tilladt.
     void opretBruger(String navn, String email, String password) throws BrugerAlleredeLoggedIndException {
         if (aktivBruger != null) {
             throw new BrugerAlleredeLoggedIndException();
@@ -44,9 +49,12 @@ class BrugerManager {
         Bruger bruger = new Bruger(navn, email, password, false);
         brugere.add(bruger);
         aktivBruger = bruger;
+
+        // Observerkald hvor det nye bruger objekt passeres som argument.
         support.firePropertyChange("opretBruger", null, bruger);
     }
 
+    // Brugeren skal angive kontoens password før brugeren slettes.
     void sletBruger(Bruger bruger, String password) throws ForkertPasswordException {
         if (!bruger.validerPassword(password)) {
             throw new ForkertPasswordException();

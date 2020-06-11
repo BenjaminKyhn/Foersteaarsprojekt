@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 /** @author Tommy **/
+// Chat klassen som har alt information som en chat behøver i programmet.
+// Getters og setters på engelsk da et specifikt navn er nødvendig for at Cloud Firestore kan mappe objektet.
 public class Chat {
     private PropertyChangeSupport support;
 
