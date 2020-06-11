@@ -103,7 +103,7 @@ public class DatabaseManager {
                     updatedChat.put("sidstAktiv", nu);
                     DocumentReference reference = querySnapshot.getDocumentChanges().get(0).getDocument().getReference();
                     reference.set(updatedChat);
-                    Besked sidsteBesked = chat.getBeskeder().get(chat.getBeskeder().size() - 1);
+                    Besked sidsteBesked = chat.hentBeskeder().get(chat.hentBeskeder().size() - 1);
                     reference.collection("beskeder").document().set(sidsteBesked);
                 }
             }
@@ -178,7 +178,7 @@ public class DatabaseManager {
                             if (!write) {
                                 if (queryDocumentSnapshots != null && !queryDocumentSnapshots.isEmpty()) {
                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                    if (list.size() != chat.getBeskeder().size()) {
+                                    if (list.size() != chat.hentBeskeder().size()) {
                                         Besked besked = list.get(list.size() - 1).toObject(Besked.class);
                                         chat.tilfoejBesked(besked);
                                     }

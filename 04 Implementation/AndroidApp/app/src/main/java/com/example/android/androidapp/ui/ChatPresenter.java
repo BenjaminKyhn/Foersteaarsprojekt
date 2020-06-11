@@ -24,7 +24,7 @@ class ChatPresenter {
 
     ChatPresenter(String afsender, String modtager, String emne) {
         chat = BeskedFacade.hentInstans().hentChat(afsender, modtager, emne);
-        beskeder = chat.getBeskeder();
+        beskeder = chat.hentBeskeder();
         support = new PropertyChangeSupport(this);
         observerChat(chat);
         databaseManager = new DatabaseManager();
@@ -40,7 +40,7 @@ class ChatPresenter {
                         databaseManager.opdaterChat(chat);
                     }
                     write = false;
-                    if (!evt.getNewValue().equals(chat.getBeskeder().get(chat.getBeskeder().size() - 1))) {
+                    if (!evt.getNewValue().equals(chat.hentBeskeder().get(chat.hentBeskeder().size() - 1))) {
                         support.firePropertyChange("nyBeskedPresenter", null, beskeder);
                     }
                 }

@@ -75,7 +75,7 @@ public class Chat {
         this.sidstAktiv = sidstAktiv;
     }
 
-    public ArrayList<Besked> getBeskeder() {
+    public ArrayList<Besked> hentBeskeder() {
         return beskeder;
     }
 

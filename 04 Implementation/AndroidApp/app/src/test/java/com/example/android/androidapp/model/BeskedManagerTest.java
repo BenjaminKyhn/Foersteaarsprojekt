@@ -30,9 +30,9 @@ public class BeskedManagerTest {
         Chat chat = new Chat("Hans", "Mogens", "testemne");
         String besked = "testbesked";
         beskedManager.sendBesked(besked, chat, "Hans", "Mogens");
-        assertEquals("testbesked", chat.getBeskeder().get(0).getBesked());
-        assertEquals("Hans", chat.getBeskeder().get(0).getAfsender());
-        assertEquals("Mogens", chat.getBeskeder().get(0).getModtager());
+        assertEquals("testbesked", chat.hentBeskeder().get(0).getBesked());
+        assertEquals("Hans", chat.hentBeskeder().get(0).getAfsender());
+        assertEquals("Mogens", chat.hentBeskeder().get(0).getModtager());
     }
 
     private static class MockChat extends Chat {
@@ -55,7 +55,7 @@ public class BeskedManagerTest {
         }
 
         @Override
-        public ArrayList<Besked> getBeskeder(){
+        public ArrayList<Besked> hentBeskeder(){
             return beskeder;
         }
     }
