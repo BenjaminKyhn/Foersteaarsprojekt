@@ -79,7 +79,7 @@ public class BrugerFacade {
      * @param navn navnet på brugeren
      * @param email brugeren emails
      * @param password brugerens password
-     * @param erBehandler true, hvis brueren er behandler og false, hvis brugeren er patient
+         * @param erBehandler true, hvis brueren er behandler og false, hvis brugeren er patient
      * @throws BrugerErIkkeBehandlerException når en ikke-behandler prøver at kalde opretBruger
      * @throws TomPasswordException når passwordet er tomt
      * @throws PasswordLaengdeException når passwordets længde er ugyldigt
