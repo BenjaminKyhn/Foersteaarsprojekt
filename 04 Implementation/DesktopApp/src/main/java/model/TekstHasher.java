@@ -7,8 +7,18 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-/** @author Benjamin */
+/**
+ * @author Benjamin
+ * TekstHasher har kun en enkelt metode med det formål, at hashe tekster med SHA-256-algoritmen. I vores program hashes
+ * indtil videre kun passwords.
+ */
 public class TekstHasher {
+
+    /**
+     * Metoden kaldes, når en tekst skal hashes.
+     * @param tekst den tekst, som skal hashes.
+     * @return en String, som er hashed.
+     */
     public String hashTekst(String tekst){
         String sha256hex = null;
 
