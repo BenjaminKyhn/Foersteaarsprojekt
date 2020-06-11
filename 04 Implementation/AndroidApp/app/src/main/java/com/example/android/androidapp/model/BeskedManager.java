@@ -53,8 +53,8 @@ class BeskedManager {
     void sendBesked(String besked, Chat chat, String afsender, String modtager) throws TomBeskedException, ForMangeTegnException {
         Validering validering = new Validering();
         validering.tjekBesked(besked);
-        long now = System.currentTimeMillis();
-        Besked beskedObjekt = new Besked(besked, now, afsender, modtager);
+        long tidspunkt = System.currentTimeMillis();
+        Besked beskedObjekt = new Besked(besked, tidspunkt, afsender, modtager);
         chat.tilfoejBesked(beskedObjekt);
     }
 
