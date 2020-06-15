@@ -135,9 +135,6 @@ public class TildelProgramController {
             player.play();
             traeningsprogramFacade.tilfoejOevelse(newValue);
         };
-
-
-
     }
 
     @FXML
