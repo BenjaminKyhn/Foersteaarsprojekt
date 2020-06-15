@@ -13,11 +13,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
-/** @author Tommy */
+/**
+ * @author Tommy
+ */
 public class TildelProgramController {
     @FXML
     private AnchorPane tildelProgramAnchorPane;
@@ -40,10 +46,13 @@ public class TildelProgramController {
     @FXML
     private Button btnTilbage;
 
-    ChangeListener<String> oevelseListener;
-    BrugerFacade brugerFacade;
-    TraeningsprogramFacade traeningsprogramFacade;
-    DatabaseManager databaseManager;
+    @FXML
+    private Pane videoPane;
+
+    private ChangeListener<String> oevelseListener;
+    private BrugerFacade brugerFacade;
+    private TraeningsprogramFacade traeningsprogramFacade;
+    private DatabaseManager databaseManager;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
@@ -66,6 +75,7 @@ public class TildelProgramController {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 choiceBoxOevelse.getSelectionModel().selectedItemProperty().removeListener(oevelseListener);
+                videoPane.getChildren().clear();
                 switch (newValue.intValue()) {
                     case 0:
                         styrketraening();
@@ -89,6 +99,9 @@ public class TildelProgramController {
             listViewProgram.getItems().add(newValue);
             traeningsprogramFacade.tilfoejOevelse(newValue);
         };
+
+
+
     }
 
     @FXML
@@ -103,6 +116,23 @@ public class TildelProgramController {
     private void styrketraening() {
         choiceBoxOevelse.getItems().clear();
         choiceBoxOevelse.getItems().add("Dødløft");
+        choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+                videoPane.getChildren().clear();
+                switch (newValue) {
+                    case "Dødløft":
+                        Media media = new Media(getClass().getResource("../doedloeft.mp4").toExternalForm());
+                        MediaPlayer player = new MediaPlayer(media);
+                        MediaView videoView = new MediaView(player);
+                        videoView.setFitWidth(320);
+                        videoView.setFitHeight(180);
+                        videoPane.getChildren().add(videoView);
+                        player.play();
+                        break;
+                }
+            }
+        });
     }
 
     private void mobilitet() {
