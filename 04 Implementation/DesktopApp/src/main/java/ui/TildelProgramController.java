@@ -105,27 +105,27 @@ public class TildelProgramController {
             videoPane.getChildren().add(videoView);
             switch (newValue) {
                 case "Dødløft":
-                    media = new Media(getClass().getResource("../videoer/doedloeft.mp4").toExternalForm());
+                    media = new Media(getClass().getResource("/videoer/doedloeft.mp4").toExternalForm());
                     player = new MediaPlayer(media);
                     videoView.setMediaPlayer(player);
                     break;
                 case "Hoftebøjer":
-                    media = new Media(getClass().getResource("../videoer/hofteboejer.mp4").toExternalForm());
+                    media = new Media(getClass().getResource("/videoer/hofteboejer.mp4").toExternalForm());
                     player = new MediaPlayer(media);
                     videoView.setMediaPlayer(player);
                     break;
                 case "Nakke":
-                    media = new Media(getClass().getResource("../videoer/nakke.mp4").toExternalForm());
+                    media = new Media(getClass().getResource("/videoer/nakke.mp4").toExternalForm());
                     player = new MediaPlayer(media);
                     videoView.setMediaPlayer(player);
                     break;
                 case "Planken på albuer og tær":
-                    media = new Media(getClass().getResource("../videoer/planke.mp4").toExternalForm());
+                    media = new Media(getClass().getResource("/videoer/planke.mp4").toExternalForm());
                     player = new MediaPlayer(media);
                     videoView.setMediaPlayer(player);
                     break;
                 case "Firefodstående krum - svaj":
-                    media = new Media(getClass().getResource("../videoer/svaj.mp4").toExternalForm());
+                    media = new Media(getClass().getResource("/videoer/svaj.mp4").toExternalForm());
                     player = new MediaPlayer(media);
                     videoView.setMediaPlayer(player);
                     break;
@@ -182,7 +182,7 @@ public class TildelProgramController {
         databaseManager.opdaterTraeningsprogram(patient, traeningsprogramFacade.hentListe());
         Parent menuLoader = null;
         try {
-            menuLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            menuLoader = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -195,7 +195,7 @@ public class TildelProgramController {
     public void tilbage() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }

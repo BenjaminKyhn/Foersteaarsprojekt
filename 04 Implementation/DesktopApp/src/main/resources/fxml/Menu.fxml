@@ -27,14 +27,14 @@
          <Font name="System Bold" size="24.0" />
       </font>
    </Label>
-   <VBox layoutX="204.0" layoutY="365.0" prefHeight="166.0" prefWidth="167.0" spacing="15.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="69.0">
+   <VBox layoutX="204.0" layoutY="365.0" prefHeight="166.0" prefWidth="167.0" spacing="15.0" stylesheets="/fxml/buttonGraphic.css" AnchorPane.bottomAnchor="69.0">
       <Label prefHeight="27.0" prefWidth="74.0">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
    </VBox>
-   <VBox layoutX="20.0" layoutY="365.0" prefHeight="166.0" prefWidth="157.0" spacing="14.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="20.0">
+   <VBox layoutX="20.0" layoutY="365.0" prefHeight="166.0" prefWidth="157.0" spacing="14.0" stylesheets="/fxml/buttonGraphic.css" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="20.0">
       <Label fx:id="lblIndstillinger" prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
          <font>
             <Font size="18.0" />
@@ -64,7 +64,7 @@
       </Label>
    </VBox>
    <Circle fx:id="fotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
-   <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="200.0" prefHeight="245.0" prefWidth="305.0" spacing="20.0" stylesheets="buttonGraphic.css" AnchorPane.bottomAnchor="155.0" AnchorPane.rightAnchor="47.0">
+   <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="200.0" prefHeight="245.0" prefWidth="305.0" spacing="20.0" stylesheets="/fxml/buttonGraphic.css" AnchorPane.bottomAnchor="155.0" AnchorPane.rightAnchor="47.0">
       <Label fx:id="lblBeskeder" text="Beskeder">
          <font>
             <Font size="36.0" />

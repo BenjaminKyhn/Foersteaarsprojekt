@@ -141,7 +141,7 @@ public class ChatWindowController {
             // TODO det rigtige navn vises ikke altid
 
             /** Hent controlleren */
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ChatWindowChats.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatWindowChats.fxml"));
             Parent root = null;
             try {
                 root = loader.load();
@@ -250,7 +250,7 @@ public class ChatWindowController {
     public void logUd() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -266,7 +266,7 @@ public class ChatWindowController {
     public void tilHovedmenu() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -282,7 +282,7 @@ public class ChatWindowController {
      */
     public void nyChatPopup() {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../NyChat.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/NyChat.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {
@@ -303,7 +303,7 @@ public class ChatWindowController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {

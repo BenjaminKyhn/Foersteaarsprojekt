@@ -64,7 +64,7 @@ public class SletBrugerController {
     public void skiftTilStartscene(){
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         }
         catch (Exception e){
             e.printStackTrace();
@@ -78,7 +78,7 @@ public class SletBrugerController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {

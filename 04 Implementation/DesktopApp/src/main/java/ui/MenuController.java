@@ -117,7 +117,7 @@ public class MenuController {
     public void skiftTilChatvindue() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/ChatWindow.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/ChatWindow.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,7 +129,7 @@ public class MenuController {
     public void skiftTilBrugerindstillinger() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/Brugerindstillinger.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Brugerindstillinger.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,7 +143,7 @@ public class MenuController {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,7 +157,7 @@ public class MenuController {
     public void patientregister() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/PatientRegister.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/PatientRegister.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,7 +171,7 @@ public class MenuController {
     public void traeningsprogram() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/TildelProgram.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/TildelProgram.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

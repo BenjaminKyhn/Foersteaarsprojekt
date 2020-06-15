@@ -66,7 +66,7 @@ public class StartController {
         tfEmail.setText("sigurdo@gmail.com");
         tfPassword.setText("sigurdpw");
 
-        lblLoggerInd = new Label("Logger ind...");
+        lblLoggerInd = new Label("Logger ind.");
         lblLoggerInd.setVisible(false);
 
         /** Sæt indstillingerne på startGridPane */
@@ -143,7 +143,7 @@ public class StartController {
     public void skiftTilMenuScene() {
         Parent menuLoader = null;
         try {
-            menuLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            menuLoader = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
         }
         Scene menuScene = new Scene(menuLoader);
@@ -155,7 +155,7 @@ public class StartController {
     public void skiftTilOpretBrugerScene() {
         Parent opretBrugerLoader = null;
         try {
-            opretBrugerLoader = FXMLLoader.load(getClass().getResource("../OpretBruger.fxml"));
+            opretBrugerLoader = FXMLLoader.load(getClass().getResource("/fxml/OpretBruger.fxml"));
         } catch (Exception e) {
         }
         Scene opretBrugerScene = new Scene(opretBrugerLoader);
@@ -166,7 +166,7 @@ public class StartController {
 
     public void logIndFejlPopup(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {
