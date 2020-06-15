@@ -97,6 +97,42 @@ public class TildelProgramController {
         choiceBoxOevelse.getSelectionModel().select(0);
         oevelseListener = (observable, oldValue, newValue) -> {
             listViewProgram.getItems().add(newValue);
+            MediaView videoView = new MediaView();
+            videoView.setFitWidth(320);
+            videoView.setFitHeight(180);
+            Media media;
+            MediaPlayer player;
+            videoPane.getChildren().add(videoView);
+            switch (newValue) {
+                case "Dødløft":
+                    media = new Media(getClass().getResource("../doedloeft.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Hoftebøjer":
+                    media = new Media(getClass().getResource("../hofteboejer.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Nakke":
+                    media = new Media(getClass().getResource("../nakke.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Planken på albuer og tær":
+                    media = new Media(getClass().getResource("../planke.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Firefodstående krum - svaj":
+                    media = new Media(getClass().getResource("../svaj.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + newValue);
+            }
+            player.play();
             traeningsprogramFacade.tilfoejOevelse(newValue);
         };
 
@@ -116,23 +152,6 @@ public class TildelProgramController {
     private void styrketraening() {
         choiceBoxOevelse.getItems().clear();
         choiceBoxOevelse.getItems().add("Dødløft");
-        choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                videoPane.getChildren().clear();
-                switch (newValue) {
-                    case "Dødløft":
-                        Media media = new Media(getClass().getResource("../doedloeft.mp4").toExternalForm());
-                        MediaPlayer player = new MediaPlayer(media);
-                        MediaView videoView = new MediaView(player);
-                        videoView.setFitWidth(320);
-                        videoView.setFitHeight(180);
-                        videoPane.getChildren().add(videoView);
-                        player.play();
-                        break;
-                }
-            }
-        });
     }
 
     private void mobilitet() {
