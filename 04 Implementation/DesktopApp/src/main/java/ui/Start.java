@@ -13,7 +13,7 @@ public class Start extends Application{
     @Override
     public void start(Stage stage) throws Exception {
         // Start scene
-        Parent root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         Scene scene = new Scene(root);;
         stage.setTitle("Frederiksberg Sportsklinik");
         stage.setScene(scene);
