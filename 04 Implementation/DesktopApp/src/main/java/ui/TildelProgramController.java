@@ -22,8 +22,6 @@ import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -58,26 +56,13 @@ public class TildelProgramController {
     private BrugerFacade brugerFacade;
     private TraeningsprogramFacade traeningsprogramFacade;
     private DatabaseManager databaseManager;
+    private ArrayList<Oevelse> oevelser;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         databaseManager = DatabaseManager.getInstance();
-        traeningsprogramFacade = new TraeningsprogramFacade();
-
-        /** Indlæs alle oevelser og send dem til TraeningsprogramFacade */
-        if (traeningsprogramFacade.hentOevelser() == null) {
-            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                    if (propertyChangeEvent.getPropertyName().equals("hentOevelser")) {
-                        @SuppressWarnings("unchecked")
-                        ArrayList<Oevelse> oevelser = (ArrayList<Oevelse>) propertyChangeEvent.getNewValue();
-                        traeningsprogramFacade.setOevelser(oevelser);
-                    }
-                }
-            });
-            DatabaseManager.getInstance().hentOevelser();
-        }
+        traeningsprogramFacade = TraeningsprogramFacade.getInstance();
+        oevelser = traeningsprogramFacade.hentOevelser();
 
         tableColumnNavn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -159,6 +144,7 @@ public class TildelProgramController {
 
     @FXML
     private void fjernFraListe() {
+        System.out.println(oevelser.get(0).getNavn());
         String valgt = listViewProgram.getSelectionModel().getSelectedItem();
         if (valgt != null) {
             listViewProgram.getItems().remove(valgt);

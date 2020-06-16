@@ -7,9 +7,17 @@ import java.util.ArrayList;
 /** @author Tommy */
 public class TraeningsprogramFacade {
     TraeningsprogramManager traeningsprogramManager;
+    private static TraeningsprogramFacade traeningsprogramFacade;
 
     public TraeningsprogramFacade() {
         traeningsprogramManager = new TraeningsprogramManager();
+    }
+
+    public static synchronized TraeningsprogramFacade getInstance() {
+        if (traeningsprogramFacade == null) {
+            traeningsprogramFacade = new TraeningsprogramFacade();
+        }
+        return traeningsprogramFacade;
     }
 
     public void tilfoejOevelse(String oevelse) {

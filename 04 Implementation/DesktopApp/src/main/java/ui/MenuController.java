@@ -2,6 +2,7 @@ package ui;
 
 import entities.Bruger;
 import entities.Chat;
+import entities.Oevelse;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
 import database.DatabaseManager;
+import model.TraeningsprogramFacade;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -53,6 +55,7 @@ public class MenuController {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.getInstance();
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */
         if (beskedFacade.hentChats() == null) {
@@ -82,6 +85,21 @@ public class MenuController {
                 }
             });
             DatabaseManager.getInstance().hentBrugere();
+        }
+
+        /** Indlæs alle oevelser og send dem til TraeningsprogramFacade */
+        if (traeningsprogramFacade.hentOevelser() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentOevelser")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Oevelse> oevelser = (ArrayList<Oevelse>) propertyChangeEvent.getNewValue();
+                        traeningsprogramFacade.setOevelser(oevelser);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentOevelser();
         }
 
         Image image = new Image("Logo2x.png");
