@@ -84,23 +84,7 @@ public class TildelProgramController {
         tableViewPatient.setItems(patienter);
 
         // Når man klikker på patienten indlæses nuværende øvelser i listViewProgram,
-        tableViewPatient.setOnMouseClicked(e -> {
-            valgtePatient = tableViewPatient.getSelectionModel().getSelectedItem();
-            ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
-            ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
-            for (int i = 0; i < programmer.size(); i++) {
-                if (programmer.get(i).getPatientEmail().equals(valgtePatient.getEmail())) {
-                    ArrayList<String> oevelserTemp = programmer.get(i).getOevelser();
-                    for (int j = 0; j < oevelserTemp.size(); j++) {
-                        patientensOevelser.add(oevelserTemp.get(j));
-                    }
-                }
-            }
-            listViewProgram.setItems(patientensOevelser);
-            for (int i = 0; i < patientensOevelser.size(); i++) {
-                System.out.println(patientensOevelser.get(i)); //TODO Underligt problem hvor alle øvelser indlæses som Nakke?
-            }
-        });
+        tableViewPatient.setOnMouseClicked(e -> indlaesOevelser());
 
         ObservableList<String> kategorier = FXCollections.observableArrayList();
         for (int i = 0; i < oevelser.size(); i++) {
@@ -228,6 +212,21 @@ public class TildelProgramController {
         ArrayList<String> patientensOevelser = new ArrayList<>(listViewProgram.getItems());
         Traeningsprogram program = new Traeningsprogram(valgtePatient.getEmail(), patientensOevelser);
         traeningsprogramFacade.gemProgram(program);
+    }
+
+    private void indlaesOevelser(){
+        valgtePatient = tableViewPatient.getSelectionModel().getSelectedItem();
+        ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
+        ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
+        for (int i = 0; i < programmer.size(); i++) {
+            if (programmer.get(i).getPatientEmail().equals(valgtePatient.getEmail())) {
+                ArrayList<String> oevelserTemp = programmer.get(i).getOevelser();
+                for (int j = 0; j < oevelserTemp.size(); j++) {
+                    patientensOevelser.add(oevelserTemp.get(j));
+                }
+            }
+        }
+        listViewProgram.setItems(patientensOevelser);
     }
 
     @FXML

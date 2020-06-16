@@ -22,28 +22,12 @@ public class TraeningsprogramFacade {
         return traeningsprogramFacade;
     }
 
-    public void tilfoejOevelse(String oevelse) {
-        traeningsprogramManager.tilfoejOevelse(oevelse);
-    }
-
-    public void fjernOevelse(String oevelse) {
-        traeningsprogramManager.fjernOevelse(oevelse);
-    }
-
     public void gemProgram(Traeningsprogram program){
         traeningsprogramManager.gemProgram(program);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){
         traeningsprogramManager.tilfoejObserver(listener);
-    }
-
-    public void angivListe(ArrayList<String> liste) {
-        traeningsprogramManager.angivListe(liste);
-    }
-
-    public ArrayList<String> hentListe() {
-        return traeningsprogramManager.hentListe();
     }
 
     public ArrayList<Oevelse> hentOevelser() {
