@@ -8,10 +8,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
-import entities.Besked;
-import entities.Bruger;
-import entities.Chat;
-import entities.Oevelse;
+import entities.*;
 
 import javax.annotation.Nullable;
 import java.beans.PropertyChangeListener;
@@ -310,13 +307,13 @@ public class DatabaseManager {
         Query query = firestore.collection("træningsprogram");
 
         Thread thread = new Thread(() -> {
-            Map<String, Object> programmer = new HashMap<>();
+            ArrayList<Traeningsprogram> programmer = new ArrayList<>();
 
             try {
                 QuerySnapshot querySnapshot = query.get().get();
                 if (!querySnapshot.isEmpty()) {
                     for (int i = 0; i < querySnapshot.size(); i++) {
-                        programmer.put(query.get().toString(), querySnapshot.getDocuments().get(i).get("program"));
+                        programmer.add(querySnapshot.getDocuments().get(i).toObject(Traeningsprogram.class));
                     }
                 }
             } catch (InterruptedException | ExecutionException e) {
