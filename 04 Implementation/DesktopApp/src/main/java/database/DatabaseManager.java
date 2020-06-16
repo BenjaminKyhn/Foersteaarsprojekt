@@ -310,7 +310,7 @@ public class DatabaseManager {
     }
 
     public void hentOevelser() {
-        Query query = firestore.collection("oevelser");
+        Query query = firestore.collection("øvelser");
 
         Thread thread = new Thread(() -> {
             ArrayList<Oevelse> oevelser = new ArrayList<>();

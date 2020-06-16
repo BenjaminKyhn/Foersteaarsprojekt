@@ -13,6 +13,9 @@ public class Oevelse {
         this.navn = navn;
     }
 
+    public Oevelse(){
+    }
+
     public String getNavn() {
         return navn;
     }

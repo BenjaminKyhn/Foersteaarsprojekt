@@ -76,7 +76,7 @@ public class TildelProgramController {
                     }
                 }
             });
-            DatabaseManager.getInstance().hentBrugere();
+            DatabaseManager.getInstance().hentOevelser();
         }
 
         tableColumnNavn.setCellValueFactory(new PropertyValueFactory<>("navn"));
