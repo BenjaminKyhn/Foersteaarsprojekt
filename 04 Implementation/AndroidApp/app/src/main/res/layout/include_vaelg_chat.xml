@@ -45,8 +45,6 @@
         android:onClick="nySamtaleDialog"
         android:text="Åben ny samtale"
         android:textAllCaps="false"
-
-        android:fontFamily="@font/open_sans_regular"
         android:textSize="22sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

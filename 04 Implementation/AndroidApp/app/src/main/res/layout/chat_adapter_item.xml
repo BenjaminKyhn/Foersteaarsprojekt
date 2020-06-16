@@ -32,12 +32,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_toEndOf="@+id/cardView"
-        tools:text="TextView"
-        android:fontFamily="@font/open_sans_regular"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/cardView"
-        app:layout_constraintTop_toTopOf="@+id/cardView" />
+        app:layout_constraintTop_toTopOf="@+id/cardView"
+        tools:text="TextView" />
 
     <TextView
         android:id="@+id/textViewBesked"
@@ -48,7 +47,6 @@
         android:layout_marginTop="55dp"
         android:layout_toEndOf="@+id/cardView"
         tools:text="TextView"
-        android:fontFamily="@font/open_sans_regular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cardView"
         app:layout_constraintTop_toBottomOf="@+id/textViewNavn" />
@@ -58,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textViewBesked"
-        android:fontFamily="@font/open_sans_regular"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"

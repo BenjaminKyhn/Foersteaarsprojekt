@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.BesvarBeskedActivity">
+    android:layout_height="match_parent">
     <!-- @@author Kelvin + Patrick  -->
     <include
         android:id="@+id/header"
@@ -31,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Titel af besked"
-        android:fontFamily="@font/open_sans_regular"
+
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/textView6"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
@@ -45,7 +44,7 @@
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="16dp"
         android:text="Dette er et tekst eksempel på hvordan at brugeren vil kunne svare på beskederne som de får fra deres fysioterapeut."
-        android:fontFamily="@font/open_sans_regular"
+
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/sendButton"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="64dp"
         android:text="Send"
-        android:fontFamily="@font/open_sans_regular"
+
         android:textAllCaps="false"
         android:textSize="20sp"
         android:background="@color/colorForsideBar"

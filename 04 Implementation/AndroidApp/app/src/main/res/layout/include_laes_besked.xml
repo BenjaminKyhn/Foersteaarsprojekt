@@ -31,7 +31,6 @@
         android:layout_marginTop="32dp"
         android:text="Titel af besked"
         android:textSize="18sp"
-        android:fontFamily="@font/open_sans_regular"
         app:layout_constraintStart_toStartOf="@+id/scrollView3"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
@@ -59,7 +58,6 @@
             android:text="Dette er et tekst eksempel på hvordan at brugeren vil kunne læse
             beskederne som de får fra deres fysioterapeut."
             android:textSize="14sp"
-            android:fontFamily="@font/open_sans_regular"
             app:layout_constraintBottom_toTopOf="@+id/strokeDesign1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
-        android:fontFamily="@font/open_sans_regular"
         android:text="Besvar"
         android:background="@color/colorForsideBar"
         android:textAllCaps="false"

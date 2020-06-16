@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorFRBLogo</item>
         <item name="colorPrimaryDark">@color/colorTrueBlack</item>
         <item name="colorAccent">@color/SkyBlue_color</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="fontFamily">@font/open_sans</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

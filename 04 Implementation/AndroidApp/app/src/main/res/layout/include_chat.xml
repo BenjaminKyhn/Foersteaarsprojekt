@@ -42,7 +42,6 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:background="@color/colorForsideBar"
-        android:fontFamily="@font/open_sans_regular"
         android:onClick="sendBesked"
         android:text="Send"
         android:textAllCaps="false"
