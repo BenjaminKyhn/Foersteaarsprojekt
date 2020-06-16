@@ -3,6 +3,7 @@ package model;
 import entities.Oevelse;
 import entities.Traeningsprogram;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
@@ -27,6 +28,19 @@ public class TraeningsprogramManager {
         if (program.removeIf(programoevelse -> programoevelse.equals(oevelse))) {
             support.firePropertyChange("fjernOevelse", null, oevelse);
         }
+    }
+
+    public void gemProgram(Traeningsprogram program){
+        for (int i = 0; i < programmer.size(); i++) {
+            if (programmer.get(i).getPatientEmail().equals(program.getPatientEmail()))
+                programmer.remove(i);
+        }
+        programmer.add(program);
+        support.firePropertyChange("gemProgram", null, program);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        support.addPropertyChangeListener(listener);
     }
 
     public void angivListe(ArrayList<String> liste) {

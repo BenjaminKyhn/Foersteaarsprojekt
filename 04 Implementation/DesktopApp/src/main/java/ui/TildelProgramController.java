@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -66,6 +68,15 @@ public class TildelProgramController {
         traeningsprogramFacade = TraeningsprogramFacade.getInstance();
         oevelser = traeningsprogramFacade.hentOevelser();
 
+        // Tilføj observer på gemProgram-metoden
+        traeningsprogramFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("gemProgram"))
+                    DatabaseManager.getInstance().gemProgram((Traeningsprogram) evt.getNewValue());
+            }
+        });
+
         tableColumnNavn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 
@@ -78,7 +89,7 @@ public class TildelProgramController {
             ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
             ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
             for (int i = 0; i < programmer.size(); i++) {
-                if (programmer.get(i).getPatientEmail().equals(valgtePatient.getEmail())){
+                if (programmer.get(i).getPatientEmail().equals(valgtePatient.getEmail())) {
                     ArrayList<String> oevelserTemp = programmer.get(i).getOevelser();
                     for (int j = 0; j < oevelserTemp.size(); j++) {
                         patientensOevelser.add(oevelserTemp.get(j));
@@ -170,16 +181,16 @@ public class TildelProgramController {
     }
 
     @FXML
-    private void tilfoejTilListe(){
+    private void tilfoejTilListe() {
         String oevelse = choiceBoxOevelse.getSelectionModel().getSelectedItem();
-        if (oevelse != null){
+        if (oevelse != null) {
             listViewProgram.getItems().add(oevelse);
         }
     }
 
     private void styrketraening() {
         choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser){
+        for (Oevelse oevelse : oevelser) {
             if (oevelse.getKategori().equals("Styrketræning"))
                 choiceBoxOevelse.getItems().add(oevelse.getNavn());
         }
@@ -187,15 +198,15 @@ public class TildelProgramController {
 
     private void mobilitet() {
         choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser){
+        for (Oevelse oevelse : oevelser) {
             if (oevelse.getKategori().equals("Mobilitet"))
-            choiceBoxOevelse.getItems().add(oevelse.getNavn());
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
         }
     }
 
     private void stabilitet() {
         choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser){
+        for (Oevelse oevelse : oevelser) {
             if (oevelse.getKategori().equals("Stabilitet"))
                 choiceBoxOevelse.getItems().add(oevelse.getNavn());
         }
@@ -203,7 +214,7 @@ public class TildelProgramController {
 
     private void rygproblemer() {
         choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser){
+        for (Oevelse oevelse : oevelser) {
             if (oevelse.getKategori().equals("Rygproblemer"))
                 choiceBoxOevelse.getItems().add(oevelse.getNavn());
         }
@@ -213,11 +224,10 @@ public class TildelProgramController {
         choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(oevelseListener);
     }
 
-    private void gemProgram(){
-        ArrayList<String> patientensOevelser = new ArrayList<>();
-        patientensOevelser.addAll(listViewProgram.getItems());
+    private void gemProgram() {
+        ArrayList<String> patientensOevelser = new ArrayList<>(listViewProgram.getItems());
         Traeningsprogram program = new Traeningsprogram(valgtePatient.getEmail(), patientensOevelser);
-        databaseManager.gemProgram(program); //TODO husk observerkald
+        traeningsprogramFacade.gemProgram(program);
     }
 
     @FXML
@@ -225,7 +235,9 @@ public class TildelProgramController {
         if (valgtePatient == null || listViewProgram.getItems().size() == 0) {
             return;
         }
+
         gemProgram();
+
         Parent menuLoader = null;
         try {
             menuLoader = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));

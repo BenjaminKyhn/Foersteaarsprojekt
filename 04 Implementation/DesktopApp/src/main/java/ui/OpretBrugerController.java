@@ -199,5 +199,3 @@ public class OpretBrugerController {
         brugerFacade.logUd();
     }
 }
-
-//TODO Christian skal kunne oprette brugere, selvom han er logged ind

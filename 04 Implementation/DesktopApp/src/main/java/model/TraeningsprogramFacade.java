@@ -3,6 +3,7 @@ package model;
 import entities.Oevelse;
 import entities.Traeningsprogram;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /** @author Tommy */
@@ -27,6 +28,14 @@ public class TraeningsprogramFacade {
 
     public void fjernOevelse(String oevelse) {
         traeningsprogramManager.fjernOevelse(oevelse);
+    }
+
+    public void gemProgram(Traeningsprogram program){
+        traeningsprogramManager.gemProgram(program);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        traeningsprogramManager.tilfoejObserver(listener);
     }
 
     public void angivListe(ArrayList<String> liste) {
