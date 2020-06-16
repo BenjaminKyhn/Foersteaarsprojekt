@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="menuAnchorPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.MenuController">
+   <Rectangle fx:id="baggrundRectangle" arcHeight="5.0" arcWidth="5.0" height="188.0" layoutX="-4.0" layoutY="133.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="394.0" AnchorPane.leftAnchor="0.0">
+      <fill>
+         <LinearGradient endX="0.4047619047619048" endY="0.10952380952380952" startX="0.3714285714285714" startY="0.9">
+            <stops>
+               <Stop color="#f0f0f0" />
+               <Stop color="#0b104a" offset="1.0" />
+            </stops>
+         </LinearGradient>
+      </fill>
+   </Rectangle>
+   <Label layoutX="544.0" layoutY="30.0" prefHeight="35.0" prefWidth="138.0" text="Hovedmenu" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="30.0">
+      <font>
+         <Font name="System Bold" size="24.0" />
+      </font>
+   </Label>
+   <VBox layoutX="204.0" layoutY="365.0" prefHeight="166.0" prefWidth="167.0" spacing="15.0" stylesheets="/fxml/buttonGraphic.css" AnchorPane.bottomAnchor="69.0">
+      <Label prefHeight="27.0" prefWidth="74.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <VBox layoutX="20.0" layoutY="365.0" prefHeight="166.0" prefWidth="157.0" spacing="14.0" stylesheets="/fxml/buttonGraphic.css" AnchorPane.bottomAnchor="44.0" AnchorPane.leftAnchor="20.0">
+      <Label fx:id="lblIndstillinger" prefHeight="1.0" prefWidth="154.0" text="Brugerindstillinger">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPatientregister" alignment="TOP_LEFT" prefHeight="27.0" prefWidth="170.0" text="Patientregister">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblLogUd" prefHeight="27.0" prefWidth="73.0" text="Log ud">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <VBox layoutX="28.0" layoutY="262.0" prefHeight="59.0" prefWidth="329.0" spacing="5.0">
+      <Label fx:id="navnLabel" prefHeight="27.0" prefWidth="434.0" text="Navn">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="mailLabel" prefHeight="27.0" prefWidth="391.0" text="Mail">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </VBox>
+   <Circle fx:id="fotoCircle" fill="#1f93ff00" layoutX="83.0" layoutY="196.0" radius="55.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="20.0" />
+   <VBox alignment="TOP_CENTER" layoutX="448.0" layoutY="200.0" prefHeight="245.0" prefWidth="305.0" spacing="20.0" stylesheets="/fxml/buttonGraphic.css" AnchorPane.bottomAnchor="155.0" AnchorPane.rightAnchor="47.0">
+      <Label fx:id="lblBeskeder" text="Beskeder">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <Label text="Booking">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <Label fx:id="lblTraeningsprogram" text="Træningsprogram">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </VBox>
+   <Separator layoutX="7.0" layoutY="322.0" prefHeight="3.0" prefWidth="394.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="406.0" />
+   <Separator layoutX="422.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="398.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle fx:id="topRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutX="-2.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   <Rectangle fx:id="bundRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+   <Separator layoutX="531.0" layoutY="79.0" prefWidth="200.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
+   <Rectangle fx:id="fillerRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="136.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="394.0" AnchorPane.topAnchor="0.0" />
+   <ImageView fx:id="logoImageView" fitHeight="121.0" fitWidth="259.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="8.0" />
+</AnchorPane>

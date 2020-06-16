@@ -2,6 +2,8 @@ package ui;
 
 import database.DatabaseManager;
 import entities.Bruger;
+import entities.Oevelse;
+import entities.Traeningsprogram;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,11 +15,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
-/** @author Tommy */
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+
+/**
+ * @author Tommy
+ */
 public class TildelProgramController {
     @FXML
     private AnchorPane tildelProgramAnchorPane;
@@ -40,15 +52,31 @@ public class TildelProgramController {
     @FXML
     private Button btnTilbage;
 
-    ChangeListener<String> oevelseListener;
-    BrugerFacade brugerFacade;
-    TraeningsprogramFacade traeningsprogramFacade;
-    DatabaseManager databaseManager;
+    @FXML
+    private Pane videoPane;
+
+    private ChangeListener<String> oevelseListener;
+    private BrugerFacade brugerFacade;
+    private TraeningsprogramFacade traeningsprogramFacade;
+    private DatabaseManager databaseManager;
+    private ArrayList<Oevelse> oevelser;
+    private Bruger valgtePatient;
+    private MediaPlayer player;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         databaseManager = DatabaseManager.getInstance();
-        traeningsprogramFacade = new TraeningsprogramFacade();
+        traeningsprogramFacade = TraeningsprogramFacade.getInstance();
+        oevelser = traeningsprogramFacade.hentOevelser();
+
+        // Tilføj observer på gemProgram-metoden
+        traeningsprogramFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("gemProgram"))
+                    DatabaseManager.getInstance().gemProgram((Traeningsprogram) evt.getNewValue());
+            }
+        });
 
         tableColumnNavn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -56,16 +84,20 @@ public class TildelProgramController {
         ObservableList<Bruger> patienter = FXCollections.observableList(brugerFacade.hentPatienter());
         tableViewPatient.setItems(patienter);
 
+        // Når man klikker på patienten indlæses nuværende øvelser i listViewProgram,
+        tableViewPatient.setOnMouseClicked(e -> indlaesOevelser());
+
         ObservableList<String> kategorier = FXCollections.observableArrayList();
-        kategorier.add("Styrketræning");
-        kategorier.add("Mobilitet");
-        kategorier.add("Stabilitet");
-        kategorier.add("Rygproblemer");
+        for (int i = 0; i < oevelser.size(); i++) {
+            if (!kategorier.contains(oevelser.get(i).getKategori()))
+                kategorier.add(oevelser.get(i).getKategori());
+        }
         choiceBoxKategori.setItems(kategorier);
         choiceBoxKategori.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 choiceBoxOevelse.getSelectionModel().selectedItemProperty().removeListener(oevelseListener);
+                videoPane.getChildren().clear();
                 switch (newValue.intValue()) {
                     case 0:
                         styrketraening();
@@ -86,9 +118,52 @@ public class TildelProgramController {
         choiceBoxOevelse.getItems().add("Vælg kategori først");
         choiceBoxOevelse.getSelectionModel().select(0);
         oevelseListener = (observable, oldValue, newValue) -> {
-            listViewProgram.getItems().add(newValue);
-            traeningsprogramFacade.tilfoejOevelse(newValue);
+            MediaView videoView = new MediaView();
+            videoView.setFitWidth(320);
+            videoView.setFitHeight(180);
+            Media media;
+            videoPane.getChildren().add(videoView);
+            switch (newValue) {
+                case "Dødløft":
+                    media = new Media(getClass().getResource("/videoer/doedloeft.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Hoftebøjer":
+                    media = new Media(getClass().getResource("/videoer/hofteboejer.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Nakke":
+                    media = new Media(getClass().getResource("/videoer/nakke.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Planken på albuer og tær":
+                    media = new Media(getClass().getResource("/videoer/planke.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                case "Firefodstående krum - svaj":
+                    media = new Media(getClass().getResource("/videoer/svaj.mp4").toExternalForm());
+                    player = new MediaPlayer(media);
+                    videoView.setMediaPlayer(player);
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + newValue);
+            }
+            player.play();
         };
+    }
+
+    @FXML
+    private void afspilVideo(){
+        player.play();
+    }
+
+    @FXML
+    private void stopVideo(){
+        player.stop();
     }
 
     @FXML
@@ -96,44 +171,85 @@ public class TildelProgramController {
         String valgt = listViewProgram.getSelectionModel().getSelectedItem();
         if (valgt != null) {
             listViewProgram.getItems().remove(valgt);
-            traeningsprogramFacade.fjernOevelse(valgt);
+        }
+    }
+
+    @FXML
+    private void tilfoejTilListe() {
+        String oevelse = choiceBoxOevelse.getSelectionModel().getSelectedItem();
+        if (oevelse != null) {
+            listViewProgram.getItems().add(oevelse);
         }
     }
 
     private void styrketraening() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().add("Dødløft");
+        for (Oevelse oevelse : oevelser) {
+            if (oevelse.getKategori().equals("Styrketræning"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void mobilitet() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().addAll("Hoftebøjer", "Nakke");
+        for (Oevelse oevelse : oevelser) {
+            if (oevelse.getKategori().equals("Mobilitet"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void stabilitet() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().addAll("Planken på albuer og tær");
+        for (Oevelse oevelse : oevelser) {
+            if (oevelse.getKategori().equals("Stabilitet"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void rygproblemer() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().addAll("Firefodstående krum - svaj");
+        for (Oevelse oevelse : oevelser) {
+            if (oevelse.getKategori().equals("Rygproblemer"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void tilfoejListener() {
         choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(oevelseListener);
     }
 
+    private void gemProgram() {
+        ArrayList<String> patientensOevelser = new ArrayList<>(listViewProgram.getItems());
+        Traeningsprogram program = new Traeningsprogram(valgtePatient.getEmail(), patientensOevelser);
+        traeningsprogramFacade.gemProgram(program);
+    }
+
+    private void indlaesOevelser(){
+        valgtePatient = tableViewPatient.getSelectionModel().getSelectedItem();
+        ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
+        ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
+        for (int i = 0; i < programmer.size(); i++) {
+            if (programmer.get(i).getPatientEmail().equals(valgtePatient.getEmail())) {
+                ArrayList<String> oevelserTemp = programmer.get(i).getOevelser();
+                for (int j = 0; j < oevelserTemp.size(); j++) {
+                    patientensOevelser.add(oevelserTemp.get(j));
+                }
+            }
+        }
+        listViewProgram.setItems(patientensOevelser);
+    }
+
     @FXML
     private void bekraeft() {
-        Bruger patient = tableViewPatient.getSelectionModel().getSelectedItem();
-        if (patient == null || listViewProgram.getItems().size() == 0) {
+        if (valgtePatient == null || listViewProgram.getItems().size() == 0) {
             return;
         }
-        databaseManager.opdaterTraeningsprogram(patient, traeningsprogramFacade.hentListe());
+
+        gemProgram();
+
         Parent menuLoader = null;
         try {
-            menuLoader = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            menuLoader = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -146,7 +262,7 @@ public class TildelProgramController {
     public void tilbage() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }

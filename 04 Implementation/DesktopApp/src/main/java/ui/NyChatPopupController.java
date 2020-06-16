@@ -65,7 +65,7 @@ public class NyChatPopupController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         }

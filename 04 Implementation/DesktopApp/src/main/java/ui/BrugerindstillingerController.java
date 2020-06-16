@@ -68,7 +68,7 @@ public class BrugerindstillingerController {
         indholdVBox.getChildren().clear();
 
         /** indlæs fxml */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SletBruger.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SletBruger.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -83,7 +83,7 @@ public class BrugerindstillingerController {
         indholdVBox.getChildren().clear();
 
         /** indlæs fxml */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SkiftPassword.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SkiftPassword.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -100,7 +100,7 @@ public class BrugerindstillingerController {
         indholdVBox.getChildren().clear();
 
         /** indlæs fxml */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/UploadBillede.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UploadBillede.fxml"));
         Parent root = null;
         try {
             root = loader.load();
@@ -116,7 +116,7 @@ public class BrugerindstillingerController {
     public void logUd() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +132,7 @@ public class BrugerindstillingerController {
     public void tilHovedmenu() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
