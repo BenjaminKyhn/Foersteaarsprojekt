@@ -3,6 +3,7 @@ package ui;
 import database.DatabaseManager;
 import entities.Bruger;
 import entities.Oevelse;
+import entities.Traeningsprogram;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -70,13 +71,21 @@ public class TildelProgramController {
         ObservableList<Bruger> patienter = FXCollections.observableList(brugerFacade.hentPatienter());
         tableViewPatient.setItems(patienter);
 
+        // Indlæs patientens nuværende øvelser i listViewProgram
         tableViewPatient.setOnMouseClicked(e -> {
             int valgt = tableViewPatient.getSelectionModel().getSelectedCells().get(0).getRow();
-            Bruger markeretBruger = tableViewPatient.getItems().get(valgt);
-//            System.out.println(markeretBruger.getNavn());
-//            System.out.println(traeningsprogramFacade.hentListe().get(0));
-//            ArrayList<String> program = traeningsprogramFacade.hentListe().get();
-//            listViewProgram.setItems(traeningsprogramFacade.hentListe());
+            String patientEmail = tableViewPatient.getItems().get(valgt).getEmail();
+            ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
+            ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
+            for (int i = 0; i < programmer.size(); i++) {
+                if (programmer.get(i).getPatientEmail().equals(patientEmail)){
+                    ArrayList<String> oevelser = programmer.get(i).getOevelser();
+                    for (int j = 0; j < oevelser.size(); j++) {
+                        patientensOevelser.add(oevelser.get(i));
+                    }
+                }
+            }
+            listViewProgram.setItems(patientensOevelser);
         });
 
         ObservableList<String> kategorier = FXCollections.observableArrayList();
