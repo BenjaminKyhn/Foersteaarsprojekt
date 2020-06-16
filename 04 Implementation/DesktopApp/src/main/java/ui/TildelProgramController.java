@@ -101,7 +101,6 @@ public class TildelProgramController {
         choiceBoxOevelse.getItems().add("Vælg kategori først");
         choiceBoxOevelse.getSelectionModel().select(0);
         oevelseListener = (observable, oldValue, newValue) -> {
-            listViewProgram.getItems().add(newValue);
             MediaView videoView = new MediaView();
             videoView.setFitWidth(320);
             videoView.setFitHeight(180);
@@ -138,17 +137,24 @@ public class TildelProgramController {
                     throw new IllegalStateException("Unexpected value: " + newValue);
             }
             player.play();
-            traeningsprogramFacade.tilfoejOevelse(newValue);
         };
     }
 
     @FXML
     private void fjernFraListe() {
-        System.out.println(oevelser.get(0).getNavn());
         String valgt = listViewProgram.getSelectionModel().getSelectedItem();
         if (valgt != null) {
             listViewProgram.getItems().remove(valgt);
             traeningsprogramFacade.fjernOevelse(valgt);
+        }
+    }
+
+    @FXML
+    private void tilfoejTilListe(){
+        String oevelse = choiceBoxOevelse.getSelectionModel().getSelectedItem();
+        if (oevelse != null){
+            listViewProgram.getItems().add(oevelse);
+            traeningsprogramFacade.tilfoejOevelse(oevelse);
         }
     }
 
