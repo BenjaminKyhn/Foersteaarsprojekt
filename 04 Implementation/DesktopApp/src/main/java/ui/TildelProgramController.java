@@ -70,6 +70,15 @@ public class TildelProgramController {
         ObservableList<Bruger> patienter = FXCollections.observableList(brugerFacade.hentPatienter());
         tableViewPatient.setItems(patienter);
 
+        tableViewPatient.setOnMouseClicked(e -> {
+            int valgt = tableViewPatient.getSelectionModel().getSelectedCells().get(0).getRow();
+            Bruger markeretBruger = tableViewPatient.getItems().get(valgt);
+//            System.out.println(markeretBruger.getNavn());
+//            System.out.println(traeningsprogramFacade.hentListe().get(0));
+//            ArrayList<String> program = traeningsprogramFacade.hentListe().get();
+//            listViewProgram.setItems(traeningsprogramFacade.hentListe());
+        });
+
         ObservableList<String> kategorier = FXCollections.observableArrayList();
         for (int i = 0; i < oevelser.size(); i++) {
             if (!kategorier.contains(oevelser.get(i).getKategori()))

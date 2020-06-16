@@ -93,6 +93,10 @@ public class DatabaseManager {
         firestore.collection("brugere").document(email).delete();
     }
 
+    public void opdaterBruger(Bruger bruger){
+        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    }
+
     /**
      * Henter en bruger fra databasen, som har et field med en email, som svarer til parameteret email. Metoden
      * returnerer void, fordi vi bruger observer. Kaldet sker i en tråd og observeren fyrer en firePropertyChange, når
@@ -297,11 +301,31 @@ public class DatabaseManager {
         firestore.collection("træningsprogram")
                 .document(bruger.getEmail())
                 .set(map);
-
     }
 
-    public void opdaterBruger(Bruger bruger){
-        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    /**
+     * @author Benjamin
+     */
+    public void hentProgrammer() {
+        Query query = firestore.collection("træningsprogram");
+
+        Thread thread = new Thread(() -> {
+            Map<String, Object> programmer = new HashMap<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        programmer.put(query.get().toString(), querySnapshot.getDocuments().get(i).get("program"));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentProgrammer", null, programmer);
+        });
+        thread.start();
     }
 
     public void gemOevelse(Oevelse oevelse) {
