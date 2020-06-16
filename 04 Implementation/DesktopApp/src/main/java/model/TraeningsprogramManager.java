@@ -1,6 +1,7 @@
 package model;
 
 import entities.Oevelse;
+import entities.Traeningsprogram;
 
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 public class TraeningsprogramManager {
     ArrayList<String> program;
     ArrayList<Oevelse> oevelser;
+    ArrayList<Traeningsprogram> programmer;
     PropertyChangeSupport support;
 
     public TraeningsprogramManager() {
@@ -39,7 +41,15 @@ public class TraeningsprogramManager {
         return oevelser;
     }
 
-    public void setOevelser(ArrayList<Oevelse> oevelser) {
+    public void angivOevelser(ArrayList<Oevelse> oevelser) {
         this.oevelser = oevelser;
+    }
+
+    public ArrayList<Traeningsprogram> hentProgrammer() {
+        return programmer;
+    }
+
+    public void angivProgrammer(ArrayList<Traeningsprogram> programmer) {
+        this.programmer = programmer;
     }
 }

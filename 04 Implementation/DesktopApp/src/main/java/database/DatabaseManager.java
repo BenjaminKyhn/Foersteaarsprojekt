@@ -304,8 +304,8 @@ public class DatabaseManager {
      * @author Benjamin
      */
     public void gemProgram(Traeningsprogram program) {
-        String patientNavn = program.getPatientNavn();
-        firestore.collection("brugere").document(patientNavn).create(program);
+        String patientEmail = program.getPatientEmail();
+        firestore.collection("brugere").document(patientEmail).create(program);
     }
 
     public void hentProgrammer() {

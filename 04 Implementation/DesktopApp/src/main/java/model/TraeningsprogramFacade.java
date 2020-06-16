@@ -1,6 +1,7 @@
 package model;
 
 import entities.Oevelse;
+import entities.Traeningsprogram;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,15 @@ public class TraeningsprogramFacade {
         return traeningsprogramManager.hentOevelser();
     }
 
-    public void setOevelser(ArrayList<Oevelse> oevelser){
-        traeningsprogramManager.setOevelser(oevelser);
+    public void angivOevelser(ArrayList<Oevelse> oevelser){
+        traeningsprogramManager.angivOevelser(oevelser);
+    }
+
+    public ArrayList<Traeningsprogram> hentProgrammer() {
+        return traeningsprogramManager.hentProgrammer();
+    }
+
+    public void angivProgrammer(ArrayList<Traeningsprogram> programmer){
+        traeningsprogramManager.angivProgrammer(programmer);
     }
 }

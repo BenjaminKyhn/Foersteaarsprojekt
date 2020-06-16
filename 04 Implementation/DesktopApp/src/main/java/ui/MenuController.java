@@ -3,6 +3,7 @@ package ui;
 import entities.Bruger;
 import entities.Chat;
 import entities.Oevelse;
+import entities.Traeningsprogram;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,7 +88,7 @@ public class MenuController {
             DatabaseManager.getInstance().hentBrugere();
         }
 
-        /** Indlæs alle oevelser og send dem til TraeningsprogramFacade */
+        /** Indlæs alle øvelser og send dem til TraeningsprogramFacade */
         if (traeningsprogramFacade.hentOevelser() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -95,11 +96,26 @@ public class MenuController {
                     if (propertyChangeEvent.getPropertyName().equals("hentOevelser")) {
                         @SuppressWarnings("unchecked")
                         ArrayList<Oevelse> oevelser = (ArrayList<Oevelse>) propertyChangeEvent.getNewValue();
-                        traeningsprogramFacade.setOevelser(oevelser);
+                        traeningsprogramFacade.angivOevelser(oevelser);
                     }
                 }
             });
             DatabaseManager.getInstance().hentOevelser();
+        }
+
+        /** Indlæs alle træeningsprogrammer og send dem til TraeningsprogramFacade */
+        if (traeningsprogramFacade.hentProgrammer() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentProgrammer")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Traeningsprogram> programmer = (ArrayList<Traeningsprogram>) propertyChangeEvent.getNewValue();
+                        traeningsprogramFacade.angivProgrammer(programmer);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentProgrammer();
         }
 
         Image image = new Image("Logo2x.png");

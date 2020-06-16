@@ -6,22 +6,24 @@ import java.util.ArrayList;
  * @author Benjamin
  */
 public class Traeningsprogram {
-    ArrayList<Oevelse> oevelser;
+    ArrayList<String> oevelser;
     String patientNavn;
+    String patientEmail;
 
     public Traeningsprogram(){
     }
 
-    public Traeningsprogram(String patientNavn, ArrayList<Oevelse> oevelser){
+    public Traeningsprogram(String patientNavn, String patientEmail, ArrayList<String> oevelser){
         this.patientNavn = patientNavn;
         this.oevelser = oevelser;
+        this.patientEmail = patientEmail;
     }
 
-    public ArrayList<Oevelse> getOevelser() {
+    public ArrayList<String> getOevelser() {
         return oevelser;
     }
 
-    public void setOevelser(ArrayList<Oevelse> oevelser) {
+    public void setOevelser(ArrayList<String> oevelser) {
         this.oevelser = oevelser;
     }
 
@@ -31,5 +33,13 @@ public class Traeningsprogram {
 
     public void setPatientNavn(String patientNavn) {
         this.patientNavn = patientNavn;
+    }
+
+    public String getPatientEmail() {
+        return patientEmail;
+    }
+
+    public void setPatientEmail(String patientEmail) {
+        this.patientEmail = patientEmail;
     }
 }
