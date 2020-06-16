@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
+import java.util.ArrayList;
+
 /**
  * @author Tommy
  */
@@ -153,7 +155,12 @@ public class TildelProgramController {
 
     private void mobilitet() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().addAll("Hoftebøjer", "Nakke");
+        ArrayList<String> oevelser = new ArrayList<>();
+        oevelser.add("Hoftebøjer");
+        oevelser.add("Nakke");
+        for (String oevelse : oevelser){
+            choiceBoxOevelse.getItems().add(oevelse);
+        }
     }
 
     private void stabilitet() {
