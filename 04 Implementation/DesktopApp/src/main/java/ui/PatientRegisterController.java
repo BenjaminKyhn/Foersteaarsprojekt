@@ -109,7 +109,7 @@ public class PatientRegisterController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {
@@ -130,7 +130,7 @@ public class PatientRegisterController {
     public void opretPatient() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/OpretBruger.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/OpretBruger.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +144,7 @@ public class PatientRegisterController {
             popupWindow("Ingen patient valgt");
         } else {
             Parent root = null;
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SletPatient.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SletPatient.fxml"));
             try {
                 root = fxmlLoader.load();
             } catch (Exception e) {

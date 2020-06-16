@@ -8,9 +8,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
-import entities.Besked;
-import entities.Bruger;
-import entities.Chat;
+import entities.*;
 
 import javax.annotation.Nullable;
 import java.beans.PropertyChangeListener;
@@ -90,6 +88,10 @@ public class DatabaseManager {
     public void sletBruger(Bruger bruger) {
         String email = bruger.getEmail();
         firestore.collection("brugere").document(email).delete();
+    }
+
+    public void opdaterBruger(Bruger bruger){
+        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
     }
 
     /**
@@ -296,11 +298,63 @@ public class DatabaseManager {
         firestore.collection("træningsprogram")
                 .document(bruger.getEmail())
                 .set(map);
-
     }
 
-    public void opdaterBruger(Bruger bruger){
-        firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    /**
+     * @author Benjamin
+     */
+    public void gemProgram(Traeningsprogram program) {
+        String patientEmail = program.getPatientEmail();
+        firestore.collection("træningsprogram").document(patientEmail).set(program);
+    }
+
+    public void hentProgrammer() {
+        Query query = firestore.collection("træningsprogram");
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Traeningsprogram> programmer = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        programmer.add(querySnapshot.getDocuments().get(i).toObject(Traeningsprogram.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentProgrammer", null, programmer);
+        });
+        thread.start();
+    }
+
+    public void gemOevelse(Oevelse oevelse) {
+        String navn = oevelse.getNavn();
+        firestore.collection("oevelser").document(navn).create(oevelse);
+    }
+
+    public void hentOevelser() {
+        Query query = firestore.collection("øvelser");
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Oevelse> oevelser = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        oevelser.add(querySnapshot.getDocuments().get(i).toObject(Oevelse.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentOevelser", null, oevelser);
+        });
+        thread.start();
     }
 
     /**

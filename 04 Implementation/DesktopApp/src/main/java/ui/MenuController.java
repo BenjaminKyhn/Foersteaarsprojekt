@@ -2,6 +2,8 @@ package ui;
 
 import entities.Bruger;
 import entities.Chat;
+import entities.Oevelse;
+import entities.Traeningsprogram;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BrugerFacade;
 import database.DatabaseManager;
+import model.TraeningsprogramFacade;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -53,6 +56,7 @@ public class MenuController {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
+        TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.getInstance();
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */
         if (beskedFacade.hentChats() == null) {
@@ -82,8 +86,36 @@ public class MenuController {
                 }
             });
             DatabaseManager.getInstance().hentBrugere();
-
         }
+
+        /** Indlæs alle øvelser og send dem til TraeningsprogramFacade */
+        if (traeningsprogramFacade.hentOevelser() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentOevelser")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Oevelse> oevelser = (ArrayList<Oevelse>) propertyChangeEvent.getNewValue();
+                        traeningsprogramFacade.angivOevelser(oevelser);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentOevelser();
+        }
+
+        /** Indlæs alle træeningsprogrammer og send dem til TraeningsprogramFacade */
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentProgrammer")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Traeningsprogram> programmer = (ArrayList<Traeningsprogram>) propertyChangeEvent.getNewValue();
+                        traeningsprogramFacade.angivProgrammer(programmer);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentProgrammer();
+
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
@@ -117,7 +149,7 @@ public class MenuController {
     public void skiftTilChatvindue() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/ChatWindow.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/ChatWindow.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,7 +161,7 @@ public class MenuController {
     public void skiftTilBrugerindstillinger() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/Brugerindstillinger.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Brugerindstillinger.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -143,7 +175,7 @@ public class MenuController {
 
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,7 +189,7 @@ public class MenuController {
     public void patientregister() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/PatientRegister.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/PatientRegister.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,7 +203,7 @@ public class MenuController {
     public void traeningsprogram() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("/TildelProgram.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/TildelProgram.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

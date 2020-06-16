@@ -123,9 +123,9 @@ public class OpretBrugerController {
         Parent root = null;
         try {
             if (aktivBruger == null)
-                root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
             if (aktivBruger != null)
-                root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,7 +144,7 @@ public class OpretBrugerController {
         else {
             Parent root = null;
             try {
-                root = FXMLLoader.load(getClass().getResource("../Menu.fxml"));
+                root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -158,7 +158,7 @@ public class OpretBrugerController {
 
     public void popupWindow(String infoText) {
         Parent root = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../SystemBeskedPopup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
         try {
             root = fxmlLoader.load();
         } catch (Exception e) {
@@ -186,7 +186,7 @@ public class OpretBrugerController {
     public void logUd() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("../Start.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -199,5 +199,3 @@ public class OpretBrugerController {
         brugerFacade.logUd();
     }
 }
-
-//TODO Christian skal kunne oprette brugere, selvom han er logged ind
