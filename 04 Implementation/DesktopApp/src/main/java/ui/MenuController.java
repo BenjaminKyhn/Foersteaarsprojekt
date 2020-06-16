@@ -104,7 +104,6 @@ public class MenuController {
         }
 
         /** Indlæs alle træeningsprogrammer og send dem til TraeningsprogramFacade */
-        if (traeningsprogramFacade.hentProgrammer() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
@@ -116,7 +115,7 @@ public class MenuController {
                 }
             });
             DatabaseManager.getInstance().hentProgrammer();
-        }
+
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);

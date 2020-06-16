@@ -58,6 +58,7 @@ public class TildelProgramController {
     private TraeningsprogramFacade traeningsprogramFacade;
     private DatabaseManager databaseManager;
     private ArrayList<Oevelse> oevelser;
+    private Bruger valgtePatient;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
@@ -71,21 +72,23 @@ public class TildelProgramController {
         ObservableList<Bruger> patienter = FXCollections.observableList(brugerFacade.hentPatienter());
         tableViewPatient.setItems(patienter);
 
-        // Indlæs patientens nuværende øvelser i listViewProgram
+        // Når man klikker på patienten indlæses nuværende øvelser i listViewProgram,
         tableViewPatient.setOnMouseClicked(e -> {
-            int valgt = tableViewPatient.getSelectionModel().getSelectedCells().get(0).getRow();
-            String patientEmail = tableViewPatient.getItems().get(valgt).getEmail();
+            valgtePatient = tableViewPatient.getSelectionModel().getSelectedItem();
             ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
             ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
             for (int i = 0; i < programmer.size(); i++) {
-                if (programmer.get(i).getPatientEmail().equals(patientEmail)){
-                    ArrayList<String> oevelser = programmer.get(i).getOevelser();
-                    for (int j = 0; j < oevelser.size(); j++) {
-                        patientensOevelser.add(oevelser.get(i));
+                if (programmer.get(i).getPatientEmail().equals(valgtePatient.getEmail())){
+                    ArrayList<String> oevelserTemp = programmer.get(i).getOevelser();
+                    for (int j = 0; j < oevelserTemp.size(); j++) {
+                        patientensOevelser.add(oevelserTemp.get(j));
                     }
                 }
             }
             listViewProgram.setItems(patientensOevelser);
+            for (int i = 0; i < patientensOevelser.size(); i++) {
+                System.out.println(patientensOevelser.get(i)); //TODO Underligt problem hvor alle øvelser indlæses som Nakke?
+            }
         });
 
         ObservableList<String> kategorier = FXCollections.observableArrayList();
@@ -163,7 +166,6 @@ public class TildelProgramController {
         String valgt = listViewProgram.getSelectionModel().getSelectedItem();
         if (valgt != null) {
             listViewProgram.getItems().remove(valgt);
-            traeningsprogramFacade.fjernOevelse(valgt);
         }
     }
 
@@ -172,7 +174,6 @@ public class TildelProgramController {
         String oevelse = choiceBoxOevelse.getSelectionModel().getSelectedItem();
         if (oevelse != null){
             listViewProgram.getItems().add(oevelse);
-            traeningsprogramFacade.tilfoejOevelse(oevelse);
         }
     }
 
@@ -212,13 +213,19 @@ public class TildelProgramController {
         choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(oevelseListener);
     }
 
+    private void gemProgram(){
+        ArrayList<String> patientensOevelser = new ArrayList<>();
+        patientensOevelser.addAll(listViewProgram.getItems());
+        Traeningsprogram program = new Traeningsprogram(valgtePatient.getEmail(), patientensOevelser);
+        databaseManager.gemProgram(program); //TODO husk observerkald
+    }
+
     @FXML
     private void bekraeft() {
-        Bruger patient = tableViewPatient.getSelectionModel().getSelectedItem();
-        if (patient == null || listViewProgram.getItems().size() == 0) {
+        if (valgtePatient == null || listViewProgram.getItems().size() == 0) {
             return;
         }
-        databaseManager.opdaterTraeningsprogram(patient, traeningsprogramFacade.hentListe());
+        gemProgram();
         Parent menuLoader = null;
         try {
             menuLoader = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));

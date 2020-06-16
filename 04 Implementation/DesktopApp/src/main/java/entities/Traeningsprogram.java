@@ -13,8 +13,7 @@ public class Traeningsprogram {
     public Traeningsprogram(){
     }
 
-    public Traeningsprogram(String patientNavn, String patientEmail, ArrayList<String> oevelser){
-        this.patientNavn = patientNavn;
+    public Traeningsprogram(String patientEmail, ArrayList<String> oevelser){
         this.oevelser = oevelser;
         this.patientEmail = patientEmail;
     }
