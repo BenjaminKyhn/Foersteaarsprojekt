@@ -82,7 +82,6 @@ public class MenuController {
                 }
             });
             DatabaseManager.getInstance().hentBrugere();
-
         }
 
         Image image = new Image("Logo2x.png");

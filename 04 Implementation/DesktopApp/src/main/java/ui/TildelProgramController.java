@@ -2,6 +2,7 @@ package ui;
 
 import database.DatabaseManager;
 import entities.Bruger;
+import entities.Oevelse;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +22,8 @@ import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -60,6 +63,21 @@ public class TildelProgramController {
         brugerFacade = BrugerFacade.getInstance();
         databaseManager = DatabaseManager.getInstance();
         traeningsprogramFacade = new TraeningsprogramFacade();
+
+        /** Indlæs alle oevelser og send dem til TraeningsprogramFacade */
+        if (traeningsprogramFacade.hentOevelser() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentOevelser")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Oevelse> oevelser = (ArrayList<Oevelse>) propertyChangeEvent.getNewValue();
+                        traeningsprogramFacade.setOevelser(oevelser);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentBrugere();
+        }
 
         tableColumnNavn.setCellValueFactory(new PropertyValueFactory<>("navn"));
         tableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));

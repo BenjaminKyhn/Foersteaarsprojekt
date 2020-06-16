@@ -1,5 +1,7 @@
 package model;
 
+import entities.Oevelse;
+
 import java.util.ArrayList;
 
 /** @author Tommy */
@@ -24,5 +26,13 @@ public class TraeningsprogramFacade {
 
     public ArrayList<String> hentListe() {
         return traeningsprogramManager.hentListe();
+    }
+
+    public ArrayList<Oevelse> hentOevelser() {
+        return traeningsprogramManager.hentOevelser();
+    }
+
+    public void setOevelser(ArrayList<Oevelse> oevelser){
+        traeningsprogramManager.setOevelser(oevelser);
     }
 }

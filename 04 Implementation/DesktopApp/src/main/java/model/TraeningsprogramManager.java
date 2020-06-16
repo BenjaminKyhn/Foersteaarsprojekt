@@ -1,11 +1,14 @@
 package model;
 
+import entities.Oevelse;
+
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /** @author Tommy */
 public class TraeningsprogramManager {
     ArrayList<String> program;
+    ArrayList<Oevelse> oevelser;
     PropertyChangeSupport support;
 
     public TraeningsprogramManager() {
@@ -32,4 +35,11 @@ public class TraeningsprogramManager {
         return program;
     }
 
+    public ArrayList<Oevelse> hentOevelser() {
+        return oevelser;
+    }
+
+    public void setOevelser(ArrayList<Oevelse> oevelser) {
+        this.oevelser = oevelser;
+    }
 }
