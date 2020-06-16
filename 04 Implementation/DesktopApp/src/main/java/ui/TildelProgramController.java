@@ -61,6 +61,7 @@ public class TildelProgramController {
     private DatabaseManager databaseManager;
     private ArrayList<Oevelse> oevelser;
     private Bruger valgtePatient;
+    private MediaPlayer player;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
@@ -121,7 +122,6 @@ public class TildelProgramController {
             videoView.setFitWidth(320);
             videoView.setFitHeight(180);
             Media media;
-            MediaPlayer player;
             videoPane.getChildren().add(videoView);
             switch (newValue) {
                 case "Dødløft":
@@ -154,6 +154,16 @@ public class TildelProgramController {
             }
             player.play();
         };
+    }
+
+    @FXML
+    private void afspilVideo(){
+        player.play();
+    }
+
+    @FXML
+    private void stopVideo(){
+        player.stop();
     }
 
     @FXML
