@@ -71,7 +71,7 @@
       <Label layoutX="325.0" layoutY="120.0" text="Video Preview:" />
       <Pane fx:id="videoPane" layoutX="325.0" layoutY="149.0" prefHeight="180.0" prefWidth="320.0" />
       <Button fx:id="btnTilfoej" layoutX="658.0" layoutY="375.0" mnemonicParsing="false" onAction="#tilfoejTilListe" text="Tilføj øvelse" />
-      <Button fx:id="btnAfspil" layoutX="658.0" layoutY="149.0" mnemonicParsing="false" onAction="#afspilVideo" text="Afspil" />
-      <Button fx:id="btnStop" layoutX="658.0" layoutY="191.0" mnemonicParsing="false" onAction="#stopVideo" text="Stop" />
+      <Button fx:id="btnAfspil" layoutX="658.0" layoutY="149.0" mnemonicParsing="false" onAction="#afspilVideo" prefWidth="50.0" text="Afspil" />
+      <Button fx:id="btnStop" layoutX="658.0" layoutY="191.0" mnemonicParsing="false" onAction="#stopVideo" prefWidth="50.0" text="Stop" />
    </children>
 </AnchorPane>
