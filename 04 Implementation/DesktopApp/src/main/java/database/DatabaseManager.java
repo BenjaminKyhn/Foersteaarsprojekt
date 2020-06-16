@@ -303,6 +303,11 @@ public class DatabaseManager {
     /**
      * @author Benjamin
      */
+    public void gemProgram(Traeningsprogram program) {
+        String patientNavn = program.getPatientNavn();
+        firestore.collection("brugere").document(patientNavn).create(program);
+    }
+
     public void hentProgrammer() {
         Query query = firestore.collection("træningsprogram");
 
