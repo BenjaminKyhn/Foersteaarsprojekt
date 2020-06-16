@@ -11,6 +11,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import entities.Besked;
 import entities.Bruger;
 import entities.Chat;
+import entities.Oevelse;
 
 import javax.annotation.Nullable;
 import java.beans.PropertyChangeListener;
@@ -301,6 +302,33 @@ public class DatabaseManager {
 
     public void opdaterBruger(Bruger bruger){
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
+    }
+
+    public void gemOevelse(Oevelse oevelse) {
+        String navn = oevelse.getNavn();
+        firestore.collection("oevelser").document(navn).create(oevelse);
+    }
+
+    public void hentOevelser() {
+        Query query = firestore.collection("oevelser");
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Oevelse> oevelser = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        oevelser.add(querySnapshot.getDocuments().get(i).toObject(Oevelse.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentOevelser", null, oevelser);
+        });
+        thread.start();
     }
 
     /**
