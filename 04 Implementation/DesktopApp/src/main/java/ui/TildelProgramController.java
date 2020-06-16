@@ -71,10 +71,10 @@ public class TildelProgramController {
         tableViewPatient.setItems(patienter);
 
         ObservableList<String> kategorier = FXCollections.observableArrayList();
-        kategorier.add("Styrketræning");
-        kategorier.add("Mobilitet");
-        kategorier.add("Stabilitet");
-        kategorier.add("Rygproblemer");
+        for (int i = 0; i < oevelser.size(); i++) {
+            if (!kategorier.contains(oevelser.get(i).getKategori()))
+                kategorier.add(oevelser.get(i).getKategori());
+        }
         choiceBoxKategori.setItems(kategorier);
         choiceBoxKategori.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
@@ -154,27 +154,34 @@ public class TildelProgramController {
 
     private void styrketraening() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().add("Dødløft");
+        for (Oevelse oevelse : oevelser){
+            if (oevelse.getKategori().equals("Styrketræning"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void mobilitet() {
         choiceBoxOevelse.getItems().clear();
-        ArrayList<String> oevelser = new ArrayList<>();
-        oevelser.add("Hoftebøjer");
-        oevelser.add("Nakke");
-        for (String oevelse : oevelser){
-            choiceBoxOevelse.getItems().add(oevelse);
+        for (Oevelse oevelse : oevelser){
+            if (oevelse.getKategori().equals("Mobilitet"))
+            choiceBoxOevelse.getItems().add(oevelse.getNavn());
         }
     }
 
     private void stabilitet() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().addAll("Planken på albuer og tær");
+        for (Oevelse oevelse : oevelser){
+            if (oevelse.getKategori().equals("Stabilitet"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void rygproblemer() {
         choiceBoxOevelse.getItems().clear();
-        choiceBoxOevelse.getItems().addAll("Firefodstående krum - svaj");
+        for (Oevelse oevelse : oevelser){
+            if (oevelse.getKategori().equals("Rygproblemer"))
+                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+        }
     }
 
     private void tilfoejListener() {
