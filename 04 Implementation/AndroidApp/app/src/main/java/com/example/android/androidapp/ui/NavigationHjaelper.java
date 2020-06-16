@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
@@ -43,7 +45,7 @@ class NavigationHjaelper {
                             context.startActivity(new Intent(context, MenuActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
                             break;
-                        case R.id.indbakke:
+                        case R.id.beskeder:
                             context.startActivity(new Intent(context, VaelgChatActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
                             break;
@@ -52,10 +54,11 @@ class NavigationHjaelper {
                             drawerLayout.closeDrawer(GravityCompat.START);
                             BrugerFacade.hentInstans().logUd();
                             break;
-                        /**case R.id.ny_besked:
-                            context.startActivity(new Intent(context, VaelgChatActivity.class));
-                            drawerLayout.closeDrawer(GravityCompat.START);
-                            break;*/
+                        case R.id.ny_besked:
+                            DialogFragment nySamtale = new VaelgChatDialog();
+                            FragmentActivity activity = (FragmentActivity) navigationView.getContext();
+                            nySamtale.show(activity.getSupportFragmentManager(), "nySamtale");
+                            break;
                         case R.id.kalender:
                             context.startActivity(new Intent(context, KalenderActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
