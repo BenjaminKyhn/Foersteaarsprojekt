@@ -1,8 +1,10 @@
 package com.example.android.androidapp.ui;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +19,23 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.database.DatabaseManager;
+import com.example.android.androidapp.entities.Chat;
 import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
+import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
+import com.example.android.androidapp.entities.exceptions.TomEmneException;
+import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class VaelgChatDialog extends DialogFragment {
     private Spinner spinner;
     private EditText editTextVaelgEmne;
     private VaelgChatListener listener;
+    private Context context;
 
 
     @SuppressLint("InflateParams")
@@ -41,7 +51,7 @@ public class VaelgChatDialog extends DialogFragment {
 
         ArrayList<String> behandlere = BrugerFacade.hentInstans().hentBehandlereNavne();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>((Context) listener, R.layout.support_simple_spinner_dropdown_item, behandlere);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.support_simple_spinner_dropdown_item, behandlere);
         spinner.setAdapter(adapter);
 
         editTextVaelgEmne = view.findViewById(R.id.editTextVaelgEmne);
@@ -80,16 +90,51 @@ public class VaelgChatDialog extends DialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        listener = (VaelgChatListener) context;
+        this.context = context;
+        if (VaelgChatListener.class.isAssignableFrom(context.getClass())) {
+            listener = (VaelgChatListener) context;
+        }
     }
+
+
 
     public void bekraeft() throws BrugerFindesIkkeException {
         String modtager = spinner.getSelectedItem().toString();
         String emne = editTextVaelgEmne.getText().toString();
-        listener.nySamtale(modtager, emne);
+        if (listener != null) {
+            listener.nySamtale(modtager, emne);
+        } else {
+            hurtigChat(modtager, emne);
+        }
     }
 
     interface VaelgChatListener {
         void nySamtale(String modtager, String emne) throws BrugerFindesIkkeException;
+    }
+
+    public void hurtigChat(String modtager, String emne) {
+        BrugerFacade brugerFacade = BrugerFacade.hentInstans();
+        String afsender = brugerFacade.hentAktivBruger().getNavn();
+
+        BeskedFacade beskedFacade = BeskedFacade.hentInstans();
+        beskedFacade.tilfoejListener(evt -> {
+            if (evt.getPropertyName().equals("opretChat")) {
+                DatabaseManager databaseManager = new DatabaseManager();
+                databaseManager.gemChat((Chat) evt.getNewValue());
+            }
+        });
+        beskedFacade.setBrugerManager(brugerFacade.hentBrugerManager());
+        try {
+            beskedFacade.opretChat(afsender, modtager, emne);
+        } catch (BrugerFindesIkkeException | TomEmneException | ForMangeTegnException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(this.getActivity(), ChatActivity.class);
+        intent.putExtra("afsender", afsender);
+        intent.putExtra("modtager", modtager);
+        intent.putExtra("emne", emne);
+        intent.putExtra("modpart", modtager);
+        startActivity(intent);
     }
 }

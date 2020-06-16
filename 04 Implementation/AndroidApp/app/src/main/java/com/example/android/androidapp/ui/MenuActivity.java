@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
+import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;

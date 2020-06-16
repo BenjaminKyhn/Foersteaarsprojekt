@@ -11,8 +11,8 @@
             android:icon="@drawable/ic_perm_contact_calendar_24px">
         </item>
         <item
-            android:id="@+id/indbakke"
-            android:title="Indbakke"
+            android:id="@+id/beskeder"
+            android:title="Beskeder"
             android:fontFamily="@font/open_sans_regular"
             android:icon="@drawable/ic_mail_outline_24px">
         </item>
