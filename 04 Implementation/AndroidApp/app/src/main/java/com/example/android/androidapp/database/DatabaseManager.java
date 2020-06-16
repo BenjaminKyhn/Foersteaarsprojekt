@@ -200,9 +200,9 @@ public class DatabaseManager {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot != null && documentSnapshot.exists()) {
                     if (documentSnapshot.getData() != null) {
-                        for (Object item : documentSnapshot.getData().values()) {
-                            program.add(item.toString().substring(1, item.toString().length() - 1));
-                        }
+                        List<String> list = (List<String>) documentSnapshot.get("oevelser");
+                        assert list != null;
+                        program.addAll(list);
                     }
                 }
             }
