@@ -194,10 +194,8 @@ public class MenuController {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
+        Stage stage = (Stage) logoImageView.getScene().getWindow();
         stage.setScene(scene);
-        stage.setTitle("Patientregister");
-        stage.show();
     }
 
     public void traeningsprogram() {

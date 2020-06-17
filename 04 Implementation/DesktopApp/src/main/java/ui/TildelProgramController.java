@@ -273,4 +273,34 @@ public class TildelProgramController {
         stage.setScene(scene);
 
     }
+
+    public void logUd() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
+
+        brugerFacade.logUd();
+    }
+
+    public void tilHovedmenu() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
+    }
 }
