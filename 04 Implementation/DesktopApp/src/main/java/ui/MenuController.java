@@ -127,7 +127,7 @@ public class MenuController {
                     }
                 }
             });
-            DatabaseManager.getInstance().hentBegivenheder();
+            DatabaseManager.getInstance().hentBegivenheder(aktivBruger.getNavn());
         }
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */

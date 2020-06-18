@@ -30,7 +30,7 @@ public class BookingFacade {
         bookingManager.angivBegivenheder(aftaler);
     }
 
-    public void gemBegivenheder(Begivenhed begivenhed){
+    public void gemBegivenhed(Begivenhed begivenhed){
         bookingManager.gemBegivenhed(begivenhed);
     }
 }

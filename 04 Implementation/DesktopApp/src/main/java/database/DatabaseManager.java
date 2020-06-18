@@ -244,7 +244,8 @@ public class DatabaseManager {
         try {
             QuerySnapshot querySnapshot = query.get().get();
             if (!querySnapshot.isEmpty()) {
-                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocumentChanges().get(0).getDocument(); /** vi bruger getDocumentChanges for at minimere antallet af reads til databasen. Så bliver Snapshottet kun hentet, hvis der er en ændring */
+                // vi bruger getDocumentChanges for at minimere antallet af reads til databasen. Så bliver Snapshottet kun hentet, hvis der er en ændring
+                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocumentChanges().get(0).getDocument();
                 DocumentReference reference = documentSnapshot.getReference();
 
                 int sidsteIndex = chat.getBeskeder().size() - 1;
@@ -289,15 +290,6 @@ public class DatabaseManager {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-    }
-
-    public void opdaterTraeningsprogram(Bruger bruger, ArrayList<String> program) {
-        ArrayList<Object> cast = new ArrayList<>(program);
-        Map<String, Object> map = new HashMap<>();
-        map.put("program", cast);
-        firestore.collection("træningsprogram")
-                .document(bruger.getEmail())
-                .set(map);
     }
 
     /**
@@ -357,8 +349,30 @@ public class DatabaseManager {
         thread.start();
     }
 
-    public void hentBegivenheder() {
+    public void hentAlleBegivenheder() {
         Query query = firestore.collection("begivenheder");
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Begivenhed> begivenheder = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        begivenheder.add(querySnapshot.getDocuments().get(i).toObject(Begivenhed.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentBegivenheder", null, begivenheder);
+        });
+        thread.start();
+    }
+
+    public void hentBegivenheder(String navn) {
+        Query query = firestore.collection("begivenheder").whereArrayContains("deltagere", navn);
 
         Thread thread = new Thread(() -> {
             ArrayList<Begivenhed> begivenheder = new ArrayList<>();

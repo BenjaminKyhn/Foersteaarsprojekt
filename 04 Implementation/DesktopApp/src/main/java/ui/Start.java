@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -18,10 +20,13 @@ public class Start extends Application {
         Locale.setDefault(new Locale("da", "DK"));
 
         // Datotesting
-//        long start = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("25/06/2020 10:00:00").getTime();
-//        long slut = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("25/06/2020 12:00:00").getTime();
-//        Date startDato = new Date(start);
-//        Date slutDato = new Date(slut);
+        long start = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("18/06/2020 10:00:00").getTime();
+        long slut = new java.text.SimpleDateFormat("dd/MM/yyyy HH:mm:ss").parse("19/06/2020 2:00:00").getTime();
+        Date startDato = new Date(start);
+        Date slutDato = new Date(slut);
+
+        System.out.println(startDato.getTime());
+        System.out.println(slutDato.getTime());
 
         // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));

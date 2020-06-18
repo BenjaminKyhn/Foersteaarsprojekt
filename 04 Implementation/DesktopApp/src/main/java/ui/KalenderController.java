@@ -91,6 +91,9 @@ public class KalenderController {
 
         btnTest.setOnMouseClicked(e -> {
             System.out.println(bookingFacade.hentBegivenheder().size());
+            for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
+                System.out.println(bookingFacade.hentBegivenheder().get(i).getTitel());
+            }
         });
 
     }
@@ -120,10 +123,11 @@ public class KalenderController {
         for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
             if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
                 bookingFacade.hentBegivenheder().remove(i);
+                bookingFacade.hentBegivenheder().add(i, begivenhed);
             }
+            else
+                bookingFacade.gemBegivenhed(begivenhed);
         }
-
-        bookingFacade.gemBegivenheder(begivenhed);
     }
 
     public void logUd() {
@@ -143,10 +147,6 @@ public class KalenderController {
     }
 
     public void tilHovedmenu() {
-        for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
-            System.out.println(bookingFacade.hentBegivenheder().get(i).getTitel());
-        }
-
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
@@ -160,16 +160,14 @@ public class KalenderController {
         stage.setScene(scene);
     }
 
-    public void tilfoejBegivenheder(){
+    public void tilfoejBegivenheder() {
         ArrayList<Begivenhed> begivenheder = bookingFacade.hentBegivenheder();
         for (int i = 0; i < begivenheder.size(); i++) {
             Begivenhed begivenhed = begivenheder.get(i);
-            if (begivenhed.getDeltagere().contains(brugerFacade.getAktivBruger().getNavn())){
-                for (int j = 0; j < calendarView.getCalendars().size(); j++) {
-                    Calendar kalender = calendarView.getCalendars().get(j);
-                    if (begivenhed.getKategori().equals(kalender.getName()))
-                        kalender.addEntry(tilfoejBegivenhed(begivenhed));
-                }
+            for (int j = 0; j < calendarView.getCalendars().size(); j++) {
+                Calendar kalender = calendarView.getCalendars().get(j);
+                if (kalender.getName().equals(begivenhed.getKategori()))
+                    kalender.addEntry(tilfoejBegivenhed(begivenhed));
             }
         }
     }
