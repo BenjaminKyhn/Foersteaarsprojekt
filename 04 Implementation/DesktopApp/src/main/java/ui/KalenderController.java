@@ -5,7 +5,7 @@ import com.calendarfx.model.*;
 import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
 import com.google.cloud.Timestamp;
-import entities.Aftale;
+import entities.Begivenhed;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
@@ -23,7 +23,6 @@ import model.BrugerFacade;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -32,7 +31,7 @@ import java.util.Date;
 public class KalenderController {
     private BrugerFacade brugerFacade;
     private BookingFacade bookingFacade;
-    private ArrayList<Aftale> nyeAftaler;
+    private CalendarView calendarView;
 
     @FXML
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
@@ -46,7 +45,6 @@ public class KalenderController {
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         bookingFacade = BookingFacade.getInstance();
-        nyeAftaler = new ArrayList<>();
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -63,7 +61,7 @@ public class KalenderController {
      */
     public void indlaesKalender() {
         Platform.runLater(() -> {
-            CalendarView calendarView = new CalendarView();
+            calendarView = new CalendarView();
             calenderViewHolder.getChildren().clear();
             calenderViewHolder.getChildren().add(calendarView);
 
@@ -85,22 +83,28 @@ public class KalenderController {
 
             calendarView.getCalendarSources().setAll(calendarSource);
 
-            eksaminer.addEntry(tilfoejAftale("Førsteårseksamen", 2020, 6, 24, 10, 0,
+            eksaminer.addEntry(tilfoejBegivenhed("Førsteårseksamen", 2020, 6, 24, 10, 0,
                     2020, 6, 24, 12, 0));
-            eksamensforberedelse.addEntry(tilfoejAftaleNu("Afprøv programmet"));
-            eksamensforberedelse.addEntry(tilfoejAftaleIDag("Kodning", 9, 0, 15, 0));
+            eksamensforberedelse.addEntry(tilfoejBegivenhed("Afprøv programmet"));
+            eksamensforberedelse.addEntry(tilfoejBegivenhed("Kodning", 9, 0, 15, 0));
 
-            EventHandler<CalendarEvent> l = e -> handleEvent1(e);
+            EventHandler<CalendarEvent> l = e -> handleEvent(e);
             eksaminer.addEventHandler(l);
+
+//            eksaminer.addEventHandler(CalendarEvent., e -> handleEvent1(e));
+
         });
 
         btnTest.setOnMouseClicked(e ->{
-            System.out.println(bookingFacade.hentAftaler().size());
+            System.out.println(bookingFacade.hentBegivenheder().size());
         });
+
     }
 
-    private void handleEvent1(CalendarEvent e) {
+    private void handleEvent(CalendarEvent e) {
         Entry entry = e.getEntry();
+
+        System.out.println(entry.getId());
 
         LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
         Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
@@ -111,8 +115,15 @@ public class KalenderController {
         Date slutDate = new Date(slutTidspunkt.getYear(), slutTidspunkt.getMonthValue(), slutTidspunkt.getDayOfMonth(),
                 slutTidspunkt.getHour(), slutTidspunkt.getMinute());
         Timestamp slutTimestamp = Timestamp.of(slutDate);
-        Aftale aftale = new Aftale(entry.getTitle(), entry.getCalendar().toString(), startTimestamp, slutTimestamp);
-        bookingFacade.gemAftale(aftale);
+        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().toString(), startTimestamp, slutTimestamp, entry.getId());
+
+        for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
+            if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
+                bookingFacade.hentBegivenheder().remove(i);
+            }
+        }
+
+        bookingFacade.gemBegivenheder(begivenhed);
     }
 
     public void logUd() {
@@ -132,8 +143,8 @@ public class KalenderController {
     }
 
     public void tilHovedmenu() {
-        for (int i = 0; i < bookingFacade.hentAftaler().size(); i++) {
-            System.out.println(bookingFacade.hentAftaler().get(i).getTitel());
+        for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
+            System.out.println(bookingFacade.hentBegivenheder().get(i).getTitel());
         }
 
         Parent root = null;
@@ -149,8 +160,8 @@ public class KalenderController {
         stage.setScene(scene);
     }
 
-    public Entry tilfoejAftale(String titel, int startAar, int startMaaned, int startDag, int startTime, int startMinut,
-                               int slutAaar, int slutMaaned, int slutDag, int slutTime, int slutMinut) {
+    public Entry tilfoejBegivenhed(String titel, int startAar, int startMaaned, int startDag, int startTime, int startMinut,
+                                   int slutAaar, int slutMaaned, int slutDag, int slutTime, int slutMinut) {
         LocalDate startDato = LocalDate.of(startAar, startMaaned, startDag);
         LocalTime startTidspunkt = LocalTime.of(startTime, startMinut, 0);
         LocalDate slutDato = LocalDate.of(slutAaar, slutMaaned, slutDag);
@@ -160,7 +171,7 @@ public class KalenderController {
         //TODO: Metoden skal flyttes til logik på et tidspunkt
     }
 
-    public Entry tilfoejAftaleIDag(String titel, int startTime, int startMinut, int slutTime, int slutMinut) {
+    public Entry tilfoejBegivenhed(String titel, int startTime, int startMinut, int slutTime, int slutMinut) {
         LocalDateTime nu = LocalDateTime.now();
         LocalDate startDato = LocalDate.of(nu.getYear(), nu.getMonth(), nu.getDayOfMonth());
         LocalTime startTidspunkt = LocalTime.of(startTime, startMinut, 0);
@@ -171,7 +182,7 @@ public class KalenderController {
         //TODO: Metoden skal flyttes til logik på et tidspunkt
     }
 
-    public Entry tilfoejAftaleNu(String titel) {
+    public Entry tilfoejBegivenhed(String titel) {
         LocalDateTime nu = LocalDateTime.now();
         LocalDate startDato = LocalDate.of(nu.getYear(), nu.getMonth(), nu.getDayOfMonth());
         LocalTime startTidspunkt = LocalTime.of(nu.getHour(), nu.getMinute(), nu.getSecond());

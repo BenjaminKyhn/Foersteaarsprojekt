@@ -1,6 +1,6 @@
 package model;
 
-import entities.Aftale;
+import entities.Begivenhed;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class BookingManager {
     private static BookingManager bookingManager;
     private PropertyChangeSupport support;
-    private ArrayList<Aftale> aftaler;
+    private ArrayList<Begivenhed> begivenheder;
 
     BookingManager(){
         support = new PropertyChangeSupport(this);
@@ -25,16 +25,16 @@ public class BookingManager {
         return bookingManager;
     }
 
-    public ArrayList<Aftale> hentAftaler() {
-        return aftaler;
+    public ArrayList<Begivenhed> hentBegivenheder() {
+        return begivenheder;
     }
 
-    public void angivAftaler(ArrayList<Aftale> aftaler) {
-        this.aftaler = aftaler;
+    public void angivBegivenheder(ArrayList<Begivenhed> begivenheder) {
+        this.begivenheder = begivenheder;
     }
 
-    public void gemAftale(Aftale aftale){
-        aftaler.add(aftale);
+    public void gemBegivenhed(Begivenhed begivenhed){
+        begivenheder.add(begivenhed);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){

@@ -3,20 +3,29 @@ package entities;
 import com.google.cloud.Timestamp;
 
 /** @author Benjamin */
-public class Aftale {
+public class Begivenhed {
     String titel;
     String kategori;
     Timestamp startTidspunkt;
     Timestamp slutTidspunkt;
+    String id;
 
-    public Aftale(){
+    public Begivenhed(){
     }
 
-    public Aftale(String titel, String kategori, Timestamp startTidspunkt, Timestamp slutTidspunkt){
+    public Begivenhed(String titel, String kategori, Timestamp startTidspunkt, Timestamp slutTidspunkt){
         this.titel = titel;
         this.kategori = kategori;
         this.startTidspunkt = startTidspunkt;
         this.slutTidspunkt = slutTidspunkt;
+    }
+
+    public Begivenhed(String titel, String kategori, Timestamp startTidspunkt, Timestamp slutTidspunkt, String id){
+        this.titel = titel;
+        this.kategori = kategori;
+        this.startTidspunkt = startTidspunkt;
+        this.slutTidspunkt = slutTidspunkt;
+        this.id = id;
     }
 
     public String getTitel() {
@@ -49,5 +58,13 @@ public class Aftale {
 
     public void setSlutTidspunkt(Timestamp slutTidspunkt) {
         this.slutTidspunkt = slutTidspunkt;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -116,18 +116,18 @@ public class MenuController {
             DatabaseManager.getInstance().hentProgrammer();
 
         /** Indlæs alle aftaler og send dem til BookingFacade */
-        if (bookingFacade.hentAftaler() == null) {
+        if (bookingFacade.hentBegivenheder() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                    if (propertyChangeEvent.getPropertyName().equals("hentAftaler")) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentBegivenheder")) {
                         @SuppressWarnings("unchecked")
-                        ArrayList<Aftale> aftaler = (ArrayList<Aftale>) propertyChangeEvent.getNewValue();
-                        bookingFacade.angivAftaler(aftaler);
+                        ArrayList<Begivenhed> aftaler = (ArrayList<Begivenhed>) propertyChangeEvent.getNewValue();
+                        bookingFacade.angivBegivenheder(aftaler);
                     }
                 }
             });
-            DatabaseManager.getInstance().hentAftaler();
+            DatabaseManager.getInstance().hentBegivenheder();
         }
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */

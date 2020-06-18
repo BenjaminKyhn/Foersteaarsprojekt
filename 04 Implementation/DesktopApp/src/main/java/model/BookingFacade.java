@@ -1,6 +1,6 @@
 package model;
 
-import entities.Aftale;
+import entities.Begivenhed;
 
 import java.util.ArrayList;
 
@@ -22,15 +22,15 @@ public class BookingFacade {
         return bookingFacade;
     }
 
-    public ArrayList<Aftale> hentAftaler() {
-        return bookingManager.hentAftaler();
+    public ArrayList<Begivenhed> hentBegivenheder() {
+        return bookingManager.hentBegivenheder();
     }
 
-    public void angivAftaler(ArrayList<Aftale> aftaler) {
-        bookingManager.angivAftaler(aftaler);
+    public void angivBegivenheder(ArrayList<Begivenhed> aftaler) {
+        bookingManager.angivBegivenheder(aftaler);
     }
 
-    public void gemAftale(Aftale aftale){
-        bookingManager.gemAftale(aftale);
+    public void gemBegivenheder(Begivenhed begivenhed){
+        bookingManager.gemBegivenhed(begivenhed);
     }
 }

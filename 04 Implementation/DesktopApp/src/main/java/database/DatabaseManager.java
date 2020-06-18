@@ -357,24 +357,24 @@ public class DatabaseManager {
         thread.start();
     }
 
-    public void hentAftaler() {
+    public void hentBegivenheder() {
         Query query = firestore.collection("aftaler");
 
         Thread thread = new Thread(() -> {
-            ArrayList<Aftale> aftaler = new ArrayList<>();
+            ArrayList<Begivenhed> aftaler = new ArrayList<>();
 
             try {
                 QuerySnapshot querySnapshot = query.get().get();
                 if (!querySnapshot.isEmpty()) {
                     for (int i = 0; i < querySnapshot.size(); i++) {
-                        aftaler.add(querySnapshot.getDocuments().get(i).toObject(Aftale.class));
+                        aftaler.add(querySnapshot.getDocuments().get(i).toObject(Begivenhed.class));
                     }
                 }
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
 
-            support.firePropertyChange("hentAftaler", null, aftaler);
+            support.firePropertyChange("hentBegivenheder", null, aftaler);
         });
         thread.start();
     }
