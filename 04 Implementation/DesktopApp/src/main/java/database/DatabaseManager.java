@@ -357,6 +357,28 @@ public class DatabaseManager {
         thread.start();
     }
 
+    public void hentAftaler() {
+        Query query = firestore.collection("aftaler");
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Aftale> aftaler = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        aftaler.add(querySnapshot.getDocuments().get(i).toObject(Aftale.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentAftaler", null, aftaler);
+        });
+        thread.start();
+    }
+
     /**
      * Tilføjer en observer
      * @param listener den observer, som skal tilføjes
