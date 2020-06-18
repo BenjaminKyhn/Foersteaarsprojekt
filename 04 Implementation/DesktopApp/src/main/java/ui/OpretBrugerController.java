@@ -61,9 +61,10 @@ public class OpretBrugerController {
         /* Check om brugeren er logged ind og tilpas de visuelle elementer */
         if (aktivBruger == null)
             cbBehandler.setVisible(false);
-        else
-            lblInfo.setVisible(false);
-
+        else{
+            lblInfo.setText("OBS: Sæt flueben i tjekboksen 'Behandler', hvis brugeren er behandler hos klinikken. " +
+                    "Lad tjekboksen være blank, hvis brugeren er patient hos klinikken.");
+        }
 
         /* Tilføj observer på listen */
         brugerFacade.tilfoejObserver(new PropertyChangeListener() {

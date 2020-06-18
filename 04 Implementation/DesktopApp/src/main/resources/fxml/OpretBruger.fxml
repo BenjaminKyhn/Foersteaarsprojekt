@@ -68,7 +68,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Label fx:id="lblInfo" layoutX="246.0" layoutY="320.0" prefHeight="59.0" prefWidth="308.0" text="OBS: Du skal være logged ind som behandler, for at kunne oprette flere behandlerbrugere." wrapText="true" />
+            <Label fx:id="lblInfo" layoutX="246.0" layoutY="381.0" prefHeight="59.0" prefWidth="308.0" text="OBS: Du skal være logget ind som behandler eller systemadministrator, for at kunne oprette en bruger til en anden behandler." wrapText="true" />
          </children>
         </AnchorPane>
         <AnchorPane prefHeight="0.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
