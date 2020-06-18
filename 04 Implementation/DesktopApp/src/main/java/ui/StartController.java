@@ -149,7 +149,7 @@ public class StartController {
         Scene menuScene = new Scene(menuLoader);
 
         Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(menuScene);
+        stage.setScene(menuScene); //TODO Fix NullPointerException, som opstår, hvis man logger ud og prøver at logge ind igen (uden at lukke programmet)
     }
 
     public void skiftTilOpretBrugerScene() {
