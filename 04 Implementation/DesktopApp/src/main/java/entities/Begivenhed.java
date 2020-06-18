@@ -2,13 +2,16 @@ package entities;
 
 import com.google.cloud.Timestamp;
 
+import java.util.ArrayList;
+
 /** @author Benjamin */
 public class Begivenhed {
     String titel;
     String kategori;
+    String id;
     long startTidspunkt;
     long slutTidspunkt;
-    String id;
+    ArrayList<String> deltagere;
 
     public Begivenhed(){
     }
@@ -20,12 +23,13 @@ public class Begivenhed {
         this.slutTidspunkt = slutTidspunkt;
     }
 
-    public Begivenhed(String titel, String kategori, long startTidspunkt, long slutTidspunkt, String id){
+    public Begivenhed(String titel, String kategori, long startTidspunkt, long slutTidspunkt, String id, ArrayList<String> deltagere){
         this.titel = titel;
         this.kategori = kategori;
+        this.id = id;
         this.startTidspunkt = startTidspunkt;
         this.slutTidspunkt = slutTidspunkt;
-        this.id = id;
+        this.deltagere = deltagere;
     }
 
     public String getTitel() {
@@ -66,5 +70,13 @@ public class Begivenhed {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public ArrayList<String> getDeltagere() {
+        return deltagere;
+    }
+
+    public void setDeltagere(ArrayList<String> deltagere) {
+        this.deltagere = deltagere;
     }
 }

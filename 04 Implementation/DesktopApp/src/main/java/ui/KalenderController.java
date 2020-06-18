@@ -4,7 +4,6 @@ import com.calendarfx.model.*;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
-import com.google.cloud.Timestamp;
 import entities.Begivenhed;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -23,6 +22,7 @@ import model.BrugerFacade;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -78,16 +78,15 @@ public class KalenderController {
             Calendar eksamensforberedelse = new Calendar("Eksamensforberedelse");
             eksamensforberedelse.setStyle(Calendar.Style.STYLE6);
 
-            CalendarSource calendarSource = new CalendarSource("Aftaler");
+            CalendarSource calendarSource = new CalendarSource("Begivenheder");
             calendarSource.getCalendars().addAll(ferie, konsulationer, behandlinger, moeder, eksaminer, eksamensforberedelse);
-
             calendarView.getCalendarSources().setAll(calendarSource);
-
-            eksaminer.addEntry(tilfoejBegivenhed(bookingFacade.hentBegivenheder().get(0)));
 
             EventHandler<CalendarEvent> l = e -> handleEvent(e);
             eksaminer.addEventHandler(l);
 
+            // Tilføj alle begivenheder fra listen af begivenheder i BookingManager
+            tilfoejBegivenheder();
         });
 
         btnTest.setOnMouseClicked(e -> {
@@ -114,7 +113,9 @@ public class KalenderController {
 //        Timestamp slutTimestamp = Timestamp.of(slutDate);
 //        System.out.println(slutTimestamp.getSeconds());
 
-        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().toString(), startTidspunkt1, slutTidspunkt1, entry.getId());
+        ArrayList<String> deltagere = new ArrayList<>();
+        deltagere.add(brugerFacade.getAktivBruger().getNavn());
+        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().toString(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
 
         for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
             if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
@@ -157,6 +158,20 @@ public class KalenderController {
 
         Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    public void tilfoejBegivenheder(){
+        ArrayList<Begivenhed> begivenheder = bookingFacade.hentBegivenheder();
+        for (int i = 0; i < begivenheder.size(); i++) {
+            Begivenhed begivenhed = begivenheder.get(i);
+            if (begivenhed.getDeltagere().contains(brugerFacade.getAktivBruger().getNavn())){
+                for (int j = 0; j < calendarView.getCalendars().size(); j++) {
+                    Calendar kalender = calendarView.getCalendars().get(j);
+                    if (begivenhed.getKategori().equals(kalender.getName()))
+                        kalender.addEntry(tilfoejBegivenhed(begivenhed));
+                }
+            }
+        }
     }
 
     public Entry tilfoejBegivenhed(String titel, int startAar, int startMaaned, int startDag, int startTime, int startMinut,
