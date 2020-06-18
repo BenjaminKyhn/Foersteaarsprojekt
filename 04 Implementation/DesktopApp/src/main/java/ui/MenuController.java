@@ -115,15 +115,15 @@ public class MenuController {
             });
             DatabaseManager.getInstance().hentProgrammer();
 
-        /** Indlæs alle aftaler og send dem til BookingFacade */
+        /** Indlæs alle begivenheder og send dem til BookingFacade */
         if (bookingFacade.hentBegivenheder() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
                     if (propertyChangeEvent.getPropertyName().equals("hentBegivenheder")) {
                         @SuppressWarnings("unchecked")
-                        ArrayList<Begivenhed> aftaler = (ArrayList<Begivenhed>) propertyChangeEvent.getNewValue();
-                        bookingFacade.angivBegivenheder(aftaler);
+                        ArrayList<Begivenhed> begivenheder = (ArrayList<Begivenhed>) propertyChangeEvent.getNewValue();
+                        bookingFacade.angivBegivenheder(begivenheder);
                     }
                 }
             });

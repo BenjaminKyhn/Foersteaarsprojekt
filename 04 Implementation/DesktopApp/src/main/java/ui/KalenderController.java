@@ -83,19 +83,14 @@ public class KalenderController {
 
             calendarView.getCalendarSources().setAll(calendarSource);
 
-            eksaminer.addEntry(tilfoejBegivenhed("Førsteårseksamen", 2020, 6, 24, 10, 0,
-                    2020, 6, 24, 12, 0));
-            eksamensforberedelse.addEntry(tilfoejBegivenhed("Afprøv programmet"));
-            eksamensforberedelse.addEntry(tilfoejBegivenhed("Kodning", 9, 0, 15, 0));
+            eksaminer.addEntry(tilfoejBegivenhed(bookingFacade.hentBegivenheder().get(0)));
 
             EventHandler<CalendarEvent> l = e -> handleEvent(e);
             eksaminer.addEventHandler(l);
 
-//            eksaminer.addEventHandler(CalendarEvent., e -> handleEvent1(e));
-
         });
 
-        btnTest.setOnMouseClicked(e ->{
+        btnTest.setOnMouseClicked(e -> {
             System.out.println(bookingFacade.hentBegivenheder().size());
         });
 
@@ -104,18 +99,22 @@ public class KalenderController {
     private void handleEvent(CalendarEvent e) {
         Entry entry = e.getEntry();
 
-        System.out.println(entry.getId());
+        long startTidspunkt1 = entry.getStartMillis();
+        long slutTidspunkt1 = entry.getEndMillis();
 
-        LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
-        Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
-                startTidspunkt.getHour(), startTidspunkt.getMinute());
-        Timestamp startTimestamp = Timestamp.of(startDate);
+//        LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
+//        Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
+//                startTidspunkt.getHour(), startTidspunkt.getMinute());
+//        Timestamp startTimestamp = Timestamp.of(startDate);
+//        System.out.println(startTimestamp.getSeconds());
+//
+//        LocalDateTime slutTidspunkt = entry.getEndAsLocalDateTime();
+//        Date slutDate = new Date(slutTidspunkt.getYear(), slutTidspunkt.getMonthValue(), slutTidspunkt.getDayOfMonth(),
+//                slutTidspunkt.getHour(), slutTidspunkt.getMinute());
+//        Timestamp slutTimestamp = Timestamp.of(slutDate);
+//        System.out.println(slutTimestamp.getSeconds());
 
-        LocalDateTime slutTidspunkt = entry.getEndAsLocalDateTime();
-        Date slutDate = new Date(slutTidspunkt.getYear(), slutTidspunkt.getMonthValue(), slutTidspunkt.getDayOfMonth(),
-                slutTidspunkt.getHour(), slutTidspunkt.getMinute());
-        Timestamp slutTimestamp = Timestamp.of(slutDate);
-        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().toString(), startTimestamp, slutTimestamp, entry.getId());
+        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().toString(), startTidspunkt1, slutTidspunkt1, entry.getId());
 
         for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
             if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
@@ -190,6 +189,18 @@ public class KalenderController {
         LocalTime slutTidspunkt = LocalTime.of(nu.getHour() + 1, nu.getMinute(), nu.getSecond());
         Interval interval = new Interval(startDato, startTidspunkt, slutDato, slutTidspunkt);
         return new Entry(titel, interval);
+        //TODO: Metoden skal flyttes til logik på et tidspunkt
+    }
+
+    public Entry tilfoejBegivenhed(Begivenhed begivenhed) {
+        Date start = new Date(begivenhed.getStartTidspunkt());
+        Date slut = new Date(begivenhed.getSlutTidspunkt());
+        LocalDate startDato = LocalDate.of(start.getYear() + 1900, start.getMonth() + 1, start.getDate());
+        LocalTime startTidspunkt = LocalTime.of(start.getHours(), start.getMinutes(), start.getSeconds());
+        LocalDate slutDato = LocalDate.of(slut.getYear() + 1900, slut.getMonth() + 1, slut.getDate());
+        LocalTime slutTidspunkt = LocalTime.of(slut.getHours(), slut.getMinutes(), slut.getSeconds());
+        Interval interval = new Interval(startDato, startTidspunkt, slutDato, slutTidspunkt);
+        return new Entry(begivenhed.getTitel(), interval);
         //TODO: Metoden skal flyttes til logik på et tidspunkt
     }
 }
