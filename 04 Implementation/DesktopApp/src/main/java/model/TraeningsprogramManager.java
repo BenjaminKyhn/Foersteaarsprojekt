@@ -17,7 +17,7 @@ public class TraeningsprogramManager {
         support = new PropertyChangeSupport(this);
     }
 
-    public void gemProgram(Traeningsprogram program){
+    public void tildelProgram(Traeningsprogram program){
         for (int i = 0; i < programmer.size(); i++) {
             if (programmer.get(i).getPatientEmail().equals(program.getPatientEmail()))
                 programmer.remove(i);

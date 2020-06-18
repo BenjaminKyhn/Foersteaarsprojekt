@@ -85,7 +85,7 @@ public class TildelProgramController {
         tableViewPatient.setItems(patienter);
 
         // Når man klikker på patienten indlæses nuværende øvelser i listViewProgram,
-        tableViewPatient.setOnMouseClicked(e -> indlaesOevelser());
+        tableViewPatient.setOnMouseClicked(e -> indlaesProgram());
 
         ObservableList<String> kategorier = FXCollections.observableArrayList();
         for (int i = 0; i < oevelser.size(); i++) {
@@ -218,13 +218,13 @@ public class TildelProgramController {
         choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(oevelseListener);
     }
 
-    private void gemProgram() {
+    private void tildelProgram() {
         ArrayList<String> patientensOevelser = new ArrayList<>(listViewProgram.getItems());
         Traeningsprogram program = new Traeningsprogram(valgtePatient.getEmail(), patientensOevelser);
-        traeningsprogramFacade.gemProgram(program);
+        traeningsprogramFacade.tildelProgram(program);
     }
 
-    private void indlaesOevelser(){
+    private void indlaesProgram(){
         valgtePatient = tableViewPatient.getSelectionModel().getSelectedItem();
         ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
         ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
@@ -245,7 +245,7 @@ public class TildelProgramController {
             return;
         }
 
-        gemProgram();
+        tildelProgram();
 
         Parent menuLoader = null;
         try {
