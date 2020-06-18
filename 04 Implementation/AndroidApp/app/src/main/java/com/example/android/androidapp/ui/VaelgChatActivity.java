@@ -29,10 +29,10 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class VaelgChatActivity extends AppCompatActivity implements ItemClickListener, VaelgChatDialog.VaelgChatListener {
-    DrawerLayout drawerLayout;
-    BeskedFacade beskedFacade;
-    BrugerFacade brugerFacade;
-    ArrayList<Chat> chats;
+    private DrawerLayout drawerLayout;
+    private BeskedFacade beskedFacade;
+    private BrugerFacade brugerFacade;
+    private ArrayList<Chat> chats;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

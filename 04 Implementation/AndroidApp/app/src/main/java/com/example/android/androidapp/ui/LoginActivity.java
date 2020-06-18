@@ -26,11 +26,11 @@ import java.util.ArrayList;
  * @author Patrick
  **/
 public class LoginActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    EditText editTextEmail;
-    EditText editTextPassword;
-    BrugerFacade brugerFacade;
-    DatabaseManager databaseManager;
+    private DrawerLayout drawerLayout;
+    private EditText editTextEmail;
+    private EditText editTextPassword;
+    private BrugerFacade brugerFacade;
+    private DatabaseManager databaseManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
 
         final ProgressDialog progressDialog = ProgressDialog.show(this, "", "Logger ind...", true);
 
-        DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentBrugerMedEmail(email);
 
         databaseManager.tilfoejListener(evt -> {

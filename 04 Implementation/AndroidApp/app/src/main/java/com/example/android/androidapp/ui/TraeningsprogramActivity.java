@@ -21,7 +21,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class TraeningsprogramActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -99,6 +99,7 @@ public class TraeningsprogramActivity extends AppCompatActivity {
                         throw new IllegalStateException("Unexpected value: " + position);
                 }
                 intent.putExtra("videoPath", videoPath);
+                intent.putExtra("videoNavn", valgtFraListen);
                 startActivity(intent);
             }
         });

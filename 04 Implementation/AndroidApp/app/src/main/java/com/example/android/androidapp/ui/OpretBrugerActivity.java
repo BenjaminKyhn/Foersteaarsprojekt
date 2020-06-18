@@ -26,13 +26,13 @@ import java.beans.PropertyChangeListener;
 /**@author Kelvin**/
 public class OpretBrugerActivity extends AppCompatActivity {
     /**@author Tommy**/
-    DrawerLayout drawerLayout;
-    BrugerFacade brugerFacade;
-    ProgressDialog progressDialog;
-    EditText navnInput;
-    EditText emailInput;
-    EditText passwordInput;
-    EditText gentagPasswordInput;
+    private DrawerLayout drawerLayout;
+    private BrugerFacade brugerFacade;
+    private ProgressDialog progressDialog;
+    private EditText navnInput;
+    private EditText emailInput;
+    private EditText passwordInput;
+    private EditText gentagPasswordInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         String navn = navnInput.getText().toString();
         String email = emailInput.getText().toString();
         String password = passwordInput.getText().toString();
-        String gentagPassword = passwordInput.getText().toString();
+        String gentagPassword = gentagPasswordInput.getText().toString();
 
         if (!password.equals(gentagPassword)) {
             Toast.makeText(this, "Password'et blev ikke tastede korrekt", Toast.LENGTH_SHORT).show();

@@ -18,7 +18,6 @@ import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
-import com.example.android.androidapp.database.DatabaseManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -27,12 +26,12 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class ChatActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    TextInputEditText beskedFelt;
-    ArrayList<Besked> beskeder;
-    ChatAdapter chatAdapter;
-    ChatPresenter chatPresenter;
-    RecyclerView recyclerView;
+    private DrawerLayout drawerLayout;
+    private TextInputEditText beskedFelt;
+    private ArrayList<Besked> beskeder;
+    private ChatAdapter chatAdapter;
+    private ChatPresenter chatPresenter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

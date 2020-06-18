@@ -44,12 +44,19 @@ public class DatabaseManager {
     }
 
     public void gemChat(Chat chat) {
-        HashMap<String, Object> gemtData = new HashMap<>();
-        gemtData.put("afsender", chat.getAfsender());
-        gemtData.put("modtager", chat.getModtager());
-        gemtData.put("emne", chat.getEmne());
-
         firestore.collection("chats").document().set(chat);
+
+        if (chat.hentBeskeder().size() > 0) {
+            Query query = firestore.collection("chats").whereEqualTo("afsender", chat.getAfsender())
+                    .whereEqualTo("modtager", chat.getModtager()).whereEqualTo("emne", chat.getEmne());
+            query.get().addOnSuccessListener(queryDocumentSnapshots -> {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (Besked besked : chat.hentBeskeder()) {
+                        queryDocumentSnapshots.getDocuments().get(0).getReference().collection("beskeder").document().set(besked);
+                    }
+                }
+            });
+        }
     }
 
     public void sletBruger(Bruger bruger) {

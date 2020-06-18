@@ -23,10 +23,10 @@ import java.util.ArrayList;
 
 /**@author Patrick**/
 public class MenuActivity extends AppCompatActivity {
-    DrawerLayout drawerLayout;
-    BrugerFacade brugerFacade;
-    BeskedFacade beskedFacade;
-    ArrayList<Chat> chatListe;
+    private DrawerLayout drawerLayout;
+    private BrugerFacade brugerFacade;
+    private BeskedFacade beskedFacade;
+    private ArrayList<Chat> chatListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
