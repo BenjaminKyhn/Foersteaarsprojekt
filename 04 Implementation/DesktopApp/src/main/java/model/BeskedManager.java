@@ -8,7 +8,6 @@ import entities.exceptions.BrugerFindesIkkeException;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author Benjamin
