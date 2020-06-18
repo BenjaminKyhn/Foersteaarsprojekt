@@ -1,6 +1,6 @@
 package entities;
 
-import java.security.Timestamp;
+import com.google.cloud.Timestamp;
 
 /** @author Benjamin */
 public class Aftale {
