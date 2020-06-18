@@ -4,6 +4,9 @@ import entities.Aftale;
 
 import java.util.ArrayList;
 
+/**
+ * @author Benjamin
+ */
 public class BookingFacade {
     private BookingManager bookingManager;
     private static BookingFacade bookingFacade;
@@ -25,5 +28,9 @@ public class BookingFacade {
 
     public void angivAftaler(ArrayList<Aftale> aftaler) {
         bookingManager.angivAftaler(aftaler);
+    }
+
+    public void gemAftale(Aftale aftale){
+        bookingManager.gemAftale(aftale);
     }
 }

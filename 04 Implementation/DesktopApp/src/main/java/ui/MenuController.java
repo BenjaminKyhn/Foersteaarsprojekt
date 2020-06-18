@@ -116,17 +116,34 @@ public class MenuController {
             DatabaseManager.getInstance().hentProgrammer();
 
         /** Indlæs alle aftaler og send dem til BookingFacade */
-        DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                if (propertyChangeEvent.getPropertyName().equals("hentAftaler")) {
-                    @SuppressWarnings("unchecked")
-                    ArrayList<Aftale> aftaler = (ArrayList<Aftale>) propertyChangeEvent.getNewValue();
-                    bookingFacade.angivAftaler(aftaler);
+        if (bookingFacade.hentAftaler() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentAftaler")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Aftale> aftaler = (ArrayList<Aftale>) propertyChangeEvent.getNewValue();
+                        bookingFacade.angivAftaler(aftaler);
+                    }
                 }
-            }
-        });
-        DatabaseManager.getInstance().hentAftaler();
+            });
+            DatabaseManager.getInstance().hentAftaler();
+        }
+
+        /** Indlæs alle brugerens chats og send dem til BeskedFacade */
+        if (beskedFacade.hentChats() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentChatsMedNavn")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Chat> chats = (ArrayList<Chat>) propertyChangeEvent.getNewValue();
+                        beskedFacade.setChats(chats);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn());
+        }
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);

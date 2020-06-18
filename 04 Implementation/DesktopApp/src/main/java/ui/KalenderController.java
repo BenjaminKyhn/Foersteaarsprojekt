@@ -2,9 +2,13 @@ package ui;
 
 import com.calendarfx.model.*;
 
+import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
+import com.google.cloud.Timestamp;
+import entities.Aftale;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,26 +17,36 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.BookingFacade;
 import model.BrugerFacade;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Date;
 
+/**
+ * @author Benjamin
+ */
 public class KalenderController {
     private BrugerFacade brugerFacade;
+    private BookingFacade bookingFacade;
+    private ArrayList<Aftale> nyeAftaler;
 
     @FXML
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
 
     @FXML
-    private Button btnTilbage;
+    private Button btnTilbage, btnTest;
 
     @FXML
     private MenuBar menuBar;
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
+        bookingFacade = BookingFacade.getInstance();
+        nyeAftaler = new ArrayList<>();
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -75,7 +89,30 @@ public class KalenderController {
                     2020, 6, 24, 12, 0));
             eksamensforberedelse.addEntry(tilfoejAftaleNu("Afprøv programmet"));
             eksamensforberedelse.addEntry(tilfoejAftaleIDag("Kodning", 9, 0, 15, 0));
+
+            EventHandler<CalendarEvent> l = e -> handleEvent1(e);
+            eksaminer.addEventHandler(l);
         });
+
+        btnTest.setOnMouseClicked(e ->{
+            System.out.println(bookingFacade.hentAftaler().size());
+        });
+    }
+
+    private void handleEvent1(CalendarEvent e) {
+        Entry entry = e.getEntry();
+
+        LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
+        Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
+                startTidspunkt.getHour(), startTidspunkt.getMinute());
+        Timestamp startTimestamp = Timestamp.of(startDate);
+
+        LocalDateTime slutTidspunkt = entry.getEndAsLocalDateTime();
+        Date slutDate = new Date(slutTidspunkt.getYear(), slutTidspunkt.getMonthValue(), slutTidspunkt.getDayOfMonth(),
+                slutTidspunkt.getHour(), slutTidspunkt.getMinute());
+        Timestamp slutTimestamp = Timestamp.of(slutDate);
+        Aftale aftale = new Aftale(entry.getTitle(), entry.getCalendar().toString(), startTimestamp, slutTimestamp);
+        bookingFacade.gemAftale(aftale);
     }
 
     public void logUd() {
@@ -95,6 +132,10 @@ public class KalenderController {
     }
 
     public void tilHovedmenu() {
+        for (int i = 0; i < bookingFacade.hentAftaler().size(); i++) {
+            System.out.println(bookingFacade.hentAftaler().get(i).getTitel());
+        }
+
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
