@@ -1,8 +1,7 @@
 package ui;
 
 import com.calendarfx.model.*;
-import com.calendarfx.model.Calendar.Style;
-import com.calendarfx.util.CalendarFX;
+
 import com.calendarfx.view.CalendarView;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -19,13 +18,9 @@ import model.BrugerFacade;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.Year;
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class KalenderController {
     private BrugerFacade brugerFacade;
-    private CalendarView calendarView;
 
     @FXML
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
@@ -59,17 +54,17 @@ public class KalenderController {
             calenderViewHolder.getChildren().add(calendarView);
 
             Calendar ferie = new Calendar("Ferie");
-            ferie.setStyle(Style.STYLE1);
+            ferie.setStyle(Calendar.Style.STYLE1);
             Calendar konsulationer = new Calendar("Konsulationer");
-            konsulationer.setStyle(Style.STYLE2);
+            konsulationer.setStyle(Calendar.Style.STYLE2);
             Calendar behandlinger = new Calendar("Behandlinger");
-            behandlinger.setStyle(Style.STYLE3);
+            behandlinger.setStyle(Calendar.Style.STYLE3);
             Calendar moeder = new Calendar("Møder");
-            moeder.setStyle(Style.STYLE4);
+            moeder.setStyle(Calendar.Style.STYLE4);
             Calendar eksaminer = new Calendar("Eksaminer");
-            eksaminer.setStyle(Style.STYLE5);
+            eksaminer.setStyle(Calendar.Style.STYLE5);
             Calendar eksamensforberedelse = new Calendar("Eksamensforberedelse");
-            eksamensforberedelse.setStyle(Style.STYLE6);
+            eksamensforberedelse.setStyle(Calendar.Style.STYLE6);
 
             CalendarSource calendarSource = new CalendarSource("Aftaler");
             calendarSource.getCalendars().addAll(ferie, konsulationer, behandlinger, moeder, eksaminer, eksamensforberedelse);
