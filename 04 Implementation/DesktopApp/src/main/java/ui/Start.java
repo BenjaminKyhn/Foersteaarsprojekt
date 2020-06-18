@@ -6,12 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 /** @author Benjamin*/
 
 public class Start extends Application{
 
     @Override
     public void start(Stage stage) throws Exception {
+        Locale.setDefault(new Locale("da", "DK"));
+
         // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         Scene scene = new Scene(root);;
