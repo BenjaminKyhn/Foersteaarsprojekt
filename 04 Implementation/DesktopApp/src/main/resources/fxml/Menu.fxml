@@ -71,7 +71,7 @@
          </font>
       </Label>
       <Separator prefWidth="200.0" />
-      <Label text="Booking">
+      <Label fx:id="lblBooking" text="Booking">
          <font>
             <Font size="36.0" />
          </font>

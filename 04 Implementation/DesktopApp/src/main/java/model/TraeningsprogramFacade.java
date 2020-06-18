@@ -22,8 +22,8 @@ public class TraeningsprogramFacade {
         return traeningsprogramFacade;
     }
 
-    public void gemProgram(Traeningsprogram program){
-        traeningsprogramManager.gemProgram(program);
+    public void tildelProgram(Traeningsprogram program){
+        traeningsprogramManager.tildelProgram(program);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){

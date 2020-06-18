@@ -41,7 +41,7 @@ public class MenuController {
     private Rectangle topRectangle, bundRectangle;
 
     @FXML
-    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblPatientregister, lblTraeningsprogram;
+    private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblPatientregister, lblTraeningsprogram, lblBooking;
 
     @FXML
     private Circle fotoCircle;
@@ -73,7 +73,7 @@ public class MenuController {
             DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn());
         }
 
-        /** Indlæs alle brugere og send dem til BrugereFacade */
+        /** Indlæs alle brugere og send dem til BrugerFacade */
         if (brugerFacade.hentBrugere() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -137,6 +137,7 @@ public class MenuController {
         lblPatientregister.setOnMouseClicked(event -> patientregister());
         lblLogUd.setOnMouseClicked(event -> logUd());
         lblTraeningsprogram.setOnMouseClicked(event -> traeningsprogram());
+        lblBooking.setOnMouseClicked(e -> booking());
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
@@ -194,16 +195,26 @@ public class MenuController {
             e.printStackTrace();
         }
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
+        Stage stage = (Stage) logoImageView.getScene().getWindow();
         stage.setScene(scene);
-        stage.setTitle("Patientregister");
-        stage.show();
     }
 
     public void traeningsprogram() {
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/TildelProgram.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) logoImageView.getScene().getWindow();
+        stage.setScene(scene);
+    }
+
+    public void booking() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Kalender.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }

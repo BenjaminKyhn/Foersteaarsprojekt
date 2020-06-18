@@ -3,16 +3,14 @@ package ui;
 import entities.Bruger;
 import entities.exceptions.BehandlerFindesAlleredeException;
 import entities.exceptions.ForkertRolleException;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -41,7 +39,10 @@ public class PatientRegisterController {
     private ChoiceBox behandlerChoiceBox;
 
     @FXML
-    private Button btnOpretPatient, btnSletPatient, btnTilknytBehandler;
+    private Button btnOpretPatient, btnSletPatient, btnTilknytBehandler, btnTilbage;
+
+    @FXML
+    private MenuBar menuBar;
 
     BrugerFacade brugerFacade;
     DatabaseManager databaseManager;
@@ -83,6 +84,13 @@ public class PatientRegisterController {
                 }
             }
         });
+
+        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
+            menuBar.setMinWidth(patientregisterAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+        };
+        patientregisterAnchorPane.widthProperty().addListener(redraw);
     }
 
     /**
@@ -161,5 +169,35 @@ public class PatientRegisterController {
             SletPatientController sletPatientController = fxmlLoader.getController();
             sletPatientController.initData(patient);
         }
+    }
+
+    public void logUd() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
+
+        brugerFacade.logUd();
+    }
+
+    public void tilHovedmenu() {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
     }
 }
