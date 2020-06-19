@@ -75,6 +75,18 @@
         app:layout_constraintStart_toEndOf="@+id/stop"
         app:layout_constraintTop_toTopOf="@+id/stop" />
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:indeterminateTint="@android:color/darker_gray"
+        android:indeterminateTintMode="src_in"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <!-- @@author Patrick, bruges ikke endnu
     <RatingBar
         android:id="@+id/ratingBar"

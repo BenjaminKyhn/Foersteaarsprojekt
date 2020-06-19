@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -13,6 +14,8 @@ import android.widget.VideoView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.database.DatabaseManager;
@@ -24,10 +27,15 @@ import com.example.android.androidapp.entities.exceptions.TomEmneException;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
-
-// TODO: Gør så videoen ikke skal genindlæses med orientationsskift og arbejd med loading.
+import javax.net.ssl.HttpsURLConnection;
 
 public class VideoActivity extends AppCompatActivity implements VideoFeedbackDialog.VideoFeedbackListener {
     private VideoView videoView;
@@ -35,6 +43,9 @@ public class VideoActivity extends AppCompatActivity implements VideoFeedbackDia
     private ImageButton playPause;
     private Handler handler;
     private String videoNavn;
+    private File file;
+    private Uri uri;
+    private VideoViewModel videoViewModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,41 +55,39 @@ public class VideoActivity extends AppCompatActivity implements VideoFeedbackDia
         videoView = findViewById(R.id.videoView);
         seekBar = findViewById(R.id.seekBar);
         playPause = findViewById(R.id.play_pause);
+        videoViewModel = new ViewModelProvider(this).get(VideoViewModel.class);
 
-        String videoPath = getIntent().getStringExtra("videoURL");
-        Uri uri = Uri.parse(videoPath);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-            @Override
-            public void onPrepared(MediaPlayer mp) {
-                videoView.seekTo(1);
-                videoView.pause();
-                seekBar.setMax(videoView.getDuration()/1000);
-                seekBar.setProgress(0);
-            }
-        });
+        if (videoViewModel.getFile() == null && videoViewModel.getUri() == null) {
+            ProgressBar progressBar = findViewById(R.id.progressBar);
+            progressBar.setVisibility(View.VISIBLE);
 
-        videoNavn = getIntent().getStringExtra("videoNavn");
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String videoURL = getIntent().getStringExtra("videoURL");
+                    try {
+                        file = File.createTempFile("oevelseVideo", ".mp4");
+                        file.deleteOnExit();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        downloadFil(videoURL);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    uri = Uri.fromFile(file);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(videoView != null && fromUser){
-                    videoView.seekTo(progress * 1000);
+                    videoViewModel.setFile(file);
+                    videoViewModel.setUri(uri);
+                    runOnUiThread(() -> faerdigloadetMedie());
                 }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+            });
+            thread.start();
+        }
+        else {
+            faerdigloadetMedie();
+        }
 
 //        RatingBar ratingBar = findViewById(R.id.ratingBar);
 //        Drawable progress = ratingBar.getProgressDrawable();
@@ -122,8 +131,7 @@ public class VideoActivity extends AppCompatActivity implements VideoFeedbackDia
             videoView.pause();
             videoView.seekTo(1);
             playPause.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-        }
-        else {
+        } else {
             videoView.seekTo(1);
         }
     }
@@ -189,5 +197,88 @@ public class VideoActivity extends AppCompatActivity implements VideoFeedbackDia
 
         databaseManager.gemChat(nyChat);
         Toast.makeText(this, "Feedback er blevet sent", Toast.LENGTH_LONG).show();
+    }
+
+    public void downloadFil(String fileURL) throws IOException {
+        URL url = new URL(fileURL);
+        HttpsURLConnection httpsConn = (HttpsURLConnection) url.openConnection();
+        int responseCode = httpsConn.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+
+            InputStream inputStream = httpsConn.getInputStream();
+            FileOutputStream outputStream = new FileOutputStream(file);
+
+            int bytesRead = -1;
+            byte[] buffer = new byte[1024];
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            outputStream.close();
+            inputStream.close();
+
+        } else {
+            System.out.println("Ingen fil at downloade. Serveren svarede med HTTPS code: " + responseCode);
+        }
+        httpsConn.disconnect();
+    }
+
+    private void faerdigloadetMedie() {
+        ProgressBar progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+        videoView.setVideoURI(videoViewModel.getUri());
+        videoView.start();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mp) {
+                videoView.seekTo(1);
+                videoView.pause();
+                seekBar.setMax(videoView.getDuration() / 1000);
+                seekBar.setProgress(0);
+            }
+        });
+
+        videoNavn = getIntent().getStringExtra("videoNavn");
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                if (videoView != null && fromUser) {
+                    videoView.seekTo(progress * 1000);
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
+    public static class VideoViewModel extends ViewModel {
+        private File file;
+        private Uri uri;
+
+        public File getFile() {
+            return file;
+        }
+
+        public void setFile(File file) {
+            this.file = file;
+        }
+
+        public Uri getUri() {
+            return uri;
+        }
+
+        public void setUri(Uri uri) {
+            this.uri = uri;
+        }
     }
 }
