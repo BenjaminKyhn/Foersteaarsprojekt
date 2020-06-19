@@ -4,6 +4,7 @@ import database.DatabaseManager;
 import entities.Bruger;
 import entities.Oevelse;
 import entities.Traeningsprogram;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -23,8 +24,16 @@ import javafx.stage.Stage;
 import model.BrugerFacade;
 import model.TraeningsprogramFacade;
 
+import javax.net.ssl.HttpsURLConnection;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 
 /**
@@ -62,6 +71,11 @@ public class TildelProgramController {
     private ArrayList<Oevelse> oevelser;
     private Bruger valgtePatient;
     private MediaPlayer player;
+    private URL url;
+    private Label indlaesLabel;
+    private Thread downloadTraad;
+    private File videoFil;
+
 
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
@@ -92,25 +106,17 @@ public class TildelProgramController {
             if (!kategorier.contains(oevelser.get(i).getKategori()))
                 kategorier.add(oevelser.get(i).getKategori());
         }
+
         choiceBoxKategori.setItems(kategorier);
-        choiceBoxKategori.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+        choiceBoxKategori.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override
-            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
                 choiceBoxOevelse.getSelectionModel().selectedItemProperty().removeListener(oevelseListener);
                 videoPane.getChildren().clear();
-                switch (newValue.intValue()) {
-                    case 0:
-                        styrketraening();
-                        break;
-                    case 1:
-                        mobilitet();
-                        break;
-                    case 2:
-                        stabilitet();
-                        break;
-                    case 3:
-                        rygproblemer();
-                        break;
+                choiceBoxOevelse.getItems().clear();
+                for (Oevelse oevelse : oevelser) {
+                    if (oevelse.getKategori().equals(newValue))
+                        choiceBoxOevelse.getItems().add(oevelse.getNavn());
                 }
                 tilfoejListener();
             }
@@ -118,52 +124,68 @@ public class TildelProgramController {
         choiceBoxOevelse.getItems().add("Vælg kategori først");
         choiceBoxOevelse.getSelectionModel().select(0);
         oevelseListener = (observable, oldValue, newValue) -> {
-            MediaView videoView = new MediaView();
-            videoView.setFitWidth(320);
-            videoView.setFitHeight(180);
-            Media media;
-            videoPane.getChildren().add(videoView);
-            switch (newValue) {
-                case "Dødløft":
-                    media = new Media(getClass().getResource("/videoer/doedloeft.mp4").toExternalForm());
-                    player = new MediaPlayer(media);
-                    videoView.setMediaPlayer(player);
+            Oevelse valgteOevelse = null;
+            for (Oevelse oevelse : oevelser) {
+                if (oevelse.getNavn().equals(newValue)) {
+                    valgteOevelse = oevelse;
                     break;
-                case "Hoftebøjer":
-                    media = new Media(getClass().getResource("/videoer/hofteboejer.mp4").toExternalForm());
-                    player = new MediaPlayer(media);
-                    videoView.setMediaPlayer(player);
-                    break;
-                case "Nakke":
-                    media = new Media(getClass().getResource("/videoer/nakke.mp4").toExternalForm());
-                    player = new MediaPlayer(media);
-                    videoView.setMediaPlayer(player);
-                    break;
-                case "Planken på albuer og tær":
-                    media = new Media(getClass().getResource("/videoer/planke.mp4").toExternalForm());
-                    player = new MediaPlayer(media);
-                    videoView.setMediaPlayer(player);
-                    break;
-                case "Firefodstående krum - svaj":
-                    media = new Media(getClass().getResource("/videoer/svaj.mp4").toExternalForm());
-                    player = new MediaPlayer(media);
-                    videoView.setMediaPlayer(player);
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + newValue);
+                }
+
             }
-            player.play();
+            if (valgteOevelse == null) {
+                return;
+            }
+
+            videoPane.getChildren().clear();
+            indlaesLabel = new Label("Indlæser video");
+            videoPane.getChildren().add(indlaesLabel);
+
+            url = null;
+            try {
+                url = new URL(valgteOevelse.getVideoURL());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                videoFil = File.createTempFile("oevelseVideo", ".mp4");
+                videoFil.deleteOnExit();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+            assert url != null;
+
+            if (downloadTraad != null && downloadTraad.isAlive()) {
+                downloadTraad.interrupt();
+            }
+
+            downloadTraad = new Thread(() -> {
+                try {
+                    downloadFil(url.toString());
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                if (!Thread.currentThread().isInterrupted()) {
+                    Platform.runLater(this::faerdigloadetMedie);
+                }
+            });
+            downloadTraad.start();
         };
     }
 
     @FXML
-    private void afspilVideo(){
-        player.play();
+    private void afspilVideo() {
+        if (player != null) {
+            player.play();
+        }
     }
 
     @FXML
-    private void stopVideo(){
-        player.stop();
+    private void stopVideo() {
+        if (player != null) {
+            player.stop();
+        }
     }
 
     @FXML
@@ -182,36 +204,41 @@ public class TildelProgramController {
         }
     }
 
-    private void styrketraening() {
-        choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser) {
-            if (oevelse.getKategori().equals("Styrketræning"))
-                choiceBoxOevelse.getItems().add(oevelse.getNavn());
+    public void downloadFil(String fileURL) throws IOException {
+        URL url = new URL(fileURL);
+        HttpsURLConnection httpsConn = (HttpsURLConnection) url.openConnection();
+        int responseCode = httpsConn.getResponseCode();
+
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+
+            InputStream inputStream = httpsConn.getInputStream();
+            FileOutputStream outputStream = new FileOutputStream(videoFil);
+
+            int bytesRead = -1;
+            byte[] buffer = new byte[1024];
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+
+            outputStream.close();
+            inputStream.close();
+
+        } else {
+            System.out.println("Ingen fil at downloade. Serveren svarede med HTTPS code: " + responseCode);
         }
+        httpsConn.disconnect();
     }
 
-    private void mobilitet() {
-        choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser) {
-            if (oevelse.getKategori().equals("Mobilitet"))
-                choiceBoxOevelse.getItems().add(oevelse.getNavn());
-        }
-    }
-
-    private void stabilitet() {
-        choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser) {
-            if (oevelse.getKategori().equals("Stabilitet"))
-                choiceBoxOevelse.getItems().add(oevelse.getNavn());
-        }
-    }
-
-    private void rygproblemer() {
-        choiceBoxOevelse.getItems().clear();
-        for (Oevelse oevelse : oevelser) {
-            if (oevelse.getKategori().equals("Rygproblemer"))
-                choiceBoxOevelse.getItems().add(oevelse.getNavn());
-        }
+    public void faerdigloadetMedie() {
+        MediaView videoView = new MediaView();
+        videoView.setFitWidth(320);
+        videoView.setFitHeight(180);
+        videoPane.getChildren().add(videoView);
+        Media media = new Media(videoFil.toURI().toString());
+        player = new MediaPlayer(media);
+        videoView.setMediaPlayer(player);
+        videoPane.getChildren().remove(indlaesLabel);
+        player.play();
     }
 
     private void tilfoejListener() {
@@ -224,7 +251,7 @@ public class TildelProgramController {
         traeningsprogramFacade.tildelProgram(program);
     }
 
-    private void indlaesProgram(){
+    private void indlaesProgram() {
         valgtePatient = tableViewPatient.getSelectionModel().getSelectedItem();
         ArrayList<Traeningsprogram> programmer = traeningsprogramFacade.hentProgrammer();
         ObservableList<String> patientensOevelser = FXCollections.observableArrayList();
