@@ -42,7 +42,10 @@ public class BookingManager {
 
     public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {
         this.begivenheder = begivenheder;
-//        support.firePropertyChange("gemBegivenheder", null, begivenheder);
+        for (int i = 0; i < begivenheder.size(); i++) {
+            Begivenhed begivenhed = begivenheder.get(i);
+            support.firePropertyChange("gemBegivenhed", null, begivenhed);
+        }
     }
 
     public void fjernBegivenhed(int index) {

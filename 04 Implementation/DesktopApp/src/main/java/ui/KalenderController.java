@@ -39,7 +39,6 @@ public class KalenderController {
     private BrugerFacade brugerFacade;
     private BookingFacade bookingFacade;
     private CalendarView calendarView;
-    private ArrayList<String> IDer;
     private ArrayList<Entry> entries;
 
     @FXML
@@ -62,12 +61,12 @@ public class KalenderController {
         };
         kalenderAnchorPane.widthProperty().addListener(redraw);
 
-        // Tilføj observer gemBegivenheder /
+        // Tilføj observer gemBegivenhed /
         bookingFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("gemBegivenheder"))
-                    DatabaseManager.getInstance().gemBegivenheder((Begivenhed) evt.getNewValue());
+                if (evt.getPropertyName().equals("gemBegivenhed"))
+                    DatabaseManager.getInstance().gemBegivenhed((Begivenhed) evt.getNewValue());
             }
         });
 
@@ -104,9 +103,8 @@ public class KalenderController {
             // Tilføj alle begivenheder fra listen af begivenheder i BookingManager
             tilfoejBegivenheder();
 
-
-//            EventHandler<CalendarEvent> l = this::handleEvent;
-//            eksaminer.addEventHandler(l);
+            EventHandler<CalendarEvent> l = this::handleEvent;
+            eksaminer.addEventHandler(l);
 //            // TODO tilføj EventHandler på alle kalendere
         });
 
@@ -135,8 +133,8 @@ public class KalenderController {
 //        Timestamp slutTimestamp = Timestamp.of(slutDate);
 //        System.out.println(slutTimestamp.getSeconds());
 
-        ArrayList<String> deltagere = new ArrayList<>();
-        deltagere.add(brugerFacade.getAktivBruger().getNavn());
+//        ArrayList<String> deltagere = new ArrayList<>();
+//        deltagere.add(brugerFacade.getAktivBruger().getNavn());
 
         // Programmet crasher, hvis vi prøver at kalde entry.getCalender().getName() i samme thread
         //TODO dette skal gøres som en thread, og vente på den bliver færdig, ellers tilføjer den en masse duplicate begivenheder
