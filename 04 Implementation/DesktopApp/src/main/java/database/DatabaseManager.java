@@ -393,6 +393,10 @@ public class DatabaseManager {
         thread.start();
     }
 
+    public void gemBegivenhed(Begivenhed begivenhed){
+        //TODO implementer denne metode
+    }
+
     /**
      * Tilføjer en observer
      * @param listener den observer, som skal tilføjes

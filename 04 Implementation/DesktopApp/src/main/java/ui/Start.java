@@ -25,9 +25,6 @@ public class Start extends Application {
         Date startDato = new Date(start);
         Date slutDato = new Date(slut);
 
-        System.out.println(startDato.getTime());
-        System.out.println(slutDato.getTime());
-
         // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         Scene scene = new Scene(root);

@@ -1,6 +1,7 @@
 package ui;
 
 import com.calendarfx.model.*;
+import org.controlsfx.control.PopOver;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
@@ -64,6 +65,7 @@ public class KalenderController {
             calendarView = new CalendarView();
             calenderViewHolder.getChildren().clear();
             calenderViewHolder.getChildren().add(calendarView);
+            calendarView.setPrefWidth(calenderViewHolder.getWidth());
 
             Calendar ferie = new Calendar("Ferie");
             ferie.setStyle(Calendar.Style.STYLE1);
@@ -90,10 +92,7 @@ public class KalenderController {
         });
 
         btnTest.setOnMouseClicked(e -> {
-            System.out.println(bookingFacade.hentBegivenheder().size());
-            for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
-                System.out.println(bookingFacade.hentBegivenheder().get(i).getTitel());
-            }
+            System.out.println(calendarView.getWidth());
         });
 
     }
