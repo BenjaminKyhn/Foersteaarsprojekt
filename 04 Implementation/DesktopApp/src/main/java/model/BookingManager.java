@@ -42,8 +42,7 @@ public class BookingManager {
 
     public void gemBegivenheder(){
         for (int i = 0; i < begivenheder.size(); i++) {
-//            support.firePropertyChange("gemBegivenheder", null, begivenheder.get(i));
-            databaseManager.gemBegivenheder(begivenheder.get(i));
+            support.firePropertyChange("gemBegivenheder", null, begivenheder.get(i));
         }
     }
 

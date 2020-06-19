@@ -3,6 +3,7 @@ package model;
 import entities.Begivenhed;
 import entities.exceptions.*;
 
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
@@ -37,5 +38,9 @@ public class BookingFacade {
 
     public void gemBegivenheder() {
         bookingManager.gemBegivenheder();
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener){
+        bookingManager.tilfoejObserver(listener);
     }
 }

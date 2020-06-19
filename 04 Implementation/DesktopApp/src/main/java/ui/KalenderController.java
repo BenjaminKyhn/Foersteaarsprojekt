@@ -59,7 +59,7 @@ public class KalenderController {
         kalenderAnchorPane.widthProperty().addListener(redraw);
 
         // Tilføj observer gemBegivenheder /
-        brugerFacade.tilfoejObserver(new PropertyChangeListener() {
+        bookingFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("gemBegivenheder"))
@@ -99,6 +99,7 @@ public class KalenderController {
 
             EventHandler<CalendarEvent> l = e -> handleEvent(e);
             eksaminer.addEventHandler(l);
+            // TODO tilføj EventHandler på alle kalendere
 
             // Tilføj alle begivenheder fra listen af begivenheder i BookingManager
             tilfoejBegivenheder();
