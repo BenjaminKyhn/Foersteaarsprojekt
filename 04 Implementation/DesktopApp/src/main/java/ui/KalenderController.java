@@ -104,8 +104,9 @@ public class KalenderController {
             tilfoejBegivenheder();
 
             EventHandler<CalendarEvent> l = this::handleEvent;
-            eksaminer.addEventHandler(l);
-//            // TODO tilføj EventHandler på alle kalendere
+            for (int i = 0; i < calendarView.getCalendars().size(); i++) {
+                calendarView.getCalendars().get(i).addEventHandler(l);
+            }
         });
 
         btnTest.setOnMouseClicked(e -> {
@@ -114,13 +115,15 @@ public class KalenderController {
     }
 
     private void handleEvent(CalendarEvent e) {
-        Entry entry = e.getEntry();
-
-        for (int i = 0; i < entries.size(); i++) {
-            if (!entries.contains(entry))
-                entries.add(entry);
+        if (e.isEntryAdded()){
+            entries.add(e.getEntry());
         }
 
+        else if (e.isEntryRemoved()){
+            entries.remove(e.getEntry());
+        }
+
+        // TODO løs problemet med at nye entries har samme ID som de gamle
 //        LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
 //        Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
 //                startTidspunkt.getHour(), startTidspunkt.getMinute());
@@ -190,7 +193,7 @@ public class KalenderController {
             Begivenhed begivenhed = begivenheder.get(i);
             for (int j = 0; j < calendarView.getCalendars().size(); j++) {
                 Calendar kalender = calendarView.getCalendars().get(j);
-                if (kalender.getName().equals(begivenhed.getKategori())){
+                if (kalender.getName().equals(begivenhed.getKategori())) {
                     Entry entry = tilfoejBegivenhed(begivenhed);
                     entry.setCalendar(kalender);
                     kalender.addEntry(entry);
@@ -247,7 +250,7 @@ public class KalenderController {
         //TODO: Metoden skal flyttes til logik på et tidspunkt
     }
 
-    public void gemBegivenhederIBookingManager(){
+    public void gemBegivenhederIBookingManager() {
         ArrayList<String> deltagere = new ArrayList<>();
         deltagere.add(brugerFacade.getAktivBruger().getNavn());
         bookingFacade.hentBegivenheder().clear();
