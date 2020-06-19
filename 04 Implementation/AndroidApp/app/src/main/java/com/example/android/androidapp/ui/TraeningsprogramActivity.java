@@ -15,6 +15,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.entities.Bruger;
+import com.example.android.androidapp.entities.Oevelse;
+import com.example.android.androidapp.entities.Traeningsprogram;
+import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.model.TraeningsprogramFacade;
 import com.google.android.material.navigation.NavigationView;
 
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 
 public class TraeningsprogramActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
+    private ArrayList<Oevelse> oevelser;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,38 +73,34 @@ public class TraeningsprogramActivity extends AppCompatActivity {
     }
 
     private void initialiserTraeningslayout() {
+        Bruger aktiv = BrugerFacade.hentInstans().hentAktivBruger();
         final ListView listView = findViewById(R.id.listViewTraening);
-        ArrayList<String> program = TraeningsprogramFacade.hentInstans().hentListe();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, program);
+        ArrayList<Traeningsprogram> programmer = TraeningsprogramFacade.hentInstans().hentProgrammer();
+        oevelser = TraeningsprogramFacade.hentInstans().hentOevelser();
+        ArrayList<String> oevelseNavne = new ArrayList<>();
+        for (Traeningsprogram program : programmer) {
+            if (program.getPatientEmail().equals(aktiv.getEmail())) {
+                oevelseNavne.addAll(program.getOevelser());
+            }
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, oevelseNavne);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), VideoActivity.class);
-                String videoPath;
                 String valgtFraListen = listView.getItemAtPosition(position).toString();
-                switch (valgtFraListen) {
-                    case "Dødløft":
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.doedloeft;
+                Oevelse valgteOevelse = null;
+                for (Oevelse oevelse : oevelser) {
+                    if (oevelse.getNavn().equals(valgtFraListen)) {
+                        valgteOevelse = oevelse;
                         break;
-                    case "Nakke":
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.nakke;
-                        break;
-                    case "Hoftebøjer":
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.hofteboejer;
-                        break;
-                    case "Planken på albuer og tær":
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.planke;
-                        break;
-                    case "Firefodstående krum - svaj":
-                        videoPath = "android.resource://" + getPackageName() + "/" + R.raw.svaj;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + position);
+                    }
                 }
-                intent.putExtra("videoPath", videoPath);
                 intent.putExtra("videoNavn", valgtFraListen);
+                assert valgteOevelse != null;
+                intent.putExtra("videoURL", valgteOevelse.getVideoURL() + "&hd=1");
                 startActivity(intent);
             }
         });

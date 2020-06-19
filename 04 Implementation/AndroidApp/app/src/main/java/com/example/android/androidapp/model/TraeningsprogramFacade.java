@@ -24,22 +24,6 @@ public class TraeningsprogramFacade {
     }
     TraeningsprogramManager traeningsprogramManager;
 
-    public void tilfoejOevelse(String oevelse) {
-        traeningsprogramManager.tilfoejOevelse(oevelse);
-    }
-
-    public void fjernOevelse(String oevelse) {
-        traeningsprogramManager.fjernOevelse(oevelse);
-    }
-    
-    public void angivListe(ArrayList<String> liste) {
-        traeningsprogramManager.angivListe(liste);
-    }
-
-    public ArrayList<String> hentListe() {
-        return traeningsprogramManager.hentListe();
-    }
-
     public void tilfoejObserver(PropertyChangeListener listener){
         traeningsprogramManager.tilfoejObserver(listener);
     }

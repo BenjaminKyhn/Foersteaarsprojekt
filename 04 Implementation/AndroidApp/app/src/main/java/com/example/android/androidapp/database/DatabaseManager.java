@@ -6,6 +6,8 @@ import androidx.annotation.Nullable;
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.Chat;
+import com.example.android.androidapp.entities.Oevelse;
+import com.example.android.androidapp.entities.Traeningsprogram;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -201,15 +203,32 @@ public class DatabaseManager {
         });
     }
 
-    public void hentProgram(Bruger bruger, final ArrayList<String> program) {
+    public void hentProgramTilBruger(Bruger bruger) {
         firestore.collection("træningsprogram").document(bruger.getEmail()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 if (documentSnapshot != null && documentSnapshot.exists()) {
                     if (documentSnapshot.getData() != null) {
-                        List<String> list = (List<String>) documentSnapshot.get("oevelser");
-                        assert list != null;
-                        program.addAll(list);
+                        Traeningsprogram traeningsprogram = documentSnapshot.toObject(Traeningsprogram.class);
+                        ArrayList<Traeningsprogram> traeningsprogramArrayList = new ArrayList<>();
+                        traeningsprogramArrayList.add(traeningsprogram);
+                        support.firePropertyChange("hentProgramTilBruger", null, traeningsprogramArrayList);
+                    }
+                }
+            }
+        });
+    }
+
+    public void hentOevelser() {
+        firestore.collection("øvelser").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isComplete()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null) {
+                        List<Oevelse> list = querySnapshot.toObjects(Oevelse.class);
+                        ArrayList<Oevelse> arrayList = new ArrayList<>(list);
+                        support.firePropertyChange("hentOevelser", null, arrayList);
                     }
                 }
             }

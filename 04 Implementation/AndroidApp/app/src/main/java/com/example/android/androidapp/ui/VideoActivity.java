@@ -1,7 +1,5 @@
 package com.example.android.androidapp.ui;
 
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -44,7 +42,7 @@ public class VideoActivity extends AppCompatActivity implements VideoFeedbackDia
         seekBar = findViewById(R.id.seekBar);
         playPause = findViewById(R.id.play_pause);
 
-        String videoPath = getIntent().getStringExtra("videoPath");
+        String videoPath = getIntent().getStringExtra("videoURL");
         Uri uri = Uri.parse(videoPath);
         videoView.setVideoURI(uri);
         videoView.start();

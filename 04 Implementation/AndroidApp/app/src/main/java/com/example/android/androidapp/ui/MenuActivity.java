@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Chat;
-import com.example.android.androidapp.entities.exceptions.BrugerFindesIkkeException;
+import com.example.android.androidapp.entities.Oevelse;
+import com.example.android.androidapp.entities.Traeningsprogram;
 import com.example.android.androidapp.model.BeskedFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
@@ -21,13 +22,14 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-/**@author Patrick**/
+/**@author Tommy**/
 public class MenuActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private BrugerFacade brugerFacade;
     private BeskedFacade beskedFacade;
     private ArrayList<Chat> chatListe;
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +60,19 @@ public class MenuActivity extends AppCompatActivity {
         databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
         databaseManager.hentBehandlereTilBruger(brugerFacade.hentAktivBruger(), brugerFacade.hentBrugere());
 
-        ArrayList<String> program = new ArrayList<>();
+
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
-        databaseManager.hentProgram(BrugerFacade.hentInstans().hentAktivBruger(), program);
-        traeningsprogramFacade.angivListe(program);
+        databaseManager.hentOevelser();
+        databaseManager.hentProgramTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
+
+        databaseManager.tilfoejListener(evt -> {
+            if (evt.getPropertyName().equals("hentProgramTilBruger")) {
+                traeningsprogramFacade.angivProgrammer((ArrayList<Traeningsprogram>) evt.getNewValue());
+            }
+            if (evt.getPropertyName().equals("hentOevelser")) {
+                traeningsprogramFacade.angivOevelser((ArrayList<Oevelse>) evt.getNewValue());
+            }
+        });
     }
 
     public void openDrawer() {
@@ -87,7 +98,13 @@ public class MenuActivity extends AppCompatActivity {
 
     public void skiftTilTraening(View view) {
         Intent intent = new Intent(this, TraeningsprogramActivity.class);
-        intent.putExtra("intetProgram", false);
+        TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
+        if (traeningsprogramFacade.hentProgrammer() == null || traeningsprogramFacade.hentProgrammer().isEmpty()) {
+            intent.putExtra("intetProgram", true);
+        }
+        else {
+            intent.putExtra("intetProgram", false);
+        }
         startActivity(intent);
     }
 }

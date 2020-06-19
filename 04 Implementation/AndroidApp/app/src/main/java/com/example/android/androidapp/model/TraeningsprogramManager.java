@@ -10,36 +10,14 @@ import java.util.ArrayList;
 /** @author Tommy */
 // træningsprogramManager klasse instantieret i traeningsprogramFacade
 public class TraeningsprogramManager {
-    private ArrayList<String> program;
-    ArrayList<Oevelse> oevelser;
-    ArrayList<Traeningsprogram> programmer;
+    private ArrayList<Oevelse> oevelser;
+    private ArrayList<Traeningsprogram> programmer;
     private PropertyChangeSupport support;
 
     TraeningsprogramManager() {
-        program = new ArrayList<>();
         support = new PropertyChangeSupport(this);
-    }
-
-    void tilfoejOevelse(String oevelse) {
-        program.add(oevelse);
-        support.firePropertyChange("tilfoejOevelse", null, oevelse);
-    }
-
-    void fjernOevelse(String oevelse) {
-        for (String programoevelse : program) {
-            if (programoevelse.equals(oevelse)) {
-                program.remove(programoevelse);
-                support.firePropertyChange("fjernOevelse", null, programoevelse);
-            }
-        }
-    }
-
-    void angivListe(ArrayList<String> liste) {
-        program = liste;
-    }
-
-    ArrayList<String> hentListe() {
-        return program;
+        programmer = new ArrayList<>();
+        oevelser = new ArrayList<>();
     }
 
     void tilfoejObserver(PropertyChangeListener listener){
