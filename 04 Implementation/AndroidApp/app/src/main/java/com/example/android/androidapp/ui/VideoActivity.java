@@ -26,6 +26,9 @@ import com.example.android.androidapp.model.BrugerFacade;
 
 import java.util.ArrayList;
 
+
+// TODO: Gør så videoen ikke skal genindlæses med orientationsskift og arbejd med loading.
+
 public class VideoActivity extends AppCompatActivity implements VideoFeedbackDialog.VideoFeedbackListener {
     private VideoView videoView;
     private SeekBar seekBar;
