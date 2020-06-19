@@ -3,6 +3,7 @@ package ui;
 import com.calendarfx.model.*;
 import database.DatabaseManager;
 import entities.Bruger;
+import javafx.event.EventType;
 import org.controlsfx.control.PopOver;
 
 import com.calendarfx.model.Calendar;
@@ -29,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.*;
 
 /**
  * @author Benjamin
@@ -37,6 +39,8 @@ public class KalenderController {
     private BrugerFacade brugerFacade;
     private BookingFacade bookingFacade;
     private CalendarView calendarView;
+    private ArrayList<String> IDer;
+    private ArrayList<Entry> entries;
 
     @FXML
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
@@ -51,7 +55,7 @@ public class KalenderController {
         brugerFacade = BrugerFacade.getInstance();
         bookingFacade = BookingFacade.getInstance();
 
-        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        // Sæt UI-elementer til at skalere med vinduets størrelse
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             menuBar.setMinWidth(kalenderAnchorPane.getWidth() - btnTilbage.getPrefWidth());
             btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
@@ -97,32 +101,27 @@ public class KalenderController {
             calendarSource.getCalendars().addAll(ferie, konsulationer, behandlinger, moeder, eksaminer, eksamensforberedelse);
             calendarView.getCalendarSources().setAll(calendarSource);
 
-            EventHandler<CalendarEvent> l = e -> handleEvent(e);
-            eksaminer.addEventHandler(l);
-            // TODO tilføj EventHandler på alle kalendere
-
             // Tilføj alle begivenheder fra listen af begivenheder i BookingManager
             tilfoejBegivenheder();
+
+
+//            EventHandler<CalendarEvent> l = this::handleEvent;
+//            eksaminer.addEventHandler(l);
+//            // TODO tilføj EventHandler på alle kalendere
         });
 
         btnTest.setOnMouseClicked(e -> {
-            System.out.println("Listens størrelse: " + bookingFacade.hentBegivenheder().size());
-            System.out.println("ID'er er...");
-            for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
-                System.out.println(bookingFacade.hentBegivenheder().get(i).getId());
-                System.out.println(bookingFacade.hentBegivenheder().get(i).getTitel());
-            }
-            System.out.println("gemmer i DB");
-            bookingFacade.gemBegivenheder();
+            gemBegivenhederIBookingManager();
         });
-
     }
 
     private void handleEvent(CalendarEvent e) {
         Entry entry = e.getEntry();
 
-        long startTidspunkt1 = entry.getStartMillis();
-        long slutTidspunkt1 = entry.getEndMillis();
+        for (int i = 0; i < entries.size(); i++) {
+            if (!entries.contains(entry))
+                entries.add(entry);
+        }
 
 //        LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
 //        Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
@@ -140,18 +139,20 @@ public class KalenderController {
         deltagere.add(brugerFacade.getAktivBruger().getNavn());
 
         // Programmet crasher, hvis vi prøver at kalde entry.getCalender().getName() i samme thread
-        Platform.runLater(() -> {
-            Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
-
-            for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
-                if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
-                    bookingFacade.hentBegivenheder().remove(i);
-                    bookingFacade.hentBegivenheder().add(i, begivenhed);
-                }
-                else
-                    bookingFacade.gemBegivenhed(begivenhed);
-            }
-        });
+        //TODO dette skal gøres som en thread, og vente på den bliver færdig, ellers tilføjer den en masse duplicate begivenheder
+//        ExecutorService executor = Executors.newCachedThreadPool();
+//        Future<Begivenhed> futureCall = executor.submit(new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere));
+//        Begivenhed begivenhed = futureCall.get(10, TimeUnit.SECONDS);
+//        executor.shutdown();
+//        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
+//        for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
+//            if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
+//                bookingFacade.hentBegivenheder().remove(i);
+//                bookingFacade.hentBegivenheder().add(i, begivenhed);
+//            } else if (!bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())){
+////                bookingFacade.hentBegivenheder().add(begivenhed);
+//            }
+//        }
     }
 
     public void logUd() {
@@ -185,13 +186,18 @@ public class KalenderController {
     }
 
     public void tilfoejBegivenheder() {
+        entries = new ArrayList<>();
         ArrayList<Begivenhed> begivenheder = bookingFacade.hentBegivenheder();
         for (int i = 0; i < begivenheder.size(); i++) {
             Begivenhed begivenhed = begivenheder.get(i);
             for (int j = 0; j < calendarView.getCalendars().size(); j++) {
                 Calendar kalender = calendarView.getCalendars().get(j);
-                if (kalender.getName().equals(begivenhed.getKategori()))
-                    kalender.addEntry(tilfoejBegivenhed(begivenhed));
+                if (kalender.getName().equals(begivenhed.getKategori())){
+                    Entry entry = tilfoejBegivenhed(begivenhed);
+                    entry.setCalendar(kalender);
+                    kalender.addEntry(entry);
+                    entries.add(entry);
+                }
             }
         }
     }
@@ -237,7 +243,27 @@ public class KalenderController {
         LocalDate slutDato = LocalDate.of(slut.getYear() + 1900, slut.getMonth() + 1, slut.getDate());
         LocalTime slutTidspunkt = LocalTime.of(slut.getHours(), slut.getMinutes(), slut.getSeconds());
         Interval interval = new Interval(startDato, startTidspunkt, slutDato, slutTidspunkt);
-        return new Entry(begivenhed.getTitel(), interval);
+        Entry entry = new Entry(begivenhed.getTitel(), interval);
+        entry.setId(begivenhed.getId());
+        return entry;
         //TODO: Metoden skal flyttes til logik på et tidspunkt
+    }
+
+    public void gemBegivenhederIBookingManager(){
+        ArrayList<String> deltagere = new ArrayList<>();
+        deltagere.add(brugerFacade.getAktivBruger().getNavn());
+        bookingFacade.hentBegivenheder().clear();
+
+        ArrayList<Begivenhed> begivenheder = new ArrayList<>();
+
+        for (int i = 0; i < entries.size(); i++) {
+            Entry entry = entries.get(i);
+            long startTidspunkt1 = entry.getStartMillis();
+            long slutTidspunkt1 = entry.getEndMillis();
+            Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
+            begivenheder.add(begivenhed);
+        }
+
+        bookingFacade.gemBegivenheder(begivenheder);
     }
 }

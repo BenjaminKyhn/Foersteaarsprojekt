@@ -16,13 +16,13 @@ public class BookingManager {
     private ArrayList<Begivenhed> begivenheder;
     private DatabaseManager databaseManager;
 
-    BookingManager(){
+    BookingManager() {
         databaseManager = DatabaseManager.getInstance();
         support = new PropertyChangeSupport(this);
     }
 
     public static synchronized BookingManager getInstance() {
-        if (bookingManager == null){
+        if (bookingManager == null) {
             bookingManager = new BookingManager();
         }
         return bookingManager;
@@ -36,17 +36,20 @@ public class BookingManager {
         this.begivenheder = begivenheder;
     }
 
-    public void gemBegivenhed(Begivenhed begivenhed){
+    public void gemBegivenhed(Begivenhed begivenhed) {
         begivenheder.add(begivenhed);
     }
 
-    public void gemBegivenheder(){
-        for (int i = 0; i < begivenheder.size(); i++) {
-            support.firePropertyChange("gemBegivenheder", null, begivenheder.get(i));
-        }
+    public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {
+        this.begivenheder = begivenheder;
+//        support.firePropertyChange("gemBegivenheder", null, begivenheder);
     }
 
-    public void tilfoejObserver(PropertyChangeListener listener){
+    public void fjernBegivenhed(int index) {
+        begivenheder.remove(index);
+    }
+
+    public void tilfoejObserver(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 }

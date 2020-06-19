@@ -36,8 +36,12 @@ public class BookingFacade {
         bookingManager.gemBegivenhed(begivenhed);
     }
 
-    public void gemBegivenheder() {
-        bookingManager.gemBegivenheder();
+    public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {
+        bookingManager.gemBegivenheder(begivenheder);
+    }
+
+    public void fjernBegivenhed(int index){
+        bookingManager.fjernBegivenhed(index);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){

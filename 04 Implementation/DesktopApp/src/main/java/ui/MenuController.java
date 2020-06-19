@@ -240,6 +240,7 @@ public class MenuController {
     }
 
     public void booking() {
+        BookingFacade bookingFacade = BookingFacade.getInstance();
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/Kalender.fxml"));

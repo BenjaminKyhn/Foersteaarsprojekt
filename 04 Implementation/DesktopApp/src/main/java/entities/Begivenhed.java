@@ -1,11 +1,10 @@
 package entities;
 
-import com.google.cloud.Timestamp;
-
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
 
 /** @author Benjamin */
-public class Begivenhed {
+public class Begivenhed implements Callable<Begivenhed> {
     String titel;
     String kategori;
     String id;
@@ -78,5 +77,10 @@ public class Begivenhed {
 
     public void setDeltagere(ArrayList<String> deltagere) {
         this.deltagere = deltagere;
+    }
+
+    @Override
+    public Begivenhed call() throws Exception {
+        return new Begivenhed();
     }
 }
