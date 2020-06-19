@@ -1,6 +1,7 @@
 package model;
 
 import entities.Begivenhed;
+import entities.exceptions.*;
 
 import java.util.ArrayList;
 
@@ -32,5 +33,9 @@ public class BookingFacade {
 
     public void gemBegivenhed(Begivenhed begivenhed){
         bookingManager.gemBegivenhed(begivenhed);
+    }
+
+    public void gemBegivenheder() {
+        bookingManager.gemBegivenheder();
     }
 }

@@ -1,6 +1,8 @@
 package ui;
 
 import com.calendarfx.model.*;
+import database.DatabaseManager;
+import entities.Bruger;
 import org.controlsfx.control.PopOver;
 
 import com.calendarfx.model.Calendar;
@@ -20,6 +22,8 @@ import javafx.stage.Stage;
 import model.BookingFacade;
 import model.BrugerFacade;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -53,6 +57,15 @@ public class KalenderController {
             btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
         };
         kalenderAnchorPane.widthProperty().addListener(redraw);
+
+        // Tilføj observer gemBegivenheder /
+        brugerFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("gemBegivenheder"))
+                    DatabaseManager.getInstance().gemBegivenheder((Begivenhed) evt.getNewValue());
+            }
+        });
 
         indlaesKalender();
     }
@@ -92,7 +105,14 @@ public class KalenderController {
         });
 
         btnTest.setOnMouseClicked(e -> {
-            System.out.println(calendarView.getWidth());
+            System.out.println("Listens størrelse: " + bookingFacade.hentBegivenheder().size());
+            System.out.println("ID'er er...");
+            for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
+                System.out.println(bookingFacade.hentBegivenheder().get(i).getId());
+                System.out.println(bookingFacade.hentBegivenheder().get(i).getTitel());
+            }
+            System.out.println("gemmer i DB");
+            bookingFacade.gemBegivenheder();
         });
 
     }
@@ -117,16 +137,20 @@ public class KalenderController {
 
         ArrayList<String> deltagere = new ArrayList<>();
         deltagere.add(brugerFacade.getAktivBruger().getNavn());
-        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().toString(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
 
-        for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
-            if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
-                bookingFacade.hentBegivenheder().remove(i);
-                bookingFacade.hentBegivenheder().add(i, begivenhed);
+        // Programmet crasher, hvis vi prøver at kalde entry.getCalender().getName() i samme thread
+        Platform.runLater(() -> {
+            Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
+
+            for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
+                if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
+                    bookingFacade.hentBegivenheder().remove(i);
+                    bookingFacade.hentBegivenheder().add(i, begivenhed);
+                }
+                else
+                    bookingFacade.gemBegivenhed(begivenhed);
             }
-            else
-                bookingFacade.gemBegivenhed(begivenhed);
-        }
+        });
     }
 
     public void logUd() {

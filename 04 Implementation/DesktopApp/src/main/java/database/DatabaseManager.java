@@ -393,8 +393,8 @@ public class DatabaseManager {
         thread.start();
     }
 
-    public void gemBegivenhed(Begivenhed begivenhed){
-        //TODO implementer denne metode
+    public void gemBegivenheder(Begivenhed begivenhed){
+            firestore.collection("begivenheder").document(begivenhed.getId()).set(begivenhed);
     }
 
     /**
