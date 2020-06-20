@@ -1,9 +1,6 @@
 package ui;
 
-import entities.Bruger;
-import entities.Chat;
-import entities.Oevelse;
-import entities.Traeningsprogram;
+import entities.*;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.BeskedFacade;
+import model.BookingFacade;
 import model.BrugerFacade;
 import database.DatabaseManager;
 import model.TraeningsprogramFacade;
@@ -57,6 +55,7 @@ public class MenuController {
         aktivBruger = brugerFacade.getAktivBruger();
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.getInstance();
+        BookingFacade bookingFacade = BookingFacade.getInstance();
 
         /** Indlæs alle brugerens chats og send dem til BeskedFacade */
         if (beskedFacade.hentChats() == null) {
@@ -116,6 +115,35 @@ public class MenuController {
             });
             DatabaseManager.getInstance().hentProgrammer();
 
+        /** Indlæs alle begivenheder og send dem til BookingFacade */
+        if (bookingFacade.hentBegivenheder() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentBegivenheder")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Begivenhed> begivenheder = (ArrayList<Begivenhed>) propertyChangeEvent.getNewValue();
+                        bookingFacade.angivBegivenheder(begivenheder);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentBegivenheder(aktivBruger.getNavn());
+        }
+
+        /** Indlæs alle brugerens chats og send dem til BeskedFacade */
+        if (beskedFacade.hentChats() == null) {
+            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
+                @Override
+                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
+                    if (propertyChangeEvent.getPropertyName().equals("hentChatsMedNavn")) {
+                        @SuppressWarnings("unchecked")
+                        ArrayList<Chat> chats = (ArrayList<Chat>) propertyChangeEvent.getNewValue();
+                        beskedFacade.setChats(chats);
+                    }
+                }
+            });
+            DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn());
+        }
 
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
@@ -212,6 +240,7 @@ public class MenuController {
     }
 
     public void booking() {
+        BookingFacade bookingFacade = BookingFacade.getInstance();
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("/fxml/Kalender.fxml"));

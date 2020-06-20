@@ -23,7 +23,9 @@ import java.util.concurrent.ExecutionException;
  * Den kendes kun af UI'et for at holde en clean architecture.
  */
 public class DatabaseManager {
-    /** static, så vi altid kan få fat i den sammme DatabaseManager */
+    /**
+     * static, så vi altid kan få fat i den sammme DatabaseManager
+     */
     private static DatabaseManager databaseManager;
     private Firestore firestore;
     private boolean write;
@@ -73,6 +75,7 @@ public class DatabaseManager {
 
     /**
      * Gemmer brugeren i databasen i "brugere" collection. Documentet får samme navn som brugerobjektets email.
+     *
      * @param bruger et brugerobjekt skal først skabes og Firestore bruger brugerobjektets getters til at gemme
      *               instansvariable.
      */
@@ -83,6 +86,7 @@ public class DatabaseManager {
 
     /**
      * Sletter brugeren fra "brugere" collection i databasen
+     *
      * @param bruger igen bruges brugerobjektets getters til at afgøre, hvad der skal slettes i databasen
      */
     public void sletBruger(Bruger bruger) {
@@ -90,7 +94,7 @@ public class DatabaseManager {
         firestore.collection("brugere").document(email).delete();
     }
 
-    public void opdaterBruger(Bruger bruger){
+    public void opdaterBruger(Bruger bruger) {
         firestore.collection("brugere").document(bruger.getEmail()).set(bruger);
     }
 
@@ -98,6 +102,7 @@ public class DatabaseManager {
      * Henter en bruger fra databasen, som har et field med en email, som svarer til parameteret email. Metoden
      * returnerer void, fordi vi bruger observer. Kaldet sker i en tråd og observeren fyrer en firePropertyChange, når
      * brugeren er hentet.
+     *
      * @param email kan være en hvilken som helst String
      */
     public void hentBrugerMedEmail(String email) {
@@ -146,6 +151,7 @@ public class DatabaseManager {
 
     /**
      * Gemmer en chat i "chats" collection i databasen.
+     *
      * @param chat et chatobjekt skal først skabes.
      */
     public void opretChat(Chat chat) {
@@ -156,6 +162,7 @@ public class DatabaseManager {
      * Der laves 2 queries. Der skabes et chatobjekt for hver reference i databasen, som passer til en af de to queries.
      * Chatobjekterne tilføjes til en ArrayList. Det hele sker i en thread og til sidst sker et observerkald, når
      * querien er udført.
+     *
      * @param navn navn kan både være afsender og modtager i en chat
      * @see ArrayList<Besked> hentBeskeder(DocumentReference reference) for at få beskederne til chatten
      */
@@ -206,9 +213,10 @@ public class DatabaseManager {
 
     /**
      * Bruges til at hente de beskeder, som chatobjektet indeholder.
+     *
      * @param reference denne DocumentReference skabes af firebase, når vi querier databasen i en anden metode.
-     * @see public void hentChatsMedNavn(String navn)
      * @return returnerer en arrayliste med beskedobjekter
+     * @see public void hentChatsMedNavn(String navn)
      */
     private ArrayList<Besked> hentBeskeder(DocumentReference reference) {
         ArrayList<Besked> beskeder = new ArrayList<>();
@@ -230,6 +238,7 @@ public class DatabaseManager {
 
     /**
      * Gemmer en chat i databasen. Der laves en query for at finde den specifikke chat i databasen.
+     *
      * @param chat den gamle værdi overskrives af det chatobjekt, der gives med som parameter
      */
     public void opdaterChat(Chat chat) {
@@ -244,7 +253,8 @@ public class DatabaseManager {
         try {
             QuerySnapshot querySnapshot = query.get().get();
             if (!querySnapshot.isEmpty()) {
-                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocumentChanges().get(0).getDocument(); /** vi bruger getDocumentChanges for at minimere antallet af reads til databasen. Så bliver Snapshottet kun hentet, hvis der er en ændring */
+                // vi bruger getDocumentChanges for at minimere antallet af reads til databasen. Så bliver Snapshottet kun hentet, hvis der er en ændring
+                QueryDocumentSnapshot documentSnapshot = querySnapshot.getDocumentChanges().get(0).getDocument();
                 DocumentReference reference = documentSnapshot.getReference();
 
                 int sidsteIndex = chat.getBeskeder().size() - 1;
@@ -257,9 +267,9 @@ public class DatabaseManager {
     }
 
     /**
+     * @param chat den chat, der skal opdateres
      * @author Tommy
      * Kaldes fra UI'et for at liveopdatere beskeder i chatvinduet
-     * @param chat den chat, der skal opdateres
      */
     public void observerKaldFraFirestoreTilChat(Chat chat) {
         String afsender = chat.getAfsender();
@@ -289,15 +299,6 @@ public class DatabaseManager {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-    }
-
-    public void opdaterTraeningsprogram(Bruger bruger, ArrayList<String> program) {
-        ArrayList<Object> cast = new ArrayList<>(program);
-        Map<String, Object> map = new HashMap<>();
-        map.put("program", cast);
-        firestore.collection("træningsprogram")
-                .document(bruger.getEmail())
-                .set(map);
     }
 
     /**
@@ -357,8 +358,61 @@ public class DatabaseManager {
         thread.start();
     }
 
+    public void hentAlleBegivenheder() {
+        Query query = firestore.collection("begivenheder");
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Begivenhed> begivenheder = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        begivenheder.add(querySnapshot.getDocuments().get(i).toObject(Begivenhed.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentBegivenheder", null, begivenheder);
+        });
+        thread.start();
+    }
+
+    public void hentBegivenheder(String navn) {
+        Query query = firestore.collection("begivenheder").whereArrayContains("deltagere", navn);
+
+        Thread thread = new Thread(() -> {
+            ArrayList<Begivenhed> begivenheder = new ArrayList<>();
+
+            try {
+                QuerySnapshot querySnapshot = query.get().get();
+                if (!querySnapshot.isEmpty()) {
+                    for (int i = 0; i < querySnapshot.size(); i++) {
+                        begivenheder.add(querySnapshot.getDocuments().get(i).toObject(Begivenhed.class));
+                    }
+                }
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
+            support.firePropertyChange("hentBegivenheder", null, begivenheder);
+        });
+        thread.start();
+    }
+
+    public void gemBegivenhed(Begivenhed begivenhed) {
+        firestore.collection("begivenheder").document(begivenhed.getId()).set(begivenhed);
+    }
+
+    public void sletBegivenhed(Begivenhed begivenhed){
+        firestore.collection("begivenheder").document(begivenhed.getId()).delete();
+    }
+
     /**
      * Tilføjer en observer
+     *
      * @param listener den observer, som skal tilføjes
      */
     public void tilfoejObserver(PropertyChangeListener listener) {
