@@ -8,7 +8,6 @@ import javafx.stage.Stage;
 
 import java.util.Date;
 import java.util.Locale;
-import java.util.UUID;
 
 /**
  * @author Benjamin
@@ -26,6 +25,8 @@ public class Start extends Application {
         Date startDato = new Date(start);
         Date slutDato = new Date(slut);
 
+        stage.setOnCloseRequest(e -> lukProgram());
+
         // Start scene
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
         Scene scene = new Scene(root);
@@ -39,5 +40,9 @@ public class Start extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public void lukProgram(){
+        System.out.println("memes");
     }
 }

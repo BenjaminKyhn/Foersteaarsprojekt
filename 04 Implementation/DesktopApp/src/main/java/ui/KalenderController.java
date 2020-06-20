@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.BookingFacade;
 import model.BrugerFacade;
@@ -36,6 +37,7 @@ public class KalenderController {
     private BookingFacade bookingFacade;
     private CalendarView calendarView;
     private ArrayList<Entry> entries;
+    private Stage vindue;
 
     @FXML
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
@@ -76,6 +78,46 @@ public class KalenderController {
         });
 
         indlaesKalender();
+
+    }
+
+//    public void lukProgram() {
+//        Parent root = null;
+//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LukProgramPopup.fxml"));
+//        try {
+//            root = fxmlLoader.load();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        assert root != null;
+//
+//        Scene popupScene = new Scene(root);
+//        Stage stage = new Stage();
+//        stage.setTitle("Advarsel");
+//        stage.setScene(popupScene);
+//        stage.show();
+//
+//        LukProgramPopupController lukProgramPopupController = fxmlLoader.getController();
+//        String svar = lukProgramPopupController.vis("Vil du gemme ændringerne i kalenderen?");
+//
+//        if (svar.equals("ja")){
+//            gemAendringerIDatabasen();
+//            vindue.close();
+//        }
+//        else if (svar.equals("nej")) {
+//            vindue.close();
+//        }
+//    }
+
+    private void lukProgram(){
+        String svar = LukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
+        if (svar.equals("ja")){
+            gemAendringerIDatabasen();
+            vindue.close();
+        }
+        else if (svar.equals("nej")) {
+            vindue.close();
+        }
     }
 
     /**
@@ -83,6 +125,12 @@ public class KalenderController {
      */
     public void indlaesKalender() {
         Platform.runLater(() -> {
+            vindue = (Stage) kalenderAnchorPane.getScene().getWindow();
+            vindue.setOnCloseRequest(e -> {
+                e.consume();
+                lukProgram();
+            });
+
             calendarView = new CalendarView();
             calenderViewHolder.getChildren().clear();
             calenderViewHolder.getChildren().add(calendarView);
