@@ -1,5 +1,6 @@
 package model;
 
+import com.calendarfx.model.Entry;
 import entities.Begivenhed;
 
 import java.beans.PropertyChangeListener;

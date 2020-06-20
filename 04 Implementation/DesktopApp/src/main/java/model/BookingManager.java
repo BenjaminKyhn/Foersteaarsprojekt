@@ -38,6 +38,7 @@ public class BookingManager {
 
     public void gemBegivenhed(Begivenhed begivenhed) {
         begivenheder.add(begivenhed);
+        support.firePropertyChange("gemBegivenhed", null, begivenhed);
     }
 
     public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {
