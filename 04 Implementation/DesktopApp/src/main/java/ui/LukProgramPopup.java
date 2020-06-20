@@ -1,9 +1,11 @@
 package ui;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -16,9 +18,7 @@ public class LukProgramPopup {
         Stage vindue = new Stage();
         vindue.initModality(Modality.APPLICATION_MODAL);
         vindue.setTitle("Advarsel");
-        vindue.setMinWidth(250);
-        Label lblBesked = new Label();
-        lblBesked.setText(besked);
+        Label lblBesked = new Label(besked);
 
         Button btnJa = new Button("Ja");
         Button btnNej = new Button("Nej");
@@ -39,8 +39,12 @@ public class LukProgramPopup {
         });
 
         VBox vBox = new VBox(10);
-        vBox.getChildren().addAll(lblBesked, btnJa, btnNej, btnAnnuller);
+        HBox hBox = new HBox(10);
+        hBox.getChildren().addAll(btnJa, btnNej, btnAnnuller);
+        hBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(lblBesked, hBox);
         vBox.setAlignment(Pos.CENTER);
+        vBox.setPadding(new Insets(25, 25, 25, 25));
         Scene scene = new Scene(vBox);
         vindue.setScene(scene);
         vindue.showAndWait();
