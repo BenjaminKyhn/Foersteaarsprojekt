@@ -43,7 +43,7 @@ public class KalenderController {
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
 
     @FXML
-    private Button btnTilbage, btnTest;
+    private Button btnTilbage;
 
     @FXML
     private MenuBar menuBar;
@@ -107,10 +107,6 @@ public class KalenderController {
             for (int i = 0; i < calendarView.getCalendars().size(); i++) {
                 calendarView.getCalendars().get(i).addEventHandler(l);
             }
-        });
-
-        btnTest.setOnMouseClicked(e -> {
-            gemAendringerIDatabasen();
         });
     }
 

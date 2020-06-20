@@ -23,7 +23,6 @@
                   </Menu>
                </menus>
             </MenuBar>
-            <Button fx:id="btnTest" mnemonicParsing="false" text="Test" />
             <Button fx:id="btnTilbage" mnemonicParsing="false" onAction="#tilHovedmenu" prefWidth="60.0" text="Tilbage" />
          </children>
       </HBox>
