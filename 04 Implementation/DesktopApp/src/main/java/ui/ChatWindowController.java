@@ -72,6 +72,8 @@ public class ChatWindowController {
      * @author Benjamin
      */
     public void initialize() {
+        //TODO Lav søgefunktion i beskeder
+
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
