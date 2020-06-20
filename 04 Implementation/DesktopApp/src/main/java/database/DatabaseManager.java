@@ -404,7 +404,10 @@ public class DatabaseManager {
 
     public void gemBegivenhed(Begivenhed begivenhed) {
         firestore.collection("begivenheder").document(begivenhed.getId()).set(begivenhed);
-        //TODO Find en måde at gemme begivenhederne på, så den ikke bare laver nye documents, når man har ændret på dem
+    }
+
+    public void sletBegivenhed(Begivenhed begivenhed){
+        firestore.collection("begivenheder").document(begivenhed.getId()).delete();
     }
 
     /**

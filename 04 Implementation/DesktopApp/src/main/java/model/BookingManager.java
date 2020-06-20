@@ -48,8 +48,14 @@ public class BookingManager {
         }
     }
 
-    public void fjernBegivenhed(int index) {
-        begivenheder.remove(index);
+    public void sletBegivenhed(String id) {
+        for (int i = 0; i < begivenheder.size(); i++) {
+            if (begivenheder.get(i).getId().equals(id)){
+                Begivenhed begivenhed = begivenheder.get(i);
+                begivenheder.remove(begivenhed);
+                support.firePropertyChange("sletBegivenhed", null, begivenhed);
+            }
+        }
     }
 
     public void tilfoejObserver(PropertyChangeListener listener) {

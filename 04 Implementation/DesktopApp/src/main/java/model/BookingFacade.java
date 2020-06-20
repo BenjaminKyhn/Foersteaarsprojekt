@@ -1,7 +1,6 @@
 package model;
 
 import entities.Begivenhed;
-import entities.exceptions.*;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -40,8 +39,8 @@ public class BookingFacade {
         bookingManager.gemBegivenheder(begivenheder);
     }
 
-    public void fjernBegivenhed(int index){
-        bookingManager.fjernBegivenhed(index);
+    public void sletBegivenhed(String id){
+        bookingManager.sletBegivenhed(id);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){

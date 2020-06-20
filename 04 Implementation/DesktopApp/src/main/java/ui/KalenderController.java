@@ -2,9 +2,6 @@ package ui;
 
 import com.calendarfx.model.*;
 import database.DatabaseManager;
-import entities.Bruger;
-import javafx.event.EventType;
-import org.controlsfx.control.PopOver;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.view.CalendarView;
@@ -31,7 +28,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.*;
 
 /**
  * @author Benjamin
@@ -62,12 +58,21 @@ public class KalenderController {
         };
         kalenderAnchorPane.widthProperty().addListener(redraw);
 
-        // Tilføj observer gemBegivenhed /
+        // Tilføj observer til gemBegivenhed /
         bookingFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("gemBegivenhed"))
                     DatabaseManager.getInstance().gemBegivenhed((Begivenhed) evt.getNewValue());
+            }
+        });
+
+        //Tilføj observer til sletBegivenhed
+        bookingFacade.tilfoejObserver(new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if (evt.getPropertyName().equals("sletBegivenhed"))
+                    DatabaseManager.getInstance().sletBegivenhed((Begivenhed) evt.getNewValue()); // TODO tror ikke det virker fordi newValue er en String med ID
             }
         });
 
@@ -123,7 +128,9 @@ public class KalenderController {
         }
 
         else if (e.isEntryRemoved()){
+            Entry entry = e.getEntry();
             entries.remove(e.getEntry());
+            bookingFacade.sletBegivenhed(entry.getId());
         }
 
         // TODO løs problemet med at nye entries har samme ID som de gamle
@@ -198,7 +205,7 @@ public class KalenderController {
                 Calendar kalender = calendarView.getCalendars().get(j);
                 if (kalender.getName().equals(begivenhed.getKategori())) {
                     Entry entry = tilfoejBegivenhed(begivenhed);
-                    entry.setCalendar(kalender);
+                    entry.setCalendar(kalender); // kalenderen bliver ikke automatisk sat i constructoren
                     kalender.addEntry(entry);
                     entries.add(entry);
                 }
