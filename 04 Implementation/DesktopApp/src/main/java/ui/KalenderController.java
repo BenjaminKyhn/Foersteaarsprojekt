@@ -23,7 +23,6 @@ import model.BrugerFacade;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -116,10 +115,14 @@ public class KalenderController {
         });
 
         btnTest.setOnMouseClicked(e -> {
-            gemBegivenhederIBookingManager();
+            gemAendringerIDatabasen();
         });
     }
 
+    /**
+     * Kaldes automatisk hver gang, der sker en ændring på en Entry i UI'et.
+     * @param e en ændring i en Entry i UI'et
+     */
     private void handleEvent(CalendarEvent e) {
         if (e.isEntryAdded()){
             Entry entry = e.getEntry();
@@ -134,37 +137,7 @@ public class KalenderController {
             bookingFacade.sletBegivenhed(entry.getId());
         }
 
-        // TODO løs problemet med at nye entries har samme ID som de gamle
-//        LocalDateTime startTidspunkt = entry.getStartAsLocalDateTime();
-//        Date startDate = new Date(startTidspunkt.getYear(), startTidspunkt.getMonthValue(), startTidspunkt.getDayOfMonth(),
-//                startTidspunkt.getHour(), startTidspunkt.getMinute());
-//        Timestamp startTimestamp = Timestamp.of(startDate);
-//        System.out.println(startTimestamp.getSeconds());
-//
-//        LocalDateTime slutTidspunkt = entry.getEndAsLocalDateTime();
-//        Date slutDate = new Date(slutTidspunkt.getYear(), slutTidspunkt.getMonthValue(), slutTidspunkt.getDayOfMonth(),
-//                slutTidspunkt.getHour(), slutTidspunkt.getMinute());
-//        Timestamp slutTimestamp = Timestamp.of(slutDate);
-//        System.out.println(slutTimestamp.getSeconds());
-
-//        ArrayList<String> deltagere = new ArrayList<>();
-//        deltagere.add(brugerFacade.getAktivBruger().getNavn());
-
-        // Programmet crasher, hvis vi prøver at kalde entry.getCalender().getName() i samme thread
-        //TODO dette skal gøres som en thread, og vente på den bliver færdig, ellers tilføjer den en masse duplicate begivenheder
-//        ExecutorService executor = Executors.newCachedThreadPool();
-//        Future<Begivenhed> futureCall = executor.submit(new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere));
-//        Begivenhed begivenhed = futureCall.get(10, TimeUnit.SECONDS);
-//        executor.shutdown();
-//        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
-//        for (int i = 0; i < bookingFacade.hentBegivenheder().size(); i++) {
-//            if (bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())) {
-//                bookingFacade.hentBegivenheder().remove(i);
-//                bookingFacade.hentBegivenheder().add(i, begivenhed);
-//            } else if (!bookingFacade.hentBegivenheder().get(i).getId().equals(entry.getId())){
-////                bookingFacade.hentBegivenheder().add(begivenhed);
-//            }
-//        }
+        // TODO evt. if-condition, der gemmer ændringer?
     }
 
     public void logUd() {
@@ -197,6 +170,9 @@ public class KalenderController {
         stage.setScene(scene);
     }
 
+    /**
+     * Indlæser alle Begivenheder fra listen af Begivenheder i BookingManager og tilføjer dem til UI'et som Entries
+     */
     public void tilfoejBegivenheder() {
         entries = new ArrayList<>();
         ArrayList<Begivenhed> begivenheder = bookingFacade.hentBegivenheder();
@@ -214,39 +190,13 @@ public class KalenderController {
         }
     }
 
-    public Entry tilfoejBegivenhed(String titel, int startAar, int startMaaned, int startDag, int startTime, int startMinut,
-                                   int slutAaar, int slutMaaned, int slutDag, int slutTime, int slutMinut) {
-        LocalDate startDato = LocalDate.of(startAar, startMaaned, startDag);
-        LocalTime startTidspunkt = LocalTime.of(startTime, startMinut, 0);
-        LocalDate slutDato = LocalDate.of(slutAaar, slutMaaned, slutDag);
-        LocalTime slutTidspunkt = LocalTime.of(slutTime, slutMinut, 0);
-        Interval interval = new Interval(startDato, startTidspunkt, slutDato, slutTidspunkt);
-        return new Entry(titel, interval);
-        //TODO: Metoden skal flyttes til logik på et tidspunkt
-    }
-
-    public Entry tilfoejBegivenhed(String titel, int startTime, int startMinut, int slutTime, int slutMinut) {
-        LocalDateTime nu = LocalDateTime.now();
-        LocalDate startDato = LocalDate.of(nu.getYear(), nu.getMonth(), nu.getDayOfMonth());
-        LocalTime startTidspunkt = LocalTime.of(startTime, startMinut, 0);
-        LocalDate slutDato = LocalDate.of(nu.getYear(), nu.getMonth(), nu.getDayOfMonth());
-        LocalTime slutTidspunkt = LocalTime.of(slutTime, slutMinut, 0);
-        Interval interval = new Interval(startDato, startTidspunkt, slutDato, slutTidspunkt);
-        return new Entry(titel, interval);
-        //TODO: Metoden skal flyttes til logik på et tidspunkt
-    }
-
-    public Entry tilfoejBegivenhed(String titel) {
-        LocalDateTime nu = LocalDateTime.now();
-        LocalDate startDato = LocalDate.of(nu.getYear(), nu.getMonth(), nu.getDayOfMonth());
-        LocalTime startTidspunkt = LocalTime.of(nu.getHour(), nu.getMinute(), nu.getSecond());
-        LocalDate slutDato = LocalDate.of(nu.getYear(), nu.getMonth(), nu.getDayOfMonth());
-        LocalTime slutTidspunkt = LocalTime.of(nu.getHour() + 1, nu.getMinute(), nu.getSecond());
-        Interval interval = new Interval(startDato, startTidspunkt, slutDato, slutTidspunkt);
-        return new Entry(titel, interval);
-        //TODO: Metoden skal flyttes til logik på et tidspunkt
-    }
-
+    /**
+     * Metoden omdanner et Begivenhedsobjekt til et Entryobjekt. Denne metode tilhører UI'et, fordi Entry er en ren UI-
+     * klasse i CalendarFX.
+     * @param begivenhed begivenheden findes i BookingManagers liste af begivenheder, som oprindeligt kommer fra
+     *                   Firestore
+     * @return returnerer et Entryobjekt
+     */
     public Entry tilfoejBegivenhed(Begivenhed begivenhed) {
         Date start = new Date(begivenhed.getStartTidspunkt());
         Date slut = new Date(begivenhed.getSlutTidspunkt());
@@ -258,10 +208,14 @@ public class KalenderController {
         Entry entry = new Entry(begivenhed.getTitel(), interval);
         entry.setId(begivenhed.getId());
         return entry;
-        //TODO: Metoden skal flyttes til logik på et tidspunkt
     }
 
-    public void gemBegivenhederIBookingManager() {
+    /**
+     * Denne metode skal kaldes, for at gemme ændringer på Entries i både BookingManagers liste af begivenheder, men
+     * også i databasen. EventHandleren kan ikke udløses ved ændringer på en Entry, så derfor skal brugeren kalde
+     * metoden, når han vil gemme ændringerne.
+     */
+    public void gemAendringerIDatabasen() {
         ArrayList<String> deltagere = new ArrayList<>();
         deltagere.add(brugerFacade.getAktivBruger().getNavn());
         bookingFacade.hentBegivenheder().clear();
@@ -275,10 +229,13 @@ public class KalenderController {
             Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
             begivenheder.add(begivenhed);
         }
-
         bookingFacade.gemBegivenheder(begivenheder);
     }
 
+    /**
+     * Omdanner et Entryobjekt til et Begivenhedobjekt
+     * @param entry kommer fra UI'et
+     */
     public void gemEntrySomBegivenhed(Entry entry){
         ArrayList<String> deltagere = new ArrayList<>();
         deltagere.add(brugerFacade.getAktivBruger().getNavn());

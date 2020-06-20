@@ -1,6 +1,5 @@
 package model;
 
-import com.calendarfx.model.Entry;
 import entities.Begivenhed;
 
 import java.beans.PropertyChangeListener;
@@ -36,12 +35,12 @@ public class BookingFacade {
         bookingManager.gemBegivenhed(begivenhed);
     }
 
-    public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {
-        bookingManager.gemBegivenheder(begivenheder);
-    }
-
     public void sletBegivenhed(String id){
         bookingManager.sletBegivenhed(id);
+    }
+
+    public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {
+        bookingManager.gemBegivenheder(begivenheder);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){
