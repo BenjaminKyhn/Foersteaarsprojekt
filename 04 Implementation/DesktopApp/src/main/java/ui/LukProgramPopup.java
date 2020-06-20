@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 
 public class LukProgramPopup {
 
-    static String svar = "";
+    private String svar = "";
 
-    public static String vis(String besked){
+    public String vis(String besked){
         Stage vindue = new Stage();
         vindue.initModality(Modality.APPLICATION_MODAL);
         vindue.setTitle("Advarsel");

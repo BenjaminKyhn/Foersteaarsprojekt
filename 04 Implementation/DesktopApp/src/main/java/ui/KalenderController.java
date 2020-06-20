@@ -110,7 +110,8 @@ public class KalenderController {
 //    }
 
     private void lukProgram(){
-        String svar = LukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
+        LukProgramPopup lukProgramPopup = new LukProgramPopup();
+        String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
         if (svar.equals("ja")){
             gemAendringerIDatabasen();
             vindue.close();
