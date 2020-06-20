@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
 /** @author Benjamin */
 public class Begivenhed implements Callable<Begivenhed> {
     String titel;
-    String kategori;
+    String kalender;
     String id;
     long startTidspunkt;
     long slutTidspunkt;
@@ -15,16 +15,16 @@ public class Begivenhed implements Callable<Begivenhed> {
     public Begivenhed(){
     }
 
-    public Begivenhed(String titel, String kategori, long startTidspunkt, long slutTidspunkt){
+    public Begivenhed(String titel, String kalender, long startTidspunkt, long slutTidspunkt){
         this.titel = titel;
-        this.kategori = kategori;
+        this.kalender = kalender;
         this.startTidspunkt = startTidspunkt;
         this.slutTidspunkt = slutTidspunkt;
     }
 
-    public Begivenhed(String titel, String kategori, long startTidspunkt, long slutTidspunkt, String id, ArrayList<String> deltagere){
+    public Begivenhed(String titel, String kalender, long startTidspunkt, long slutTidspunkt, String id, ArrayList<String> deltagere){
         this.titel = titel;
-        this.kategori = kategori;
+        this.kalender = kalender;
         this.id = id;
         this.startTidspunkt = startTidspunkt;
         this.slutTidspunkt = slutTidspunkt;
@@ -39,12 +39,12 @@ public class Begivenhed implements Callable<Begivenhed> {
         this.titel = titel;
     }
 
-    public String getKategori() {
-        return kategori;
+    public String getKalender() {
+        return kalender;
     }
 
-    public void setKategori(String kategori) {
-        this.kategori = kategori;
+    public void setKalender(String kalender) {
+        this.kalender = kalender;
     }
 
     public long getStartTidspunkt() {

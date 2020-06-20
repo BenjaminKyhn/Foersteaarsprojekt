@@ -1,7 +1,6 @@
 package ui;
 
 import com.calendarfx.model.*;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import database.DatabaseManager;
 
 import com.calendarfx.model.Calendar;
@@ -17,11 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.BookingFacade;
 import model.BrugerFacade;
-import org.w3c.dom.ls.LSOutput;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -39,6 +36,7 @@ public class KalenderController {
     private BookingFacade bookingFacade;
     private CalendarView calendarView;
     private ArrayList<Entry> entries;
+    private ArrayList<String> kalendere;
     private Stage vindue;
 
     @FXML
@@ -99,22 +97,8 @@ public class KalenderController {
             calenderViewHolder.getChildren().add(calendarView);
             calendarView.setPrefWidth(calenderViewHolder.getWidth());
 
-            Calendar ferie = new Calendar("Ferie");
-            ferie.setStyle(Calendar.Style.STYLE1);
-            Calendar konsulationer = new Calendar("Konsulationer");
-            konsulationer.setStyle(Calendar.Style.STYLE2);
-            Calendar behandlinger = new Calendar("Behandlinger");
-            behandlinger.setStyle(Calendar.Style.STYLE3);
-            Calendar moeder = new Calendar("Møder");
-            moeder.setStyle(Calendar.Style.STYLE4);
-            Calendar eksaminer = new Calendar("Eksaminer");
-            eksaminer.setStyle(Calendar.Style.STYLE5);
-            Calendar eksamensforberedelse = new Calendar("Eksamensforberedelse");
-            eksamensforberedelse.setStyle(Calendar.Style.STYLE6);
-
-            CalendarSource calendarSource = new CalendarSource("Begivenheder");
-            calendarSource.getCalendars().addAll(ferie, konsulationer, behandlinger, moeder, eksaminer, eksamensforberedelse);
-            calendarView.getCalendarSources().setAll(calendarSource);
+            // Tilføj alle kalendere, som findes i listen af begivenheder i BookingManager
+            tilfoejKalendere();
 
             // Tilføj alle begivenheder fra listen af begivenheder i BookingManager
             tilfoejBegivenheder();
@@ -130,19 +114,47 @@ public class KalenderController {
         });
     }
 
+    public void tilfoejKalendere() {
+        kalendere = new ArrayList<>();
+        ArrayList<Begivenhed> begivenheder = bookingFacade.hentBegivenheder();
+        for (int i = 0; i < begivenheder.size(); i++) {
+            if (!kalendere.contains(begivenheder.get(i).getKalender()))
+                kalendere.add(begivenheder.get(i).getKalender());
+        }
+
+        ArrayList<Calendar.Style> kalenderTemaer = new ArrayList<>();
+        kalenderTemaer.add(Calendar.Style.STYLE1);
+        kalenderTemaer.add(Calendar.Style.STYLE2);
+        kalenderTemaer.add(Calendar.Style.STYLE3);
+        kalenderTemaer.add(Calendar.Style.STYLE4);
+        kalenderTemaer.add(Calendar.Style.STYLE5);
+        kalenderTemaer.add(Calendar.Style.STYLE6);
+        kalenderTemaer.add(Calendar.Style.STYLE7);
+
+        CalendarSource calendarSource = new CalendarSource("Begivenheder");
+
+        for (int i = 0; i < kalendere.size(); i++) {
+            Calendar kalender = new Calendar(kalendere.get(i));
+            if (i < kalenderTemaer.size())
+                kalender.setStyle(kalenderTemaer.get(i));
+            calendarSource.getCalendars().addAll(kalender);
+        }
+
+        calendarView.getCalendarSources().setAll(calendarSource);
+    }
+
     /**
      * Kaldes automatisk hver gang, der sker en ændring på en Entry i UI'et.
+     *
      * @param e en ændring i en Entry i UI'et
      */
     private void handleEvent(CalendarEvent e) {
-        if (e.isEntryAdded()){
+        if (e.isEntryAdded()) {
             Entry entry = e.getEntry();
             entry.setId(UUID.randomUUID().toString());
             entries.add(entry);
             gemEntrySomBegivenhed(entry);
-        }
-
-        else if (e.isEntryRemoved()){
+        } else if (e.isEntryRemoved()) {
             Entry entry = e.getEntry();
             entries.remove(e.getEntry());
             bookingFacade.sletBegivenhed(entry.getId());
@@ -161,7 +173,7 @@ public class KalenderController {
             Begivenhed begivenhed = begivenheder.get(i);
             for (int j = 0; j < calendarView.getCalendars().size(); j++) {
                 Calendar kalender = calendarView.getCalendars().get(j);
-                if (kalender.getName().equals(begivenhed.getKategori())) {
+                if (kalender.getName().equals(begivenhed.getKalender())) {
                     Entry entry = tilfoejBegivenhed(begivenhed);
                     entry.setCalendar(kalender); // kalenderen bliver ikke automatisk sat i constructoren
                     kalender.addEntry(entry);
@@ -174,6 +186,7 @@ public class KalenderController {
     /**
      * Metoden omdanner et Begivenhedsobjekt til et Entryobjekt. Denne metode tilhører UI'et, fordi Entry er en ren UI-
      * klasse i CalendarFX.
+     *
      * @param begivenhed begivenheden findes i BookingManagers liste af begivenheder, som oprindeligt kommer fra
      *                   Firestore
      * @return returnerer et Entryobjekt
@@ -193,9 +206,10 @@ public class KalenderController {
 
     /**
      * Omdanner et Entryobjekt til et Begivenhedobjekt
+     *
      * @param entry kommer fra UI'et
      */
-    public void gemEntrySomBegivenhed(Entry entry){
+    public void gemEntrySomBegivenhed(Entry entry) {
         ArrayList<String> deltagere = new ArrayList<>();
         deltagere.add(brugerFacade.getAktivBruger().getNavn());
         long startTidspunkt1 = entry.getStartMillis();
@@ -226,14 +240,13 @@ public class KalenderController {
         bookingFacade.gemBegivenheder(begivenheder);
     }
 
-    private void lukProgram(){
+    private void lukProgram() {
         LukProgramPopup lukProgramPopup = new LukProgramPopup();
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
-        if (svar.equals("ja")){
+        if (svar.equals("ja")) {
             gemAendringerIDatabasen();
             vindue.close();
-        }
-        else if (svar.equals("nej")) {
+        } else if (svar.equals("nej")) {
             vindue.close();
         }
     }
@@ -242,10 +255,9 @@ public class KalenderController {
         LukProgramPopup lukProgramPopup = new LukProgramPopup();
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
 
-        if (svar.equals("ja")){
+        if (svar.equals("ja")) {
             gemAendringerIDatabasen();
-        }
-        else if (svar.equals("annuller")) {
+        } else if (svar.equals("annuller")) {
             return;
         }
 
@@ -264,17 +276,17 @@ public class KalenderController {
         brugerFacade.logUd();
 
         // Fjerner onCloseRequest fra Stage, fordi den ikke længere er relevant, når vi forlader kalenderen
-        vindue.setOnCloseRequest(e -> {});
+        vindue.setOnCloseRequest(e -> {
+        });
     }
 
     public void tilHovedmenu() {
         LukProgramPopup lukProgramPopup = new LukProgramPopup();
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
 
-        if (svar.equals("ja")){
+        if (svar.equals("ja")) {
             gemAendringerIDatabasen();
-        }
-        else if (svar.equals("annuller")) {
+        } else if (svar.equals("annuller")) {
             return;
         }
 
@@ -291,6 +303,7 @@ public class KalenderController {
         stage.setScene(scene);
 
         // Fjerner onCloseRequest fra Stage, fordi den ikke længere er relevant, når vi forlader kalenderen
-        vindue.setOnCloseRequest(e -> {});
+        vindue.setOnCloseRequest(e -> {
+        });
     }
 }
