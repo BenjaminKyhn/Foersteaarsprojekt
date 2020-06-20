@@ -35,6 +35,7 @@ public class LukProgramPopup {
         });
 
         btnAnnuller.setOnAction(e -> {
+            svar = "annuller";
             vindue.close();
         });
 

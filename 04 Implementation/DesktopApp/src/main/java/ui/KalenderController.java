@@ -1,6 +1,7 @@
 package ui;
 
 import com.calendarfx.model.*;
+import com.google.gson.internal.bind.util.ISO8601Utils;
 import database.DatabaseManager;
 
 import com.calendarfx.model.Calendar;
@@ -20,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.BookingFacade;
 import model.BrugerFacade;
+import org.w3c.dom.ls.LSOutput;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -79,46 +81,6 @@ public class KalenderController {
 
         indlaesKalender();
 
-    }
-
-//    public void lukProgram() {
-//        Parent root = null;
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/LukProgramPopup.fxml"));
-//        try {
-//            root = fxmlLoader.load();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        assert root != null;
-//
-//        Scene popupScene = new Scene(root);
-//        Stage stage = new Stage();
-//        stage.setTitle("Advarsel");
-//        stage.setScene(popupScene);
-//        stage.show();
-//
-//        LukProgramPopupController lukProgramPopupController = fxmlLoader.getController();
-//        String svar = lukProgramPopupController.vis("Vil du gemme ændringerne i kalenderen?");
-//
-//        if (svar.equals("ja")){
-//            gemAendringerIDatabasen();
-//            vindue.close();
-//        }
-//        else if (svar.equals("nej")) {
-//            vindue.close();
-//        }
-//    }
-
-    private void lukProgram(){
-        LukProgramPopup lukProgramPopup = new LukProgramPopup();
-        String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
-        if (svar.equals("ja")){
-            gemAendringerIDatabasen();
-            vindue.close();
-        }
-        else if (svar.equals("nej")) {
-            vindue.close();
-        }
     }
 
     /**
@@ -189,36 +151,6 @@ public class KalenderController {
         // TODO evt. if-condition, der gemmer ændringer?
     }
 
-    public void logUd() {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
-
-        brugerFacade.logUd();
-    }
-
-    public void tilHovedmenu() {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
-    }
-
     /**
      * Indlæser alle Begivenheder fra listen af Begivenheder i BookingManager og tilføjer dem til UI'et som Entries
      */
@@ -260,6 +192,19 @@ public class KalenderController {
     }
 
     /**
+     * Omdanner et Entryobjekt til et Begivenhedobjekt
+     * @param entry kommer fra UI'et
+     */
+    public void gemEntrySomBegivenhed(Entry entry){
+        ArrayList<String> deltagere = new ArrayList<>();
+        deltagere.add(brugerFacade.getAktivBruger().getNavn());
+        long startTidspunkt1 = entry.getStartMillis();
+        long slutTidspunkt1 = entry.getEndMillis();
+        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
+        bookingFacade.gemBegivenhed(begivenhed);
+    }
+
+    /**
      * Denne metode skal kaldes, for at gemme ændringer på Entries i både BookingManagers liste af begivenheder, men
      * også i databasen. EventHandleren kan ikke udløses ved ændringer på en Entry, så derfor skal brugeren kalde
      * metoden, når han vil gemme ændringerne.
@@ -281,16 +226,71 @@ public class KalenderController {
         bookingFacade.gemBegivenheder(begivenheder);
     }
 
-    /**
-     * Omdanner et Entryobjekt til et Begivenhedobjekt
-     * @param entry kommer fra UI'et
-     */
-    public void gemEntrySomBegivenhed(Entry entry){
-        ArrayList<String> deltagere = new ArrayList<>();
-        deltagere.add(brugerFacade.getAktivBruger().getNavn());
-        long startTidspunkt1 = entry.getStartMillis();
-        long slutTidspunkt1 = entry.getEndMillis();
-        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
-        bookingFacade.gemBegivenhed(begivenhed);
+    private void lukProgram(){
+        LukProgramPopup lukProgramPopup = new LukProgramPopup();
+        String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
+        if (svar.equals("ja")){
+            gemAendringerIDatabasen();
+            vindue.close();
+        }
+        else if (svar.equals("nej")) {
+            vindue.close();
+        }
+    }
+
+    public void logUd() {
+        LukProgramPopup lukProgramPopup = new LukProgramPopup();
+        String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
+
+        if (svar.equals("ja")){
+            gemAendringerIDatabasen();
+        }
+        else if (svar.equals("annuller")) {
+            return;
+        }
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Start.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
+
+        brugerFacade.logUd();
+
+        // Fjerner onCloseRequest fra Stage, fordi den ikke længere er relevant, når vi forlader kalenderen
+        vindue.setOnCloseRequest(e -> {});
+    }
+
+    public void tilHovedmenu() {
+        LukProgramPopup lukProgramPopup = new LukProgramPopup();
+        String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
+
+        if (svar.equals("ja")){
+            gemAendringerIDatabasen();
+        }
+        else if (svar.equals("annuller")) {
+            return;
+        }
+
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+        Scene scene = new Scene(root);
+
+        Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
+        stage.setScene(scene);
+
+        // Fjerner onCloseRequest fra Stage, fordi den ikke længere er relevant, når vi forlader kalenderen
+        vindue.setOnCloseRequest(e -> {});
     }
 }
