@@ -131,8 +131,8 @@ public class KalenderController {
 
         for (int i = 0; i < kalendere.size(); i++) {
             Calendar kalender = new Calendar(kalendere.get(i));
-            if (i < kalenderTemaer.size())
-                kalender.setStyle(kalenderTemaer.get(i));
+            int tilfaeldigFarve = (int) (Math.random() * kalenderTemaer.size());
+            kalender.setStyle(kalenderTemaer.get(tilfaeldigFarve));
             calendarSource.getCalendars().addAll(kalender);
         }
 
