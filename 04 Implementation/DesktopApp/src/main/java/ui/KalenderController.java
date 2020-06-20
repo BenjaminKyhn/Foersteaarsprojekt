@@ -212,6 +212,7 @@ public class KalenderController {
     public void gemEntrySomBegivenhed(Entry entry) {
         ArrayList<String> deltagere = new ArrayList<>();
         deltagere.add(brugerFacade.getAktivBruger().getNavn());
+        deltagere.add(entry.getCalendar().getName());
         long startTidspunkt1 = entry.getStartMillis();
         long slutTidspunkt1 = entry.getEndMillis();
         Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
@@ -225,13 +226,15 @@ public class KalenderController {
      */
     public void gemAendringerIDatabasen() {
         ArrayList<String> deltagere = new ArrayList<>();
-        deltagere.add(brugerFacade.getAktivBruger().getNavn());
         bookingFacade.hentBegivenheder().clear();
 
         ArrayList<Begivenhed> begivenheder = new ArrayList<>();
 
         for (int i = 0; i < entries.size(); i++) {
             Entry entry = entries.get(i);
+            deltagere.clear();
+            deltagere.add(brugerFacade.getAktivBruger().getNavn());
+            deltagere.add(entry.getCalendar().getName());
             long startTidspunkt1 = entry.getStartMillis();
             long slutTidspunkt1 = entry.getEndMillis();
             Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
