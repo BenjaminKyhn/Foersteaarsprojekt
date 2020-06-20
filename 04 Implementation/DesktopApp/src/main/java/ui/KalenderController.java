@@ -30,6 +30,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.*;
 
 /**
@@ -116,7 +117,9 @@ public class KalenderController {
 
     private void handleEvent(CalendarEvent e) {
         if (e.isEntryAdded()){
-            entries.add(e.getEntry());
+            Entry entry = e.getEntry();
+            entry.setId(UUID.randomUUID().toString());
+            entries.add(entry);
         }
 
         else if (e.isEntryRemoved()){

@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 /**
  * @author Benjamin
