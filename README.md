@@ -13,4 +13,5 @@ Dette er et eksempel på Android appen, hvor patienten har logget ind og er inde
 
 Her er et eksempel på vores desktop app, hvor behandleren har logget ind og de kan så vælge om de vil sende beskeder til patienterne
 eller andre tilgængelige handlinger. Begge apps er designet til at kommunikere med hinanden ved brug af Cloud Firestore i Firebase,
-som er en online database som gemmer ændringerne i vores program. 
+som er en online database som gemmer ændringerne i vores program. Lige nu er det kun Android appen som kan installeres. 
+Installations filen findes i releases som en APK fil sammen med source coden.
