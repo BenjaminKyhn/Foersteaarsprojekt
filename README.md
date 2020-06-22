@@ -5,4 +5,6 @@ gør det muligt for behandlerne at tildele træningsprogrammer, book og se booke
 I Android appen kan patienterne kontakte deres behandler via beskeder, book tider samt tjekke kalenderen for deres bookede tider
 og se træningsprogrammer som er sent fra behandleren. 
 
-![Alt text](./09 Environment/Billeder til ReadMe/Android eksempel.png)
+![Alt text](./Billeder_til_ReadMe/Android_eksempel.png)
+
+Dette er et eksempel på Android appen, hvor patienten har logget ind og er inde på siden hvor de så kan vælge hvad de skal gøre.
