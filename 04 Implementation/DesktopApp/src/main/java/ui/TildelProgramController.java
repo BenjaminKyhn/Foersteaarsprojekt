@@ -4,6 +4,7 @@ import database.DatabaseManager;
 import entities.Bruger;
 import entities.Oevelse;
 import entities.Traeningsprogram;
+import entities.exceptions.BrugerFindesIkkeException;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -245,9 +246,9 @@ public class TildelProgramController {
         choiceBoxOevelse.getSelectionModel().selectedItemProperty().addListener(oevelseListener);
     }
 
-    private void tildelProgram() {
-        ArrayList<String> patientensOevelser = new ArrayList<>(listViewProgram.getItems());
-        traeningsprogramFacade.tildelProgram(valgtePatient.getEmail(), patientensOevelser);
+    private void tildelProgram() throws BrugerFindesIkkeException {
+        ArrayList<String> patientOevelser = new ArrayList<>(listViewProgram.getItems());
+        traeningsprogramFacade.tildelProgram(valgtePatient.getEmail(), patientOevelser);
     }
 
     private void indlaesProgram() {
@@ -271,7 +272,11 @@ public class TildelProgramController {
             return;
         }
 
-        tildelProgram();
+        try {
+            tildelProgram();
+        } catch (BrugerFindesIkkeException bfie){
+            popupWindow("Brugeren eksisterer ikke.");
+        }
 
         Parent menuLoader = null;
         try {
@@ -328,5 +333,25 @@ public class TildelProgramController {
 
         Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
         stage.setScene(scene);
+    }
+
+    public void popupWindow(String infoText) {
+        Parent root = null;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/SystemBeskedPopup.fxml"));
+        try {
+            root = fxmlLoader.load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assert root != null;
+
+        Scene popupScene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Infoboks");
+        stage.setScene(popupScene);
+        stage.show();
+
+        SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
+        systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
 }

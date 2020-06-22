@@ -2,6 +2,7 @@ package model;
 
 import entities.Oevelse;
 import entities.Traeningsprogram;
+import entities.exceptions.BrugerFindesIkkeException;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class TraeningsprogramFacade {
         return traeningsprogramFacade;
     }
 
-    public void tildelProgram(String email, ArrayList<String> oevelser){
-        traeningsprogramManager.tildelProgram(email, oevelser);
+    public void tildelProgram(String email, ArrayList<String> patientOevelser) throws BrugerFindesIkkeException {
+        traeningsprogramManager.tildelProgram(email, patientOevelser);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){

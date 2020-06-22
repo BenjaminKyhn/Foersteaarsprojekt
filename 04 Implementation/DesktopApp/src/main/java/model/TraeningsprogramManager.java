@@ -1,7 +1,9 @@
 package model;
 
+import entities.Bruger;
 import entities.Oevelse;
 import entities.Traeningsprogram;
+import entities.exceptions.BrugerFindesIkkeException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -12,17 +14,37 @@ public class TraeningsprogramManager {
     ArrayList<Oevelse> oevelser;
     ArrayList<Traeningsprogram> programmer;
     PropertyChangeSupport support;
+    BrugerManager brugerManager;
 
     public TraeningsprogramManager() {
+        brugerManager = BrugerManager.getInstance();
         support = new PropertyChangeSupport(this);
     }
 
-    public void tildelProgram(String email, ArrayList<String> oevelser){
-        Traeningsprogram program = new Traeningsprogram(email, oevelser);
-        for (int i = 0; i < programmer.size(); i++) {
-            if (programmer.get(i).getPatientEmail().equals(program.getPatientEmail()))
-                programmer.remove(i);
+    public void tjekProgram(String email) throws BrugerFindesIkkeException {
+        boolean brugerEksisterer = false;
+        ArrayList<Bruger> brugere = brugerManager.hentBrugere();
+        for (int i = 0; i < brugere.size(); i++) {
+            if (brugere.get(i).getEmail().equals(email)){
+                brugerEksisterer= true;
+                break;
+            }
         }
+
+        if (!brugerEksisterer)
+            throw new BrugerFindesIkkeException();
+
+        for (int i = 0; i < programmer.size(); i++) {
+            if (programmer.get(i).getPatientEmail().equals(email)){
+                programmer.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void tildelProgram(String email, ArrayList<String> patientOevelser) throws BrugerFindesIkkeException {
+        tjekProgram(email);
+        Traeningsprogram program = new Traeningsprogram(email, patientOevelser);
         programmer.add(program);
         support.firePropertyChange("gemProgram", null, program);
     }
