@@ -247,8 +247,7 @@ public class TildelProgramController {
 
     private void tildelProgram() {
         ArrayList<String> patientensOevelser = new ArrayList<>(listViewProgram.getItems());
-        Traeningsprogram program = new Traeningsprogram(valgtePatient.getEmail(), patientensOevelser);
-        traeningsprogramFacade.tildelProgram(program);
+        traeningsprogramFacade.tildelProgram(valgtePatient.getEmail(), patientensOevelser);
     }
 
     private void indlaesProgram() {

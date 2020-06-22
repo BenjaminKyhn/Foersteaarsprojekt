@@ -17,7 +17,8 @@ public class TraeningsprogramManager {
         support = new PropertyChangeSupport(this);
     }
 
-    public void tildelProgram(Traeningsprogram program){
+    public void tildelProgram(String email, ArrayList<String> oevelser){
+        Traeningsprogram program = new Traeningsprogram(email, oevelser);
         for (int i = 0; i < programmer.size(); i++) {
             if (programmer.get(i).getPatientEmail().equals(program.getPatientEmail()))
                 programmer.remove(i);

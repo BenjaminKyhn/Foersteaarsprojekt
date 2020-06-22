@@ -22,8 +22,8 @@ public class TraeningsprogramFacade {
         return traeningsprogramFacade;
     }
 
-    public void tildelProgram(Traeningsprogram program){
-        traeningsprogramManager.tildelProgram(program);
+    public void tildelProgram(String email, ArrayList<String> oevelser){
+        traeningsprogramManager.tildelProgram(email, oevelser);
     }
 
     public void tilfoejObserver(PropertyChangeListener listener){
