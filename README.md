@@ -10,3 +10,7 @@ og se træningsprogrammer som er sent fra behandleren.
 Dette er et eksempel på Android appen, hvor patienten har logget ind og er inde på siden hvor de så kan vælge hvad de skal gøre.
 
 ![Alt text](./Billeder_til_ReadMe/Desktop_eksempel.PNG)
+
+Her er et eksempel på vores desktop app, hvor behandleren har logget ind og de kan så vælge om de vil sende beskeder til patienterne
+eller andre tilgængelige handlinger. Begge apps er designet til at kommunikere med hinanden ved brug af Cloud Firestore i Firebase,
+som er en online database som gemmer ændringerne i vores program. 
