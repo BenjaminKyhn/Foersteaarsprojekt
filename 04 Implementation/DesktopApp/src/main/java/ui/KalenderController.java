@@ -224,8 +224,6 @@ public class KalenderController {
         ArrayList<String> deltagere = new ArrayList<>();
         bookingFacade.hentBegivenheder().clear();
 
-        ArrayList<Begivenhed> begivenheder = new ArrayList<>();
-
         for (int i = 0; i < entries.size(); i++) {
             Entry entry = entries.get(i);
             deltagere.clear();
@@ -234,9 +232,8 @@ public class KalenderController {
             long startTidspunkt1 = entry.getStartMillis();
             long slutTidspunkt1 = entry.getEndMillis();
             Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
-            begivenheder.add(begivenhed);
+            bookingFacade.gemBegivenhed(begivenhed);
         }
-        bookingFacade.gemBegivenheder(begivenheder);
     }
 
     private void lukProgram() {
@@ -244,6 +241,7 @@ public class KalenderController {
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
         if (svar.equals("ja")) {
             gemAendringerIDatabasen();
+            System.out.println("luk program");
             vindue.close();
         } else if (svar.equals("nej")) {
             vindue.close();
@@ -256,6 +254,7 @@ public class KalenderController {
 
         if (svar.equals("ja")) {
             gemAendringerIDatabasen();
+            System.out.println("Log ud");
         } else if (svar.equals("annuller")) {
             return;
         }
@@ -285,6 +284,7 @@ public class KalenderController {
 
         if (svar.equals("ja")) {
             gemAendringerIDatabasen();
+            System.out.println("Til hovedmenu");
         } else if (svar.equals("annuller")) {
             return;
         }
