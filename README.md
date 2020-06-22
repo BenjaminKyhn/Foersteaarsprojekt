@@ -9,4 +9,4 @@ og se træningsprogrammer som er sent fra behandleren.
 
 Dette er et eksempel på Android appen, hvor patienten har logget ind og er inde på siden hvor de så kan vælge hvad de skal gøre.
 
-![Alt text](./Billeder_til_ReadMe/Desktop_eksempel.png)
+![Alt text](./Billeder_til_ReadMe/Desktop_eksempel.PNG)
