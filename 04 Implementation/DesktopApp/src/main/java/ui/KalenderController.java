@@ -241,7 +241,6 @@ public class KalenderController {
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
         if (svar.equals("ja")) {
             gemAendringerIDatabasen();
-            System.out.println("luk program");
             vindue.close();
         } else if (svar.equals("nej")) {
             vindue.close();
@@ -254,7 +253,6 @@ public class KalenderController {
 
         if (svar.equals("ja")) {
             gemAendringerIDatabasen();
-            System.out.println("Log ud");
         } else if (svar.equals("annuller")) {
             return;
         }
@@ -284,7 +282,6 @@ public class KalenderController {
 
         if (svar.equals("ja")) {
             gemAendringerIDatabasen();
-            System.out.println("Til hovedmenu");
         } else if (svar.equals("annuller")) {
             return;
         }
