@@ -1,7 +1,6 @@
 package ui;
 
 import entities.*;
-import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.BeskedFacade;
 import model.BookingFacade;
@@ -34,9 +32,6 @@ public class MenuController {
 
     @FXML
     private AnchorPane menuAnchorPane;
-
-    @FXML
-    private Rectangle topRectangle, bundRectangle;
 
     @FXML
     private Label lblBeskeder, navnLabel, mailLabel, lblLogUd, lblIndstillinger, lblPatientregister, lblTraeningsprogram, lblBooking;
@@ -168,13 +163,6 @@ public class MenuController {
         lblLogUd.setOnMouseClicked(event -> logUd());
         lblTraeningsprogram.setOnMouseClicked(event -> traeningsprogram());
         lblBooking.setOnMouseClicked(e -> booking());
-
-//        /* Sæt UI-elementer til at skalere med vinduets størrelse */
-//        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-//            topRectangle.setWidth(menuAnchorPane.getWidth());
-//            bundRectangle.setWidth(menuAnchorPane.getWidth());
-//        };
-//        menuAnchorPane.widthProperty().addListener(redraw);
     }
 
     public void skiftTilChatvindue() {

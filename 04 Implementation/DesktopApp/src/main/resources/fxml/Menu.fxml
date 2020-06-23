@@ -85,8 +85,6 @@
    </VBox>
    <Separator layoutX="7.0" layoutY="322.0" prefHeight="3.0" prefWidth="394.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="406.0" />
    <Separator layoutX="422.0" orientation="VERTICAL" prefHeight="600.0" prefWidth="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="398.0" AnchorPane.topAnchor="0.0" />
-   <Rectangle fx:id="topRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutX="-2.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-   <Rectangle fx:id="bundRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="20.0" layoutY="576.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    <Separator layoutX="531.0" layoutY="79.0" prefWidth="200.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0" />
    <Rectangle fx:id="fillerRectangle" arcHeight="5.0" arcWidth="5.0" fill="#0b104a" height="136.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="394.0" AnchorPane.topAnchor="0.0" />
    <ImageView fx:id="logoImageView" fitHeight="121.0" fitWidth="259.0" layoutX="7.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="7.0" AnchorPane.topAnchor="8.0" />

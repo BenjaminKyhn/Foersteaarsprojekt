@@ -31,9 +31,6 @@ public class BrugerindstillingerController {
     private VBox indholdVBox;
 
     @FXML
-    private MenuBar menuBar;
-
-    @FXML
     private Circle brugerFotoCircle;
 
     @FXML
