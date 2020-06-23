@@ -8,8 +8,6 @@
         android:label="Fredriksberg Sportsklinik"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.BookingPatientActivity" />
-        <activity android:name=".ui.BookingBehandlerActivity" />
         <activity android:name=".ui.KalenderActivity" />
         <activity android:name=".ui.TraeningsprogramActivity" />
         <activity android:name=".ui.VideoActivity" />
