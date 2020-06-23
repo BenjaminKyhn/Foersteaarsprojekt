@@ -6,6 +6,7 @@ import com.example.android.androidapp.entities.Begivenhed;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * @author Benjamin
@@ -24,6 +25,18 @@ public class BookingManager {
 
     public ArrayList<Begivenhed> hentBegivenheder() {
         return begivenheder;
+    }
+
+    public ArrayList<Begivenhed> hentBegivenhederFraBehandlerMedDato(String behandler, long dato) {
+        ArrayList<Begivenhed> filtreredeListe = new ArrayList<>();
+        for (Begivenhed begivenhed : begivenheder) {
+            if (begivenhed.getDeltagere().contains(behandler)) {
+                if (begivenhed.getStartTidspunkt() >= dato && begivenhed.getSlutTidspunkt() <= (dato + 86400000)) {
+                    filtreredeListe.add(begivenhed);
+                }
+            }
+        }
+        return filtreredeListe;
     }
 
     public void angivBegivenheder(ArrayList<Begivenhed> begivenheder) {

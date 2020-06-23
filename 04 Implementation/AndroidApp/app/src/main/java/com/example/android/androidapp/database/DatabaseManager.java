@@ -260,6 +260,10 @@ public class DatabaseManager {
         });
     }
 
+    public void gemBegivenhed(Begivenhed begivenhed) {
+        firestore.collection("begivenheder").document(begivenhed.getId()).set(begivenhed);
+    }
+
     public void tilfoejListener(PropertyChangeListener propertyChangeListener) {
         support.addPropertyChangeListener(propertyChangeListener);
     }

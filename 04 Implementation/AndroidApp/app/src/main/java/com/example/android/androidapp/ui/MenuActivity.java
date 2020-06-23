@@ -52,6 +52,7 @@ public class MenuActivity extends AppCompatActivity {
 
         databaseManager.hentOevelser();
         databaseManager.hentProgramTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
+        databaseManager.hentBegivenhederTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
 
         databaseManager.tilfoejListener(evt -> {
             if (evt.getPropertyName().equals("hentProgramTilBruger")) {

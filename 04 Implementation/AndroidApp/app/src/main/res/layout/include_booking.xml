@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -32,4 +33,92 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintVertical_bias="0.964" />
+
+    <TextView
+        android:id="@+id/vaelgBehandlerTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:text="Vælg behandler"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerBehandler"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/spinnerBehandler" />
+
+    <Spinner
+        android:id="@+id/spinnerBehandler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vaelgBehandlerTextView"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <TextView
+        android:id="@+id/vaelgDato"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vælg dato"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextDato"
+        app:layout_constraintStart_toStartOf="@+id/vaelgBehandlerTextView"
+        app:layout_constraintTop_toTopOf="@+id/editTextDato" />
+
+    <EditText
+        android:id="@+id/editTextDato"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="64dp"
+        android:ems="10"
+        android:inputType="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/vaelgDato"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBehandler" />
+
+    <FrameLayout
+        android:id="@+id/bookingFragmentFrameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextDato">
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/bekraeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Bekræft"
+        android:onClick="bekraeft"
+        app:layout_constraintBottom_toTopOf="@+id/bottomStroke"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Vælg tidsrum"
+        app:layout_constraintBottom_toTopOf="@+id/bekraeft"
+        app:layout_constraintStart_toStartOf="@+id/vaelgDato" />
+
+    <EditText
+        android:id="@+id/editTextTidsrum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:ems="10"
+        android:inputType="none"
+        app:layout_constraintBottom_toBottomOf="@+id/textView5"
+        app:layout_constraintEnd_toEndOf="@+id/editTextDato"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="@+id/textView5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

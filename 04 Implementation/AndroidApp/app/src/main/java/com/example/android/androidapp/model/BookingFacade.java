@@ -33,6 +33,10 @@ public class BookingFacade {
         return bookingManager.hentBegivenheder();
     }
 
+    public ArrayList<Begivenhed> hentBegivenhederFraBehandlerMedDato(String behandler, long dato) {
+        return bookingManager.hentBegivenhederFraBehandlerMedDato(behandler, dato);
+    }
+
     public void angivBegivenheder(ArrayList<Begivenhed> aftaler) {
         bookingManager.angivBegivenheder(aftaler);
     }
