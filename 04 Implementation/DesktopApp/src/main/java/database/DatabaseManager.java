@@ -62,7 +62,7 @@ public class DatabaseManager {
     public void initializeDB() {
         try {
             FileInputStream serviceAccount =
-                    new FileInputStream("./serviceAccount.json");
+                    new FileInputStream("serviceAccount.json");
 
             FirebaseOptions options = new FirebaseOptions.Builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))

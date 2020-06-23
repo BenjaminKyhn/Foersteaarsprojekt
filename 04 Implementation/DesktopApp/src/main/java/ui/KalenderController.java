@@ -101,7 +101,8 @@ public class KalenderController {
                 calendarView.getCalendars().get(i).addEventHandler(l);
             }
 
-            calendarView.prefWidthProperty().bind(kalenderAnchorPane.widthProperty());
+            calendarView.prefWidthProperty().bind(calenderViewHolder.widthProperty());
+            calendarView.prefHeightProperty().bind(calenderViewHolder.heightProperty());
         });
     }
 
