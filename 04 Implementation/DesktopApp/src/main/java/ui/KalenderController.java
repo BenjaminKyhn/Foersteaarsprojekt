@@ -257,10 +257,7 @@ public class KalenderController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        kalenderAnchorPane.getScene().setRoot(root);
 
         brugerFacade.logUd();
 
@@ -286,10 +283,7 @@ public class KalenderController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) kalenderAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        kalenderAnchorPane.getScene().setRoot(root);
 
         // Fjerner onCloseRequest fra Stage, fordi den ikke længere er relevant, når vi forlader kalenderen
         vindue.setOnCloseRequest(e -> {

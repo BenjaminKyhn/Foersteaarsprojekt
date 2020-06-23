@@ -281,10 +281,7 @@ public class TildelProgramController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Scene menuScene = new Scene(menuLoader);
-
-        Stage stage = (Stage) tableViewPatient.getScene().getWindow();
-        stage.setScene(menuScene);
+        tildelProgramAnchorPane.getScene().setRoot(menuLoader);
     }
 
     public void tilbage() {
@@ -295,11 +292,7 @@ public class TildelProgramController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
-
+        tildelProgramAnchorPane.getScene().setRoot(root);
     }
 
     public void logUd() {
@@ -310,10 +303,7 @@ public class TildelProgramController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        tildelProgramAnchorPane.getScene().setRoot(root);
 
         brugerFacade.logUd();
     }
@@ -326,10 +316,7 @@ public class TildelProgramController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) tildelProgramAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        tildelProgramAnchorPane.getScene().setRoot(root);
     }
 
     public void popupWindow(String infoText) {

@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="kalenderAnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.KalenderController">
    <children>
-      <AnchorPane layoutY="1.0" prefHeight="0.0" prefWidth="800.0">
+      <AnchorPane layoutY="1.0" prefHeight="0.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <menus>
@@ -25,7 +25,7 @@
             <Button fx:id="btnTilbage" mnemonicParsing="false" onAction="#tilHovedmenu" prefWidth="60.0" text="Tilbage" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="calenderViewHolder" layoutY="27.0" prefHeight="574.0" prefWidth="800.0">
+      <AnchorPane fx:id="calenderViewHolder" layoutY="27.0" prefHeight="574.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="27.0">
          <children>
             <Label layoutX="90.0" layoutY="241.0" text="Indlæser Kalenderen...">
                <font>

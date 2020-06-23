@@ -80,8 +80,8 @@ public class StartController {
         Image image = new Image("Logo2x.png");
 
         /* temporary */
-        tfEmail.setText("andersj@gmail.com");
-        tfPassword.setText("anderspw");
+        tfEmail.setText("sigurdo@gmail.com");
+        tfPassword.setText("sigurdpw");
 
         lblLoggerInd = new Label("Logger ind.");
         lblLoggerInd.setVisible(false);
@@ -162,10 +162,7 @@ public class StartController {
             menuLoader = FXMLLoader.load(getClass().getResource("/fxml/Menu.fxml"));
         } catch (Exception e) {
         }
-        Scene menuScene = new Scene(menuLoader);
-
-        Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(menuScene);
+        startAnchorPane.getScene().setRoot(menuLoader);
     }
 
     public void skiftTilOpretBrugerScene() {
@@ -174,10 +171,7 @@ public class StartController {
             opretBrugerLoader = FXMLLoader.load(getClass().getResource("/fxml/OpretBruger.fxml"));
         } catch (Exception e) {
         }
-        Scene opretBrugerScene = new Scene(opretBrugerLoader);
-
-        Stage stage = (Stage) startAnchorPane.getScene().getWindow();
-        stage.setScene(opretBrugerScene);
+        startAnchorPane.getScene().setRoot(opretBrugerLoader);
     }
 
     public void logIndFejlPopup(String infoText) {

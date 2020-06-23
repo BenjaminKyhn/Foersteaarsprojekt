@@ -109,10 +109,7 @@ public class BrugerindstillingerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) biAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        biAnchorPane.getScene().setRoot(root);
 
         brugerFacade.logUd();
     }
@@ -125,9 +122,6 @@ public class BrugerindstillingerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) biAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        biAnchorPane.getScene().setRoot(root);
     }
 }

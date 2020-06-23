@@ -135,9 +135,7 @@ public class PatientRegisterController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        patientregisterAnchorPane.getScene().setRoot(root);
     }
 
     public void sletPatient(Bruger patient) {
@@ -172,10 +170,7 @@ public class PatientRegisterController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        patientregisterAnchorPane.getScene().setRoot(root);
 
         brugerFacade.logUd();
     }
@@ -188,9 +183,6 @@ public class PatientRegisterController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) patientregisterAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        patientregisterAnchorPane.getScene().setRoot(root);
     }
 }

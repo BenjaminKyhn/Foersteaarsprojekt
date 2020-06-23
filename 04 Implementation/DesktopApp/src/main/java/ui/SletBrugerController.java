@@ -70,10 +70,7 @@ public class SletBrugerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) sletBrugerAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        sletBrugerAnchorPane.getScene().setRoot(root);
     }
 
     public void popupWindow(String infoText) {

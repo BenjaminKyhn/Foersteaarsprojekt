@@ -159,9 +159,7 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
-        stage.setScene(scene);
+        menuAnchorPane.getScene().setRoot(root);
     }
 
     public void skiftTilBrugerindstillinger() {
@@ -171,9 +169,7 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
-        stage.setScene(scene);
+        menuAnchorPane.getScene().setRoot(root);
     }
 
     public void logUd() {
@@ -186,10 +182,7 @@ public class MenuController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) menuAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        menuAnchorPane.getScene().setRoot(root);
     }
 
     public void patientregister() {
@@ -199,9 +192,7 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
-        stage.setScene(scene);
+        menuAnchorPane.getScene().setRoot(root);
     }
 
     public void traeningsprogram() {
@@ -211,9 +202,7 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
-        stage.setScene(scene);
+        menuAnchorPane.getScene().setRoot(root);
     }
 
     public void booking() {
@@ -224,8 +213,6 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) logoImageView.getScene().getWindow();
-        stage.setScene(scene);
+        menuAnchorPane.getScene().setRoot(root);
     }
 }

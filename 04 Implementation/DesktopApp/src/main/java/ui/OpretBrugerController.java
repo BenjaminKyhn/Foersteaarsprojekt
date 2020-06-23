@@ -125,10 +125,7 @@ public class OpretBrugerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) opretBrugerAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        opretBrugerAnchorPane.getScene().setRoot(root);
     }
 
     public void skiftTilHovedMenu() {
@@ -144,10 +141,7 @@ public class OpretBrugerController {
                 e.printStackTrace();
             }
             assert root != null;
-            Scene scene = new Scene(root);
-
-            Stage stage = (Stage) opretBrugerAnchorPane.getScene().getWindow();
-            stage.setScene(scene);
+            opretBrugerAnchorPane.getScene().setRoot(root);
         }
     }
 
@@ -186,10 +180,7 @@ public class OpretBrugerController {
             e.printStackTrace();
         }
         assert root != null;
-        Scene scene = new Scene(root);
-
-        Stage stage = (Stage) opretBrugerAnchorPane.getScene().getWindow();
-        stage.setScene(scene);
+        opretBrugerAnchorPane.getScene().setRoot(root);
 
         brugerFacade.logUd();
     }
