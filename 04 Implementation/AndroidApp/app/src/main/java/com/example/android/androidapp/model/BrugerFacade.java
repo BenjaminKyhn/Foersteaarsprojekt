@@ -72,6 +72,10 @@ public class BrugerFacade {
         return brugerManager.hentBrugere();
     }
 
+    public Bruger hentBrugerMedNavn(String navn){
+        return brugerManager.hentBrugerMedNavn(navn);
+    }
+
     public ArrayList<String> hentBehandlereNavne() {
         return brugerManager.hentBehandlereNavne();
     }

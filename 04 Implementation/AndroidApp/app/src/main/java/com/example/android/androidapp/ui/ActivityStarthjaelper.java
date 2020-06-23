@@ -2,6 +2,7 @@ package com.example.android.androidapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
@@ -38,6 +40,9 @@ class ActivityStarthjaelper {
             navn.setText(bruger.getNavn());
             TextView mail = navigationView.getHeaderView(0).findViewById(R.id.personMail);
             mail.setText(bruger.getEmail());
+            ImageView billede = navigationView.getHeaderView(0).findViewById(R.id.profilBillede);
+            String pictureUrl = bruger.getFotoURL();
+            Picasso.get().load(pictureUrl).into(billede);
         }
         
         navigationView.removeHeaderView(navigationView.findViewById(R.id.header));

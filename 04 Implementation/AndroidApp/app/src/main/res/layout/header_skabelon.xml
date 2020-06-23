@@ -6,7 +6,7 @@
     <!-- @@author Patrick + Tommy  -->
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/chatImageView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/colorFRBLogo"
@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/chatImageView" />
 
     <ImageView
         android:id="@+id/burgerMenu"

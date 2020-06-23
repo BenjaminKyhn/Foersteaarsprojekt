@@ -11,6 +11,7 @@ public class Bruger {
     private String navn;
     private String email;
     private String password;
+    private String fotoURL;
     private boolean erBehandler;
     private ArrayList<String> behandlere;
 
@@ -52,6 +53,14 @@ public class Bruger {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFotoURL() {
+        return fotoURL;
+    }
+
+    public void setFotoURL(String fotoURL) {
+        this.fotoURL = fotoURL;
     }
 
     public boolean isErBehandler() {

@@ -3,6 +3,7 @@ package com.example.android.androidapp.ui;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.entities.Besked;
+import com.example.android.androidapp.entities.Bruger;
+import com.example.android.androidapp.model.BrugerFacade;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -36,6 +40,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
         Date date = new Date(besked.getTidspunkt());
         String format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
         holder.tidspunkt.setText(format);
+        BrugerFacade brugerFacade = BrugerFacade.hentInstans();
+        String pictureUrl = brugerFacade.hentBrugerMedNavn(besked.getAfsender()).getFotoURL();
+        Picasso.get().load(pictureUrl).into(holder.billede);
     }
 
     @Override
@@ -52,12 +59,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
         TextView afsender;
         TextView besked;
         TextView tidspunkt;
+        ImageView billede;
 
         VaelgChatHolder(View itemView) {
             super(itemView);
             afsender = itemView.findViewById(R.id.textViewNavn);
             besked = itemView.findViewById(R.id.textViewBesked);
             tidspunkt = itemView.findViewById(R.id.textViewTidspunkt);
+            billede = itemView.findViewById(R.id.chatImageView);
         }
     }
 }
