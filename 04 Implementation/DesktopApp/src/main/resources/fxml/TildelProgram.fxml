@@ -10,7 +10,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane fx:id="tildelProgramAnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.TildelProgramController">
@@ -51,21 +50,17 @@
       <Button layoutX="648.0" layoutY="520.0" mnemonicParsing="false" onAction="#bekraeft" prefHeight="48.0" prefWidth="112.0" text="Bekræft" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="32.0" />
        <AnchorPane prefHeight="0.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
            <children>
-               <HBox prefHeight="26.0" prefWidth="802.0">
-                   <children>
-                       <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="742.0">
-                           <menus>
-                               <Menu mnemonicParsing="false" text="Menu">
-                                   <items>
-                                       <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
-                                       <MenuItem mnemonicParsing="false" onAction="#logUd" text="Log ud" />
-                                   </items>
-                               </Menu>
-                           </menus>
-                       </MenuBar>
-                       <Button fx:id="btnTilbage" mnemonicParsing="false" onAction="#tilbage" prefWidth="60.0" text="Tilbage" />
-                   </children>
-               </HBox>
+                 <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="742.0">
+                     <menus>
+                         <Menu mnemonicParsing="false" text="Menu">
+                             <items>
+                                 <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
+                                 <MenuItem mnemonicParsing="false" onAction="#logUd" text="Log ud" />
+                             </items>
+                         </Menu>
+                     </menus>
+                 </MenuBar>
+                 <Button fx:id="btnTilbage" minWidth="60.0" mnemonicParsing="false" onAction="#tilbage" prefWidth="60.0" text="Tilbage" AnchorPane.rightAnchor="0.0" />
            </children>
        </AnchorPane>
       <Label layoutX="325.0" layoutY="120.0" text="Video Preview:" />

@@ -9,10 +9,19 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 
 <AnchorPane fx:id="patientregisterAnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PatientRegisterController">
    <children>
+      <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="100.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="Menu">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
+                  <MenuItem mnemonicParsing="false" onAction="#logUd" text="Log ud" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
       <TableView fx:id="patientTableView" layoutX="119.0" layoutY="118.0" prefHeight="474.0" prefWidth="784.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="118.0">
         <columns>
           <TableColumn fx:id="patientNavn" prefWidth="150.0" text="Navn" />
@@ -26,20 +35,6 @@
       <Button fx:id="btnTilknytBehandler" layoutX="189.0" layoutY="16.0" mnemonicParsing="false" text="Tilknyt behandler" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="60.0" />
       <ChoiceBox fx:id="behandlerChoiceBox" layoutX="392.0" layoutY="16.0" prefWidth="150.0" AnchorPane.leftAnchor="408.0" AnchorPane.topAnchor="60.0" />
       <Label layoutX="313.0" layoutY="20.0" text="Behandlere:" AnchorPane.leftAnchor="329.0" AnchorPane.topAnchor="64.0" />
-      <HBox layoutY="1.0" prefHeight="26.0" prefWidth="800.0">
-         <children>
-            <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="100.0">
-               <menus>
-                  <Menu mnemonicParsing="false" text="Menu">
-                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#tilHovedmenu" text="Gå til hovedmenuen" />
-                        <MenuItem mnemonicParsing="false" onAction="#logUd" text="Log ud" />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
-            <Button fx:id="btnTilbage" mnemonicParsing="false" onAction="#tilHovedmenu" prefWidth="60.0" text="Tilbage" />
-         </children>
-      </HBox>
+      <Button fx:id="btnTilbage" mnemonicParsing="false" onAction="#tilHovedmenu" prefWidth="60.0" text="Tilbage" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import model.BrugerFacade;
 import database.DatabaseManager;
@@ -32,7 +33,7 @@ public class OpretBrugerController {
     private MenuBar menuBar;
 
     @FXML
-    private Button btnOpretBruger, btnTilbage;
+    private Button btnOpretBruger, btnTilbage, btnTest;
 
     @FXML
     private TextField tfNavn, tfEmail;
@@ -112,12 +113,22 @@ public class OpretBrugerController {
             }
         });
 
-        /** Sæt UI-elementer til at skalere med vinduets størrelse */
-        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setPrefWidth(opretBrugerAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
-        };
-        opretBrugerAnchorPane.widthProperty().addListener(redraw);
+        btnTest.setOnMouseClicked(e ->{
+            System.out.println(opretBrugerAnchorPane.getWidth());
+            System.out.println(menuBar.getWidth());
+        });
+
+        menuBar.prefWidthProperty().bind(opretBrugerAnchorPane.widthProperty());
+
+//        menuBox.prefWidthProperty().bind(opretBrugerAnchorPane.widthProperty());
+
+//        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+//        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
+//            menuBar.setPrefWidth(opretBrugerAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+//            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
+//        };
+//        opretBrugerAnchorPane.widthProperty().addListener(redraw);
+//        System.out.println(opretBrugerAnchorPane.widthProperty());
     }
 
     public void tilbage() {
