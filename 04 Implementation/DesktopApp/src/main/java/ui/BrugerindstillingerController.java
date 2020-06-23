@@ -46,9 +46,9 @@ public class BrugerindstillingerController {
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
 
-        /** Indlæs brugerens oplysninger */
+        /* Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
-            brugerFotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
+            brugerFotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1, true));
         else
             brugerFotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
         if (aktivBruger.getNavn() != null)
@@ -56,7 +56,7 @@ public class BrugerindstillingerController {
         if (aktivBruger.getEmail() != null)
             lblEmail.setText(aktivBruger.getEmail());
 
-        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        /* Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             menuBar.setMinWidth(biAnchorPane.getWidth() - btnTilbage.getPrefWidth());
             btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
@@ -67,7 +67,7 @@ public class BrugerindstillingerController {
     public void indlaesSletBruger(){
         indholdVBox.getChildren().clear();
 
-        /** indlæs fxml */
+        /* indlæs fxml */
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SletBruger.fxml"));
         Parent root = null;
         try {
@@ -82,7 +82,7 @@ public class BrugerindstillingerController {
     public void indlaesSkiftPassword(){
         indholdVBox.getChildren().clear();
 
-        /** indlæs fxml */
+        /* indlæs fxml */
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SkiftPassword.fxml"));
         Parent root = null;
         try {
@@ -92,14 +92,12 @@ public class BrugerindstillingerController {
         }
 
         indholdVBox.getChildren().add(root);
-
-        //TODO implementer SkiftPassword
     }
 
     public void indlaesUploadBillede(){
         indholdVBox.getChildren().clear();
 
-        /** indlæs fxml */
+        /* indlæs fxml */
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/UploadBillede.fxml"));
         Parent root = null;
         try {

@@ -73,6 +73,7 @@ public class ChatWindowController {
      */
     public void initialize() {
         //TODO Lav søgefunktion i beskeder
+        //TODO fix bug, hvor de samme chats visses uanset, hvem der logger ind
 
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
@@ -89,9 +90,9 @@ public class ChatWindowController {
             }
         });
 
-        /** Indlæs brugerens oplysninger */
+        /* Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
-            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
+            chatUserPhotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1, true));
         else
             chatUserPhotoCircle.setFill(new ImagePattern(new Image("intetBillede.png")));
         if (aktivBruger.getNavn() != null)
@@ -101,7 +102,7 @@ public class ChatWindowController {
 
         nyChatKnap.setOnMouseClicked(event -> nyChatPopup());
 
-        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        /* Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             menuBar.setMinWidth(chatWindowAnchorPane.getWidth() - btnTilbage.getPrefWidth());
             btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
@@ -120,7 +121,7 @@ public class ChatWindowController {
             DatabaseManager databaseManager = DatabaseManager.getInstance();
             databaseManager.observerKaldFraFirestoreTilChat(chat);
 
-            /** Tilføj observer og opdater chatten i databasen med den nye værdi */
+            /* Tilføj observer og opdater chatten i databasen med den nye værdi */
             chat.tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent evt) {
@@ -130,17 +131,17 @@ public class ChatWindowController {
                 }
             });
 
-            /** Sæt afsender */
+            /* Sæt afsender */
             Bruger afsender = aktivBruger;
 
-            /** Sæt modtager */
+            /* Sæt modtager */
             Bruger modtager;
             if (chats.get(i).getAfsender().equals(aktivBruger.getNavn()))
                 modtager = brugerFacade.hentBrugerMedNavn(chats.get(i).getModtager());
             else
                 modtager = brugerFacade.hentBrugerMedNavn(chats.get(i).getAfsender());
 
-            /** Hent controlleren */
+            /* Hent controlleren */
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatWindowChats.fxml"));
             Parent root = null;
             try {
@@ -150,15 +151,15 @@ public class ChatWindowController {
             }
             ChatWindowChatController controller = loader.getController();
 
-            /** Sæt informationer i chatvinduet */
+            /* Sæt informationer i chatvinduet */
             controller.getChatWindowChatNavn().setText(modtager.getNavn());
             controller.getChatWindowChatEmne().setText(chat.getEmne());
             if (modtager.getFotoURL() == null || modtager.getFotoURL().equals(""))
                 controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image("intetBillede.png")));
             else
-                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1.3, true));
+                controller.getChatWindowChatFoto().setFill(new ImagePattern(new Image(modtager.getFotoURL()), 0, 0, 1, 1, true));
 
-            /** Sæt en onMouseClicked-metode til chatpanelet */
+            /* Sæt en onMouseClicked-metode til chatpanelet */
             controller.getChatWindowChatAnchorPane().setOnMouseClicked(event -> {
                 if (selectedChatController != null) {
                     selectedChatController.getChatWindowChatAnchorPane().setStyle(null);
@@ -222,15 +223,15 @@ public class ChatWindowController {
             }
         }
 
-        /** Scroll ned til seneste besked */
+        /* Scroll ned til seneste besked */
         chatScrollPane.setVvalue(1.0);
 
-        /** Tilføj en listener på VBoxen, som scroller viewet, hvis der tilføjes flere children */
+        /* Tilføj en listener på VBoxen, som scroller viewet, hvis der tilføjes flere children */
         chatWindowMessageVBox.getChildren().addListener((ListChangeListener<Node>) c -> {
             Platform.runLater(() -> chatScrollPane.setVvalue(chatWindowMessageVBox.getHeight()));
         });
 
-        /** Giv sendknappen et on click event */
+        /* Giv sendknappen et on click event */
         sendBeskedKnap.setOnMouseClicked(event -> {
             try {
                 beskedFacade.sendBesked(tfSendBesked.getText(), chat);
@@ -295,7 +296,7 @@ public class ChatWindowController {
         stage.setTitle("Ny Besked");
         stage.setScene(popupScene);
 
-        /** setOnHidden kaldes, når popup'en lukkes igen */
+        /* setOnHidden kaldes, når popup'en lukkes igen */
         stage.setOnHidden(event -> indlaesChats());
 
         stage.show();
