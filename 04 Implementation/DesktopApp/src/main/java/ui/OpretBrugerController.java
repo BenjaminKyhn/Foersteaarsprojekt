@@ -114,8 +114,8 @@ public class OpretBrugerController {
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setMinWidth(opretBrugerAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+            menuBar.setPrefWidth(opretBrugerAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
         };
         opretBrugerAnchorPane.widthProperty().addListener(redraw);
     }

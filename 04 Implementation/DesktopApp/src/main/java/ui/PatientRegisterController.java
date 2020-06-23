@@ -87,8 +87,8 @@ public class PatientRegisterController {
 
         /** Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setMinWidth(patientregisterAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+            menuBar.setPrefWidth(patientregisterAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
         };
         patientregisterAnchorPane.widthProperty().addListener(redraw);
     }

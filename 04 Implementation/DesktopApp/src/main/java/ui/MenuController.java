@@ -169,12 +169,12 @@ public class MenuController {
         lblTraeningsprogram.setOnMouseClicked(event -> traeningsprogram());
         lblBooking.setOnMouseClicked(e -> booking());
 
-        /* Sæt UI-elementer til at skalere med vinduets størrelse */
-        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            topRectangle.setWidth(menuAnchorPane.getWidth());
-            bundRectangle.setWidth(menuAnchorPane.getWidth());
-        };
-        menuAnchorPane.widthProperty().addListener(redraw);
+//        /* Sæt UI-elementer til at skalere med vinduets størrelse */
+//        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
+//            topRectangle.setWidth(menuAnchorPane.getWidth());
+//            bundRectangle.setWidth(menuAnchorPane.getWidth());
+//        };
+//        menuAnchorPane.widthProperty().addListener(redraw);
     }
 
     public void skiftTilChatvindue() {

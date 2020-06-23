@@ -58,8 +58,8 @@ public class BrugerindstillingerController {
 
         /* Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setMinWidth(biAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+            menuBar.setPrefWidth(biAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
         };
         biAnchorPane.widthProperty().addListener(redraw);
     }

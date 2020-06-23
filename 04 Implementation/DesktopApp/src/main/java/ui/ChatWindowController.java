@@ -104,8 +104,8 @@ public class ChatWindowController {
 
         /* Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setMinWidth(chatWindowAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setMinWidth(btnTilbage.getPrefWidth());
+            menuBar.setPrefWidth(chatWindowAnchorPane.getWidth() - btnTilbage.getPrefWidth());
+            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
         };
         chatWindowAnchorPane.widthProperty().addListener(redraw);
 
