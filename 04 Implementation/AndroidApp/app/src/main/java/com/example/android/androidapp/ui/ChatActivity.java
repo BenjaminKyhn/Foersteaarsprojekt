@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
         drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
         beskedFelt = findViewById(R.id.besked_input_edit_text);
 

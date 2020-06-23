@@ -7,8 +7,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.android.androidapp.R;
 import com.google.android.material.navigation.NavigationView;
@@ -20,27 +18,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_grund_layout);
+
         drawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Velkommen");
-    }
-
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_main, "Velkommen");
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
     }
 
     @Override

@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         databaseManager = new DatabaseManager();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
         TextView statusBar = findViewById(R.id.statusBar);
         statusBar.setText("Login");

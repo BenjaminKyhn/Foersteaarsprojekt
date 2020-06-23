@@ -41,7 +41,7 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
         drawerLayout = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
         ImageView menu = findViewById(R.id.burgerMenu);
 

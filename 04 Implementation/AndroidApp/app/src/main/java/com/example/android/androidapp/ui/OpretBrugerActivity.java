@@ -56,7 +56,7 @@ public class OpretBrugerActivity extends AppCompatActivity {
         });
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
         navnInput = findViewById(R.id.navnFelt);
         emailInput = findViewById(R.id.emailFelt);

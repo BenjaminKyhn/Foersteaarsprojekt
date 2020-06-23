@@ -2,10 +2,14 @@ package com.example.android.androidapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.DialogFragment;
@@ -16,7 +20,9 @@ import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.google.android.material.navigation.NavigationView;
 
-class NavigationHjaelper {
+import static android.content.Context.LAYOUT_INFLATER_SERVICE;
+
+class ActivityStarthjaelper {
 
     static void initialiserMenu(final NavigationView navigationView, final DrawerLayout drawerLayout) {
         Bruger bruger = BrugerFacade.hentInstans().hentAktivBruger();
@@ -69,5 +75,16 @@ class NavigationHjaelper {
                 return false;
             }
         });
+    }
+    static void initialiserActivity(AppCompatActivity activity, DrawerLayout drawerLayout, int include, String headertekst) {
+        LayoutInflater layoutInflater = (LayoutInflater) activity.getSystemService(LAYOUT_INFLATER_SERVICE);
+        drawerLayout.addView(layoutInflater.inflate(include, drawerLayout, false), 0);
+
+        ImageView menu = drawerLayout.findViewById(R.id.burgerMenu);
+
+        menu.setOnClickListener(v -> drawerLayout.openDrawer(GravityCompat.START));
+
+        TextView statusBar = drawerLayout.findViewById(R.id.statusBar);
+        statusBar.setText(headertekst);
     }
 }

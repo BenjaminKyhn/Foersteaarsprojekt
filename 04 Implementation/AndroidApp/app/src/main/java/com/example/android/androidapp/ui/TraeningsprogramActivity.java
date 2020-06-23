@@ -43,7 +43,7 @@ public class TraeningsprogramActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
         ImageView menu = findViewById(R.id.burgerMenu);
 
         menu.setOnClickListener(new View.OnClickListener() {
