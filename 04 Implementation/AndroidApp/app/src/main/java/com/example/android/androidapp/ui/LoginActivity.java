@@ -1,16 +1,17 @@
 package com.example.android.androidapp.ui;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private Switch huskLogin;
     private BrugerFacade brugerFacade;
     private DatabaseManager databaseManager;
 
@@ -40,6 +42,17 @@ public class LoginActivity extends AppCompatActivity {
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
+        huskLogin = findViewById(R.id.switchLogin);
+
+        SharedPreferences gemtLogin = getSharedPreferences("login", MODE_PRIVATE);
+        String email = gemtLogin.getString("brugerEmail", null);
+        String password = gemtLogin.getString("brugerPassword", null);
+
+        if (email != null && password != null) {
+            editTextEmail.setText(email);
+            editTextPassword.setText(password);
+            huskLogin.setChecked(true);
+        }
 
         brugerFacade = BrugerFacade.hentInstans();
         databaseManager = new DatabaseManager();
@@ -94,6 +107,16 @@ public class LoginActivity extends AppCompatActivity {
                 brugerFacade.saetListeAfBrugere(brugerList);
                 boolean loggedeInd = brugerFacade.logInd(email, password);
                 if (loggedeInd) {
+                    SharedPreferences saveLogin = getSharedPreferences("login", MODE_PRIVATE);
+                    if (huskLogin.isChecked()) {
+                        saveLogin.edit()
+                                .putString("brugerEmail", email)
+                                .putString("brugerPassword", password)
+                                .apply();
+                    }
+                    else {
+                        saveLogin.edit().clear().apply();
+                    }
                     startActivity(new Intent(getApplicationContext(), MenuActivity.class));
                 } else {
                     Toast.makeText(getApplicationContext(), "Password er ikke korrekt", Toast.LENGTH_SHORT).show();
