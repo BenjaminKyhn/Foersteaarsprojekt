@@ -22,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class TraeningsprogramActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ArrayList<Oevelse> oevelser;

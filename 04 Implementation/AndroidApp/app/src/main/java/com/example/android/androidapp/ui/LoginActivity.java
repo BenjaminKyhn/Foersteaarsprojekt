@@ -10,9 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.androidapp.R;
@@ -24,7 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 /**
- * @author Patrick
+ * @author Tommy
  **/
 public class LoginActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;

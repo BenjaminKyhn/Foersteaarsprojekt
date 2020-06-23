@@ -31,6 +31,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class VaelgChatDialog extends DialogFragment {
     private Spinner spinner;
     private EditText editTextVaelgEmne;

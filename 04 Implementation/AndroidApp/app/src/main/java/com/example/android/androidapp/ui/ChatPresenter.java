@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
+/**@author Tommy**/
 class ChatPresenter {
     private Chat chat;
     private String beskedAfsender;

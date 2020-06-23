@@ -25,6 +25,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class ChatActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private TextInputEditText beskedFelt;
