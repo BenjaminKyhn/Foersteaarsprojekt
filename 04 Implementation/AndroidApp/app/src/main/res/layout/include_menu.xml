@@ -34,6 +34,7 @@
         android:text="Booking"
         android:textAllCaps="false"
         android:textSize="22sp"
+        android:onClick="skiftTilBooking"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideline" />
