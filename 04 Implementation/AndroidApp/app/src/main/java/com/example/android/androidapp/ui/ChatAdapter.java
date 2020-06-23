@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**@author Tommy**/
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolder> {
     private ArrayList<Besked> beskeder = new ArrayList<>();
 

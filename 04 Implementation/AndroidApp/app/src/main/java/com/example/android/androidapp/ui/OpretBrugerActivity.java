@@ -37,8 +37,13 @@ public class OpretBrugerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_opret_bruger);
+        setContentView(R.layout.activity_grund_layout);
+
         drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_opret_bruger, "Opret bruger");
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
         brugerFacade = BrugerFacade.hentInstans();
 
         brugerFacade.tilfoejListener(new PropertyChangeListener() {
@@ -55,29 +60,12 @@ public class OpretBrugerActivity extends AppCompatActivity {
             }
         });
 
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
+
 
         navnInput = findViewById(R.id.navnFelt);
         emailInput = findViewById(R.id.emailFelt);
         passwordInput = findViewById(R.id.passwordFelt);
         gentagPasswordInput = findViewById(R.id.gentagPasswordFelt);
-
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Opret bruger");
-    }
-
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     public void opretBruger(View view) {

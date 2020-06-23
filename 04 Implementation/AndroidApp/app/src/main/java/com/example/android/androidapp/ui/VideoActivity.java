@@ -37,6 +37,7 @@ import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 
+/**@author Tommy**/
 public class VideoActivity extends AppCompatActivity implements VideoFeedbackDialog.VideoFeedbackListener {
     private VideoView videoView;
     private SeekBar seekBar;

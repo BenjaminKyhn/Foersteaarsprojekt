@@ -22,7 +22,13 @@ public class KalenderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kalender);
+        setContentView(R.layout.activity_grund_layout);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_kalender, "Din kalender");
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
         calendarView = (CalendarView) findViewById(R.id.calendarView);
         kalenderBehandlinger = (TextView) findViewById(R.id.kalenderBehandlinger);
@@ -34,26 +40,6 @@ public class KalenderActivity extends AppCompatActivity {
                 kalenderBehandlinger.setText(dato);
             }
         });
-
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Din Kalender");
-
-    }
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     @Override

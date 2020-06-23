@@ -89,6 +89,7 @@
         android:layout_marginTop="16dp"
         android:text="Husk login"
         android:textSize="16sp"
+        android:theme="@style/SwitchStyle"
         app:layout_constraintStart_toStartOf="@+id/editTextPassword"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 

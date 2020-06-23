@@ -1,11 +1,9 @@
 package com.example.android.androidapp.ui;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +19,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class VideoFeedbackDialog extends DialogFragment {
     Context context;
     Spinner spinner;
