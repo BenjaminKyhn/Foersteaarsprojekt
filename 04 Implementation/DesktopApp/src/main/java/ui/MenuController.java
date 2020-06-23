@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * @author Tommy og Patrick
+ * @author Tommy
  */
 public class MenuController {
     private BrugerFacade brugerFacade;
@@ -57,7 +57,7 @@ public class MenuController {
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.getInstance();
         BookingFacade bookingFacade = BookingFacade.getInstance();
 
-        /** Indlæs alle brugerens chats og send dem til BeskedFacade */
+        /* Indlæs alle brugerens chats og send dem til BeskedFacade */
         if (beskedFacade.hentChats() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -72,7 +72,7 @@ public class MenuController {
             DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn());
         }
 
-        /** Indlæs alle brugere og send dem til BrugerFacade */
+        /* Indlæs alle brugere og send dem til BrugerFacade */
         if (brugerFacade.hentBrugere() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -87,7 +87,7 @@ public class MenuController {
             DatabaseManager.getInstance().hentBrugere();
         }
 
-        /** Indlæs alle øvelser og send dem til TraeningsprogramFacade */
+        /* Indlæs alle øvelser og send dem til TraeningsprogramFacade */
         if (traeningsprogramFacade.hentOevelser() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -102,7 +102,7 @@ public class MenuController {
             DatabaseManager.getInstance().hentOevelser();
         }
 
-        /** Indlæs alle træeningsprogrammer og send dem til TraeningsprogramFacade */
+        /* Indlæs alle træeningsprogrammer og send dem til TraeningsprogramFacade */
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
@@ -115,7 +115,7 @@ public class MenuController {
             });
             DatabaseManager.getInstance().hentProgrammer();
 
-        /** Indlæs alle begivenheder og send dem til BookingFacade */
+        /* Indlæs alle begivenheder og send dem til BookingFacade */
         if (bookingFacade.hentBegivenheder() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -130,7 +130,7 @@ public class MenuController {
             DatabaseManager.getInstance().hentBegivenheder(aktivBruger.getNavn());
         }
 
-        /** Indlæs alle brugerens chats og send dem til BeskedFacade */
+        /* Indlæs alle brugerens chats og send dem til BeskedFacade */
         if (beskedFacade.hentChats() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
@@ -148,7 +148,7 @@ public class MenuController {
         Image image = new Image("Logo2x.png");
         logoImageView.setImage(image);
 
-        /** Indlæs brugerens oplysninger */
+        /* Indlæs brugerens oplysninger */
         if (aktivBruger.getFotoURL() != null)
             fotoCircle.setFill(new ImagePattern(new Image(aktivBruger.getFotoURL()), 0, 0, 1, 1.3, true));
             // TODO find en måde at indsætte billede på, så det kan tage imod alle højde:bredde forhold. Det kan evt. gøres ved at lave en custom class, som extender ImageView og kalde setPreserveRatio(boolean)
@@ -159,7 +159,7 @@ public class MenuController {
         if (aktivBruger.getEmail() != null)
             mailLabel.setText(aktivBruger.getEmail());
 
-        /** Sæt egenskaber på labels */
+        /* Sæt egenskaber på labels */
         lblBeskeder.setOnMouseClicked(event -> skiftTilChatvindue());
         lblIndstillinger.setOnMouseClicked(event -> skiftTilBrugerindstillinger());
         lblPatientregister.setOnMouseClicked(event -> patientregister());
@@ -167,7 +167,7 @@ public class MenuController {
         lblTraeningsprogram.setOnMouseClicked(event -> traeningsprogram());
         lblBooking.setOnMouseClicked(e -> booking());
 
-        /** Sæt UI-elementer til at skalere med vinduets størrelse */
+        /* Sæt UI-elementer til at skalere med vinduets størrelse */
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             topRectangle.setWidth(menuAnchorPane.getWidth());
             bundRectangle.setWidth(menuAnchorPane.getWidth());

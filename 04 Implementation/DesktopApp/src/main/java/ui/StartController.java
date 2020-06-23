@@ -49,7 +49,7 @@ public class StartController {
         brugerFacade = BrugerFacade.getInstance();
         databaseManager = DatabaseManager.getInstance();
 
-        /** Lav TextFields, Buttons, Labels og ImageView */
+        /* Lav TextFields, Buttons, Labels og ImageView */
         TextField tfEmail = new TextField();
         PasswordField tfPassword = new PasswordField();
         Label lblEmail = new Label("Email:");
@@ -62,14 +62,14 @@ public class StartController {
         buttonHolder.getChildren().addAll(btnLogInd, btnOpretBruger);
         Image image = new Image("Logo2x.png");
 
-        /** temporary */
+        /* temporary */
         tfEmail.setText("sigurdo@gmail.com");
         tfPassword.setText("sigurdpw");
 
         lblLoggerInd = new Label("Logger ind.");
         lblLoggerInd.setVisible(false);
 
-        /** Sæt indstillingerne på startGridPane */
+        /* Sæt indstillingerne på startGridPane */
         startGridPane.setHgap(5);
         startGridPane.setVgap(10);
         startGridPane.add(lblEmail, 0, 0);
@@ -80,7 +80,7 @@ public class StartController {
         startGridPane.add(lblLoggerInd, 1, 3);
         startGridPane.setAlignment(Pos.CENTER);
 
-        /** Sæt UI-elementer til at skalere */
+        /* Sæt UI-elementer til at skalere */
         logoImageView.setImage(image);
         ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
             logoImageView.setX(startAnchorPane.getWidth() / 2 - logoImageView.getFitWidth() / 2);
@@ -88,9 +88,13 @@ public class StartController {
         startAnchorPane.widthProperty().addListener(redraw);
 
 
-        /** Sæt events på knapperne */
-        btnLogInd.setOnAction(event -> {
+        /* Sæt events på knapperne */
+        btnOpretBruger.setOnAction(event -> {
+            fortrydLogIndCheck = true;
+            skiftTilOpretBrugerScene();
+        });
 
+        btnLogInd.setOnAction(event -> {
             if (tfEmail.getText().isEmpty()) {
                 logIndFejlPopup("Fejl: Emailfeltet er tomt");
                 return;
@@ -101,7 +105,6 @@ public class StartController {
             }
             lblLoggerInd.setVisible(true);
             databaseManager.hentBrugerMedEmail(tfEmail.getText());
-
         });
 
         databaseManager.tilfoejObserver(new PropertyChangeListener() {
@@ -132,11 +135,6 @@ public class StartController {
                     }
                 }
             }
-        });
-
-        btnOpretBruger.setOnAction(event -> {
-            fortrydLogIndCheck = true;
-            skiftTilOpretBrugerScene();
         });
     }
 

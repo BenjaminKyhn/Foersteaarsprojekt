@@ -140,8 +140,6 @@ public class ChatWindowController {
             else
                 modtager = brugerFacade.hentBrugerMedNavn(chats.get(i).getAfsender());
 
-            // TODO det rigtige navn vises ikke altid
-
             /** Hent controlleren */
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ChatWindowChats.fxml"));
             Parent root = null;
@@ -322,6 +320,4 @@ public class ChatWindowController {
         SystemBeskedPopupController systemBeskedPopupController = fxmlLoader.getController();
         systemBeskedPopupController.getTxtLabel().setText(infoText);
     }
-
-    //TODO få menuen til at scale med vinduets størrelse
 }
