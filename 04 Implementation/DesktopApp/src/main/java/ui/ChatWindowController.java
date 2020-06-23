@@ -73,7 +73,6 @@ public class ChatWindowController {
      */
     public void initialize() {
         //TODO Lav søgefunktion i beskeder
-        //TODO fix bug, hvor de samme chats visses uanset, hvem der logger ind
 
         beskedFacade = BeskedFacade.getInstance();
         brugerFacade = BrugerFacade.getInstance();
