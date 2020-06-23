@@ -37,23 +37,13 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vaelg_chat);
+        setContentView(R.layout.activity_grund_layout);
+
         drawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.navigation_view);
+
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_vaelg_chat, "Vælg samtale");
         ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
-
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Vælg samtale");
 
         brugerFacade = BrugerFacade.hentInstans();
         beskedFacade = BeskedFacade.hentInstans();
@@ -77,10 +67,6 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
         RecyclerView recyclerView = findViewById(R.id.vaelg_chat_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(vaelgChatAdapter);
-    }
-
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     @Override
