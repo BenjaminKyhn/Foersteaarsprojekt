@@ -41,8 +41,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VaelgChatHolde
         String format = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(date);
         holder.tidspunkt.setText(format);
         BrugerFacade brugerFacade = BrugerFacade.hentInstans();
-        String pictureUrl = brugerFacade.hentBrugerMedNavn(besked.getAfsender()).getFotoURL();
-        Picasso.get().load(pictureUrl).into(holder.billede);
+        Bruger bruger = brugerFacade.hentBrugerMedNavn(besked.getAfsender());
+        if (bruger != null){
+            String pictureUrl = brugerFacade.hentBrugerMedNavn(besked.getAfsender()).getFotoURL();
+            Picasso.get().load(pictureUrl).into(holder.billede);
+        }
+        //TODO Virker kun for Camilla?
     }
 
     @Override
