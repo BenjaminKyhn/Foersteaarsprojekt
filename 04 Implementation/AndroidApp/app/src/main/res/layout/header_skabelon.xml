@@ -4,20 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <!-- @@author Patrick + Tommy  -->
-    <Button
-        android:id="@+id/forsideButton"
-        android:layout_width="420dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorForsideBar"
-        android:gravity="center_horizontal"
-        android:maxHeight="35dip"
-        android:minHeight="5dip"
-        android:text="Forside"
-        android:textAlignment="center"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -43,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forsideButton" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/burgerMenu"
