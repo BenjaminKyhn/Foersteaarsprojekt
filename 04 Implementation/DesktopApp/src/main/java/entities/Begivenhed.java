@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Callable;
 
 /** @author Benjamin */
-public class Begivenhed implements Callable<Begivenhed> {
+public class Begivenhed {
     String titel;
     String kalender;
     String id;
@@ -77,10 +77,5 @@ public class Begivenhed implements Callable<Begivenhed> {
 
     public void setDeltagere(ArrayList<String> deltagere) {
         this.deltagere = deltagere;
-    }
-
-    @Override
-    public Begivenhed call() throws Exception {
-        return new Begivenhed();
     }
 }

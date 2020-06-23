@@ -37,15 +37,6 @@ public class BookingManager {
     }
 
     /**
-     * Denne metode bruges, når der oprettes en ny entry i kalenderUI'et
-     * @param begivenhed entry laves om til et Begivenhedobjekt, før det gemmes i listen og databasen
-     */
-    public void gemBegivenhed(Begivenhed begivenhed) {
-        begivenheder.add(begivenhed);
-        support.firePropertyChange("gemBegivenhed", null, begivenhed);
-    }
-
-    /**
      * Denne metode bruges, når der slettes en entry fra kalenderUI'et
      * @param id id fra den entry, som blev slettet
      */
@@ -57,6 +48,15 @@ public class BookingManager {
                 support.firePropertyChange("sletBegivenhed", null, begivenhed);
             }
         }
+    }
+
+    /**
+     * Denne metode bruges, når der oprettes en ny entry i kalenderUI'et
+     * @param begivenhed entry laves om til et Begivenhedobjekt, før det gemmes i listen og databasen
+     */
+    public void gemBegivenhed(Begivenhed begivenhed) {
+        begivenheder.add(begivenhed);
+        support.firePropertyChange("gemBegivenhed", null, begivenhed);
     }
 
     /**
