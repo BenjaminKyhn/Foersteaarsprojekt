@@ -25,43 +25,30 @@ import java.util.ArrayList;
 /**@author Tommy**/
 public class MenuActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
-    private BrugerFacade brugerFacade;
-    private BeskedFacade beskedFacade;
-    private ArrayList<Chat> chatListe;
 
     @SuppressWarnings("unchecked")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_grund_layout);
+
         drawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
 
-        ImageView menu = findViewById(R.id.burgerMenu);
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_menu, "Menu");
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
+        BrugerFacade brugerFacade = BrugerFacade.hentInstans();
+        BeskedFacade beskedFacade = BeskedFacade.hentInstans();
+        TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
 
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Menu");
-        brugerFacade = BrugerFacade.hentInstans();
-        beskedFacade = BeskedFacade.hentInstans();
-
-        chatListe = new ArrayList<>();
+        ArrayList<Chat> chatListe = new ArrayList<>();
         beskedFacade.saetListeAfChats(chatListe);
 
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
         databaseManager.hentBehandlereTilBruger(brugerFacade.hentAktivBruger(), brugerFacade.hentBrugere());
 
-
-        TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
         databaseManager.hentOevelser();
         databaseManager.hentProgramTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
 
@@ -75,10 +62,6 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
-    }
-
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -89,7 +72,7 @@ public class MenuActivity extends AppCompatActivity {
         }
     }
 
-    public void skiftTilIndbakke(View view) {
+    public void skiftTilBeskeder(View view) {
         startActivity(new Intent(this, VaelgChatActivity.class));
     }
     public void skiftTilKalender(View view) {

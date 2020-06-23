@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +22,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class TraeningsprogramActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ArrayList<Oevelse> oevelser;
@@ -31,35 +30,22 @@ public class TraeningsprogramActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_grund_layout);
+
+        drawerLayout = findViewById(R.id.drawer_layout);
+
         Intent intent = getIntent();
         boolean intetProgram = intent.getBooleanExtra("intetProgram", true);
         if (intetProgram) {
-            setContentView(R.layout.activity_intet_traening);
+            ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_intet_traening, "Træningsprogram");
         }
         else {
-            setContentView(R.layout.activity_traening);
+            ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_traening, "Træningsprogram");
             initialiserTraeningslayout();
         }
 
-        drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Træningsprogram");
-
-    }
-
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
     }
 
     @Override

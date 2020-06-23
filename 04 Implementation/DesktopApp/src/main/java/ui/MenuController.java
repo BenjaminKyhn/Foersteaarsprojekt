@@ -100,6 +100,7 @@ public class MenuController {
         }
 
         /* Indlæs alle træeningsprogrammer og send dem til TraeningsprogramFacade */
+        if (TraeningsprogramFacade.getInstance().hentProgrammer() == null) {
             DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
                 @Override
                 public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
@@ -111,6 +112,7 @@ public class MenuController {
                 }
             });
             DatabaseManager.getInstance().hentProgrammer();
+        }
 
         /* Indlæs alle begivenheder og send dem til BookingFacade */
         if (bookingFacade.hentBegivenheder() == null) {
@@ -125,21 +127,6 @@ public class MenuController {
                 }
             });
             DatabaseManager.getInstance().hentBegivenheder(aktivBruger.getNavn());
-        }
-
-        /* Indlæs alle brugerens chats og send dem til BeskedFacade */
-        if (beskedFacade.hentChats() == null) {
-            DatabaseManager.getInstance().tilfoejObserver(new PropertyChangeListener() {
-                @Override
-                public void propertyChange(PropertyChangeEvent propertyChangeEvent) {
-                    if (propertyChangeEvent.getPropertyName().equals("hentChatsMedNavn")) {
-                        @SuppressWarnings("unchecked")
-                        ArrayList<Chat> chats = (ArrayList<Chat>) propertyChangeEvent.getNewValue();
-                        beskedFacade.setChats(chats);
-                    }
-                }
-            });
-            DatabaseManager.getInstance().hentChatsMedNavn(aktivBruger.getNavn());
         }
 
         Image image = new Image("Logo2x.png");

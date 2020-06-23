@@ -23,6 +23,10 @@ public class BookingFacade {
         return bookingFacade;
     }
 
+    public void rydObservere() {
+        bookingManager.rydObservere();
+    }
+
     public ArrayList<Begivenhed> hentBegivenheder() {
         return bookingManager.hentBegivenheder();
     }

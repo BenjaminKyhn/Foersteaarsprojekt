@@ -162,4 +162,8 @@ public class BrugerFacade {
     public void tilfoejObserver(PropertyChangeListener listener){
         brugerManager.tilfoejObserver(listener);
     }
+
+    public void rydObservere() {
+        brugerManager.rydObservere();
+    }
 }

@@ -25,6 +25,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class ChatActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private TextInputEditText beskedFelt;
@@ -36,25 +37,24 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_grund_layout);
+
         drawerLayout = findViewById(R.id.drawer_layout);
-
         NavigationView navigationView = findViewById(R.id.navigation_view);
-        NavigationHjaelper.initialiserMenu(navigationView, drawerLayout);
-
-        beskedFelt = findViewById(R.id.besked_input_edit_text);
-
-        String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
         Intent intent = getIntent();
-
 
         String afsender = intent.getStringExtra("afsender");
         String modtager = intent.getStringExtra("modtager");
         String emne = intent.getStringExtra("emne");
         String modpart = intent.getStringExtra("modpart");
 
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_chat, modpart);
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
+        beskedFelt = findViewById(R.id.besked_input_edit_text);
+
+        String bruger = BrugerFacade.hentInstans().hentAktivBruger().getNavn();
 
         chatPresenter = new ChatPresenter(afsender, modtager, emne);
         chatPresenter.setBeskedAfsender(bruger);
@@ -71,27 +71,11 @@ public class ChatActivity extends AppCompatActivity {
 
         beskeder = chatPresenter.getBeskeder();
 
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText(modpart);
-
         chatAdapter = new ChatAdapter();
         chatAdapter.setBeskeder(beskeder);
         recyclerView = findViewById(R.id.chat_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(chatAdapter);
-    }
-
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     @Override

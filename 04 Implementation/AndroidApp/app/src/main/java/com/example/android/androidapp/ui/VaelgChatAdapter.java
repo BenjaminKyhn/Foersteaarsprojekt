@@ -12,6 +12,7 @@ import com.example.android.androidapp.entities.Chat;
 
 import java.util.ArrayList;
 
+/**@author Tommy**/
 public class VaelgChatAdapter extends RecyclerView.Adapter<VaelgChatAdapter.VaelgChatHolder> {
     private ArrayList<Chat> chats = new ArrayList<>();
     private String aktivBruger;

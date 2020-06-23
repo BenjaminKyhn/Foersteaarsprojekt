@@ -27,6 +27,10 @@ public class BeskedManager {
         support = new PropertyChangeSupport(this);
     }
 
+    void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     /**
      * Når man skal bruge BeskedManager kaldes denne metode for at sikre, at der aldrig findes mere end én BeskedManager.
      * @return  returnerer sit statiske variabel beskedManager
