@@ -51,6 +51,8 @@ public class MenuController {
      * @author Benjamin
      */
     public void initialize() {
+        //TODO fix at skærmen bliver større på laptop
+
         brugerFacade = BrugerFacade.getInstance();
         aktivBruger = brugerFacade.getAktivBruger();
         BeskedFacade beskedFacade = BeskedFacade.getInstance();
