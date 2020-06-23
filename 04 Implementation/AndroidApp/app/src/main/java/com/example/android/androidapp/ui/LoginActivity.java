@@ -37,8 +37,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_grund_layout);
+
         drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+
+        ActivityStarthjaelper.initialiserActivity(this, drawerLayout, R.layout.include_login, "Login");
+        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
 
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -56,25 +61,6 @@ public class LoginActivity extends AppCompatActivity {
 
         brugerFacade = BrugerFacade.hentInstans();
         databaseManager = new DatabaseManager();
-
-        NavigationView navigationView = findViewById(R.id.navigation_view);
-        ActivityStarthjaelper.initialiserMenu(navigationView, drawerLayout);
-
-        TextView statusBar = findViewById(R.id.statusBar);
-        statusBar.setText("Login");
-
-        ImageView menu = findViewById(R.id.burgerMenu);
-
-        menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDrawer();
-            }
-        });
-    }
-
-    public void openDrawer() {
-        drawerLayout.openDrawer(GravityCompat.START);
     }
 
     @Override
