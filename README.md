@@ -1,4 +1,4 @@
-# Foersteaarsprojekt
+# Frederiksberg Sportsklinik
 Dette er en app som vi har udviklet i forhold til vores førsteårsprojekt i datamatiker linjen. Apperne vi har udviklet er til 
 Frederiksbergs Sportsklinik, som har anmodet om en android app til patienterne og en desktop app til behandlerne. Desktop appen
 gør det muligt for behandlerne at tildele træningsprogrammer, book og se bookede tider og sende beskeder til deres patienter. 
