@@ -39,6 +39,10 @@ public class BrugerManager {
         return brugerManager;
     }
 
+    public void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     /** @author Kelvin */
     public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException, BehandlerFindesAlleredeException {
         if (patient.isErBehandler())

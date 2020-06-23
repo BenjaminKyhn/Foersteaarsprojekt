@@ -46,4 +46,8 @@ public class TraeningsprogramFacade {
     public void angivProgrammer(ArrayList<Traeningsprogram> programmer){
         traeningsprogramManager.angivProgrammer(programmer);
     }
+
+    public void rydObservere() {
+        traeningsprogramManager.rydObservere();
+    }
 }

@@ -28,6 +28,10 @@ public class BookingManager {
         return bookingManager;
     }
 
+    void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     public ArrayList<Begivenhed> hentBegivenheder() {
         return begivenheder;
     }

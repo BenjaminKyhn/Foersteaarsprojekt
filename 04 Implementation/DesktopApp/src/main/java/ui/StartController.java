@@ -1,6 +1,7 @@
 package ui;
 
 import entities.Bruger;
+import entities.Traeningsprogram;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -18,9 +19,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import model.BeskedFacade;
+import model.BookingFacade;
 import model.BrugerFacade;
 import entities.exceptions.ForkertPasswordException;
 import database.DatabaseManager;
+import model.TraeningsprogramFacade;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -48,6 +52,19 @@ public class StartController {
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         databaseManager = DatabaseManager.getInstance();
+
+        // Genstart alt efter tilbagevending til startskærmen.
+        // Gøres også første gang man starter programmet selvom det er unødvendigt men det er hurtigere end at lave en condition.
+        databaseManager.rydObservere();
+        brugerFacade.setBrugere(null);
+        brugerFacade.rydObservere();
+        BeskedFacade.getInstance().setChats(null);
+        BeskedFacade.getInstance().rydObservere();
+        TraeningsprogramFacade.getInstance().angivOevelser(null);
+        TraeningsprogramFacade.getInstance().angivProgrammer(null);
+        TraeningsprogramFacade.getInstance().rydObservere();
+        BookingFacade.getInstance().angivBegivenheder(null);
+        BookingFacade.getInstance().rydObservere();
 
         /* Lav TextFields, Buttons, Labels og ImageView */
         TextField tfEmail = new TextField();
@@ -125,9 +142,10 @@ public class StartController {
                             Platform.runLater(() -> logIndFejlPopup("Fejl i logind"));
                         }
 
-                        if (brugerFacade.getAktivBruger() != null)
+                        if (brugerFacade.getAktivBruger() != null) {
                             brugerFacade.setBrugere(null);
-                        Platform.runLater(() -> skiftTilMenuScene());
+                            Platform.runLater(() -> skiftTilMenuScene());
+                        }
                     } catch (ForkertPasswordException e) {
                         Platform.runLater(() -> logIndFejlPopup("Forkert password indtastet"));
                     } catch (Exception e) {

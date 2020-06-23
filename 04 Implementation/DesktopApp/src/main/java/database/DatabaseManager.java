@@ -41,6 +41,10 @@ public class DatabaseManager {
         firestore = FirestoreClient.getFirestore();
     }
 
+    public void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     /**
      * Der må kun være én instans af DatabaseManager, så derfor bruger vi altid getInstance(), når vi skal have fat i
      * DatabaseManager.

@@ -39,6 +39,10 @@ public class BeskedFacade {
         return beskedFacade;
     }
 
+    public void rydObservere() {
+        beskedManager.rydObservere();
+    }
+
     /**
      * Kaldes, når der skal skabes en ny chat.
      * @param navn modtagerens navn

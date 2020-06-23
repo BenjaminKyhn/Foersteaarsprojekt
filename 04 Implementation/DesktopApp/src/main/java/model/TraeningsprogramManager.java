@@ -21,6 +21,10 @@ public class TraeningsprogramManager {
         support = new PropertyChangeSupport(this);
     }
 
+    public void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     public void tjekProgram(String email) throws BrugerFindesIkkeException {
         boolean brugerEksisterer = false;
         ArrayList<Bruger> brugere = brugerManager.hentBrugere();
