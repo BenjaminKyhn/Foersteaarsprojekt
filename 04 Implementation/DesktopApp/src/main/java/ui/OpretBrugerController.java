@@ -33,7 +33,7 @@ public class OpretBrugerController {
     private MenuBar menuBar;
 
     @FXML
-    private Button btnOpretBruger, btnTilbage, btnTest;
+    private Button btnOpretBruger, btnTilbage;
 
     @FXML
     private TextField tfNavn, tfEmail;
@@ -112,23 +112,6 @@ public class OpretBrugerController {
                 e.printStackTrace();
             }
         });
-
-        btnTest.setOnMouseClicked(e ->{
-            System.out.println(opretBrugerAnchorPane.getWidth());
-            System.out.println(menuBar.getWidth());
-        });
-
-        menuBar.prefWidthProperty().bind(opretBrugerAnchorPane.widthProperty());
-
-//        menuBox.prefWidthProperty().bind(opretBrugerAnchorPane.widthProperty());
-
-//        /** Sæt UI-elementer til at skalere med vinduets størrelse */
-//        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-//            menuBar.setPrefWidth(opretBrugerAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-//            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
-//        };
-//        opretBrugerAnchorPane.widthProperty().addListener(redraw);
-//        System.out.println(opretBrugerAnchorPane.widthProperty());
     }
 
     public void tilbage() {

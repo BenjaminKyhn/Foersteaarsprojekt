@@ -102,14 +102,6 @@ public class ChatWindowController {
 
         nyChatKnap.setOnMouseClicked(event -> nyChatPopup());
 
-
-        /* Sæt UI-elementer til at skalere med vinduets størrelse */
-        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setPrefWidth(chatWindowAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
-        };
-        chatWindowAnchorPane.widthProperty().addListener(redraw);
-
         indlaesChats();
     }
 

@@ -55,13 +55,6 @@ public class BrugerindstillingerController {
             lblNavn.setText(aktivBruger.getNavn());
         if (aktivBruger.getEmail() != null)
             lblEmail.setText(aktivBruger.getEmail());
-
-        /* Sæt UI-elementer til at skalere med vinduets størrelse */
-        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setPrefWidth(biAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
-        };
-        biAnchorPane.widthProperty().addListener(redraw);
     }
 
     public void indlaesSletBruger(){

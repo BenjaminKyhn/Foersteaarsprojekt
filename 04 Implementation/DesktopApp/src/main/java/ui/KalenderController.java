@@ -52,13 +52,6 @@ public class KalenderController {
         brugerFacade = BrugerFacade.getInstance();
         bookingFacade = BookingFacade.getInstance();
 
-        // Sæt UI-elementer til at skalere med vinduets størrelse
-        ChangeListener<Number> redraw = (observable, oldValue, newValue) -> {
-            menuBar.setPrefWidth(kalenderAnchorPane.getWidth() - btnTilbage.getPrefWidth());
-            btnTilbage.setPrefWidth(btnTilbage.getPrefWidth());
-        };
-        kalenderAnchorPane.widthProperty().addListener(redraw);
-
         // Tilføj observer til gemBegivenhed /
         bookingFacade.tilfoejObserver(new PropertyChangeListener() {
             @Override

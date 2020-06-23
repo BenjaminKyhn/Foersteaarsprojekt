@@ -12,7 +12,7 @@
    <children>
       <AnchorPane layoutY="1.0" prefHeight="0.0" prefWidth="800.0">
          <children>
-            <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="100.0">
+            <MenuBar fx:id="menuBar" prefHeight="26.0" prefWidth="100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <menus>
                   <Menu mnemonicParsing="false" text="Menu">
                      <items>
