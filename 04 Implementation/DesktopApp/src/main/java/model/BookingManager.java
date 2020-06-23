@@ -1,6 +1,5 @@
 package model;
 
-import database.DatabaseManager;
 import entities.Begivenhed;
 
 import java.beans.PropertyChangeListener;
@@ -14,10 +13,8 @@ public class BookingManager {
     private static BookingManager bookingManager;
     private PropertyChangeSupport support;
     private ArrayList<Begivenhed> begivenheder;
-    private DatabaseManager databaseManager;
 
     BookingManager() {
-        databaseManager = DatabaseManager.getInstance();
         support = new PropertyChangeSupport(this);
     }
 
