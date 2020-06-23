@@ -32,6 +32,10 @@ public class BrugerFacade {
         return brugerFacade;
     }
 
+    public static BrugerFacade getInstance() {
+        return hentInstans();
+    }
+
     public void tjekEmail(String email) throws TomEmailException, EksisterendeBrugerException {
         validering.tjekEmail(email);
     }
@@ -90,5 +94,9 @@ public class BrugerFacade {
 
     public void fjernListener(PropertyChangeListener listener) {
         brugerManager.tilfoejListener(listener);
+    }
+
+    public void setBrugere(ArrayList<Bruger> hentBrugere) {
+
     }
 }
