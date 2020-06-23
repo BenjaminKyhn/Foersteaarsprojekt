@@ -14,7 +14,6 @@
         <activity android:name=".ui.VaelgChatActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity android:name=".ui.MenuActivity" />
-        <activity android:name=".ui.LaesBeskedActivity" />
         <activity android:name=".ui.OpretBrugerActivity" />
         <activity android:name=".ui.MainActivity">
             <intent-filter>
