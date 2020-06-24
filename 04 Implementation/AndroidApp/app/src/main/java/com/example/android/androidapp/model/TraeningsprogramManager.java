@@ -20,6 +20,10 @@ public class TraeningsprogramManager {
         oevelser = new ArrayList<>();
     }
 
+    void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     void tilfoejObserver(PropertyChangeListener listener){
         support.addPropertyChangeListener(listener);
     }

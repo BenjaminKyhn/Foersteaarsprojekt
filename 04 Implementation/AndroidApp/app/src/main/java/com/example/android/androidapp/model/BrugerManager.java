@@ -21,6 +21,10 @@ class BrugerManager {
         brugere = new ArrayList<>();
     }
 
+    void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     // Usorterede lister itereres igennem for at finde den ønskede bruger.
 
     Bruger hentBrugerMedNavn(String navn) {

@@ -26,6 +26,10 @@ class BeskedManager {
         chats = new ArrayList<>();
     }
 
+    void rydObservere() {
+        support = new PropertyChangeSupport(this);
+    }
+
     /* Da listen af chats er usorteret så må vi iterere igennem den hele indtil vi finder den søgte chat, hvilket i værste tilfælde kan betyder at den .
     * går igennem hele listen inden den finder chatten. */
     Chat hentChat(String afsender, String modtager, String emne) {

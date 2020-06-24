@@ -7,6 +7,7 @@ import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.entities.exceptions.TomEmneException;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /** @author Tommy **/
@@ -19,6 +20,10 @@ public class BeskedFacade {
     private BeskedFacade() {
         beskedManager = new BeskedManager();
         validering = new Validering();
+    }
+
+    public void rydObservere() {
+        beskedManager.rydObservere();
     }
 
     // Beskedfacaden bruger singleton design pattern for nemt at bevare beskeder mellem activities.

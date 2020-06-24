@@ -10,6 +10,7 @@ import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 /** @author Tommy **/
@@ -22,6 +23,10 @@ public class BrugerFacade {
     private BrugerFacade() {
         brugerManager = new BrugerManager();
         validering = new Validering(brugerManager);
+    }
+
+    public void rydObservere() {
+        brugerManager.rydObservere();
     }
 
     // Beskedfacaden bruger singleton design pattern for nemt at bevare brugere mellem activities.
