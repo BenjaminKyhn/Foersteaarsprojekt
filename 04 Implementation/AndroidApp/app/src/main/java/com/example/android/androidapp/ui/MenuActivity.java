@@ -7,14 +7,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.android.androidapp.R;
+import com.example.android.androidapp.entities.Begivenhed;
 import com.example.android.androidapp.entities.Chat;
 import com.example.android.androidapp.entities.Oevelse;
 import com.example.android.androidapp.entities.Traeningsprogram;
 import com.example.android.androidapp.model.BeskedFacade;
+import com.example.android.androidapp.model.BookingFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
 import com.example.android.androidapp.model.TraeningsprogramFacade;
@@ -41,6 +41,7 @@ public class MenuActivity extends AppCompatActivity {
         BrugerFacade brugerFacade = BrugerFacade.hentInstans();
         BeskedFacade beskedFacade = BeskedFacade.hentInstans();
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
+        BookingFacade bookingFacade = BookingFacade.hentInstans();
 
         ArrayList<Chat> chatListe = new ArrayList<>();
         beskedFacade.saetListeAfChats(chatListe);
@@ -51,6 +52,7 @@ public class MenuActivity extends AppCompatActivity {
 
         databaseManager.hentOevelser();
         databaseManager.hentProgramTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
+        databaseManager.hentBegivenhederTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
 
         databaseManager.tilfoejListener(evt -> {
             if (evt.getPropertyName().equals("hentProgramTilBruger")) {
@@ -58,6 +60,9 @@ public class MenuActivity extends AppCompatActivity {
             }
             if (evt.getPropertyName().equals("hentOevelser")) {
                 traeningsprogramFacade.angivOevelser((ArrayList<Oevelse>) evt.getNewValue());
+            }
+            if (evt.getPropertyName().equals("hentBegivenhederTilBruger")) {
+                bookingFacade.angivBegivenheder((ArrayList<Begivenhed>) evt.getNewValue());
             }
         });
     }
@@ -70,6 +75,10 @@ public class MenuActivity extends AppCompatActivity {
         else {
             super.onBackPressed();
         }
+    }
+
+    public void skiftTilBooking(View view) {
+        startActivity(new Intent(this, BookingActivity.class));
     }
 
     public void skiftTilBeskeder(View view) {

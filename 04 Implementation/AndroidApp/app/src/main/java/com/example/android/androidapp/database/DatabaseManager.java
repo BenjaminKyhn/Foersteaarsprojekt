@@ -3,6 +3,7 @@ package com.example.android.androidapp.database;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.android.androidapp.entities.Begivenhed;
 import com.example.android.androidapp.entities.Besked;
 import com.example.android.androidapp.entities.Bruger;
 import com.example.android.androidapp.entities.Chat;
@@ -233,6 +234,34 @@ public class DatabaseManager {
                 }
             }
         });
+    }
+
+    public void hentBegivenhederTilBruger(Bruger bruger) {
+        ArrayList<String> navneTilQuery = new ArrayList<>();
+        navneTilQuery.add(bruger.getNavn());
+        navneTilQuery.addAll(bruger.getBehandlere());
+        if (navneTilQuery.size() > 10) {
+            System.out.println("For mange navne. Firestore støtter kun ti strings til query whereArrayContainsAny");
+            return;
+        }
+        Query query = firestore.collection("begivenheder").whereArrayContainsAny("deltagere", navneTilQuery);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isComplete()) {
+                    QuerySnapshot querySnapshot = task.getResult();
+                    if (querySnapshot != null && !querySnapshot.isEmpty()) {
+                        List<Begivenhed> list = querySnapshot.toObjects(Begivenhed.class);
+                        ArrayList<Begivenhed> arrayList = new ArrayList<>(list);
+                        support.firePropertyChange("hentBegivenhederTilBruger", null, arrayList);
+                    }
+                }
+            }
+        });
+    }
+
+    public void gemBegivenhed(Begivenhed begivenhed) {
+        firestore.collection("begivenheder").document(begivenhed.getId()).set(begivenhed);
     }
 
     public void tilfoejListener(PropertyChangeListener propertyChangeListener) {
