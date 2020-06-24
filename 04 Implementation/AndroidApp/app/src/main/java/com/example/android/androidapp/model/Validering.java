@@ -1,13 +1,17 @@
 package com.example.android.androidapp.model;
 
+import com.example.android.androidapp.entities.Begivenhed;
 import com.example.android.androidapp.entities.exceptions.EksisterendeBrugerException;
 import com.example.android.androidapp.entities.exceptions.ForMangeTegnException;
+import com.example.android.androidapp.entities.exceptions.OverlappendeBegivenhederException;
 import com.example.android.androidapp.entities.exceptions.PasswordLaengdeException;
 import com.example.android.androidapp.entities.exceptions.TomBeskedException;
 import com.example.android.androidapp.entities.exceptions.TomEmailException;
 import com.example.android.androidapp.entities.exceptions.TomEmneException;
 import com.example.android.androidapp.entities.exceptions.TomNavnException;
 import com.example.android.androidapp.entities.exceptions.TomPasswordException;
+
+import java.util.ArrayList;
 
 
 /** @author Tommy **/
@@ -65,6 +69,18 @@ class Validering {
 
         if (besked.length() > 160) {
             throw new ForMangeTegnException();
+        }
+    }
+
+    void tjekBegivenhed(Begivenhed begivenhed, ArrayList<Begivenhed> gemteBegivenheder) throws OverlappendeBegivenhederException {
+        for (Begivenhed gemtBegivenhed : gemteBegivenheder) {
+            if (gemtBegivenhed.getStartTidspunkt() <= begivenhed.getStartTidspunkt() && begivenhed.getStartTidspunkt() <= gemtBegivenhed.getStartTidspunkt()) {
+                for (String deltager : begivenhed.getDeltagere()) {
+                    if (gemtBegivenhed.getDeltagere().contains(deltager)) {
+                        throw new OverlappendeBegivenhederException();
+                    }
+                }
+            }
         }
     }
 

@@ -3,6 +3,7 @@ package com.example.android.androidapp.model;
 
 
 import com.example.android.androidapp.entities.Begivenhed;
+import com.example.android.androidapp.entities.exceptions.OverlappendeBegivenhederException;
 
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -41,12 +42,16 @@ public class BookingFacade {
         bookingManager.angivBegivenheder(aftaler);
     }
 
-    public void gemBegivenhed(Begivenhed begivenhed){
+    public void gemBegivenhed(Begivenhed begivenhed) throws OverlappendeBegivenhederException {
         bookingManager.gemBegivenhed(begivenhed);
     }
 
     public void sletBegivenhed(String id){
         bookingManager.sletBegivenhed(id);
+    }
+
+    public void tjekBegivenhed(Begivenhed begivenhed) throws OverlappendeBegivenhederException {
+        bookingManager.tjekBegivenhed(begivenhed);
     }
 
     public void gemBegivenheder(ArrayList<Begivenhed> begivenheder) {

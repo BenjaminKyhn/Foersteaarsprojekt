@@ -1,14 +1,15 @@
 package com.example.android.androidapp.ui;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +20,11 @@ import androidx.fragment.app.DialogFragment;
 import com.example.android.androidapp.R;
 import com.example.android.androidapp.database.DatabaseManager;
 import com.example.android.androidapp.entities.Begivenhed;
+import com.example.android.androidapp.entities.exceptions.OverlappendeBegivenhederException;
 import com.example.android.androidapp.model.BookingFacade;
 import com.example.android.androidapp.model.BrugerFacade;
 import com.google.android.material.navigation.NavigationView;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
     private Spinner spinner;
     private DatePickerDialog datePickerDialog;
     private FrameLayout frameLayout;
-    private BegivenhederFragment begivenhederFragment;
     private long dato, start, slut;
 
     @Override
@@ -118,7 +116,7 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
             getSupportFragmentManager().beginTransaction().replace(frameLayout.getId(), new IngenBegivenhederFragment()).commit();
         }
         else {
-            begivenhederFragment = new BegivenhederFragment();
+            BegivenhederFragment begivenhederFragment = new BegivenhederFragment();
             getSupportFragmentManager().beginTransaction().replace(frameLayout.getId(), begivenhederFragment).commit();
             begivenhederFragment.angivBegivenheder(begivenheder);
         }
@@ -142,7 +140,6 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         String behandler = spinner.getSelectedItem().toString();
 
         String id = UUID.randomUUID().toString();
-        String kalender = patient;
         String titel = "Patientbooking";
         long startTid = dato + start;
         long slutTid = dato + slut;
@@ -150,17 +147,43 @@ public class BookingActivity extends AppCompatActivity implements DatePickerDial
         deltagere.add(patient);
         deltagere.add(behandler);
 
+        Begivenhed begivenhed = new Begivenhed(titel, patient, startTid, slutTid, id, deltagere);
+
+        try {
+            BookingFacade.hentInstans().tjekBegivenhed(begivenhed);
+        } catch (OverlappendeBegivenhederException e) {
+            Toast.makeText(this, "Det valgte tidsrum overlapper med eksisterende tid\nVælg et andet tidspunkt", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Bekræft bookning?")
+                .setMessage("Er du sikker?")
+                .setPositiveButton("Ja", (dialog1, which) -> {
+                    bekraeftede(begivenhed);
+                }).setNegativeButton("Nej", (dialog2, which) -> {
+                    dialog2.dismiss();
+                }).create();
+        dialog.show();
+    }
+
+    public void bekraeftede(Begivenhed begivenhed) {
         BookingFacade bookingFacade = BookingFacade.hentInstans();
-        Begivenhed begivenhed = new Begivenhed(titel, kalender, startTid, slutTid, id, deltagere);
 
         DatabaseManager databaseManager = new DatabaseManager();
         bookingFacade.tilfoejObserver(evt -> {
             if (evt.getPropertyName().equals("gemBegivenhed")) {
                 databaseManager.gemBegivenhed((Begivenhed) evt.getNewValue());
+                Toast.makeText(this, "Booking bekræftede", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 
-        bookingFacade.gemBegivenhed(begivenhed);
+        try {
+            bookingFacade.gemBegivenhed(begivenhed);
+        } catch (OverlappendeBegivenhederException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

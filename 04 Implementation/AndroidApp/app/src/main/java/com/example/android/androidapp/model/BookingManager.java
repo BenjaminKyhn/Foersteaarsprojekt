@@ -2,6 +2,7 @@ package com.example.android.androidapp.model;
 
 
 import com.example.android.androidapp.entities.Begivenhed;
+import com.example.android.androidapp.entities.exceptions.OverlappendeBegivenhederException;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -57,11 +58,18 @@ public class BookingManager {
         }
     }
 
+    public void tjekBegivenhed(Begivenhed begivenhed) throws OverlappendeBegivenhederException {
+        Validering validering = new Validering();
+        validering.tjekBegivenhed(begivenhed, begivenheder);
+    }
+
     /**
      * Denne metode bruges, når der oprettes en ny entry i kalenderUI'et
      * @param begivenhed entry laves om til et Begivenhedobjekt, før det gemmes i listen og databasen
      */
-    public void gemBegivenhed(Begivenhed begivenhed) {
+    public void gemBegivenhed(Begivenhed begivenhed) throws OverlappendeBegivenhederException {
+        Validering validering = new Validering();
+        validering.tjekBegivenhed(begivenhed, begivenheder);
         begivenheder.add(begivenhed);
         support.firePropertyChange("gemBegivenhed", null, begivenhed);
     }
