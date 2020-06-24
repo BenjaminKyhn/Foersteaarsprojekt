@@ -30,7 +30,8 @@ public class BrugerManager {
 
     /**
      * Når man skal bruge BrugerManager kaldes denne metode for at sikre, at der aldrig findes mere end én BrugerManager.
-     * @return  returnerer sit statiske variabel brugerManager
+     *
+     * @return returnerer sit statiske variabel brugerManager
      */
     public static synchronized BrugerManager getInstance() {
         if (brugerManager == null) {
@@ -43,7 +44,9 @@ public class BrugerManager {
         support = new PropertyChangeSupport(this);
     }
 
-    /** @author Kelvin */
+    /**
+     * @author Kelvin
+     */
     public void tilknytBehandler(Bruger patient, Bruger behandler) throws ForkertRolleException, BehandlerFindesAlleredeException {
         if (patient.isErBehandler())
             throw new ForkertRolleException();
@@ -59,50 +62,48 @@ public class BrugerManager {
     }
 
     /**
+     * @param navn        navnet på brugeren
+     * @param email       brugerens email
+     * @param password    brugerens password
+     * @param erBehandler true, hvis brueren er behandler og false, hvis brugeren er patient
+     * @throws BrugerErIkkeBehandlerException når en ikke-behandler prøver at kalde opretBruger
+     * @throws TomPasswordException           når passwordet er tomt
+     * @throws PasswordLaengdeException       når passwordets længde er ugyldigt
+     * @throws TomNavnException               når navnet er tomt
+     * @throws EksisterendeBrugerException    når der allerede eksisterer en bruger med samme email
+     * @throws TomEmailException              når email er tomt
      * @author Benjamin
      * Denne metode kaldes, når en Bruger skal oprettes. Hvis brugeren allerede er logged ind, laves et tjek, om
      * brugeren er behandler, da patienter ikke kan oprette brugere, når de er logged ind.
      * De indtastede oplysninger tjekkes først for gyldighed og derefter kaldes opretBrugerService-metoden
-     * @param navn navnet på brugeren
-     * @param email brugerens email
-     * @param password brugerens password
-     * @param erBehandler true, hvis brueren er behandler og false, hvis brugeren er patient
-     * @throws BrugerErIkkeBehandlerException når en ikke-behandler prøver at kalde opretBruger
-     * @throws TomPasswordException når passwordet er tomt
-     * @throws PasswordLaengdeException når passwordets længde er ugyldigt
-     * @throws TomNavnException når navnet er tomt
-     * @throws EksisterendeBrugerException når der allerede eksisterer en bruger med samme email
-     * @throws TomEmailException når email er tomt
      * @see private void opretBrugerService(String navn, String email, String password, boolean erBehandler)
      */
     public void opretBruger(String navn, String email, String password, boolean erBehandler) throws BrugerErIkkeBehandlerException, TomNavnException, EksisterendeBrugerException, TomEmailException, PasswordLaengdeException, TomPasswordException {
-        if (aktivBruger != null){
+        if (aktivBruger != null) {
             if (!aktivBruger.isErBehandler()) {
                 throw new BrugerErIkkeBehandlerException();
             }
-            validering.tjekNavn(navn);
-            validering.tjekEmail(email);
-            validering.tjekPassword(password);
-            opretBrugerService(navn, email, password, erBehandler);
         }
-        else {
-            opretBrugerService(navn, email, password, erBehandler);
-        }
+        validering.tjekNavn(navn);
+        validering.tjekEmail(email);
+        validering.tjekPassword(password);
+        opretBrugerService(navn, email, password, erBehandler);
     }
 
     /**
      * Metoden kaldes, når kontrollen er nået forbi opretBruger-metoden.
-     * @param navn navnet på brugeren
-     * @param email brugerens email
-     * @param password brugerens indtastede password
+     *
+     * @param navn        navnet på brugeren
+     * @param email       brugerens email
+     * @param password    brugerens indtastede password
      * @param erBehandler true, hvis brueren er behandler og false, hvis brugeren er patient
      * @see public void opretBruger(String navn, String email, String password, boolean erBehandler)
      */
     private void opretBrugerService(String navn, String email, String password, boolean erBehandler) {
-            String hashedPassword = tekstHasher.hashTekst(password);
-            Bruger bruger = new Bruger(navn, email, hashedPassword, erBehandler);
-            brugere.add(bruger);
-            support.firePropertyChange("opretBruger", null, bruger);
+        String hashedPassword = tekstHasher.hashTekst(password);
+        Bruger bruger = new Bruger(navn, email, hashedPassword, erBehandler);
+        brugere.add(bruger);
+        support.firePropertyChange("opretBruger", null, bruger);
     }
 
     /**
@@ -110,7 +111,8 @@ public class BrugerManager {
      * der er gemt i brugerobjektet, som hentes fra databasen, allerede er hashed. Når brugeren er slettet sættes
      * aktivBruger til null (brugeren er logged ud). Hvis en behandler vil slette en patients bruger, skal sletPatient-
      * metoden bruges.
-     * @param bruger den bruger, der skal slettes
+     *
+     * @param bruger   den bruger, der skal slettes
      * @param password det indtastede password
      * @throws ForkertPasswordException hvis det indtastede password ikke matcher brugerens password
      * @see public void sletPatient(Bruger patient, String email)
@@ -132,8 +134,9 @@ public class BrugerManager {
 
     /**
      * Metoden kaldes, når en behandler vil slette en patients Bruger.
+     *
      * @param patient brugeren, der skal slettes
-     * @param email den indtastede email
+     * @param email   den indtastede email
      * @throws ForkertEmailException hvis den indtastede email ikke matcher brugerens email
      */
     public void sletPatient(Bruger patient, String email) throws ForkertEmailException {
@@ -150,7 +153,8 @@ public class BrugerManager {
     /**
      * Metoden kaldes, når personen har indtastet sine brugeroplysninger. Først hashes passwordet, og derefter sammen-
      * lignes den indtastede email med listen af brugere.
-     * @param email den indtastede email
+     *
+     * @param email    den indtastede email
      * @param password det indtastede password
      * @return hvis en bruger findes, som matcher email, og passwordet matcher denne email, returneres true. Ellers
      * returneres false.
@@ -160,11 +164,10 @@ public class BrugerManager {
         for (int i = 0; i < brugere.size(); i++) {
             String hashedPassword = tekstHasher.hashTekst(password);
             if (brugere.get(i).getEmail().equals(email)) {
-                if (brugere.get(i).getPassword().equals(hashedPassword)){
+                if (brugere.get(i).getPassword().equals(hashedPassword)) {
                     aktivBruger = brugere.get(i);
                     return true;
-                }
-                else
+                } else
                     throw new ForkertPasswordException();
             }
         }
@@ -180,6 +183,7 @@ public class BrugerManager {
 
     /**
      * Metoden kaldes, når systemet skal hente en bruger med et specifikt navn.
+     *
      * @param navn navnet på den bruger, man ønsker at finde.
      * @return hvis en bruger med det indtastede navn findes på listen, returneres brugeren. Ellers returneres null.
      */
@@ -193,6 +197,7 @@ public class BrugerManager {
 
     /**
      * Metoden kaldes, når systemet skal hente en bruger med en specifik email.
+     *
      * @param email email på den bruger, man ønsker at finde.
      * @return hvis en bruger med den indtastede email findes på listen, returneres brugeren. Ellers returneres null.
      */
@@ -212,7 +217,9 @@ public class BrugerManager {
         return brugere;
     }
 
-    /** @author Kelvin */
+    /**
+     * @author Kelvin
+     */
     public ArrayList<Bruger> hentPatienter() {
         ArrayList<Bruger> patienter = new ArrayList<>();
         if (brugere != null) {
@@ -226,10 +233,10 @@ public class BrugerManager {
     }
 
     /**
+     * @return returnerer listen af behandlere
      * @author Benjamin
      * Metoden gennemgår listen af brugere og tjekker, om de er behandlere. Hvis de er behandlere tilføjes de til en ny
      * liste af behandlere.
-     * @return returnerer listen af behandlere
      */
     public ArrayList<Bruger> hentBehandlere() {
         ArrayList<Bruger> behandlere = new ArrayList<>();
@@ -249,13 +256,14 @@ public class BrugerManager {
 
     /**
      * Metoden bruges i test
+     *
      * @return returnerer en ny instans af Validering
      */
     protected Validering newValidering() {
         return new Validering(this);
     }
 
-    public void tilfoejObserver(PropertyChangeListener listener){
+    public void tilfoejObserver(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 }
