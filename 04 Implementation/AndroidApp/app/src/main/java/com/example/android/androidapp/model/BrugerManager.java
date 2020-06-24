@@ -18,7 +18,6 @@ class BrugerManager {
 
     BrugerManager() {
         support = new PropertyChangeSupport(this);
-        brugere = new ArrayList<>();
     }
 
     void rydObservere() {
@@ -49,6 +48,9 @@ class BrugerManager {
     void opretBruger(String navn, String email, String password) throws BrugerAlleredeLoggedIndException {
         if (aktivBruger != null) {
             throw new BrugerAlleredeLoggedIndException();
+        }
+        if (brugere == null) {
+            brugere = new ArrayList<>();
         }
         Bruger bruger = new Bruger(navn, email, password, false);
         brugere.add(bruger);
