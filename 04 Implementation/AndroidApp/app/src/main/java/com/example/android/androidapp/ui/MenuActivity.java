@@ -42,17 +42,29 @@ public class MenuActivity extends AppCompatActivity {
         BeskedFacade beskedFacade = BeskedFacade.hentInstans();
         TraeningsprogramFacade traeningsprogramFacade = TraeningsprogramFacade.hentInstans();
         BookingFacade bookingFacade = BookingFacade.hentInstans();
-
-        ArrayList<Chat> chatListe = new ArrayList<>();
-        beskedFacade.saetListeAfChats(chatListe);
-
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
-        databaseManager.hentBehandlereTilBruger(brugerFacade.hentAktivBruger(), brugerFacade.hentBrugere());
 
-        databaseManager.hentOevelser();
-        databaseManager.hentProgramTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
-        databaseManager.hentBegivenhederTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
+        if (beskedFacade.hentNuvaerendeListe() == null) {
+            ArrayList<Chat> chatListe = new ArrayList<>();
+            beskedFacade.saetListeAfChats(chatListe);
+            databaseManager.hentChatsTilBruger(brugerFacade.hentAktivBruger().getNavn(), chatListe);
+        }
+
+        if (brugerFacade.hentBrugere().size() == 1) {
+            databaseManager.hentBehandlereTilBruger(brugerFacade.hentAktivBruger(), brugerFacade.hentBrugere());
+        }
+
+        if (traeningsprogramFacade.hentOevelser() == null) {
+            databaseManager.hentOevelser();
+        }
+
+        if (traeningsprogramFacade.hentProgrammer() == null) {
+            databaseManager.hentProgramTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
+        }
+
+        if (bookingFacade.hentBegivenheder() == null) {
+            databaseManager.hentBegivenhederTilBruger(BrugerFacade.hentInstans().hentAktivBruger());
+        }
 
         databaseManager.tilfoejListener(evt -> {
             if (evt.getPropertyName().equals("hentProgramTilBruger")) {

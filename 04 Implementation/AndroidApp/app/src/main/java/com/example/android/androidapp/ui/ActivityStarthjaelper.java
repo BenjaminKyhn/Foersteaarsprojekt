@@ -74,6 +74,14 @@ class ActivityStarthjaelper {
                             context.startActivity(new Intent(context, KalenderActivity.class));
                             drawerLayout.closeDrawer(GravityCompat.START);
                             break;
+                        case R.id.book_tid:
+                            context.startActivity(new Intent(context, BookingActivity.class));
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
+                        case R.id.traeningsprogram:
+                            context.startActivity(new Intent(context, TraeningsprogramActivity.class));
+                            drawerLayout.closeDrawer(GravityCompat.START);
+                            break;
                     }
                     return true;
                 }
