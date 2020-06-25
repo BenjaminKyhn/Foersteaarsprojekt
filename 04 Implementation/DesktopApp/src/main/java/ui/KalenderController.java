@@ -212,7 +212,7 @@ public class KalenderController {
      * også i databasen. EventHandleren kan ikke udløses ved ændringer på en Entry, så derfor skal brugeren kalde
      * metoden, når han vil gemme ændringerne.
      */
-    public void gemAendringerIDatabasen() {
+    public void gemAendringer() {
         ArrayList<String> deltagere = new ArrayList<>();
         bookingFacade.hentBegivenheder().clear();
 
@@ -232,7 +232,7 @@ public class KalenderController {
         LukProgramPopup lukProgramPopup = new LukProgramPopup();
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
         if (svar.equals("ja")) {
-            gemAendringerIDatabasen();
+            gemAendringer();
             vindue.close();
         } else if (svar.equals("nej")) {
             vindue.close();
@@ -244,7 +244,7 @@ public class KalenderController {
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
 
         if (svar.equals("ja")) {
-            gemAendringerIDatabasen();
+            gemAendringer();
         } else if (svar.equals("annuller")) {
             return;
         }
@@ -270,7 +270,7 @@ public class KalenderController {
         String svar = lukProgramPopup.vis("Vil du gemme ændringerne i kalenderen?");
 
         if (svar.equals("ja")) {
-            gemAendringerIDatabasen();
+            gemAendringer();
         } else if (svar.equals("annuller")) {
             return;
         }
