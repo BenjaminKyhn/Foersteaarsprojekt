@@ -67,9 +67,7 @@ public class KalenderController {
                     DatabaseManager.getInstance().sletBegivenhed((Begivenhed) evt.getNewValue()); // TODO tror ikke det virker fordi newValue er en String med ID
             }
         });
-
         indlaesKalender();
-
     }
 
     /**
@@ -94,7 +92,7 @@ public class KalenderController {
             // Tilføj alle begivenheder fra listen af begivenheder i BookingManager
             tilfoejBegivenheder();
 
-            EventHandler<CalendarEvent> l = this::handleEvent;
+            EventHandler<CalendarEvent> l = e -> handleEvent(e);
             for (int i = 0; i < calendarView.getCalendars().size(); i++) {
                 calendarView.getCalendars().get(i).addEventHandler(l);
             }
