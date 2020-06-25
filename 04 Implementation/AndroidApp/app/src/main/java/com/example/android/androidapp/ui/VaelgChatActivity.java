@@ -3,8 +3,6 @@ package com.example.android.androidapp.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +22,6 @@ import com.example.android.androidapp.model.BrugerFacade;
 import com.example.android.androidapp.database.DatabaseManager;
 import com.google.android.material.navigation.NavigationView;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**@author Tommy**/
@@ -53,13 +49,11 @@ public class VaelgChatActivity extends AppCompatActivity implements ItemClickLis
 
         VaelgChatAdapter vaelgChatAdapter = new VaelgChatAdapter(brugerFacade.hentAktivBruger().getNavn());
 
-        beskedFacade.tilfoejListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("opretChat")) {
-                    new DatabaseManager().gemChat((Chat) evt.getNewValue());
-                    vaelgChatAdapter.setChats(chats);
-                }
+        beskedFacade.rydObservere();
+        beskedFacade.tilfoejListener(evt -> {
+            if (evt.getPropertyName().equals("opretChat")) {
+                new DatabaseManager().gemChat((Chat) evt.getNewValue());
+                vaelgChatAdapter.setChats(chats);
             }
         });
 

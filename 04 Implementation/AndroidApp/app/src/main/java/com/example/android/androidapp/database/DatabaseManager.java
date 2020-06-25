@@ -90,7 +90,6 @@ public class DatabaseManager {
                             brugere.add(brugerFraDB);
                         });
                     }
-
                 }
             }
         });
