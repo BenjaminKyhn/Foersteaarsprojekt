@@ -203,7 +203,8 @@ public class KalenderController {
         deltagere.add(entry.getCalendar().getName());
         long startTidspunkt1 = entry.getStartMillis();
         long slutTidspunkt1 = entry.getEndMillis();
-        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(), startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
+        Begivenhed begivenhed = new Begivenhed(entry.getTitle(), entry.getCalendar().getName(),
+                startTidspunkt1, slutTidspunkt1, entry.getId(), deltagere);
         bookingFacade.gemBegivenhed(begivenhed);
     }
 
