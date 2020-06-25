@@ -40,12 +40,6 @@ public class KalenderController {
     @FXML
     private AnchorPane kalenderAnchorPane, calenderViewHolder;
 
-    @FXML
-    private Button btnTilbage;
-
-    @FXML
-    private MenuBar menuBar;
-
     public void initialize() {
         brugerFacade = BrugerFacade.getInstance();
         bookingFacade = BookingFacade.getInstance();
